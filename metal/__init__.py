@@ -5,7 +5,7 @@
 """
     Metal API
 
-    This is the API for Equinix Metal Product. Interact with your devices, user account, and projects.  # noqa: E501
+    This is the API for Equinix Metal. The API allows you to programmatically interact with all of your Equinix Metal resources, including devices, networks, addresses, organizations, projects, and your user account.  The official API docs are hosted at <https://metal.equinix.com/developers/api>.   # noqa: E501
 
     The version of the OpenAPI document: 1.0.0
     Contact: support@equinixmetal.com
@@ -18,6 +18,7 @@ from __future__ import absolute_import
 __version__ = "1.0.0"
 
 # import apis into sdk package
+from models.authentication_api import AuthenticationApi
 from models.bgp_api import BGPApi
 from models.batches_api import BatchesApi
 from models.capacity_api import CapacityApi
@@ -26,13 +27,16 @@ from models.devices_api import DevicesApi
 from models.emails_api import EmailsApi
 from models.events_api import EventsApi
 from models.facilities_api import FacilitiesApi
+from models.global_bgp_ranges_api import GlobalBgpRangesApi
 from models.hardware_reservations_api import HardwareReservationsApi
 from models.ip_addresses_api import IPAddressesApi
-from models.internet_gateways_api import InternetGatewaysApi
+from models.incidents_api import IncidentsApi
 from models.invitations_api import InvitationsApi
 from models.licenses_api import LicensesApi
 from models.market_api import MarketApi
 from models.memberships_api import MembershipsApi
+from models.metal_gateways_api import MetalGatewaysApi
+from models.metros_api import MetrosApi
 from models.operating_system_versions_api import OperatingSystemVersionsApi
 from models.operating_systems_api import OperatingSystemsApi
 from models.organizations_api import OrganizationsApi
@@ -42,10 +46,10 @@ from models.payment_methods_api import PaymentMethodsApi
 from models.plans_api import PlansApi
 from models.ports_api import PortsApi
 from models.projects_api import ProjectsApi
-from models.regions_api import RegionsApi
 from models.ssh_keys_api import SSHKeysApi
+from models.self_service_reservations_api import SelfServiceReservationsApi
 from models.spot_market_request_api import SpotMarketRequestApi
-from models.staff_hardware_api import StaffHardwareApi
+from models.support_request_api import SupportRequestApi
 from models.transfer_requests_api import TransferRequestsApi
 from models.two_factor_auth_api import TwoFactorAuthApi
 from models.usages_api import UsagesApi
@@ -53,9 +57,7 @@ from models.user_verification_tokens_api import UserVerificationTokensApi
 from models.userdata_api import UserdataApi
 from models.users_api import UsersApi
 from models.vlans_api import VLANsApi
-from models.vpn_api import VPNApi
 from models.volumes_api import VolumesApi
-from models.incidents_api import IncidentsApi
 
 # import ApiClient
 from metal.api_client import ApiClient
@@ -68,6 +70,9 @@ from metal.exceptions import ApiAttributeError
 from metal.exceptions import ApiException
 # import models into sdk package
 from metal.types.address import Address
+from metal.types.auth_token import AuthToken
+from metal.types.auth_token_input import AuthTokenInput
+from metal.types.auth_token_list import AuthTokenList
 from metal.types.bgp_session_input import BGPSessionInput
 from metal.types.batch import Batch
 from metal.types.batches_list import BatchesList
@@ -81,15 +86,19 @@ from metal.types.bgp_session_list import BgpSessionList
 from metal.types.bgp_session_neighbors import BgpSessionNeighbors
 from metal.types.capacity_check_per_facility_info import CapacityCheckPerFacilityInfo
 from metal.types.capacity_check_per_facility_list import CapacityCheckPerFacilityList
+from metal.types.capacity_check_per_metro_info import CapacityCheckPerMetroInfo
+from metal.types.capacity_check_per_metro_list import CapacityCheckPerMetroList
 from metal.types.capacity_input import CapacityInput
 from metal.types.capacity_level_per_baremetal import CapacityLevelPerBaremetal
 from metal.types.capacity_list import CapacityList
-from metal.types.capacity_per_baremetal import CapacityPerBaremetal
 from metal.types.capacity_per_facility import CapacityPerFacility
+from metal.types.capacity_per_metro_input import CapacityPerMetroInput
 from metal.types.capacity_per_new_facility import CapacityPerNewFacility
 from metal.types.capacity_report import CapacityReport
 from metal.types.coordinates import Coordinates
 from metal.types.create_email_input import CreateEmailInput
+from metal.types.create_self_service_reservation_request import CreateSelfServiceReservationRequest
+from metal.types.create_self_service_reservation_request_period import CreateSelfServiceReservationRequestPeriod
 from metal.types.device import Device
 from metal.types.device_create_input import DeviceCreateInput
 from metal.types.device_create_input_ip_addresses import DeviceCreateInputIpAddresses
@@ -100,23 +109,15 @@ from metal.types.device_usage_list import DeviceUsageList
 from metal.types.email import Email
 from metal.types.email_input import EmailInput
 from metal.types.entitlement import Entitlement
-from metal.types.entitlement_input import EntitlementInput
-from metal.types.entitlement_list import EntitlementList
+from metal.types.error import Error
 from metal.types.event import Event
-from metal.types.event_input import EventInput
 from metal.types.event_list import EventList
-from metal.types.event_type import EventType
-from metal.types.event_type_list import EventTypeList
 from metal.types.facility import Facility
 from metal.types.facility_list import FacilityList
 from metal.types.global_bgp_range import GlobalBgpRange
 from metal.types.global_bgp_range_list import GlobalBgpRangeList
-from metal.types.hardware_location import HardwareLocation
 from metal.types.hardware_reservation import HardwareReservation
 from metal.types.hardware_reservation_list import HardwareReservationList
-from metal.types.hardware_type import HardwareType
-from metal.types.hardware_type_list import HardwareTypeList
-from metal.types.hardware_update_input import HardwareUpdateInput
 from metal.types.href import Href
 from metal.types.ip_assignment import IPAssignment
 from metal.types.ip_assignment_input import IPAssignmentInput
@@ -134,22 +135,29 @@ from metal.types.interconnection_list import InterconnectionList
 from metal.types.interconnection_port import InterconnectionPort
 from metal.types.interconnection_port_list import InterconnectionPortList
 from metal.types.interconnection_update_input import InterconnectionUpdateInput
-from metal.types.internet_gateway import InternetGateway
 from metal.types.invitation import Invitation
 from metal.types.invitation_input import InvitationInput
 from metal.types.invitation_list import InvitationList
-from metal.types.ip_address_input import IpAddressInput
 from metal.types.license import License
 from metal.types.license_create_input import LicenseCreateInput
 from metal.types.license_list import LicenseList
 from metal.types.license_update_input import LicenseUpdateInput
-from metal.types.link_aggregations import LinkAggregations
 from metal.types.membership import Membership
 from metal.types.membership_input import MembershipInput
 from metal.types.membership_list import MembershipList
 from metal.types.meta import Meta
+from metal.types.metal_gateway import MetalGateway
+from metal.types.metal_gateway_input import MetalGatewayInput
+from metal.types.metal_gateway_list import MetalGatewayList
+from metal.types.metal_gateway_lite import MetalGatewayLite
+from metal.types.metro import Metro
+from metal.types.metro_capacity_list import MetroCapacityList
+from metal.types.metro_capacity_report import MetroCapacityReport
+from metal.types.metro_list import MetroList
+from metal.types.metro_server_info import MetroServerInfo
 from metal.types.new_password import NewPassword
 from metal.types.operating_system import OperatingSystem
+from metal.types.operating_system_list import OperatingSystemList
 from metal.types.organization import Organization
 from metal.types.organization_input import OrganizationInput
 from metal.types.organization_list import OrganizationList
@@ -161,12 +169,17 @@ from metal.types.payment_method_list import PaymentMethodList
 from metal.types.payment_method_update_input import PaymentMethodUpdateInput
 from metal.types.plan import Plan
 from metal.types.plan_list import PlanList
-from metal.types.plan_version import PlanVersion
 from metal.types.port import Port
 from metal.types.port_assign_input import PortAssignInput
 from metal.types.port_convert_layer3_input import PortConvertLayer3Input
 from metal.types.port_convert_layer3_input_request_ips import PortConvertLayer3InputRequestIps
-from metal.types.port_list import PortList
+from metal.types.port_vlan_assignment import PortVlanAssignment
+from metal.types.port_vlan_assignment_batch import PortVlanAssignmentBatch
+from metal.types.port_vlan_assignment_batch_create_input import PortVlanAssignmentBatchCreateInput
+from metal.types.port_vlan_assignment_batch_create_input_vlan_assignments import PortVlanAssignmentBatchCreateInputVlanAssignments
+from metal.types.port_vlan_assignment_batch_list import PortVlanAssignmentBatchList
+from metal.types.port_vlan_assignment_batch_vlan_assignments import PortVlanAssignmentBatchVlanAssignments
+from metal.types.port_vlan_assignment_list import PortVlanAssignmentList
 from metal.types.project import Project
 from metal.types.project_create_from_root_input import ProjectCreateFromRootInput
 from metal.types.project_create_input import ProjectCreateInput
@@ -174,17 +187,21 @@ from metal.types.project_list import ProjectList
 from metal.types.project_update_input import ProjectUpdateInput
 from metal.types.project_usage import ProjectUsage
 from metal.types.project_usage_list import ProjectUsageList
-from metal.types.rackmount_input import RackmountInput
 from metal.types.recovery_code_list import RecoveryCodeList
-from metal.types.region import Region
-from metal.types.regions_list import RegionsList
 from metal.types.ssh_key import SSHKey
+from metal.types.ssh_key_create_input import SSHKeyCreateInput
 from metal.types.ssh_key_input import SSHKeyInput
 from metal.types.ssh_key_list import SSHKeyList
+from metal.types.self_service_reservation_item_request import SelfServiceReservationItemRequest
+from metal.types.self_service_reservation_item_response import SelfServiceReservationItemResponse
+from metal.types.self_service_reservation_list import SelfServiceReservationList
+from metal.types.self_service_reservation_response import SelfServiceReservationResponse
 from metal.types.server_info import ServerInfo
 from metal.types.snapshot_policy import SnapshotPolicy
 from metal.types.snapshot_policy_input import SnapshotPolicyInput
 from metal.types.spot_market_prices_list import SpotMarketPricesList
+from metal.types.spot_market_prices_per_metro_list import SpotMarketPricesPerMetroList
+from metal.types.spot_market_prices_per_metro_report import SpotMarketPricesPerMetroReport
 from metal.types.spot_market_request import SpotMarketRequest
 from metal.types.spot_market_request_create_input import SpotMarketRequestCreateInput
 from metal.types.spot_market_request_create_input_instance_attributes import SpotMarketRequestCreateInputInstanceAttributes
@@ -195,23 +212,6 @@ from metal.types.spot_prices_per_baremetal import SpotPricesPerBaremetal
 from metal.types.spot_prices_per_facility import SpotPricesPerFacility
 from metal.types.spot_prices_per_new_facility import SpotPricesPerNewFacility
 from metal.types.spot_prices_report import SpotPricesReport
-from metal.types.staff_address import StaffAddress
-from metal.types.staff_cage import StaffCage
-from metal.types.staff_facility_little import StaffFacilityLittle
-from metal.types.staff_facility_room import StaffFacilityRoom
-from metal.types.staff_hardware import StaffHardware
-from metal.types.staff_hardware_create_input import StaffHardwareCreateInput
-from metal.types.staff_hardware_list import StaffHardwareList
-from metal.types.staff_ip_address import StaffIpAddress
-from metal.types.staff_manufacturer import StaffManufacturer
-from metal.types.staff_metro_little import StaffMetroLittle
-from metal.types.staff_plan import StaffPlan
-from metal.types.staff_plan_version import StaffPlanVersion
-from metal.types.staff_provider import StaffProvider
-from metal.types.staff_row import StaffRow
-from metal.types.staff_server_rack import StaffServerRack
-from metal.types.subscribable_event import SubscribableEvent
-from metal.types.subscribable_events_list import SubscribableEventsList
 from metal.types.support_request_input import SupportRequestInput
 from metal.types.timeframe import Timeframe
 from metal.types.transfer_request import TransferRequest
@@ -222,8 +222,6 @@ from metal.types.user import User
 from metal.types.user_create_input import UserCreateInput
 from metal.types.user_list import UserList
 from metal.types.user_update_input import UserUpdateInput
-from metal.types.userdata import Userdata
-from metal.types.vpn_config import VPNConfig
 from metal.types.virtual_circuit import VirtualCircuit
 from metal.types.virtual_circuit_create_input import VirtualCircuitCreateInput
 from metal.types.virtual_circuit_list import VirtualCircuitList
@@ -238,7 +236,6 @@ from metal.types.volume_attachment_list import VolumeAttachmentList
 from metal.types.volume_create_input import VolumeCreateInput
 from metal.types.volume_list import VolumeList
 from metal.types.volume_snapshot import VolumeSnapshot
-from metal.types.volume_snapshot_input import VolumeSnapshotInput
 from metal.types.volume_snapshot_list import VolumeSnapshotList
 from metal.types.volume_update_input import VolumeUpdateInput
 

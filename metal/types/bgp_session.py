@@ -3,7 +3,7 @@
 """
     Metal API
 
-    This is the API for Equinix Metal Product. Interact with your devices, user account, and projects.  # noqa: E501
+    This is the API for Equinix Metal. The API allows you to programmatically interact with all of your Equinix Metal resources, including devices, networks, addresses, organizations, projects, and your user account.  The official API docs are hosted at <https://metal.equinix.com/developers/api>.   # noqa: E501
 
     The version of the OpenAPI document: 1.0.0
     Contact: support@equinixmetal.com
@@ -11,7 +11,10 @@
 """
 
 
-import inspect
+try:
+    from inspect import getfullargspec
+except ImportError:
+    from inspect import getargspec as getfullargspec
 import pprint
 import re  # noqa: F401
 import six
@@ -40,7 +43,9 @@ class BgpSession(object):
         'address_family': 'str',
         'device': 'Href',
         'href': 'str',
-        'default_route': 'bool'
+        'default_route': 'bool',
+        'created_at': 'datetime',
+        'updated_at': 'datetime'
     }
 
     attribute_map = {
@@ -50,10 +55,12 @@ class BgpSession(object):
         'address_family': 'address_family',
         'device': 'device',
         'href': 'href',
-        'default_route': 'default_route'
+        'default_route': 'default_route',
+        'created_at': 'created_at',
+        'updated_at': 'updated_at'
     }
 
-    def __init__(self, id=None, status=None, learned_routes=None, address_family=None, device=None, href=None, default_route=None, local_vars_configuration=None):  # noqa: E501
+    def __init__(self, id=None, status=None, learned_routes=None, address_family=None, device=None, href=None, default_route=None, created_at=None, updated_at=None, local_vars_configuration=None):  # noqa: E501
         """BgpSession - a model defined in OpenAPI"""  # noqa: E501
         if local_vars_configuration is None:
             local_vars_configuration = Configuration.get_default_copy()
@@ -66,6 +73,8 @@ class BgpSession(object):
         self._device = None
         self._href = None
         self._default_route = None
+        self._created_at = None
+        self._updated_at = None
         self.discriminator = None
 
         if id is not None:
@@ -74,14 +83,17 @@ class BgpSession(object):
             self.status = status
         if learned_routes is not None:
             self.learned_routes = learned_routes
-        if address_family is not None:
-            self.address_family = address_family
+        self.address_family = address_family
         if device is not None:
             self.device = device
         if href is not None:
             self.href = href
         if default_route is not None:
             self.default_route = default_route
+        if created_at is not None:
+            self.created_at = created_at
+        if updated_at is not None:
+            self.updated_at = updated_at
 
     @property
     def id(self):
@@ -108,6 +120,7 @@ class BgpSession(object):
     def status(self):
         """Gets the status of this BgpSession.  # noqa: E501
 
+         The status of the BGP Session. Multiple status values may be reported when the device is connected to multiple switches, one value per switch. Each status will start with \"unknown\" and progress to \"up\" or \"down\" depending on the connected device. Subsequent \"unknown\" values indicate a problem acquiring status from the switch.   # noqa: E501
 
         :return: The status of this BgpSession.  # noqa: E501
         :rtype: str
@@ -118,10 +131,17 @@ class BgpSession(object):
     def status(self, status):
         """Sets the status of this BgpSession.
 
+         The status of the BGP Session. Multiple status values may be reported when the device is connected to multiple switches, one value per switch. Each status will start with \"unknown\" and progress to \"up\" or \"down\" depending on the connected device. Subsequent \"unknown\" values indicate a problem acquiring status from the switch.   # noqa: E501
 
         :param status: The status of this BgpSession.  # noqa: E501
         :type status: str
         """
+        allowed_values = ["unknown", "up", "down"]  # noqa: E501
+        if self.local_vars_configuration.client_side_validation and status not in allowed_values:  # noqa: E501
+            raise ValueError(
+                "Invalid value for `status` ({0}), must be one of {1}"  # noqa: E501
+                .format(status, allowed_values)
+            )
 
         self._status = status
 
@@ -164,6 +184,14 @@ class BgpSession(object):
         :param address_family: The address_family of this BgpSession.  # noqa: E501
         :type address_family: str
         """
+        if self.local_vars_configuration.client_side_validation and address_family is None:  # noqa: E501
+            raise ValueError("Invalid value for `address_family`, must not be `None`")  # noqa: E501
+        allowed_values = ["ipv4", "ipv6"]  # noqa: E501
+        if self.local_vars_configuration.client_side_validation and address_family not in allowed_values:  # noqa: E501
+            raise ValueError(
+                "Invalid value for `address_family` ({0}), must be one of {1}"  # noqa: E501
+                .format(address_family, allowed_values)
+            )
 
         self._address_family = address_family
 
@@ -230,13 +258,55 @@ class BgpSession(object):
 
         self._default_route = default_route
 
+    @property
+    def created_at(self):
+        """Gets the created_at of this BgpSession.  # noqa: E501
+
+
+        :return: The created_at of this BgpSession.  # noqa: E501
+        :rtype: datetime
+        """
+        return self._created_at
+
+    @created_at.setter
+    def created_at(self, created_at):
+        """Sets the created_at of this BgpSession.
+
+
+        :param created_at: The created_at of this BgpSession.  # noqa: E501
+        :type created_at: datetime
+        """
+
+        self._created_at = created_at
+
+    @property
+    def updated_at(self):
+        """Gets the updated_at of this BgpSession.  # noqa: E501
+
+
+        :return: The updated_at of this BgpSession.  # noqa: E501
+        :rtype: datetime
+        """
+        return self._updated_at
+
+    @updated_at.setter
+    def updated_at(self, updated_at):
+        """Sets the updated_at of this BgpSession.
+
+
+        :param updated_at: The updated_at of this BgpSession.  # noqa: E501
+        :type updated_at: datetime
+        """
+
+        self._updated_at = updated_at
+
     def to_dict(self, serialize=False):
         """Returns the model properties as a dict"""
         result = {}
 
         def convert(x):
             if hasattr(x, "to_dict"):
-                args = inspect.getargspec(x.to_dict).args
+                args = getfullargspec(x.to_dict).args
                 if len(args) == 1:
                     return x.to_dict()
                 else:

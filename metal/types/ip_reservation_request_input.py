@@ -3,7 +3,7 @@
 """
     Metal API
 
-    This is the API for Equinix Metal Product. Interact with your devices, user account, and projects.  # noqa: E501
+    This is the API for Equinix Metal. The API allows you to programmatically interact with all of your Equinix Metal resources, including devices, networks, addresses, organizations, projects, and your user account.  The official API docs are hosted at <https://metal.equinix.com/developers/api>.   # noqa: E501
 
     The version of the OpenAPI document: 1.0.0
     Contact: support@equinixmetal.com
@@ -11,7 +11,10 @@
 """
 
 
-import inspect
+try:
+    from inspect import getfullargspec
+except ImportError:
+    from inspect import getargspec as getfullargspec
 import pprint
 import re  # noqa: F401
 import six
@@ -38,6 +41,7 @@ class IPReservationRequestInput(object):
         'quantity': 'int',
         'comments': 'str',
         'facility': 'str',
+        'metro': 'str',
         'customdata': 'object',
         'tags': 'list[str]',
         'details': 'str',
@@ -49,13 +53,14 @@ class IPReservationRequestInput(object):
         'quantity': 'quantity',
         'comments': 'comments',
         'facility': 'facility',
+        'metro': 'metro',
         'customdata': 'customdata',
         'tags': 'tags',
         'details': 'details',
         'fail_on_approval_required': 'fail_on_approval_required'
     }
 
-    def __init__(self, type=None, quantity=None, comments=None, facility=None, customdata=None, tags=None, details=None, fail_on_approval_required=None, local_vars_configuration=None):  # noqa: E501
+    def __init__(self, type=None, quantity=None, comments=None, facility=None, metro=None, customdata=None, tags=None, details=None, fail_on_approval_required=None, local_vars_configuration=None):  # noqa: E501
         """IPReservationRequestInput - a model defined in OpenAPI"""  # noqa: E501
         if local_vars_configuration is None:
             local_vars_configuration = Configuration.get_default_copy()
@@ -65,6 +70,7 @@ class IPReservationRequestInput(object):
         self._quantity = None
         self._comments = None
         self._facility = None
+        self._metro = None
         self._customdata = None
         self._tags = None
         self._details = None
@@ -77,6 +83,8 @@ class IPReservationRequestInput(object):
             self.comments = comments
         if facility is not None:
             self.facility = facility
+        if metro is not None:
+            self.metro = metro
         if customdata is not None:
             self.customdata = customdata
         if tags is not None:
@@ -175,6 +183,29 @@ class IPReservationRequestInput(object):
         self._facility = facility
 
     @property
+    def metro(self):
+        """Gets the metro of this IPReservationRequestInput.  # noqa: E501
+
+        The code of the metro you are requesting the IP reservation in.  # noqa: E501
+
+        :return: The metro of this IPReservationRequestInput.  # noqa: E501
+        :rtype: str
+        """
+        return self._metro
+
+    @metro.setter
+    def metro(self, metro):
+        """Sets the metro of this IPReservationRequestInput.
+
+        The code of the metro you are requesting the IP reservation in.  # noqa: E501
+
+        :param metro: The metro of this IPReservationRequestInput.  # noqa: E501
+        :type metro: str
+        """
+
+        self._metro = metro
+
+    @property
     def customdata(self):
         """Gets the customdata of this IPReservationRequestInput.  # noqa: E501
 
@@ -264,7 +295,7 @@ class IPReservationRequestInput(object):
 
         def convert(x):
             if hasattr(x, "to_dict"):
-                args = inspect.getargspec(x.to_dict).args
+                args = getfullargspec(x.to_dict).args
                 if len(args) == 1:
                     return x.to_dict()
                 else:

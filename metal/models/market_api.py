@@ -3,7 +3,7 @@
 """
     Metal API
 
-    This is the API for Equinix Metal Product. Interact with your devices, user account, and projects.  # noqa: E501
+    This is the API for Equinix Metal. The API allows you to programmatically interact with all of your Equinix Metal resources, including devices, networks, addresses, organizations, projects, and your user account.  The official API docs are hosted at <https://metal.equinix.com/developers/api>.   # noqa: E501
 
     The version of the OpenAPI document: 1.0.0
     Contact: support@equinixmetal.com
@@ -36,6 +36,144 @@ class MarketApi(object):
         if api_client is None:
             api_client = ApiClient()
         self.api_client = api_client
+
+    def find_metro_spot_market_prices(self, **kwargs):  # noqa: E501
+        """Get current spot market prices for metros  # noqa: E501
+
+        Get Equinix Metal current spot market prices for all metros.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+
+        >>> thread = api.find_metro_spot_market_prices(async_req=True)
+        >>> result = thread.get()
+
+        :param metro: Metro to filter spot market prices
+        :type metro: str
+        :param plan: Plan to filter spot market prices
+        :type plan: str
+        :param async_req: Whether to execute the request asynchronously.
+        :type async_req: bool, optional
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :type _preload_content: bool, optional
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: Returns the result object.
+                 If the method is called asynchronously,
+                 returns the request thread.
+        :rtype: SpotMarketPricesPerMetroList
+        """
+        kwargs['_return_http_data_only'] = True
+        return self.find_metro_spot_market_prices_with_http_info(**kwargs)  # noqa: E501
+
+    def find_metro_spot_market_prices_with_http_info(self, **kwargs):  # noqa: E501
+        """Get current spot market prices for metros  # noqa: E501
+
+        Get Equinix Metal current spot market prices for all metros.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+
+        >>> thread = api.find_metro_spot_market_prices_with_http_info(async_req=True)
+        >>> result = thread.get()
+
+        :param metro: Metro to filter spot market prices
+        :type metro: str
+        :param plan: Plan to filter spot market prices
+        :type plan: str
+        :param async_req: Whether to execute the request asynchronously.
+        :type async_req: bool, optional
+        :param _return_http_data_only: response data without head status code
+                                       and headers
+        :type _return_http_data_only: bool, optional
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :type _preload_content: bool, optional
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the authentication
+                              in the spec for a single request.
+        :type _request_auth: dict, optional
+        :return: Returns the result object.
+                 If the method is called asynchronously,
+                 returns the request thread.
+        :rtype: tuple(SpotMarketPricesPerMetroList, status_code(int), headers(HTTPHeaderDict))
+        """
+
+        local_var_params = locals()
+
+        all_params = [
+            'metro',
+            'plan'
+        ]
+        all_params.extend(
+            [
+                'async_req',
+                '_return_http_data_only',
+                '_preload_content',
+                '_request_timeout',
+                '_request_auth'
+            ]
+        )
+
+        for key, val in six.iteritems(local_var_params['kwargs']):
+            if key not in all_params:
+                raise ApiTypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method find_metro_spot_market_prices" % key
+                )
+            local_var_params[key] = val
+        del local_var_params['kwargs']
+
+        collection_formats = {}
+
+        path_params = {}
+
+        query_params = []
+        if 'metro' in local_var_params and local_var_params['metro'] is not None:  # noqa: E501
+            query_params.append(('metro', local_var_params['metro']))  # noqa: E501
+        if 'plan' in local_var_params and local_var_params['plan'] is not None:  # noqa: E501
+            query_params.append(('plan', local_var_params['plan']))  # noqa: E501
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
+
+        # Authentication setting
+        auth_settings = ['x_auth_token']  # noqa: E501
+
+        response_types_map = {
+            200: "SpotMarketPricesPerMetroList",
+        }
+
+        return self.api_client.call_api(
+            '/market/spot/prices/metros', 'GET',
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_types_map=response_types_map,
+            auth_settings=auth_settings,
+            async_req=local_var_params.get('async_req'),
+            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
+            _preload_content=local_var_params.get('_preload_content', True),
+            _request_timeout=local_var_params.get('_request_timeout'),
+            collection_formats=collection_formats,
+            _request_auth=local_var_params.get('_request_auth'))
 
     def find_spot_market_prices(self, **kwargs):  # noqa: E501
         """Get current spot market prices  # noqa: E501
@@ -153,7 +291,7 @@ class MarketApi(object):
 
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
-        
+
         response_types_map = {
             200: "SpotMarketPricesList",
         }
@@ -193,6 +331,8 @@ class MarketApi(object):
         :type _from: str
         :param until: Timestamp to range (required)
         :type until: str
+        :param metro: Metro to check spot market price history
+        :type metro: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _preload_content: if False, the urllib3.HTTPResponse object will
@@ -229,6 +369,8 @@ class MarketApi(object):
         :type _from: str
         :param until: Timestamp to range (required)
         :type until: str
+        :param metro: Metro to check spot market price history
+        :type metro: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _return_http_data_only: response data without head status code
@@ -258,7 +400,8 @@ class MarketApi(object):
             'facility',
             'plan',
             '_from',
-            'until'
+            'until',
+            'metro'
         ]
         all_params.extend(
             [
@@ -304,6 +447,8 @@ class MarketApi(object):
             query_params.append(('facility', local_var_params['facility']))  # noqa: E501
         if 'plan' in local_var_params and local_var_params['plan'] is not None:  # noqa: E501
             query_params.append(('plan', local_var_params['plan']))  # noqa: E501
+        if 'metro' in local_var_params and local_var_params['metro'] is not None:  # noqa: E501
+            query_params.append(('metro', local_var_params['metro']))  # noqa: E501
         if '_from' in local_var_params and local_var_params['_from'] is not None:  # noqa: E501
             query_params.append(('from', local_var_params['_from']))  # noqa: E501
         if 'until' in local_var_params and local_var_params['until'] is not None:  # noqa: E501
@@ -321,7 +466,7 @@ class MarketApi(object):
 
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
-        
+
         response_types_map = {
             200: "SpotPricesHistoryReport",
         }

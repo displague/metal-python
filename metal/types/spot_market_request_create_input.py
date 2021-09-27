@@ -3,7 +3,7 @@
 """
     Metal API
 
-    This is the API for Equinix Metal Product. Interact with your devices, user account, and projects.  # noqa: E501
+    This is the API for Equinix Metal. The API allows you to programmatically interact with all of your Equinix Metal resources, including devices, networks, addresses, organizations, projects, and your user account.  The official API docs are hosted at <https://metal.equinix.com/developers/api>.   # noqa: E501
 
     The version of the OpenAPI document: 1.0.0
     Contact: support@equinixmetal.com
@@ -11,7 +11,10 @@
 """
 
 
-import inspect
+try:
+    from inspect import getfullargspec
+except ImportError:
+    from inspect import getargspec as getfullargspec
 import pprint
 import re  # noqa: F401
 import six
@@ -39,7 +42,8 @@ class SpotMarketRequestCreateInput(object):
         'devices_max': 'int',
         'max_bid_price': 'float',
         'end_at': 'datetime',
-        'facilities': 'list[str]'
+        'facilities': 'list[str]',
+        'metro': 'str'
     }
 
     attribute_map = {
@@ -48,10 +52,11 @@ class SpotMarketRequestCreateInput(object):
         'devices_max': 'devices_max',
         'max_bid_price': 'max_bid_price',
         'end_at': 'end_at',
-        'facilities': 'facilities'
+        'facilities': 'facilities',
+        'metro': 'metro'
     }
 
-    def __init__(self, instance_attributes=None, devices_min=None, devices_max=None, max_bid_price=None, end_at=None, facilities=None, local_vars_configuration=None):  # noqa: E501
+    def __init__(self, instance_attributes=None, devices_min=None, devices_max=None, max_bid_price=None, end_at=None, facilities=None, metro=None, local_vars_configuration=None):  # noqa: E501
         """SpotMarketRequestCreateInput - a model defined in OpenAPI"""  # noqa: E501
         if local_vars_configuration is None:
             local_vars_configuration = Configuration.get_default_copy()
@@ -63,6 +68,7 @@ class SpotMarketRequestCreateInput(object):
         self._max_bid_price = None
         self._end_at = None
         self._facilities = None
+        self._metro = None
         self.discriminator = None
 
         if instance_attributes is not None:
@@ -77,6 +83,8 @@ class SpotMarketRequestCreateInput(object):
             self.end_at = end_at
         if facilities is not None:
             self.facilities = facilities
+        if metro is not None:
+            self.metro = metro
 
     @property
     def instance_attributes(self):
@@ -204,13 +212,36 @@ class SpotMarketRequestCreateInput(object):
 
         self._facilities = facilities
 
+    @property
+    def metro(self):
+        """Gets the metro of this SpotMarketRequestCreateInput.  # noqa: E501
+
+        The metro ID or code the spot market request will be created in.  # noqa: E501
+
+        :return: The metro of this SpotMarketRequestCreateInput.  # noqa: E501
+        :rtype: str
+        """
+        return self._metro
+
+    @metro.setter
+    def metro(self, metro):
+        """Sets the metro of this SpotMarketRequestCreateInput.
+
+        The metro ID or code the spot market request will be created in.  # noqa: E501
+
+        :param metro: The metro of this SpotMarketRequestCreateInput.  # noqa: E501
+        :type metro: str
+        """
+
+        self._metro = metro
+
     def to_dict(self, serialize=False):
         """Returns the model properties as a dict"""
         result = {}
 
         def convert(x):
             if hasattr(x, "to_dict"):
-                args = inspect.getargspec(x.to_dict).args
+                args = getfullargspec(x.to_dict).args
                 if len(args) == 1:
                     return x.to_dict()
                 else:

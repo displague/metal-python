@@ -12,6 +12,8 @@ Method | HTTP request | Description
 [**find_facilities_by_organization**](OrganizationsApi.md#find_facilities_by_organization) | **GET** /organizations/{id}/facilities | Retrieve all facilities visible by the organization
 [**find_operating_systems_by_organization**](OrganizationsApi.md#find_operating_systems_by_organization) | **GET** /organizations/{id}/operating-systems | Retrieve all operating systems visible by the organization
 [**find_organization_by_id**](OrganizationsApi.md#find_organization_by_id) | **GET** /organizations/{id} | Retrieve an organization&#39;s details
+[**find_organization_capacity_per_facility**](OrganizationsApi.md#find_organization_capacity_per_facility) | **GET** /organizations/{id}/capacity | View available hardware plans per Facility for given organization
+[**find_organization_capacity_per_metro**](OrganizationsApi.md#find_organization_capacity_per_metro) | **GET** /organizations/{id}/capacity/metros | View available hardware plans per Metro for given organization
 [**find_organization_customdata**](OrganizationsApi.md#find_organization_customdata) | **GET** /organizations/{id}/customdata | Retrieve the custom metadata of an organization
 [**find_organization_devices**](OrganizationsApi.md#find_organization_devices) | **GET** /organizations/{id}/devices | Retrieve all devices of an organization
 [**find_organization_events**](OrganizationsApi.md#find_organization_events) | **GET** /organizations/{id}/events | Retrieve organization&#39;s events
@@ -397,7 +399,7 @@ void (empty response body)
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -489,7 +491,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **find_operating_systems_by_organization**
-> list[OperatingSystem] find_operating_systems_by_organization(id, include=include, exclude=exclude)
+> OperatingSystemList find_operating_systems_by_organization(id, include=include, exclude=exclude)
 
 Retrieve all operating systems visible by the organization
 
@@ -547,7 +549,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**list[OperatingSystem]**](OperatingSystem.md)
+[**OperatingSystemList**](OperatingSystemList.md)
 
 ### Authorization
 
@@ -648,6 +650,156 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **find_organization_capacity_per_facility**
+> CapacityList find_organization_capacity_per_facility(id)
+
+View available hardware plans per Facility for given organization
+
+Returns a list of facilities and plans with their current capacity.
+
+### Example
+
+* Api Key Authentication (x_auth_token):
+```python
+from __future__ import print_function
+import time
+import metal
+from metal.rest import ApiException
+from pprint import pprint
+# Defining the host is optional and defaults to https://api.equinix.com/metal/v1
+# See configuration.py for a list of all supported configuration parameters.
+configuration = metal.Configuration(
+    host = "https://api.equinix.com/metal/v1"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: x_auth_token
+configuration.api_key['x_auth_token'] = 'YOUR_API_KEY'
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['x_auth_token'] = 'Bearer'
+
+# Enter a context with an instance of the API client
+with metal.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = metal.OrganizationsApi(api_client)
+    id = 'id_example' # str | Organization UUID
+
+    try:
+        # View available hardware plans per Facility for given organization
+        api_response = api_instance.find_organization_capacity_per_facility(id)
+        pprint(api_response)
+    except ApiException as e:
+        print("Exception when calling OrganizationsApi->find_organization_capacity_per_facility: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | [**str**](.md)| Organization UUID | 
+
+### Return type
+
+[**CapacityList**](CapacityList.md)
+
+### Authorization
+
+[x_auth_token](../README.md#x_auth_token)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | ok |  -  |
+**401** | unauthorized |  -  |
+**403** | forbidden |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+# **find_organization_capacity_per_metro**
+> MetroCapacityList find_organization_capacity_per_metro(id)
+
+View available hardware plans per Metro for given organization
+
+Returns a list of metros and plans with their current capacity.
+
+### Example
+
+* Api Key Authentication (x_auth_token):
+```python
+from __future__ import print_function
+import time
+import metal
+from metal.rest import ApiException
+from pprint import pprint
+# Defining the host is optional and defaults to https://api.equinix.com/metal/v1
+# See configuration.py for a list of all supported configuration parameters.
+configuration = metal.Configuration(
+    host = "https://api.equinix.com/metal/v1"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: x_auth_token
+configuration.api_key['x_auth_token'] = 'YOUR_API_KEY'
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['x_auth_token'] = 'Bearer'
+
+# Enter a context with an instance of the API client
+with metal.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = metal.OrganizationsApi(api_client)
+    id = 'id_example' # str | Organization UUID
+
+    try:
+        # View available hardware plans per Metro for given organization
+        api_response = api_instance.find_organization_capacity_per_metro(id)
+        pprint(api_response)
+    except ApiException as e:
+        print("Exception when calling OrganizationsApi->find_organization_capacity_per_metro: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | [**str**](.md)| Organization UUID | 
+
+### Return type
+
+[**MetroCapacityList**](MetroCapacityList.md)
+
+### Authorization
+
+[x_auth_token](../README.md#x_auth_token)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | ok |  -  |
+**401** | unauthorized |  -  |
+**403** | forbidden |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **find_organization_customdata**
 > find_organization_customdata(id)
 
@@ -711,7 +863,7 @@ void (empty response body)
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |

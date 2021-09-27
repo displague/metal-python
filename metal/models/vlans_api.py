@@ -3,7 +3,7 @@
 """
     Metal API
 
-    This is the API for Equinix Metal Product. Interact with your devices, user account, and projects.  # noqa: E501
+    This is the API for Equinix Metal. The API allows you to programmatically interact with all of your Equinix Metal resources, including devices, networks, addresses, organizations, projects, and your user account.  The official API docs are hosted at <https://metal.equinix.com/developers/api>.   # noqa: E501
 
     The version of the OpenAPI document: 1.0.0
     Contact: support@equinixmetal.com
@@ -40,7 +40,7 @@ class VLANsApi(object):
     def assign_native_vlan(self, id, vnid, **kwargs):  # noqa: E501
         """Assign a native VLAN  # noqa: E501
 
-        Assigns a virtual network to this port as a \"native VLAN\"  # noqa: E501
+        Sets a virtual network on this port as a \"native VLAN\". The VLAN must have already been assigned using the using the \"Assign a port to a virtual network\" operation.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -49,7 +49,7 @@ class VLANsApi(object):
 
         :param id: Port UUID (required)
         :type id: str
-        :param vnid: UUID or VNID of the virtual network to assign (required)
+        :param vnid: Virtual Network ID. May be the UUID of the Virtual Network record, or the VLAN value itself (ex: '1001'). (required)
         :type vnid: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
@@ -72,7 +72,7 @@ class VLANsApi(object):
     def assign_native_vlan_with_http_info(self, id, vnid, **kwargs):  # noqa: E501
         """Assign a native VLAN  # noqa: E501
 
-        Assigns a virtual network to this port as a \"native VLAN\"  # noqa: E501
+        Sets a virtual network on this port as a \"native VLAN\". The VLAN must have already been assigned using the using the \"Assign a port to a virtual network\" operation.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -81,7 +81,7 @@ class VLANsApi(object):
 
         :param id: Port UUID (required)
         :type id: str
-        :param vnid: UUID or VNID of the virtual network to assign (required)
+        :param vnid: Virtual Network ID. May be the UUID of the Virtual Network record, or the VLAN value itself (ex: '1001'). (required)
         :type vnid: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
@@ -161,12 +161,12 @@ class VLANsApi(object):
 
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
-        
+
         response_types_map = {
             200: "Port",
-            401: None,
-            404: None,
-            422: None,
+            401: "Error",
+            404: "Error",
+            422: "Error",
         }
 
         return self.api_client.call_api(
@@ -186,20 +186,20 @@ class VLANsApi(object):
             collection_formats=collection_formats,
             _request_auth=local_var_params.get('_request_auth'))
 
-    def create_internet_gateway(self, id, length, **kwargs):  # noqa: E501
-        """Create an internet gateway  # noqa: E501
+    def assign_port(self, id, vnid, **kwargs):  # noqa: E501
+        """Assign a port to virtual network  # noqa: E501
 
-        Creates an internet gateway.  # noqa: E501
+        Assign a port for a hardware to virtual network.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.create_internet_gateway(id, length, async_req=True)
+        >>> thread = api.assign_port(id, vnid, async_req=True)
         >>> result = thread.get()
 
-        :param id: Virtual Network UUID (required)
+        :param id: Port UUID (required)
         :type id: str
-        :param length: IP Reservation length (required)
-        :type length: str
+        :param vnid: Virtual Network ID. May be the UUID of the Virtual Network record, or the VLAN value itself (ex: '1001'). (required)
+        :type vnid: PortAssignInput
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _preload_content: if False, the urllib3.HTTPResponse object will
@@ -213,25 +213,25 @@ class VLANsApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: InternetGateway
+        :rtype: Port
         """
         kwargs['_return_http_data_only'] = True
-        return self.create_internet_gateway_with_http_info(id, length, **kwargs)  # noqa: E501
+        return self.assign_port_with_http_info(id, vnid, **kwargs)  # noqa: E501
 
-    def create_internet_gateway_with_http_info(self, id, length, **kwargs):  # noqa: E501
-        """Create an internet gateway  # noqa: E501
+    def assign_port_with_http_info(self, id, vnid, **kwargs):  # noqa: E501
+        """Assign a port to virtual network  # noqa: E501
 
-        Creates an internet gateway.  # noqa: E501
+        Assign a port for a hardware to virtual network.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.create_internet_gateway_with_http_info(id, length, async_req=True)
+        >>> thread = api.assign_port_with_http_info(id, vnid, async_req=True)
         >>> result = thread.get()
 
-        :param id: Virtual Network UUID (required)
+        :param id: Port UUID (required)
         :type id: str
-        :param length: IP Reservation length (required)
-        :type length: str
+        :param vnid: Virtual Network ID. May be the UUID of the Virtual Network record, or the VLAN value itself (ex: '1001'). (required)
+        :type vnid: PortAssignInput
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _return_http_data_only: response data without head status code
@@ -252,14 +252,14 @@ class VLANsApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: tuple(InternetGateway, status_code(int), headers(HTTPHeaderDict))
+        :rtype: tuple(Port, status_code(int), headers(HTTPHeaderDict))
         """
 
         local_var_params = locals()
 
         all_params = [
             'id',
-            'length'
+            'vnid'
         ]
         all_params.extend(
             [
@@ -275,18 +275,18 @@ class VLANsApi(object):
             if key not in all_params:
                 raise ApiTypeError(
                     "Got an unexpected keyword argument '%s'"
-                    " to method create_internet_gateway" % key
+                    " to method assign_port" % key
                 )
             local_var_params[key] = val
         del local_var_params['kwargs']
         # verify the required parameter 'id' is set
         if self.api_client.client_side_validation and ('id' not in local_var_params or  # noqa: E501
                                                         local_var_params['id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `id` when calling `create_internet_gateway`")  # noqa: E501
-        # verify the required parameter 'length' is set
-        if self.api_client.client_side_validation and ('length' not in local_var_params or  # noqa: E501
-                                                        local_var_params['length'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `length` when calling `create_internet_gateway`")  # noqa: E501
+            raise ApiValueError("Missing the required parameter `id` when calling `assign_port`")  # noqa: E501
+        # verify the required parameter 'vnid' is set
+        if self.api_client.client_side_validation and ('vnid' not in local_var_params or  # noqa: E501
+                                                        local_var_params['vnid'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `vnid` when calling `assign_port`")  # noqa: E501
 
         collection_formats = {}
 
@@ -295,8 +295,6 @@ class VLANsApi(object):
             path_params['id'] = local_var_params['id']  # noqa: E501
 
         query_params = []
-        if 'length' in local_var_params and local_var_params['length'] is not None:  # noqa: E501
-            query_params.append(('length', local_var_params['length']))  # noqa: E501
 
         header_params = {}
 
@@ -304,22 +302,183 @@ class VLANsApi(object):
         local_var_files = {}
 
         body_params = None
+        if 'vnid' in local_var_params:
+            body_params = local_var_params['vnid']
         # HTTP header `Accept`
         header_params['Accept'] = self.api_client.select_header_accept(
             ['application/json'])  # noqa: E501
 
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
+            ['application/json'])  # noqa: E501
+
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
-        
+
         response_types_map = {
-            201: "InternetGateway",
-            401: None,
-            404: None,
-            422: None,
+            200: "Port",
+            401: "Error",
+            403: "Error",
+            404: "Error",
+            422: "Error",
         }
 
         return self.api_client.call_api(
-            '/virtual-networks/{id}/internet-gateways', 'POST',
+            '/ports/{id}/assign', 'POST',
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_types_map=response_types_map,
+            auth_settings=auth_settings,
+            async_req=local_var_params.get('async_req'),
+            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
+            _preload_content=local_var_params.get('_preload_content', True),
+            _request_timeout=local_var_params.get('_request_timeout'),
+            collection_formats=collection_formats,
+            _request_auth=local_var_params.get('_request_auth'))
+
+    def create_port_vlan_assignment_batch(self, id, vlan_assignments, **kwargs):  # noqa: E501
+        """Create a new Port-VLAN Assignment management batch  # noqa: E501
+
+        Create a new asynchronous batch request which handles adding and/or removing the VLANs to which the port is assigned.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+
+        >>> thread = api.create_port_vlan_assignment_batch(id, vlan_assignments, async_req=True)
+        >>> result = thread.get()
+
+        :param id: Port UUID (required)
+        :type id: str
+        :param vlan_assignments: VLAN Assignment batch details (required)
+        :type vlan_assignments: PortVlanAssignmentBatchCreateInput
+        :param async_req: Whether to execute the request asynchronously.
+        :type async_req: bool, optional
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :type _preload_content: bool, optional
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: Returns the result object.
+                 If the method is called asynchronously,
+                 returns the request thread.
+        :rtype: PortVlanAssignmentBatch
+        """
+        kwargs['_return_http_data_only'] = True
+        return self.create_port_vlan_assignment_batch_with_http_info(id, vlan_assignments, **kwargs)  # noqa: E501
+
+    def create_port_vlan_assignment_batch_with_http_info(self, id, vlan_assignments, **kwargs):  # noqa: E501
+        """Create a new Port-VLAN Assignment management batch  # noqa: E501
+
+        Create a new asynchronous batch request which handles adding and/or removing the VLANs to which the port is assigned.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+
+        >>> thread = api.create_port_vlan_assignment_batch_with_http_info(id, vlan_assignments, async_req=True)
+        >>> result = thread.get()
+
+        :param id: Port UUID (required)
+        :type id: str
+        :param vlan_assignments: VLAN Assignment batch details (required)
+        :type vlan_assignments: PortVlanAssignmentBatchCreateInput
+        :param async_req: Whether to execute the request asynchronously.
+        :type async_req: bool, optional
+        :param _return_http_data_only: response data without head status code
+                                       and headers
+        :type _return_http_data_only: bool, optional
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :type _preload_content: bool, optional
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the authentication
+                              in the spec for a single request.
+        :type _request_auth: dict, optional
+        :return: Returns the result object.
+                 If the method is called asynchronously,
+                 returns the request thread.
+        :rtype: tuple(PortVlanAssignmentBatch, status_code(int), headers(HTTPHeaderDict))
+        """
+
+        local_var_params = locals()
+
+        all_params = [
+            'id',
+            'vlan_assignments'
+        ]
+        all_params.extend(
+            [
+                'async_req',
+                '_return_http_data_only',
+                '_preload_content',
+                '_request_timeout',
+                '_request_auth'
+            ]
+        )
+
+        for key, val in six.iteritems(local_var_params['kwargs']):
+            if key not in all_params:
+                raise ApiTypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method create_port_vlan_assignment_batch" % key
+                )
+            local_var_params[key] = val
+        del local_var_params['kwargs']
+        # verify the required parameter 'id' is set
+        if self.api_client.client_side_validation and ('id' not in local_var_params or  # noqa: E501
+                                                        local_var_params['id'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `id` when calling `create_port_vlan_assignment_batch`")  # noqa: E501
+        # verify the required parameter 'vlan_assignments' is set
+        if self.api_client.client_side_validation and ('vlan_assignments' not in local_var_params or  # noqa: E501
+                                                        local_var_params['vlan_assignments'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `vlan_assignments` when calling `create_port_vlan_assignment_batch`")  # noqa: E501
+
+        collection_formats = {}
+
+        path_params = {}
+        if 'id' in local_var_params:
+            path_params['id'] = local_var_params['id']  # noqa: E501
+
+        query_params = []
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        if 'vlan_assignments' in local_var_params:
+            body_params = local_var_params['vlan_assignments']
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
+            ['application/json'])  # noqa: E501
+
+        # Authentication setting
+        auth_settings = ['x_auth_token']  # noqa: E501
+
+        response_types_map = {
+            201: "PortVlanAssignmentBatch",
+            401: "Error",
+            403: "Error",
+            404: "Error",
+            422: "Error",
+        }
+
+        return self.api_client.call_api(
+            '/ports/{id}/vlan-assignments/batches', 'POST',
             path_params,
             query_params,
             header_params,
@@ -336,7 +495,7 @@ class VLANsApi(object):
             _request_auth=local_var_params.get('_request_auth'))
 
     def create_virtual_network(self, id, virtual_network, **kwargs):  # noqa: E501
-        """Create an virtual network  # noqa: E501
+        """Create a virtual network  # noqa: E501
 
         Creates an virtual network.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
@@ -368,7 +527,7 @@ class VLANsApi(object):
         return self.create_virtual_network_with_http_info(id, virtual_network, **kwargs)  # noqa: E501
 
     def create_virtual_network_with_http_info(self, id, virtual_network, **kwargs):  # noqa: E501
-        """Create an virtual network  # noqa: E501
+        """Create a virtual network  # noqa: E501
 
         Creates an virtual network.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
@@ -463,13 +622,13 @@ class VLANsApi(object):
 
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
-        
+
         response_types_map = {
             201: "VirtualNetwork",
-            401: None,
-            403: None,
-            404: None,
-            422: None,
+            401: "Error",
+            403: "Error",
+            404: "Error",
+            422: "Error",
         }
 
         return self.api_client.call_api(
@@ -602,12 +761,12 @@ class VLANsApi(object):
 
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
-        
+
         response_types_map = {
             200: "Port",
-            401: None,
-            404: None,
-            422: None,
+            401: "Error",
+            404: "Error",
+            422: "Error",
         }
 
         return self.api_client.call_api(
@@ -740,17 +899,623 @@ class VLANsApi(object):
 
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
-        
+
         response_types_map = {
             200: "VirtualNetwork",
-            401: None,
-            403: None,
-            404: None,
-            422: None,
+            401: "Error",
+            403: "Error",
+            404: "Error",
+            422: "Error",
         }
 
         return self.api_client.call_api(
             '/virtual-networks/{id}', 'DELETE',
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_types_map=response_types_map,
+            auth_settings=auth_settings,
+            async_req=local_var_params.get('async_req'),
+            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
+            _preload_content=local_var_params.get('_preload_content', True),
+            _request_timeout=local_var_params.get('_request_timeout'),
+            collection_formats=collection_formats,
+            _request_auth=local_var_params.get('_request_auth'))
+
+    def find_port_vlan_assignment_batch_by_port_id_and_batch_id(self, id, batch_id, **kwargs):  # noqa: E501
+        """Retrieve a VLAN Assignment Batch's details  # noqa: E501
+
+        Returns the details of an existing Port-VLAN Assignment batch, including the list of VLANs to assign or unassign, and the current state of the batch.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+
+        >>> thread = api.find_port_vlan_assignment_batch_by_port_id_and_batch_id(id, batch_id, async_req=True)
+        >>> result = thread.get()
+
+        :param id: Port UUID (required)
+        :type id: str
+        :param batch_id: Batch ID (required)
+        :type batch_id: str
+        :param async_req: Whether to execute the request asynchronously.
+        :type async_req: bool, optional
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :type _preload_content: bool, optional
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: Returns the result object.
+                 If the method is called asynchronously,
+                 returns the request thread.
+        :rtype: PortVlanAssignmentBatch
+        """
+        kwargs['_return_http_data_only'] = True
+        return self.find_port_vlan_assignment_batch_by_port_id_and_batch_id_with_http_info(id, batch_id, **kwargs)  # noqa: E501
+
+    def find_port_vlan_assignment_batch_by_port_id_and_batch_id_with_http_info(self, id, batch_id, **kwargs):  # noqa: E501
+        """Retrieve a VLAN Assignment Batch's details  # noqa: E501
+
+        Returns the details of an existing Port-VLAN Assignment batch, including the list of VLANs to assign or unassign, and the current state of the batch.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+
+        >>> thread = api.find_port_vlan_assignment_batch_by_port_id_and_batch_id_with_http_info(id, batch_id, async_req=True)
+        >>> result = thread.get()
+
+        :param id: Port UUID (required)
+        :type id: str
+        :param batch_id: Batch ID (required)
+        :type batch_id: str
+        :param async_req: Whether to execute the request asynchronously.
+        :type async_req: bool, optional
+        :param _return_http_data_only: response data without head status code
+                                       and headers
+        :type _return_http_data_only: bool, optional
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :type _preload_content: bool, optional
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the authentication
+                              in the spec for a single request.
+        :type _request_auth: dict, optional
+        :return: Returns the result object.
+                 If the method is called asynchronously,
+                 returns the request thread.
+        :rtype: tuple(PortVlanAssignmentBatch, status_code(int), headers(HTTPHeaderDict))
+        """
+
+        local_var_params = locals()
+
+        all_params = [
+            'id',
+            'batch_id'
+        ]
+        all_params.extend(
+            [
+                'async_req',
+                '_return_http_data_only',
+                '_preload_content',
+                '_request_timeout',
+                '_request_auth'
+            ]
+        )
+
+        for key, val in six.iteritems(local_var_params['kwargs']):
+            if key not in all_params:
+                raise ApiTypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method find_port_vlan_assignment_batch_by_port_id_and_batch_id" % key
+                )
+            local_var_params[key] = val
+        del local_var_params['kwargs']
+        # verify the required parameter 'id' is set
+        if self.api_client.client_side_validation and ('id' not in local_var_params or  # noqa: E501
+                                                        local_var_params['id'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `id` when calling `find_port_vlan_assignment_batch_by_port_id_and_batch_id`")  # noqa: E501
+        # verify the required parameter 'batch_id' is set
+        if self.api_client.client_side_validation and ('batch_id' not in local_var_params or  # noqa: E501
+                                                        local_var_params['batch_id'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `batch_id` when calling `find_port_vlan_assignment_batch_by_port_id_and_batch_id`")  # noqa: E501
+
+        collection_formats = {}
+
+        path_params = {}
+        if 'id' in local_var_params:
+            path_params['id'] = local_var_params['id']  # noqa: E501
+        if 'batch_id' in local_var_params:
+            path_params['batch_id'] = local_var_params['batch_id']  # noqa: E501
+
+        query_params = []
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
+
+        # Authentication setting
+        auth_settings = ['x_auth_token']  # noqa: E501
+
+        response_types_map = {
+            200: "PortVlanAssignmentBatch",
+            401: "Error",
+            403: "Error",
+            404: "Error",
+        }
+
+        return self.api_client.call_api(
+            '/ports/{id}/vlan-assignments/batches/{batch_id}', 'GET',
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_types_map=response_types_map,
+            auth_settings=auth_settings,
+            async_req=local_var_params.get('async_req'),
+            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
+            _preload_content=local_var_params.get('_preload_content', True),
+            _request_timeout=local_var_params.get('_request_timeout'),
+            collection_formats=collection_formats,
+            _request_auth=local_var_params.get('_request_auth'))
+
+    def find_port_vlan_assignment_batches(self, id, **kwargs):  # noqa: E501
+        """List the VLAN Assignment Batches for a port  # noqa: E501
+
+        Show all the VLAN assignment batches that have been created for managing this port's VLAN assignments  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+
+        >>> thread = api.find_port_vlan_assignment_batches(id, async_req=True)
+        >>> result = thread.get()
+
+        :param id: Port UUID (required)
+        :type id: str
+        :param async_req: Whether to execute the request asynchronously.
+        :type async_req: bool, optional
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :type _preload_content: bool, optional
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: Returns the result object.
+                 If the method is called asynchronously,
+                 returns the request thread.
+        :rtype: PortVlanAssignmentBatchList
+        """
+        kwargs['_return_http_data_only'] = True
+        return self.find_port_vlan_assignment_batches_with_http_info(id, **kwargs)  # noqa: E501
+
+    def find_port_vlan_assignment_batches_with_http_info(self, id, **kwargs):  # noqa: E501
+        """List the VLAN Assignment Batches for a port  # noqa: E501
+
+        Show all the VLAN assignment batches that have been created for managing this port's VLAN assignments  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+
+        >>> thread = api.find_port_vlan_assignment_batches_with_http_info(id, async_req=True)
+        >>> result = thread.get()
+
+        :param id: Port UUID (required)
+        :type id: str
+        :param async_req: Whether to execute the request asynchronously.
+        :type async_req: bool, optional
+        :param _return_http_data_only: response data without head status code
+                                       and headers
+        :type _return_http_data_only: bool, optional
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :type _preload_content: bool, optional
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the authentication
+                              in the spec for a single request.
+        :type _request_auth: dict, optional
+        :return: Returns the result object.
+                 If the method is called asynchronously,
+                 returns the request thread.
+        :rtype: tuple(PortVlanAssignmentBatchList, status_code(int), headers(HTTPHeaderDict))
+        """
+
+        local_var_params = locals()
+
+        all_params = [
+            'id'
+        ]
+        all_params.extend(
+            [
+                'async_req',
+                '_return_http_data_only',
+                '_preload_content',
+                '_request_timeout',
+                '_request_auth'
+            ]
+        )
+
+        for key, val in six.iteritems(local_var_params['kwargs']):
+            if key not in all_params:
+                raise ApiTypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method find_port_vlan_assignment_batches" % key
+                )
+            local_var_params[key] = val
+        del local_var_params['kwargs']
+        # verify the required parameter 'id' is set
+        if self.api_client.client_side_validation and ('id' not in local_var_params or  # noqa: E501
+                                                        local_var_params['id'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `id` when calling `find_port_vlan_assignment_batches`")  # noqa: E501
+
+        collection_formats = {}
+
+        path_params = {}
+        if 'id' in local_var_params:
+            path_params['id'] = local_var_params['id']  # noqa: E501
+
+        query_params = []
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
+
+        # Authentication setting
+        auth_settings = ['x_auth_token']  # noqa: E501
+
+        response_types_map = {
+            200: "PortVlanAssignmentBatchList",
+            401: "Error",
+            403: "Error",
+            404: "Error",
+        }
+
+        return self.api_client.call_api(
+            '/ports/{id}/vlan-assignments/batches', 'GET',
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_types_map=response_types_map,
+            auth_settings=auth_settings,
+            async_req=local_var_params.get('async_req'),
+            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
+            _preload_content=local_var_params.get('_preload_content', True),
+            _request_timeout=local_var_params.get('_request_timeout'),
+            collection_formats=collection_formats,
+            _request_auth=local_var_params.get('_request_auth'))
+
+    def find_port_vlan_assignment_by_port_id_and_assignment_id(self, id, assignment_id, **kwargs):  # noqa: E501
+        """Show a particular Port VLAN assignment's details  # noqa: E501
+
+        Show the details of a specific Port-VLAN assignment, including the current state and if the VLAN is set as native.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+
+        >>> thread = api.find_port_vlan_assignment_by_port_id_and_assignment_id(id, assignment_id, async_req=True)
+        >>> result = thread.get()
+
+        :param id: Port UUID (required)
+        :type id: str
+        :param assignment_id: Assignment ID (required)
+        :type assignment_id: str
+        :param include: Nested attributes to include. Included objects will return their full attributes. Attribute names can be dotted (up to 3 levels) to included deeply nested objects.
+        :type include: list[str]
+        :param exclude: Nested attributes to exclude. Excluded objects will return only the href attribute. Attribute names can be dotted (up to 3 levels) to exclude deeply nested objects.
+        :type exclude: list[str]
+        :param async_req: Whether to execute the request asynchronously.
+        :type async_req: bool, optional
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :type _preload_content: bool, optional
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: Returns the result object.
+                 If the method is called asynchronously,
+                 returns the request thread.
+        :rtype: PortVlanAssignment
+        """
+        kwargs['_return_http_data_only'] = True
+        return self.find_port_vlan_assignment_by_port_id_and_assignment_id_with_http_info(id, assignment_id, **kwargs)  # noqa: E501
+
+    def find_port_vlan_assignment_by_port_id_and_assignment_id_with_http_info(self, id, assignment_id, **kwargs):  # noqa: E501
+        """Show a particular Port VLAN assignment's details  # noqa: E501
+
+        Show the details of a specific Port-VLAN assignment, including the current state and if the VLAN is set as native.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+
+        >>> thread = api.find_port_vlan_assignment_by_port_id_and_assignment_id_with_http_info(id, assignment_id, async_req=True)
+        >>> result = thread.get()
+
+        :param id: Port UUID (required)
+        :type id: str
+        :param assignment_id: Assignment ID (required)
+        :type assignment_id: str
+        :param include: Nested attributes to include. Included objects will return their full attributes. Attribute names can be dotted (up to 3 levels) to included deeply nested objects.
+        :type include: list[str]
+        :param exclude: Nested attributes to exclude. Excluded objects will return only the href attribute. Attribute names can be dotted (up to 3 levels) to exclude deeply nested objects.
+        :type exclude: list[str]
+        :param async_req: Whether to execute the request asynchronously.
+        :type async_req: bool, optional
+        :param _return_http_data_only: response data without head status code
+                                       and headers
+        :type _return_http_data_only: bool, optional
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :type _preload_content: bool, optional
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the authentication
+                              in the spec for a single request.
+        :type _request_auth: dict, optional
+        :return: Returns the result object.
+                 If the method is called asynchronously,
+                 returns the request thread.
+        :rtype: tuple(PortVlanAssignment, status_code(int), headers(HTTPHeaderDict))
+        """
+
+        local_var_params = locals()
+
+        all_params = [
+            'id',
+            'assignment_id',
+            'include',
+            'exclude'
+        ]
+        all_params.extend(
+            [
+                'async_req',
+                '_return_http_data_only',
+                '_preload_content',
+                '_request_timeout',
+                '_request_auth'
+            ]
+        )
+
+        for key, val in six.iteritems(local_var_params['kwargs']):
+            if key not in all_params:
+                raise ApiTypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method find_port_vlan_assignment_by_port_id_and_assignment_id" % key
+                )
+            local_var_params[key] = val
+        del local_var_params['kwargs']
+        # verify the required parameter 'id' is set
+        if self.api_client.client_side_validation and ('id' not in local_var_params or  # noqa: E501
+                                                        local_var_params['id'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `id` when calling `find_port_vlan_assignment_by_port_id_and_assignment_id`")  # noqa: E501
+        # verify the required parameter 'assignment_id' is set
+        if self.api_client.client_side_validation and ('assignment_id' not in local_var_params or  # noqa: E501
+                                                        local_var_params['assignment_id'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `assignment_id` when calling `find_port_vlan_assignment_by_port_id_and_assignment_id`")  # noqa: E501
+
+        collection_formats = {}
+
+        path_params = {}
+        if 'id' in local_var_params:
+            path_params['id'] = local_var_params['id']  # noqa: E501
+        if 'assignment_id' in local_var_params:
+            path_params['assignment_id'] = local_var_params['assignment_id']  # noqa: E501
+
+        query_params = []
+        if 'include' in local_var_params and local_var_params['include'] is not None:  # noqa: E501
+            query_params.append(('include', local_var_params['include']))  # noqa: E501
+            collection_formats['include'] = 'csv'  # noqa: E501
+        if 'exclude' in local_var_params and local_var_params['exclude'] is not None:  # noqa: E501
+            query_params.append(('exclude', local_var_params['exclude']))  # noqa: E501
+            collection_formats['exclude'] = 'csv'  # noqa: E501
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
+
+        # Authentication setting
+        auth_settings = ['x_auth_token']  # noqa: E501
+
+        response_types_map = {
+            200: "PortVlanAssignment",
+            401: "Error",
+            403: "Error",
+            404: "Error",
+        }
+
+        return self.api_client.call_api(
+            '/ports/{id}/vlan-assignments/{assignment_id}', 'GET',
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_types_map=response_types_map,
+            auth_settings=auth_settings,
+            async_req=local_var_params.get('async_req'),
+            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
+            _preload_content=local_var_params.get('_preload_content', True),
+            _request_timeout=local_var_params.get('_request_timeout'),
+            collection_formats=collection_formats,
+            _request_auth=local_var_params.get('_request_auth'))
+
+    def find_port_vlan_assignments(self, id, **kwargs):  # noqa: E501
+        """List Current VLAN assignments for a port  # noqa: E501
+
+        Show the port's current VLAN assignments, including if this VLAN is set as native, and the current state of the assignment (ex. 'assigned' or 'unassigning')  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+
+        >>> thread = api.find_port_vlan_assignments(id, async_req=True)
+        >>> result = thread.get()
+
+        :param id: Port UUID (required)
+        :type id: str
+        :param include: Nested attributes to include. Included objects will return their full attributes. Attribute names can be dotted (up to 3 levels) to included deeply nested objects.
+        :type include: list[str]
+        :param exclude: Nested attributes to exclude. Excluded objects will return only the href attribute. Attribute names can be dotted (up to 3 levels) to exclude deeply nested objects.
+        :type exclude: list[str]
+        :param async_req: Whether to execute the request asynchronously.
+        :type async_req: bool, optional
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :type _preload_content: bool, optional
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: Returns the result object.
+                 If the method is called asynchronously,
+                 returns the request thread.
+        :rtype: PortVlanAssignmentList
+        """
+        kwargs['_return_http_data_only'] = True
+        return self.find_port_vlan_assignments_with_http_info(id, **kwargs)  # noqa: E501
+
+    def find_port_vlan_assignments_with_http_info(self, id, **kwargs):  # noqa: E501
+        """List Current VLAN assignments for a port  # noqa: E501
+
+        Show the port's current VLAN assignments, including if this VLAN is set as native, and the current state of the assignment (ex. 'assigned' or 'unassigning')  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+
+        >>> thread = api.find_port_vlan_assignments_with_http_info(id, async_req=True)
+        >>> result = thread.get()
+
+        :param id: Port UUID (required)
+        :type id: str
+        :param include: Nested attributes to include. Included objects will return their full attributes. Attribute names can be dotted (up to 3 levels) to included deeply nested objects.
+        :type include: list[str]
+        :param exclude: Nested attributes to exclude. Excluded objects will return only the href attribute. Attribute names can be dotted (up to 3 levels) to exclude deeply nested objects.
+        :type exclude: list[str]
+        :param async_req: Whether to execute the request asynchronously.
+        :type async_req: bool, optional
+        :param _return_http_data_only: response data without head status code
+                                       and headers
+        :type _return_http_data_only: bool, optional
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :type _preload_content: bool, optional
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the authentication
+                              in the spec for a single request.
+        :type _request_auth: dict, optional
+        :return: Returns the result object.
+                 If the method is called asynchronously,
+                 returns the request thread.
+        :rtype: tuple(PortVlanAssignmentList, status_code(int), headers(HTTPHeaderDict))
+        """
+
+        local_var_params = locals()
+
+        all_params = [
+            'id',
+            'include',
+            'exclude'
+        ]
+        all_params.extend(
+            [
+                'async_req',
+                '_return_http_data_only',
+                '_preload_content',
+                '_request_timeout',
+                '_request_auth'
+            ]
+        )
+
+        for key, val in six.iteritems(local_var_params['kwargs']):
+            if key not in all_params:
+                raise ApiTypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method find_port_vlan_assignments" % key
+                )
+            local_var_params[key] = val
+        del local_var_params['kwargs']
+        # verify the required parameter 'id' is set
+        if self.api_client.client_side_validation and ('id' not in local_var_params or  # noqa: E501
+                                                        local_var_params['id'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `id` when calling `find_port_vlan_assignments`")  # noqa: E501
+
+        collection_formats = {}
+
+        path_params = {}
+        if 'id' in local_var_params:
+            path_params['id'] = local_var_params['id']  # noqa: E501
+
+        query_params = []
+        if 'include' in local_var_params and local_var_params['include'] is not None:  # noqa: E501
+            query_params.append(('include', local_var_params['include']))  # noqa: E501
+            collection_formats['include'] = 'csv'  # noqa: E501
+        if 'exclude' in local_var_params and local_var_params['exclude'] is not None:  # noqa: E501
+            query_params.append(('exclude', local_var_params['exclude']))  # noqa: E501
+            collection_formats['exclude'] = 'csv'  # noqa: E501
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
+
+        # Authentication setting
+        auth_settings = ['x_auth_token']  # noqa: E501
+
+        response_types_map = {
+            200: "PortVlanAssignmentList",
+            401: "Error",
+            403: "Error",
+            404: "Error",
+        }
+
+        return self.api_client.call_api(
+            '/ports/{id}/vlan-assignments', 'GET',
             path_params,
             query_params,
             header_params,
@@ -782,6 +1547,10 @@ class VLANsApi(object):
         :type include: list[str]
         :param exclude: Nested attributes to exclude. Excluded objects will return only the href attribute. Attribute names can be dotted (up to 3 levels) to exclude deeply nested objects.
         :type exclude: list[str]
+        :param facility: Filter by Facility ID (uuid) or Facility Code
+        :type facility: str
+        :param metro: Filter by Metro ID (uuid) or Metro Code
+        :type metro: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _preload_content: if False, the urllib3.HTTPResponse object will
@@ -816,6 +1585,10 @@ class VLANsApi(object):
         :type include: list[str]
         :param exclude: Nested attributes to exclude. Excluded objects will return only the href attribute. Attribute names can be dotted (up to 3 levels) to exclude deeply nested objects.
         :type exclude: list[str]
+        :param facility: Filter by Facility ID (uuid) or Facility Code
+        :type facility: str
+        :param metro: Filter by Metro ID (uuid) or Metro Code
+        :type metro: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _return_http_data_only: response data without head status code
@@ -844,7 +1617,9 @@ class VLANsApi(object):
         all_params = [
             'id',
             'include',
-            'exclude'
+            'exclude',
+            'facility',
+            'metro'
         ]
         all_params.extend(
             [
@@ -882,6 +1657,10 @@ class VLANsApi(object):
         if 'exclude' in local_var_params and local_var_params['exclude'] is not None:  # noqa: E501
             query_params.append(('exclude', local_var_params['exclude']))  # noqa: E501
             collection_formats['exclude'] = 'csv'  # noqa: E501
+        if 'facility' in local_var_params and local_var_params['facility'] is not None:  # noqa: E501
+            query_params.append(('facility', local_var_params['facility']))  # noqa: E501
+        if 'metro' in local_var_params and local_var_params['metro'] is not None:  # noqa: E501
+            query_params.append(('metro', local_var_params['metro']))  # noqa: E501
 
         header_params = {}
 
@@ -895,12 +1674,12 @@ class VLANsApi(object):
 
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
-        
+
         response_types_map = {
             200: "VirtualNetworkList",
-            401: None,
-            403: None,
-            404: None,
+            401: "Error",
+            403: "Error",
+            404: "Error",
         }
 
         return self.api_client.call_api(
@@ -1033,17 +1812,171 @@ class VLANsApi(object):
 
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
-        
+
         response_types_map = {
             200: "VirtualNetwork",
-            401: None,
-            403: None,
-            404: None,
-            422: None,
+            401: "Error",
+            403: "Error",
+            404: "Error",
+            422: "Error",
         }
 
         return self.api_client.call_api(
             '/virtual-networks/{id}', 'GET',
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_types_map=response_types_map,
+            auth_settings=auth_settings,
+            async_req=local_var_params.get('async_req'),
+            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
+            _preload_content=local_var_params.get('_preload_content', True),
+            _request_timeout=local_var_params.get('_request_timeout'),
+            collection_formats=collection_formats,
+            _request_auth=local_var_params.get('_request_auth'))
+
+    def unassign_port(self, id, vnid, **kwargs):  # noqa: E501
+        """Unassign a port  # noqa: E501
+
+        Unassign a port for a hardware.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+
+        >>> thread = api.unassign_port(id, vnid, async_req=True)
+        >>> result = thread.get()
+
+        :param id: Port UUID (required)
+        :type id: str
+        :param vnid: Virtual Network ID. May be the UUID of the Virtual Network record, or the VLAN value itself (ex: '1001'). (required)
+        :type vnid: PortAssignInput
+        :param async_req: Whether to execute the request asynchronously.
+        :type async_req: bool, optional
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :type _preload_content: bool, optional
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: Returns the result object.
+                 If the method is called asynchronously,
+                 returns the request thread.
+        :rtype: Port
+        """
+        kwargs['_return_http_data_only'] = True
+        return self.unassign_port_with_http_info(id, vnid, **kwargs)  # noqa: E501
+
+    def unassign_port_with_http_info(self, id, vnid, **kwargs):  # noqa: E501
+        """Unassign a port  # noqa: E501
+
+        Unassign a port for a hardware.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+
+        >>> thread = api.unassign_port_with_http_info(id, vnid, async_req=True)
+        >>> result = thread.get()
+
+        :param id: Port UUID (required)
+        :type id: str
+        :param vnid: Virtual Network ID. May be the UUID of the Virtual Network record, or the VLAN value itself (ex: '1001'). (required)
+        :type vnid: PortAssignInput
+        :param async_req: Whether to execute the request asynchronously.
+        :type async_req: bool, optional
+        :param _return_http_data_only: response data without head status code
+                                       and headers
+        :type _return_http_data_only: bool, optional
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :type _preload_content: bool, optional
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the authentication
+                              in the spec for a single request.
+        :type _request_auth: dict, optional
+        :return: Returns the result object.
+                 If the method is called asynchronously,
+                 returns the request thread.
+        :rtype: tuple(Port, status_code(int), headers(HTTPHeaderDict))
+        """
+
+        local_var_params = locals()
+
+        all_params = [
+            'id',
+            'vnid'
+        ]
+        all_params.extend(
+            [
+                'async_req',
+                '_return_http_data_only',
+                '_preload_content',
+                '_request_timeout',
+                '_request_auth'
+            ]
+        )
+
+        for key, val in six.iteritems(local_var_params['kwargs']):
+            if key not in all_params:
+                raise ApiTypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method unassign_port" % key
+                )
+            local_var_params[key] = val
+        del local_var_params['kwargs']
+        # verify the required parameter 'id' is set
+        if self.api_client.client_side_validation and ('id' not in local_var_params or  # noqa: E501
+                                                        local_var_params['id'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `id` when calling `unassign_port`")  # noqa: E501
+        # verify the required parameter 'vnid' is set
+        if self.api_client.client_side_validation and ('vnid' not in local_var_params or  # noqa: E501
+                                                        local_var_params['vnid'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `vnid` when calling `unassign_port`")  # noqa: E501
+
+        collection_formats = {}
+
+        path_params = {}
+        if 'id' in local_var_params:
+            path_params['id'] = local_var_params['id']  # noqa: E501
+
+        query_params = []
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        if 'vnid' in local_var_params:
+            body_params = local_var_params['vnid']
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
+            ['application/json'])  # noqa: E501
+
+        # Authentication setting
+        auth_settings = ['x_auth_token']  # noqa: E501
+
+        response_types_map = {
+            200: "Port",
+            401: "Error",
+            403: "Error",
+            404: "Error",
+            422: "Error",
+        }
+
+        return self.api_client.call_api(
+            '/ports/{id}/unassign', 'POST',
             path_params,
             query_params,
             header_params,

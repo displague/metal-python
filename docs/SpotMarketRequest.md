@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **end_at** | **datetime** |  | [optional] 
 **href** | **str** |  | [optional] 
 **facilities** | [**Href**](Href.md) |  | [optional] 
+**metro** | [**Metro**](Metro.md) |  | [optional] 
 **project** | [**Href**](Href.md) |  | [optional] 
 **instances** | [**Href**](Href.md) |  | [optional] 
 

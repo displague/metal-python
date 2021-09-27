@@ -3,7 +3,7 @@
 """
     Metal API
 
-    This is the API for Equinix Metal Product. Interact with your devices, user account, and projects.  # noqa: E501
+    This is the API for Equinix Metal. The API allows you to programmatically interact with all of your Equinix Metal resources, including devices, networks, addresses, organizations, projects, and your user account.  The official API docs are hosted at <https://metal.equinix.com/developers/api>.   # noqa: E501
 
     The version of the OpenAPI document: 1.0.0
     Contact: support@equinixmetal.com
@@ -11,7 +11,10 @@
 """
 
 
-import inspect
+try:
+    from inspect import getfullargspec
+except ImportError:
+    from inspect import getargspec as getfullargspec
 import pprint
 import re  # noqa: F401
 import six
@@ -37,17 +40,19 @@ class SupportRequestInput(object):
         'subject': 'str',
         'message': 'str',
         'project_id': 'str',
-        'device_id': 'str'
+        'device_id': 'str',
+        'priority': 'str'
     }
 
     attribute_map = {
         'subject': 'subject',
         'message': 'message',
         'project_id': 'project_id',
-        'device_id': 'device_id'
+        'device_id': 'device_id',
+        'priority': 'priority'
     }
 
-    def __init__(self, subject=None, message=None, project_id=None, device_id=None, local_vars_configuration=None):  # noqa: E501
+    def __init__(self, subject=None, message=None, project_id=None, device_id=None, priority=None, local_vars_configuration=None):  # noqa: E501
         """SupportRequestInput - a model defined in OpenAPI"""  # noqa: E501
         if local_vars_configuration is None:
             local_vars_configuration = Configuration.get_default_copy()
@@ -57,6 +62,7 @@ class SupportRequestInput(object):
         self._message = None
         self._project_id = None
         self._device_id = None
+        self._priority = None
         self.discriminator = None
 
         self.subject = subject
@@ -65,6 +71,8 @@ class SupportRequestInput(object):
             self.project_id = project_id
         if device_id is not None:
             self.device_id = device_id
+        if priority is not None:
+            self.priority = priority
 
     @property
     def subject(self):
@@ -154,13 +162,40 @@ class SupportRequestInput(object):
 
         self._device_id = device_id
 
+    @property
+    def priority(self):
+        """Gets the priority of this SupportRequestInput.  # noqa: E501
+
+
+        :return: The priority of this SupportRequestInput.  # noqa: E501
+        :rtype: str
+        """
+        return self._priority
+
+    @priority.setter
+    def priority(self, priority):
+        """Sets the priority of this SupportRequestInput.
+
+
+        :param priority: The priority of this SupportRequestInput.  # noqa: E501
+        :type priority: str
+        """
+        allowed_values = ["urgent", "high", "medium", "low"]  # noqa: E501
+        if self.local_vars_configuration.client_side_validation and priority not in allowed_values:  # noqa: E501
+            raise ValueError(
+                "Invalid value for `priority` ({0}), must be one of {1}"  # noqa: E501
+                .format(priority, allowed_values)
+            )
+
+        self._priority = priority
+
     def to_dict(self, serialize=False):
         """Returns the model properties as a dict"""
         result = {}
 
         def convert(x):
             if hasattr(x, "to_dict"):
-                args = inspect.getargspec(x.to_dict).args
+                args = getfullargspec(x.to_dict).args
                 if len(args) == 1:
                     return x.to_dict()
                 else:

@@ -3,7 +3,7 @@
 """
     Metal API
 
-    This is the API for Equinix Metal Product. Interact with your devices, user account, and projects.  # noqa: E501
+    This is the API for Equinix Metal. The API allows you to programmatically interact with all of your Equinix Metal resources, including devices, networks, addresses, organizations, projects, and your user account.  The official API docs are hosted at <https://metal.equinix.com/developers/api>.   # noqa: E501
 
     The version of the OpenAPI document: 1.0.0
     Contact: support@equinixmetal.com
@@ -43,9 +43,8 @@ class TestHardwareReservation(unittest.TestCase):
                     id = '', 
                     name = '', 
                     code = '', 
-                    features = [
-                        ''
-                        ], 
+                    features = [baremetal, backend_transfer, global_ipv4], 
+                    ip_ranges = [2604:1380::/36, 147.75.192.0/21], 
                     address = metal.models.address.Address(
                         address = '', 
                         address2 = '', 
@@ -55,7 +54,8 @@ class TestHardwareReservation(unittest.TestCase):
                         country = '', 
                         coordinates = metal.models.coordinates.Coordinates(
                             latitude = '', 
-                            longitude = '', ), ), ), 
+                            longitude = '', ), ), 
+                    metro = metal.models.metro.metro(), ), 
                 plan = metal.models.plan.Plan(
                     id = '', 
                     slug = '', 
@@ -135,24 +135,20 @@ class TestHardwareReservation(unittest.TestCase):
                         name = '', 
                         distro = '', 
                         version = '', 
+                        preinstallable = True, 
                         provisionable_on = [
                             ''
-                            ], ), 
+                            ], 
+                        pricing = metal.models.pricing.pricing(), 
+                        licensed = True, ), 
                     always_pxe = True, 
                     ipxe_script_url = '', 
-                    location = metal.models.hardware_location.HardwareLocation(
-                        cage = '', 
-                        facility = '', 
-                        rack = '', 
-                        row = '', 
-                        switch = '', ), 
                     facility = metal.models.facility.Facility(
                         id = '', 
                         name = '', 
                         code = '', 
-                        features = [
-                            ''
-                            ], 
+                        features = [baremetal, backend_transfer, global_ipv4], 
+                        ip_ranges = [2604:1380::/36, 147.75.192.0/21], 
                         address = metal.models.address.Address(
                             address = '', 
                             address2 = '', 
@@ -162,7 +158,9 @@ class TestHardwareReservation(unittest.TestCase):
                             country = '', 
                             coordinates = metal.models.coordinates.Coordinates(
                                 latitude = '', 
-                                longitude = '', ), ), ), 
+                                longitude = '', ), ), 
+                        metro = metal.models.metro.metro(), ), 
+                    metro = metal.models.metro.metro(), 
                     plan = metal.models.plan.Plan(
                         id = '', 
                         slug = '', 
@@ -179,11 +177,11 @@ class TestHardwareReservation(unittest.TestCase):
                             ], ), 
                     userdata = '', 
                     root_password = '', 
+                    switch_uuid = '', 
+                    network_ports = metal.models.network_ports.network_ports(), 
                     href = '', 
-                    project = metal.models.href.Href(
-                        href = '', ), 
-                    project_lite = metal.models.href.Href(
-                        href = '', ), 
+                    project = metal.models.project.project(), 
+                    project_lite = metal.models.project_lite.project_lite(), 
                     volumes = [
                         metal.models.href.Href(
                             href = '', )
@@ -204,12 +202,14 @@ class TestHardwareReservation(unittest.TestCase):
                             cidr = 56, 
                             management = True, 
                             manageable = True, 
+                            global_ip = True, 
                             assigned_to = metal.models.href.Href(
                                 href = '', ), 
                             network = '', 
                             gateway = '', 
                             href = '', 
                             created_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
+                            metro = metal.models.metro.metro(), 
                             parent_block = metal.models.parent_block.ParentBlock(
                                 network = '', 
                                 netmask = '', 
@@ -231,7 +231,11 @@ class TestHardwareReservation(unittest.TestCase):
                             href = '', )
                         ], ), 
                 created_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
-                remove_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f')
+                spare = True, 
+                need_of_service = True, 
+                provisionable = True, 
+                custom_rate = 1050.5, 
+                switch_uuid = ''
             )
         else :
             return HardwareReservation(

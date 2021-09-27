@@ -4,6 +4,7 @@ All URIs are relative to *https://api.equinix.com/metal/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**create_user**](UsersApi.md#create_user) | **POST** /users | Create a user
 [**find_current_user**](UsersApi.md#find_current_user) | **GET** /user | Retrieve the current user
 [**find_invitations**](UsersApi.md#find_invitations) | **GET** /invitations | Retrieve current user invitations
 [**find_user_by_id**](UsersApi.md#find_user_by_id) | **GET** /users/{id} | Retrieve a user
@@ -11,6 +12,81 @@ Method | HTTP request | Description
 [**find_users**](UsersApi.md#find_users) | **GET** /users | Retrieve all users
 [**update_current_user**](UsersApi.md#update_current_user) | **PUT** /user | Update the current user
 
+
+# **create_user**
+> User create_user(user)
+
+Create a user
+
+Creates a user.
+
+### Example
+
+* Api Key Authentication (x_auth_token):
+```python
+from __future__ import print_function
+import time
+import metal
+from metal.rest import ApiException
+from pprint import pprint
+# Defining the host is optional and defaults to https://api.equinix.com/metal/v1
+# See configuration.py for a list of all supported configuration parameters.
+configuration = metal.Configuration(
+    host = "https://api.equinix.com/metal/v1"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: x_auth_token
+configuration.api_key['x_auth_token'] = 'YOUR_API_KEY'
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['x_auth_token'] = 'Bearer'
+
+# Enter a context with an instance of the API client
+with metal.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = metal.UsersApi(api_client)
+    user = metal.UserCreateInput() # UserCreateInput | User to create
+
+    try:
+        # Create a user
+        api_response = api_instance.create_user(user)
+        pprint(api_response)
+    except ApiException as e:
+        print("Exception when calling UsersApi->create_user: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **user** | [**UserCreateInput**](UserCreateInput.md)| User to create | 
+
+### Return type
+
+[**User**](User.md)
+
+### Authorization
+
+[x_auth_token](../README.md#x_auth_token)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**201** | created |  -  |
+**401** | unauthorized |  -  |
+**422** | unprocessable entity |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **find_current_user**
 > User find_current_user(include=include, exclude=exclude)
@@ -313,7 +389,7 @@ void (empty response body)
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |

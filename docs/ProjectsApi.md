@@ -12,12 +12,13 @@ Method | HTTP request | Description
 [**create_project_ssh_key**](ProjectsApi.md#create_project_ssh_key) | **POST** /projects/{id}/ssh-keys | Create a ssh key for the given project
 [**create_spot_market_request**](ProjectsApi.md#create_spot_market_request) | **POST** /projects/{id}/spot-market-requests | Create a spot market request
 [**create_transfer_request**](ProjectsApi.md#create_transfer_request) | **POST** /projects/{id}/transfers | Create a transfer request
-[**create_virtual_network**](ProjectsApi.md#create_virtual_network) | **POST** /projects/{id}/virtual-networks | Create an virtual network
+[**create_virtual_network**](ProjectsApi.md#create_virtual_network) | **POST** /projects/{id}/virtual-networks | Create a virtual network
 [**delete_project**](ProjectsApi.md#delete_project) | **DELETE** /projects/{id} | Delete the project
 [**find_batches_by_project**](ProjectsApi.md#find_batches_by_project) | **GET** /projects/{id}/batches | Retrieve all batches by project
 [**find_bgp_config_by_project**](ProjectsApi.md#find_bgp_config_by_project) | **GET** /projects/{id}/bgp-config | Retrieve a bgp config
 [**find_device_ssh_keys**](ProjectsApi.md#find_device_ssh_keys) | **GET** /devices/{id}/ssh-keys | Retrieve a device&#39;s ssh keys
 [**find_facilities_by_project**](ProjectsApi.md#find_facilities_by_project) | **GET** /projects/{id}/facilities | Retrieve all facilities visible by the project
+[**find_global_bgp_ranges**](ProjectsApi.md#find_global_bgp_ranges) | **GET** /projects/{id}/global-bgp-ranges | Retrieve all global bgp ranges
 [**find_ip_reservation_customdata**](ProjectsApi.md#find_ip_reservation_customdata) | **GET** /projects/{project_id}/ips/{id}/customdata | Retrieve the custom metadata of an IP Reservation
 [**find_ip_reservations**](ProjectsApi.md#find_ip_reservations) | **GET** /projects/{id}/ips | Retrieve all ip reservations
 [**find_organization_projects**](ProjectsApi.md#find_organization_projects) | **GET** /organizations/{id}/projects | Retrieve all projects of an organization
@@ -45,7 +46,7 @@ Method | HTTP request | Description
 
 Create a device
 
-Creates a new device and provisions it in our datacenter.  Type-specific options (such as operating_system for baremetal devices) should be included in the main data structure alongside hostname and plan.  The features attribute allows you to optionally specify what features your server should have.  For example, if you require a server with a TPM chip, you may specify `{ \"features\": { \"tpm\": \"required\" } }` (or `{ \"features\": [\"tpm\"] }` in shorthand).  The request will fail if there are no available servers matching your criteria. Alternatively, if you do not require a certain feature, but would prefer to be assigned a server with that feature if there are any available, you may specify that feature with a preferred value (see the example request below).  The request will not fail if we have no servers with that feature in our inventory.  The facilities attribute specifies in what datacenter you wish to create the device.  You can either specify a single facility `{ \"facility\": \"f1\" }` , or you can instruct to create the device in the best available datacenter `{ \"facility\": \"any\" }`. Additionally it is possible to set a prioritized location selection.  For example `{ \"facility\": [\"f3\", \"f2\", \"any\"] }` will try to assign to the facility f3, if there are no available f2, and so on. If \"any\" is not specified for \"facility\", the request will fail unless it can assign in the selected locations.  The `ip_addresses attribute will allow you to specify the addresses you want created with your device.  To maintain backwards compatibility, If the attribute is not sent in the request, it will be treated as if `{ \"ip_addresses\": [{ \"address_family\": 4, \"public\": true }, { \"address_family\": 4, \"public\": false }, { \"address_family\": 6, \"public\": true }] }` was sent.  The private IPv4 address is required and always need to be sent in the array. Not all operating systems support no public IPv4 address, so in those cases you will receive an error message.  For example, to only configure your server with a private IPv4 address, you can send `{ \"ip_addresses\": [{ \"address_family\": 4, \"public\": false }] }`.  Note: when specifying a subnet size larger than a /30, you will need to supply the UUID(s) of existing ip_reservations in your project to assign IPs from.  For example, `{ \"ip_addresses\": [..., {\"address_family\": 4, \"public\": true, \"ip_reservations\": [\"uuid1\", \"uuid2\"]}] }`  To access a server without public IPs, you can use our Out-of-Band console access (SOS) or use another server with public IPs as a proxy. 
+Creates a new device and provisions it in the specified location.        Device type-specific options are accepted.  For example, `baremetal` devices accept `operating_system`, `hostname`, and `plan`. These parameters may not be accepted for other device types. The default device type is `baremetal`.
 
 ### Example
 
@@ -467,7 +468,7 @@ with metal.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = metal.ProjectsApi(api_client)
     id = 'id_example' # str | Project UUID
-ssh_key = metal.SSHKeyInput() # SSHKeyInput | ssh key to create
+ssh_key = metal.SSHKeyCreateInput() # SSHKeyCreateInput | ssh key to create
 
     try:
         # Create a ssh key for the given project
@@ -482,7 +483,7 @@ ssh_key = metal.SSHKeyInput() # SSHKeyInput | ssh key to create
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | [**str**](.md)| Project UUID | 
- **ssh_key** | [**SSHKeyInput**](SSHKeyInput.md)| ssh key to create | 
+ **ssh_key** | [**SSHKeyCreateInput**](SSHKeyCreateInput.md)| ssh key to create | 
 
 ### Return type
 
@@ -666,7 +667,7 @@ Name | Type | Description  | Notes
 # **create_virtual_network**
 > VirtualNetwork create_virtual_network(id, virtual_network)
 
-Create an virtual network
+Create a virtual network
 
 Creates an virtual network.
 
@@ -704,7 +705,7 @@ with metal.ApiClient(configuration) as api_client:
 virtual_network = metal.VirtualNetworkCreateInput() # VirtualNetworkCreateInput | Virtual Network to create
 
     try:
-        # Create an virtual network
+        # Create a virtual network
         api_response = api_instance.create_virtual_network(id, virtual_network)
         pprint(api_response)
     except ApiException as e:
@@ -805,7 +806,7 @@ void (empty response body)
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -1137,6 +1138,82 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
+# **find_global_bgp_ranges**
+> GlobalBgpRangeList find_global_bgp_ranges(id)
+
+Retrieve all global bgp ranges
+
+Returns all global bgp ranges for a project
+
+### Example
+
+* Api Key Authentication (x_auth_token):
+```python
+from __future__ import print_function
+import time
+import metal
+from metal.rest import ApiException
+from pprint import pprint
+# Defining the host is optional and defaults to https://api.equinix.com/metal/v1
+# See configuration.py for a list of all supported configuration parameters.
+configuration = metal.Configuration(
+    host = "https://api.equinix.com/metal/v1"
+)
+
+# The client must configure the authentication and authorization parameters
+# in accordance with the API server security policy.
+# Examples for each auth method are provided below, use the example that
+# satisfies your auth use case.
+
+# Configure API key authorization: x_auth_token
+configuration.api_key['x_auth_token'] = 'YOUR_API_KEY'
+
+# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+# configuration.api_key_prefix['x_auth_token'] = 'Bearer'
+
+# Enter a context with an instance of the API client
+with metal.ApiClient(configuration) as api_client:
+    # Create an instance of the API class
+    api_instance = metal.ProjectsApi(api_client)
+    id = 'id_example' # str | Project UUID
+
+    try:
+        # Retrieve all global bgp ranges
+        api_response = api_instance.find_global_bgp_ranges(id)
+        pprint(api_response)
+    except ApiException as e:
+        print("Exception when calling ProjectsApi->find_global_bgp_ranges: %s\n" % e)
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | [**str**](.md)| Project UUID | 
+
+### Return type
+
+[**GlobalBgpRangeList**](GlobalBgpRangeList.md)
+
+### Authorization
+
+[x_auth_token](../README.md#x_auth_token)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | ok |  -  |
+**401** | unauthorized |  -  |
+**403** | forbidden |  -  |
+**404** | not found |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
 # **find_ip_reservation_customdata**
 > find_ip_reservation_customdata(project_id, id)
 
@@ -1202,7 +1279,7 @@ void (empty response body)
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -1674,7 +1751,7 @@ void (empty response body)
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
@@ -2351,7 +2428,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **find_virtual_networks**
-> VirtualNetworkList find_virtual_networks(id, include=include, exclude=exclude)
+> VirtualNetworkList find_virtual_networks(id, include=include, exclude=exclude, facility=facility, metro=metro)
 
 Retrieve all virtual networks
 
@@ -2390,10 +2467,12 @@ with metal.ApiClient(configuration) as api_client:
     id = 'id_example' # str | Project UUID
 include = ['include_example'] # list[str] | Nested attributes to include. Included objects will return their full attributes. Attribute names can be dotted (up to 3 levels) to included deeply nested objects. (optional)
 exclude = ['exclude_example'] # list[str] | Nested attributes to exclude. Excluded objects will return only the href attribute. Attribute names can be dotted (up to 3 levels) to exclude deeply nested objects. (optional)
+facility = 'facility_example' # str | Filter by Facility ID (uuid) or Facility Code (optional)
+metro = 'metro_example' # str | Filter by Metro ID (uuid) or Metro Code (optional)
 
     try:
         # Retrieve all virtual networks
-        api_response = api_instance.find_virtual_networks(id, include=include, exclude=exclude)
+        api_response = api_instance.find_virtual_networks(id, include=include, exclude=exclude, facility=facility, metro=metro)
         pprint(api_response)
     except ApiException as e:
         print("Exception when calling ProjectsApi->find_virtual_networks: %s\n" % e)
@@ -2406,6 +2485,8 @@ Name | Type | Description  | Notes
  **id** | [**str**](.md)| Project UUID | 
  **include** | [**list[str]**](str.md)| Nested attributes to include. Included objects will return their full attributes. Attribute names can be dotted (up to 3 levels) to included deeply nested objects. | [optional] 
  **exclude** | [**list[str]**](str.md)| Nested attributes to exclude. Excluded objects will return only the href attribute. Attribute names can be dotted (up to 3 levels) to exclude deeply nested objects. | [optional] 
+ **facility** | **str**| Filter by Facility ID (uuid) or Facility Code | [optional] 
+ **metro** | **str**| Filter by Metro ID (uuid) or Metro Code | [optional] 
 
 ### Return type
 
@@ -2570,7 +2651,7 @@ void (empty response body)
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |

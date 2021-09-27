@@ -3,7 +3,7 @@
 """
     Metal API
 
-    This is the API for Equinix Metal Product. Interact with your devices, user account, and projects.  # noqa: E501
+    This is the API for Equinix Metal. The API allows you to programmatically interact with all of your Equinix Metal resources, including devices, networks, addresses, organizations, projects, and your user account.  The official API docs are hosted at <https://metal.equinix.com/developers/api>.   # noqa: E501
 
     The version of the OpenAPI document: 1.0.0
     Contact: support@equinixmetal.com
@@ -42,14 +42,10 @@ class TestPort(unittest.TestCase):
                 name = '', 
                 data = None, 
                 disbond_operation_supported = True, 
-                hardware = metal.models.href.Href(
-                    href = '', ), 
                 virtual_networks = [
                     metal.models.href.Href(
                         href = '', )
                     ], 
-                connected_port = metal.models.href.Href(
-                    href = '', ), 
                 href = ''
             )
         else :

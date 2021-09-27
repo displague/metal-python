@@ -3,7 +3,7 @@
 """
     Metal API
 
-    This is the API for Equinix Metal Product. Interact with your devices, user account, and projects.  # noqa: E501
+    This is the API for Equinix Metal. The API allows you to programmatically interact with all of your Equinix Metal resources, including devices, networks, addresses, organizations, projects, and your user account.  The official API docs are hosted at <https://metal.equinix.com/developers/api>.   # noqa: E501
 
     The version of the OpenAPI document: 1.0.0
     Contact: support@equinixmetal.com
@@ -11,7 +11,10 @@
 """
 
 
-import inspect
+try:
+    from inspect import getfullargspec
+except ImportError:
+    from inspect import getargspec as getfullargspec
 import pprint
 import re  # noqa: F401
 import six
@@ -39,7 +42,10 @@ class OperatingSystem(object):
         'name': 'str',
         'distro': 'str',
         'version': 'str',
-        'provisionable_on': 'list[str]'
+        'preinstallable': 'bool',
+        'provisionable_on': 'list[str]',
+        'pricing': 'object',
+        'licensed': 'bool'
     }
 
     attribute_map = {
@@ -48,10 +54,13 @@ class OperatingSystem(object):
         'name': 'name',
         'distro': 'distro',
         'version': 'version',
-        'provisionable_on': 'provisionable_on'
+        'preinstallable': 'preinstallable',
+        'provisionable_on': 'provisionable_on',
+        'pricing': 'pricing',
+        'licensed': 'licensed'
     }
 
-    def __init__(self, id=None, slug=None, name=None, distro=None, version=None, provisionable_on=None, local_vars_configuration=None):  # noqa: E501
+    def __init__(self, id=None, slug=None, name=None, distro=None, version=None, preinstallable=None, provisionable_on=None, pricing=None, licensed=None, local_vars_configuration=None):  # noqa: E501
         """OperatingSystem - a model defined in OpenAPI"""  # noqa: E501
         if local_vars_configuration is None:
             local_vars_configuration = Configuration.get_default_copy()
@@ -62,7 +71,10 @@ class OperatingSystem(object):
         self._name = None
         self._distro = None
         self._version = None
+        self._preinstallable = None
         self._provisionable_on = None
+        self._pricing = None
+        self._licensed = None
         self.discriminator = None
 
         if id is not None:
@@ -75,8 +87,14 @@ class OperatingSystem(object):
             self.distro = distro
         if version is not None:
             self.version = version
+        if preinstallable is not None:
+            self.preinstallable = preinstallable
         if provisionable_on is not None:
             self.provisionable_on = provisionable_on
+        if pricing is not None:
+            self.pricing = pricing
+        if licensed is not None:
+            self.licensed = licensed
 
     @property
     def id(self):
@@ -184,6 +202,29 @@ class OperatingSystem(object):
         self._version = version
 
     @property
+    def preinstallable(self):
+        """Gets the preinstallable of this OperatingSystem.  # noqa: E501
+
+        Servers can be already preinstalled with OS in order to shorten provision time.  # noqa: E501
+
+        :return: The preinstallable of this OperatingSystem.  # noqa: E501
+        :rtype: bool
+        """
+        return self._preinstallable
+
+    @preinstallable.setter
+    def preinstallable(self, preinstallable):
+        """Sets the preinstallable of this OperatingSystem.
+
+        Servers can be already preinstalled with OS in order to shorten provision time.  # noqa: E501
+
+        :param preinstallable: The preinstallable of this OperatingSystem.  # noqa: E501
+        :type preinstallable: bool
+        """
+
+        self._preinstallable = preinstallable
+
+    @property
     def provisionable_on(self):
         """Gets the provisionable_on of this OperatingSystem.  # noqa: E501
 
@@ -204,13 +245,59 @@ class OperatingSystem(object):
 
         self._provisionable_on = provisionable_on
 
+    @property
+    def pricing(self):
+        """Gets the pricing of this OperatingSystem.  # noqa: E501
+
+        This object contains price per time unit and optional multiplier value if licence price depends on hardware plan or components (e.g. number of cores)  # noqa: E501
+
+        :return: The pricing of this OperatingSystem.  # noqa: E501
+        :rtype: object
+        """
+        return self._pricing
+
+    @pricing.setter
+    def pricing(self, pricing):
+        """Sets the pricing of this OperatingSystem.
+
+        This object contains price per time unit and optional multiplier value if licence price depends on hardware plan or components (e.g. number of cores)  # noqa: E501
+
+        :param pricing: The pricing of this OperatingSystem.  # noqa: E501
+        :type pricing: object
+        """
+
+        self._pricing = pricing
+
+    @property
+    def licensed(self):
+        """Gets the licensed of this OperatingSystem.  # noqa: E501
+
+        Licenced OS is priced according to pricing property  # noqa: E501
+
+        :return: The licensed of this OperatingSystem.  # noqa: E501
+        :rtype: bool
+        """
+        return self._licensed
+
+    @licensed.setter
+    def licensed(self, licensed):
+        """Sets the licensed of this OperatingSystem.
+
+        Licenced OS is priced according to pricing property  # noqa: E501
+
+        :param licensed: The licensed of this OperatingSystem.  # noqa: E501
+        :type licensed: bool
+        """
+
+        self._licensed = licensed
+
     def to_dict(self, serialize=False):
         """Returns the model properties as a dict"""
         result = {}
 
         def convert(x):
             if hasattr(x, "to_dict"):
-                args = inspect.getargspec(x.to_dict).args
+                args = getfullargspec(x.to_dict).args
                 if len(args) == 1:
                     return x.to_dict()
                 else:

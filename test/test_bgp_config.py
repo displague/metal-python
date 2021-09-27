@@ -3,7 +3,7 @@
 """
     Metal API
 
-    This is the API for Equinix Metal Product. Interact with your devices, user account, and projects.  # noqa: E501
+    This is the API for Equinix Metal. The API allows you to programmatically interact with all of your Equinix Metal resources, including devices, networks, addresses, organizations, projects, and your user account.  The official API docs are hosted at <https://metal.equinix.com/developers/api>.   # noqa: E501
 
     The version of the OpenAPI document: 1.0.0
     Contact: support@equinixmetal.com
@@ -39,8 +39,8 @@ class TestBgpConfig(unittest.TestCase):
             return BgpConfig(
                 id = '', 
                 status = 'requested', 
-                deployment_type = 'global', 
-                asn = 56, 
+                deployment_type = 'local', 
+                asn = 65000, 
                 route_object = '', 
                 md5 = '', 
                 max_prefix = 56, 
@@ -51,22 +51,26 @@ class TestBgpConfig(unittest.TestCase):
                 sessions = [
                     metal.models.bgp_session.BgpSession(
                         id = '', 
-                        status = '', 
+                        status = 'unknown', 
                         learned_routes = [
-                            ''
+                            '10.32.16.0/31'
                             ], 
-                        address_family = '', 
+                        address_family = 'ipv4', 
                         device = metal.models.href.Href(
                             href = '', ), 
                         href = '', 
-                        default_route = True, )
+                        default_route = True, 
+                        created_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
+                        updated_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), )
                     ], 
                 ranges = [
                     metal.models.global_bgp_range.GlobalBgpRange(
                         id = '', 
                         address_family = 56, 
                         range = '', 
-                        href = '', )
+                        href = '', 
+                        project = metal.models.href.Href(
+                            href = '', ), )
                     ], 
                 href = ''
             )

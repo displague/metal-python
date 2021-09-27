@@ -90,7 +90,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **delete_batch**
-> delete_batch(id, remove_associated_instances)
+> delete_batch(id, remove_associated_instances=remove_associated_instances)
 
 Delete the Batch
 
@@ -127,11 +127,11 @@ with metal.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = metal.BatchesApi(api_client)
     id = 'id_example' # str | Batch UUID
-remove_associated_instances = True # bool | Default route
+remove_associated_instances = False # bool | Delete all instances created from this batch (optional) (default to False)
 
     try:
         # Delete the Batch
-        api_instance.delete_batch(id, remove_associated_instances)
+        api_instance.delete_batch(id, remove_associated_instances=remove_associated_instances)
     except ApiException as e:
         print("Exception when calling BatchesApi->delete_batch: %s\n" % e)
 ```
@@ -141,7 +141,7 @@ remove_associated_instances = True # bool | Default route
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | [**str**](.md)| Batch UUID | 
- **remove_associated_instances** | **bool**| Default route | 
+ **remove_associated_instances** | **bool**| Delete all instances created from this batch | [optional] [default to False]
 
 ### Return type
 
@@ -153,8 +153,8 @@ void (empty response body)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: Not defined
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |

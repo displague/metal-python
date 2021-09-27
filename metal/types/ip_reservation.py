@@ -3,7 +3,7 @@
 """
     Metal API
 
-    This is the API for Equinix Metal Product. Interact with your devices, user account, and projects.  # noqa: E501
+    This is the API for Equinix Metal. The API allows you to programmatically interact with all of your Equinix Metal resources, including devices, networks, addresses, organizations, projects, and your user account.  The official API docs are hosted at <https://metal.equinix.com/developers/api>.   # noqa: E501
 
     The version of the OpenAPI document: 1.0.0
     Contact: support@equinixmetal.com
@@ -11,7 +11,10 @@
 """
 
 
-import inspect
+try:
+    from inspect import getfullargspec
+except ImportError:
+    from inspect import getargspec as getfullargspec
 import pprint
 import re  # noqa: F401
 import six
@@ -42,6 +45,7 @@ class IPReservation(object):
         'cidr': 'int',
         'management': 'bool',
         'manageable': 'bool',
+        'global_ip': 'bool',
         'addon': 'bool',
         'bill': 'bool',
         'assignments': 'list[IPAssignment]',
@@ -50,7 +54,8 @@ class IPReservation(object):
         'facility': 'Facility',
         'href': 'str',
         'tags': 'list[str]',
-        'state': 'str'
+        'state': 'str',
+        'metro': 'Metro'
     }
 
     attribute_map = {
@@ -62,6 +67,7 @@ class IPReservation(object):
         'cidr': 'cidr',
         'management': 'management',
         'manageable': 'manageable',
+        'global_ip': 'global_ip',
         'addon': 'addon',
         'bill': 'bill',
         'assignments': 'assignments',
@@ -70,10 +76,11 @@ class IPReservation(object):
         'facility': 'facility',
         'href': 'href',
         'tags': 'tags',
-        'state': 'state'
+        'state': 'state',
+        'metro': 'metro'
     }
 
-    def __init__(self, id=None, address_family=None, netmask=None, public=None, enabled=None, cidr=None, management=None, manageable=None, addon=None, bill=None, assignments=None, network=None, created_at=None, facility=None, href=None, tags=None, state=None, local_vars_configuration=None):  # noqa: E501
+    def __init__(self, id=None, address_family=None, netmask=None, public=None, enabled=None, cidr=None, management=None, manageable=None, global_ip=None, addon=None, bill=None, assignments=None, network=None, created_at=None, facility=None, href=None, tags=None, state=None, metro=None, local_vars_configuration=None):  # noqa: E501
         """IPReservation - a model defined in OpenAPI"""  # noqa: E501
         if local_vars_configuration is None:
             local_vars_configuration = Configuration.get_default_copy()
@@ -87,6 +94,7 @@ class IPReservation(object):
         self._cidr = None
         self._management = None
         self._manageable = None
+        self._global_ip = None
         self._addon = None
         self._bill = None
         self._assignments = None
@@ -96,6 +104,7 @@ class IPReservation(object):
         self._href = None
         self._tags = None
         self._state = None
+        self._metro = None
         self.discriminator = None
 
         if id is not None:
@@ -114,6 +123,8 @@ class IPReservation(object):
             self.management = management
         if manageable is not None:
             self.manageable = manageable
+        if global_ip is not None:
+            self.global_ip = global_ip
         if addon is not None:
             self.addon = addon
         if bill is not None:
@@ -132,6 +143,8 @@ class IPReservation(object):
             self.tags = tags
         if state is not None:
             self.state = state
+        if metro is not None:
+            self.metro = metro
 
     @property
     def id(self):
@@ -300,6 +313,27 @@ class IPReservation(object):
         """
 
         self._manageable = manageable
+
+    @property
+    def global_ip(self):
+        """Gets the global_ip of this IPReservation.  # noqa: E501
+
+
+        :return: The global_ip of this IPReservation.  # noqa: E501
+        :rtype: bool
+        """
+        return self._global_ip
+
+    @global_ip.setter
+    def global_ip(self, global_ip):
+        """Sets the global_ip of this IPReservation.
+
+
+        :param global_ip: The global_ip of this IPReservation.  # noqa: E501
+        :type global_ip: bool
+        """
+
+        self._global_ip = global_ip
 
     @property
     def addon(self):
@@ -490,13 +524,34 @@ class IPReservation(object):
 
         self._state = state
 
+    @property
+    def metro(self):
+        """Gets the metro of this IPReservation.  # noqa: E501
+
+
+        :return: The metro of this IPReservation.  # noqa: E501
+        :rtype: Metro
+        """
+        return self._metro
+
+    @metro.setter
+    def metro(self, metro):
+        """Sets the metro of this IPReservation.
+
+
+        :param metro: The metro of this IPReservation.  # noqa: E501
+        :type metro: Metro
+        """
+
+        self._metro = metro
+
     def to_dict(self, serialize=False):
         """Returns the model properties as a dict"""
         result = {}
 
         def convert(x):
             if hasattr(x, "to_dict"):
-                args = inspect.getargspec(x.to_dict).args
+                args = getfullargspec(x.to_dict).args
                 if len(args) == 1:
                     return x.to_dict()
                 else:

@@ -3,7 +3,7 @@
 """
     Metal API
 
-    This is the API for Equinix Metal Product. Interact with your devices, user account, and projects.  # noqa: E501
+    This is the API for Equinix Metal. The API allows you to programmatically interact with all of your Equinix Metal resources, including devices, networks, addresses, organizations, projects, and your user account.  The official API docs are hosted at <https://metal.equinix.com/developers/api>.   # noqa: E501
 
     The version of the OpenAPI document: 1.0.0
     Contact: support@equinixmetal.com
@@ -11,7 +11,10 @@
 """
 
 
-import inspect
+try:
+    from inspect import getfullargspec
+except ImportError:
+    from inspect import getargspec as getfullargspec
 import pprint
 import re  # noqa: F401
 import six
@@ -102,7 +105,7 @@ class BgpNeighborData(object):
     def address_family(self):
         """Gets the address_family of this BgpNeighborData.  # noqa: E501
 
-        Address Family for IP Address  # noqa: E501
+        Address Family for IP Address. Accepted values are 4 or 6  # noqa: E501
 
         :return: The address_family of this BgpNeighborData.  # noqa: E501
         :rtype: float
@@ -113,7 +116,7 @@ class BgpNeighborData(object):
     def address_family(self, address_family):
         """Sets the address_family of this BgpNeighborData.
 
-        Address Family for IP Address  # noqa: E501
+        Address Family for IP Address. Accepted values are 4 or 6  # noqa: E501
 
         :param address_family: The address_family of this BgpNeighborData.  # noqa: E501
         :type address_family: float
@@ -334,7 +337,7 @@ class BgpNeighborData(object):
 
         def convert(x):
             if hasattr(x, "to_dict"):
-                args = inspect.getargspec(x.to_dict).args
+                args = getfullargspec(x.to_dict).args
                 if len(args) == 1:
                     return x.to_dict()
                 else:

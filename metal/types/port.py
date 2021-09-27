@@ -3,7 +3,7 @@
 """
     Metal API
 
-    This is the API for Equinix Metal Product. Interact with your devices, user account, and projects.  # noqa: E501
+    This is the API for Equinix Metal. The API allows you to programmatically interact with all of your Equinix Metal resources, including devices, networks, addresses, organizations, projects, and your user account.  The official API docs are hosted at <https://metal.equinix.com/developers/api>.   # noqa: E501
 
     The version of the OpenAPI document: 1.0.0
     Contact: support@equinixmetal.com
@@ -11,7 +11,10 @@
 """
 
 
-import inspect
+try:
+    from inspect import getfullargspec
+except ImportError:
+    from inspect import getargspec as getfullargspec
 import pprint
 import re  # noqa: F401
 import six
@@ -39,9 +42,7 @@ class Port(object):
         'name': 'str',
         'data': 'object',
         'disbond_operation_supported': 'bool',
-        'hardware': 'Href',
         'virtual_networks': 'list[Href]',
-        'connected_port': 'Href',
         'href': 'str'
     }
 
@@ -51,13 +52,11 @@ class Port(object):
         'name': 'name',
         'data': 'data',
         'disbond_operation_supported': 'disbond_operation_supported',
-        'hardware': 'hardware',
         'virtual_networks': 'virtual_networks',
-        'connected_port': 'connected_port',
         'href': 'href'
     }
 
-    def __init__(self, id=None, type=None, name=None, data=None, disbond_operation_supported=None, hardware=None, virtual_networks=None, connected_port=None, href=None, local_vars_configuration=None):  # noqa: E501
+    def __init__(self, id=None, type=None, name=None, data=None, disbond_operation_supported=None, virtual_networks=None, href=None, local_vars_configuration=None):  # noqa: E501
         """Port - a model defined in OpenAPI"""  # noqa: E501
         if local_vars_configuration is None:
             local_vars_configuration = Configuration.get_default_copy()
@@ -68,9 +67,7 @@ class Port(object):
         self._name = None
         self._data = None
         self._disbond_operation_supported = None
-        self._hardware = None
         self._virtual_networks = None
-        self._connected_port = None
         self._href = None
         self.discriminator = None
 
@@ -84,12 +81,8 @@ class Port(object):
             self.data = data
         if disbond_operation_supported is not None:
             self.disbond_operation_supported = disbond_operation_supported
-        if hardware is not None:
-            self.hardware = hardware
         if virtual_networks is not None:
             self.virtual_networks = virtual_networks
-        if connected_port is not None:
-            self.connected_port = connected_port
         if href is not None:
             self.href = href
 
@@ -201,27 +194,6 @@ class Port(object):
         self._disbond_operation_supported = disbond_operation_supported
 
     @property
-    def hardware(self):
-        """Gets the hardware of this Port.  # noqa: E501
-
-
-        :return: The hardware of this Port.  # noqa: E501
-        :rtype: Href
-        """
-        return self._hardware
-
-    @hardware.setter
-    def hardware(self, hardware):
-        """Sets the hardware of this Port.
-
-
-        :param hardware: The hardware of this Port.  # noqa: E501
-        :type hardware: Href
-        """
-
-        self._hardware = hardware
-
-    @property
     def virtual_networks(self):
         """Gets the virtual_networks of this Port.  # noqa: E501
 
@@ -241,27 +213,6 @@ class Port(object):
         """
 
         self._virtual_networks = virtual_networks
-
-    @property
-    def connected_port(self):
-        """Gets the connected_port of this Port.  # noqa: E501
-
-
-        :return: The connected_port of this Port.  # noqa: E501
-        :rtype: Href
-        """
-        return self._connected_port
-
-    @connected_port.setter
-    def connected_port(self, connected_port):
-        """Sets the connected_port of this Port.
-
-
-        :param connected_port: The connected_port of this Port.  # noqa: E501
-        :type connected_port: Href
-        """
-
-        self._connected_port = connected_port
 
     @property
     def href(self):
@@ -290,7 +241,7 @@ class Port(object):
 
         def convert(x):
             if hasattr(x, "to_dict"):
-                args = inspect.getargspec(x.to_dict).args
+                args = getfullargspec(x.to_dict).args
                 if len(args) == 1:
                     return x.to_dict()
                 else:

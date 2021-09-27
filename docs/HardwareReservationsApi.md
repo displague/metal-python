@@ -6,7 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**find_hardware_reservation_by_id**](HardwareReservationsApi.md#find_hardware_reservation_by_id) | **GET** /hardware-reservations/{id} | Retrieve a hardware reservation
 [**find_project_hardware_reservations**](HardwareReservationsApi.md#find_project_hardware_reservations) | **GET** /projects/{id}/hardware-reservations | Retrieve all hardware reservations for a given project
-[**hardware_reservations_id_move_post**](HardwareReservationsApi.md#hardware_reservations_id_move_post) | **POST** /hardware-reservations/{id}/move | Move a hardware reservation
+[**move_hardware_reservation**](HardwareReservationsApi.md#move_hardware_reservation) | **POST** /hardware-reservations/{id}/move | Move a hardware reservation
 
 
 # **find_hardware_reservation_by_id**
@@ -173,8 +173,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **hardware_reservations_id_move_post**
-> HardwareReservation hardware_reservations_id_move_post(id, project_id)
+# **move_hardware_reservation**
+> HardwareReservation move_hardware_reservation(id, project_id)
 
 Move a hardware reservation
 
@@ -215,10 +215,10 @@ project_id = 'project_id_example' # str | Project UUID
 
     try:
         # Move a hardware reservation
-        api_response = api_instance.hardware_reservations_id_move_post(id, project_id)
+        api_response = api_instance.move_hardware_reservation(id, project_id)
         pprint(api_response)
     except ApiException as e:
-        print("Exception when calling HardwareReservationsApi->hardware_reservations_id_move_post: %s\n" % e)
+        print("Exception when calling HardwareReservationsApi->move_hardware_reservation: %s\n" % e)
 ```
 
 ### Parameters

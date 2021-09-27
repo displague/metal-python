@@ -3,7 +3,7 @@
 """
     Metal API
 
-    This is the API for Equinix Metal Product. Interact with your devices, user account, and projects.  # noqa: E501
+    This is the API for Equinix Metal. The API allows you to programmatically interact with all of your Equinix Metal resources, including devices, networks, addresses, organizations, projects, and your user account.  The official API docs are hosted at <https://metal.equinix.com/developers/api>.   # noqa: E501
 
     The version of the OpenAPI document: 1.0.0
     Contact: support@equinixmetal.com
@@ -176,11 +176,11 @@ class ConnectionsApi(object):
 
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
-        
+
         response_types_map = {
             200: "VirtualCircuitList",
-            403: None,
-            404: None,
+            403: "Error",
+            404: "Error",
         }
 
         return self.api_client.call_api(
@@ -328,11 +328,12 @@ class ConnectionsApi(object):
 
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
-        
+
         response_types_map = {
             201: "Interconnection",
-            403: None,
-            404: None,
+            403: "Error",
+            404: "Error",
+            422: "Error",
         }
 
         return self.api_client.call_api(
@@ -480,10 +481,11 @@ class ConnectionsApi(object):
 
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
-        
+
         response_types_map = {
             201: "Interconnection",
-            403: None,
+            403: "Error",
+            422: "Error",
         }
 
         return self.api_client.call_api(
@@ -616,11 +618,11 @@ class ConnectionsApi(object):
 
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
-        
+
         response_types_map = {
             202: "Interconnection",
-            403: None,
-            404: None,
+            403: "Error",
+            404: "Error",
         }
 
         return self.api_client.call_api(
@@ -753,11 +755,11 @@ class ConnectionsApi(object):
 
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
-        
+
         response_types_map = {
             202: "VirtualCircuit",
-            403: None,
-            404: None,
+            403: "Error",
+            404: "Error",
         }
 
         return self.api_client.call_api(
@@ -928,12 +930,12 @@ class ConnectionsApi(object):
 
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
-        
+
         response_types_map = {
             200: "Event",
-            401: None,
-            403: None,
-            404: None,
+            401: "Error",
+            403: "Error",
+            404: "Error",
         }
 
         return self.api_client.call_api(
@@ -1115,12 +1117,12 @@ class ConnectionsApi(object):
 
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
-        
+
         response_types_map = {
             200: "Event",
-            401: None,
-            403: None,
-            404: None,
+            401: "Error",
+            403: "Error",
+            404: "Error",
         }
 
         return self.api_client.call_api(
@@ -1291,12 +1293,12 @@ class ConnectionsApi(object):
 
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
-        
+
         response_types_map = {
             200: "Event",
-            401: None,
-            403: None,
-            404: None,
+            401: "Error",
+            403: "Error",
+            404: "Error",
         }
 
         return self.api_client.call_api(
@@ -1440,11 +1442,11 @@ class ConnectionsApi(object):
 
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
-        
+
         response_types_map = {
             200: "InterconnectionPort",
-            403: None,
-            404: None,
+            403: "Error",
+            404: "Error",
         }
 
         return self.api_client.call_api(
@@ -1577,11 +1579,11 @@ class ConnectionsApi(object):
 
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
-        
+
         response_types_map = {
             200: "Interconnection",
-            403: None,
-            404: None,
+            403: "Error",
+            404: "Error",
         }
 
         return self.api_client.call_api(
@@ -1714,11 +1716,11 @@ class ConnectionsApi(object):
 
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
-        
+
         response_types_map = {
             200: "VirtualCircuit",
-            403: None,
-            404: None,
+            403: "Error",
+            404: "Error",
         }
 
         return self.api_client.call_api(
@@ -1862,11 +1864,11 @@ class ConnectionsApi(object):
 
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
-        
+
         response_types_map = {
             200: "VirtualCircuitList",
-            403: None,
-            404: None,
+            403: "Error",
+            404: "Error",
         }
 
         return self.api_client.call_api(
@@ -1999,11 +2001,11 @@ class ConnectionsApi(object):
 
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
-        
+
         response_types_map = {
             200: "InterconnectionPortList",
-            403: None,
-            404: None,
+            403: "Error",
+            404: "Error",
         }
 
         return self.api_client.call_api(
@@ -2136,11 +2138,11 @@ class ConnectionsApi(object):
 
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
-        
+
         response_types_map = {
             200: "InterconnectionList",
-            403: None,
-            404: None,
+            403: "Error",
+            404: "Error",
         }
 
         return self.api_client.call_api(
@@ -2273,11 +2275,11 @@ class ConnectionsApi(object):
 
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
-        
+
         response_types_map = {
             200: "InterconnectionList",
-            403: None,
-            404: None,
+            403: "Error",
+            404: "Error",
         }
 
         return self.api_client.call_api(
@@ -2425,11 +2427,11 @@ class ConnectionsApi(object):
 
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
-        
+
         response_types_map = {
             200: "Interconnection",
-            403: None,
-            404: None,
+            403: "Error",
+            404: "Error",
         }
 
         return self.api_client.call_api(
@@ -2577,12 +2579,12 @@ class ConnectionsApi(object):
 
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
-        
+
         response_types_map = {
             200: "VirtualCircuit",
             202: "VirtualCircuit",
-            403: None,
-            404: None,
+            403: "Error",
+            404: "Error",
         }
 
         return self.api_client.call_api(

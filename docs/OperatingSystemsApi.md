@@ -9,7 +9,7 @@ Method | HTTP request | Description
 
 
 # **find_operating_systems**
-> list[OperatingSystem] find_operating_systems()
+> OperatingSystemList find_operating_systems()
 
 Retrieve all operating systems
 
@@ -59,7 +59,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**list[OperatingSystem]**](OperatingSystem.md)
+[**OperatingSystemList**](OperatingSystemList.md)
 
 ### Authorization
 
@@ -79,7 +79,7 @@ This endpoint does not need any parameter.
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **find_operating_systems_by_organization**
-> list[OperatingSystem] find_operating_systems_by_organization(id, include=include, exclude=exclude)
+> OperatingSystemList find_operating_systems_by_organization(id, include=include, exclude=exclude)
 
 Retrieve all operating systems visible by the organization
 
@@ -137,7 +137,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**list[OperatingSystem]**](OperatingSystem.md)
+[**OperatingSystemList**](OperatingSystemList.md)
 
 ### Authorization
 

@@ -17,6 +17,7 @@ Name | Type | Description | Notes
 **tags** | **list[str]** |  | [optional] 
 **project_ssh_keys** | **list[str]** |  | [optional] 
 **user_ssh_keys** | **list[str]** | The UUIDs of users whose SSH keys should be included on the provisioned device. | [optional] 
+**no_ssh_keys** | **bool** |  | [optional] 
 **features** | **list[str]** |  | [optional] 
 **customdata** | **object** |  | [optional] 
 **public_ipv4_subnet_size** | **int** |  | [optional] 

@@ -3,7 +3,7 @@
 """
     Metal API
 
-    This is the API for Equinix Metal Product. Interact with your devices, user account, and projects.  # noqa: E501
+    This is the API for Equinix Metal. The API allows you to programmatically interact with all of your Equinix Metal resources, including devices, networks, addresses, organizations, projects, and your user account.  The official API docs are hosted at <https://metal.equinix.com/developers/api>.   # noqa: E501
 
     The version of the OpenAPI document: 1.0.0
     Contact: support@equinixmetal.com
@@ -11,7 +11,10 @@
 """
 
 
-import inspect
+try:
+    from inspect import getfullargspec
+except ImportError:
+    from inspect import getargspec as getfullargspec
 import pprint
 import re  # noqa: F401
 import six
@@ -96,8 +99,7 @@ class BgpConfig(object):
             self.asn = asn
         if route_object is not None:
             self.route_object = route_object
-        if md5 is not None:
-            self.md5 = md5
+        self.md5 = md5
         if max_prefix is not None:
             self.max_prefix = max_prefix
         if project is not None:
@@ -138,7 +140,7 @@ class BgpConfig(object):
     def status(self):
         """Gets the status of this BgpConfig.  # noqa: E501
 
-        status requested is valid only for global deployment  # noqa: E501
+        Status of the BGP Config. Status \"requested\" is valid only with the \"global\" deployment_type.  # noqa: E501
 
         :return: The status of this BgpConfig.  # noqa: E501
         :rtype: str
@@ -149,7 +151,7 @@ class BgpConfig(object):
     def status(self, status):
         """Sets the status of this BgpConfig.
 
-        status requested is valid only for global deployment  # noqa: E501
+        Status of the BGP Config. Status \"requested\" is valid only with the \"global\" deployment_type.  # noqa: E501
 
         :param status: The status of this BgpConfig.  # noqa: E501
         :type status: str
@@ -196,7 +198,7 @@ class BgpConfig(object):
     def asn(self):
         """Gets the asn of this BgpConfig.  # noqa: E501
 
-        Autonomous System Number  # noqa: E501
+        Autonomous System Number. ASN is required with Global BGP. With Local BGP the private ASN, 65000, is assigned.  # noqa: E501
 
         :return: The asn of this BgpConfig.  # noqa: E501
         :rtype: int
@@ -207,7 +209,7 @@ class BgpConfig(object):
     def asn(self, asn):
         """Sets the asn of this BgpConfig.
 
-        Autonomous System Number  # noqa: E501
+        Autonomous System Number. ASN is required with Global BGP. With Local BGP the private ASN, 65000, is assigned.  # noqa: E501
 
         :param asn: The asn of this BgpConfig.  # noqa: E501
         :type asn: int
@@ -420,7 +422,7 @@ class BgpConfig(object):
 
         def convert(x):
             if hasattr(x, "to_dict"):
-                args = inspect.getargspec(x.to_dict).args
+                args = getfullargspec(x.to_dict).args
                 if len(args) == 1:
                     return x.to_dict()
                 else:

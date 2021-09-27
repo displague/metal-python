@@ -3,7 +3,7 @@
 """
     Metal API
 
-    This is the API for Equinix Metal Product. Interact with your devices, user account, and projects.  # noqa: E501
+    This is the API for Equinix Metal. The API allows you to programmatically interact with all of your Equinix Metal resources, including devices, networks, addresses, organizations, projects, and your user account.  The official API docs are hosted at <https://metal.equinix.com/developers/api>.   # noqa: E501
 
     The version of the OpenAPI document: 1.0.0
     Contact: support@equinixmetal.com
@@ -11,7 +11,10 @@
 """
 
 
-import inspect
+try:
+    from inspect import getfullargspec
+except ImportError:
+    from inspect import getargspec as getfullargspec
 import pprint
 import re  # noqa: F401
 import six
@@ -38,7 +41,8 @@ class InterconnectionUpdateInput(object):
         'redundancy': 'str',
         'description': 'str',
         'contact_email': 'str',
-        'tags': 'list[str]'
+        'tags': 'list[str]',
+        'mode': 'str'
     }
 
     attribute_map = {
@@ -46,10 +50,11 @@ class InterconnectionUpdateInput(object):
         'redundancy': 'redundancy',
         'description': 'description',
         'contact_email': 'contact_email',
-        'tags': 'tags'
+        'tags': 'tags',
+        'mode': 'mode'
     }
 
-    def __init__(self, name=None, redundancy=None, description=None, contact_email=None, tags=None, local_vars_configuration=None):  # noqa: E501
+    def __init__(self, name=None, redundancy=None, description=None, contact_email=None, tags=None, mode=None, local_vars_configuration=None):  # noqa: E501
         """InterconnectionUpdateInput - a model defined in OpenAPI"""  # noqa: E501
         if local_vars_configuration is None:
             local_vars_configuration = Configuration.get_default_copy()
@@ -60,6 +65,7 @@ class InterconnectionUpdateInput(object):
         self._description = None
         self._contact_email = None
         self._tags = None
+        self._mode = None
         self.discriminator = None
 
         if name is not None:
@@ -72,6 +78,8 @@ class InterconnectionUpdateInput(object):
             self.contact_email = contact_email
         if tags is not None:
             self.tags = tags
+        if mode is not None:
+            self.mode = mode
 
     @property
     def name(self):
@@ -180,13 +188,42 @@ class InterconnectionUpdateInput(object):
 
         self._tags = tags
 
+    @property
+    def mode(self):
+        """Gets the mode of this InterconnectionUpdateInput.  # noqa: E501
+
+        The mode of the connection (only relevant to dedicated connections). Shared connections won't have this field. Can be either 'standard' or 'tunnel'.   The default mode of a dedicated connection is 'standard'. The mode can only be changed when there are no associated virtual circuits on the connection.   In tunnel mode, an 802.1q tunnel is added to a port to send/receive double tagged packets from server instances.  # noqa: E501
+
+        :return: The mode of this InterconnectionUpdateInput.  # noqa: E501
+        :rtype: str
+        """
+        return self._mode
+
+    @mode.setter
+    def mode(self, mode):
+        """Sets the mode of this InterconnectionUpdateInput.
+
+        The mode of the connection (only relevant to dedicated connections). Shared connections won't have this field. Can be either 'standard' or 'tunnel'.   The default mode of a dedicated connection is 'standard'. The mode can only be changed when there are no associated virtual circuits on the connection.   In tunnel mode, an 802.1q tunnel is added to a port to send/receive double tagged packets from server instances.  # noqa: E501
+
+        :param mode: The mode of this InterconnectionUpdateInput.  # noqa: E501
+        :type mode: str
+        """
+        allowed_values = ["standard", "tunnel"]  # noqa: E501
+        if self.local_vars_configuration.client_side_validation and mode not in allowed_values:  # noqa: E501
+            raise ValueError(
+                "Invalid value for `mode` ({0}), must be one of {1}"  # noqa: E501
+                .format(mode, allowed_values)
+            )
+
+        self._mode = mode
+
     def to_dict(self, serialize=False):
         """Returns the model properties as a dict"""
         result = {}
 
         def convert(x):
             if hasattr(x, "to_dict"):
-                args = inspect.getargspec(x.to_dict).args
+                args = getfullargspec(x.to_dict).args
                 if len(args) == 1:
                     return x.to_dict()
                 else:

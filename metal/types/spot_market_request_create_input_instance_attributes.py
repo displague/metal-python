@@ -3,7 +3,7 @@
 """
     Metal API
 
-    This is the API for Equinix Metal Product. Interact with your devices, user account, and projects.  # noqa: E501
+    This is the API for Equinix Metal. The API allows you to programmatically interact with all of your Equinix Metal resources, including devices, networks, addresses, organizations, projects, and your user account.  The official API docs are hosted at <https://metal.equinix.com/developers/api>.   # noqa: E501
 
     The version of the OpenAPI document: 1.0.0
     Contact: support@equinixmetal.com
@@ -11,7 +11,10 @@
 """
 
 
-import inspect
+try:
+    from inspect import getfullargspec
+except ImportError:
+    from inspect import getargspec as getfullargspec
 import pprint
 import re  # noqa: F401
 import six
@@ -47,6 +50,7 @@ class SpotMarketRequestCreateInputInstanceAttributes(object):
         'tags': 'list[str]',
         'project_ssh_keys': 'list[str]',
         'user_ssh_keys': 'list[str]',
+        'no_ssh_keys': 'bool',
         'features': 'list[str]',
         'customdata': 'object',
         'public_ipv4_subnet_size': 'int',
@@ -67,13 +71,14 @@ class SpotMarketRequestCreateInputInstanceAttributes(object):
         'tags': 'tags',
         'project_ssh_keys': 'project_ssh_keys',
         'user_ssh_keys': 'user_ssh_keys',
+        'no_ssh_keys': 'no_ssh_keys',
         'features': 'features',
         'customdata': 'customdata',
         'public_ipv4_subnet_size': 'public_ipv4_subnet_size',
         'private_ipv4_subnet_size': 'private_ipv4_subnet_size'
     }
 
-    def __init__(self, plan=None, hostname=None, hostnames=None, description=None, billing_cycle=None, operating_system=None, always_pxe=None, userdata=None, locked=None, termination_time=None, tags=None, project_ssh_keys=None, user_ssh_keys=None, features=None, customdata=None, public_ipv4_subnet_size=None, private_ipv4_subnet_size=None, local_vars_configuration=None):  # noqa: E501
+    def __init__(self, plan=None, hostname=None, hostnames=None, description=None, billing_cycle=None, operating_system=None, always_pxe=None, userdata=None, locked=None, termination_time=None, tags=None, project_ssh_keys=None, user_ssh_keys=None, no_ssh_keys=None, features=None, customdata=None, public_ipv4_subnet_size=None, private_ipv4_subnet_size=None, local_vars_configuration=None):  # noqa: E501
         """SpotMarketRequestCreateInputInstanceAttributes - a model defined in OpenAPI"""  # noqa: E501
         if local_vars_configuration is None:
             local_vars_configuration = Configuration.get_default_copy()
@@ -92,6 +97,7 @@ class SpotMarketRequestCreateInputInstanceAttributes(object):
         self._tags = None
         self._project_ssh_keys = None
         self._user_ssh_keys = None
+        self._no_ssh_keys = None
         self._features = None
         self._customdata = None
         self._public_ipv4_subnet_size = None
@@ -124,6 +130,8 @@ class SpotMarketRequestCreateInputInstanceAttributes(object):
             self.project_ssh_keys = project_ssh_keys
         if user_ssh_keys is not None:
             self.user_ssh_keys = user_ssh_keys
+        if no_ssh_keys is not None:
+            self.no_ssh_keys = no_ssh_keys
         if features is not None:
             self.features = features
         if customdata is not None:
@@ -409,6 +417,27 @@ class SpotMarketRequestCreateInputInstanceAttributes(object):
         self._user_ssh_keys = user_ssh_keys
 
     @property
+    def no_ssh_keys(self):
+        """Gets the no_ssh_keys of this SpotMarketRequestCreateInputInstanceAttributes.  # noqa: E501
+
+
+        :return: The no_ssh_keys of this SpotMarketRequestCreateInputInstanceAttributes.  # noqa: E501
+        :rtype: bool
+        """
+        return self._no_ssh_keys
+
+    @no_ssh_keys.setter
+    def no_ssh_keys(self, no_ssh_keys):
+        """Sets the no_ssh_keys of this SpotMarketRequestCreateInputInstanceAttributes.
+
+
+        :param no_ssh_keys: The no_ssh_keys of this SpotMarketRequestCreateInputInstanceAttributes.  # noqa: E501
+        :type no_ssh_keys: bool
+        """
+
+        self._no_ssh_keys = no_ssh_keys
+
+    @property
     def features(self):
         """Gets the features of this SpotMarketRequestCreateInputInstanceAttributes.  # noqa: E501
 
@@ -498,7 +527,7 @@ class SpotMarketRequestCreateInputInstanceAttributes(object):
 
         def convert(x):
             if hasattr(x, "to_dict"):
-                args = inspect.getargspec(x.to_dict).args
+                args = getfullargspec(x.to_dict).args
                 if len(args) == 1:
                     return x.to_dict()
                 else:
