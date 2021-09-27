@@ -4,7 +4,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**address_family** | **float** | Address Family for IP Address | [optional] 
+**address_family** | **float** | Address Family for IP Address. Accepted values are 4 or 6 | [optional] 
 **customer_as** | **float** | The customer&#39;s ASN. In a local BGP deployment, this will be an internal ASN used to route within the data center. For a global BGP deployment, this will be the your own ASN, configured when you set up BGP for your project. | [optional] 
 **customer_ip** | **str** | The device&#39;s IP address. For an IPv4 BGP session, this is typically the private bond0 address for the device. | [optional] 
 **md5_enabled** | **bool** | True if an MD5 password is configured for the project. | [optional] 

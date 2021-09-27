@@ -3,7 +3,7 @@
 """
     Metal API
 
-    This is the API for Equinix Metal Product. Interact with your devices, user account, and projects.  # noqa: E501
+    This is the API for Equinix Metal. The API allows you to programmatically interact with all of your Equinix Metal resources, including devices, networks, addresses, organizations, projects, and your user account.  The official API docs are hosted at <https://metal.equinix.com/developers/api>.   # noqa: E501
 
     The version of the OpenAPI document: 1.0.0
     Contact: support@equinixmetal.com
@@ -11,7 +11,10 @@
 """
 
 
-import inspect
+try:
+    from inspect import getfullargspec
+except ImportError:
+    from inspect import getargspec as getfullargspec
 import pprint
 import re  # noqa: F401
 import six
@@ -45,7 +48,9 @@ class Interconnection(object):
         'tags': 'list[str]',
         'ports': 'list[InterconnectionPort]',
         'facility': 'Href',
-        'organization': 'Href'
+        'organization': 'Href',
+        'metro': 'Metro',
+        'mode': 'str'
     }
 
     attribute_map = {
@@ -60,10 +65,12 @@ class Interconnection(object):
         'tags': 'tags',
         'ports': 'ports',
         'facility': 'facility',
-        'organization': 'organization'
+        'organization': 'organization',
+        'metro': 'metro',
+        'mode': 'mode'
     }
 
-    def __init__(self, id=None, name=None, description=None, contact_email=None, status=None, type=None, redundancy=None, speed=None, tags=None, ports=None, facility=None, organization=None, local_vars_configuration=None):  # noqa: E501
+    def __init__(self, id=None, name=None, description=None, contact_email=None, status=None, type=None, redundancy=None, speed=None, tags=None, ports=None, facility=None, organization=None, metro=None, mode=None, local_vars_configuration=None):  # noqa: E501
         """Interconnection - a model defined in OpenAPI"""  # noqa: E501
         if local_vars_configuration is None:
             local_vars_configuration = Configuration.get_default_copy()
@@ -81,6 +88,8 @@ class Interconnection(object):
         self._ports = None
         self._facility = None
         self._organization = None
+        self._metro = None
+        self._mode = None
         self.discriminator = None
 
         if id is not None:
@@ -107,6 +116,10 @@ class Interconnection(object):
             self.facility = facility
         if organization is not None:
             self.organization = organization
+        if metro is not None:
+            self.metro = metro
+        if mode is not None:
+            self.mode = mode
 
     @property
     def id(self):
@@ -362,13 +375,63 @@ class Interconnection(object):
 
         self._organization = organization
 
+    @property
+    def metro(self):
+        """Gets the metro of this Interconnection.  # noqa: E501
+
+
+        :return: The metro of this Interconnection.  # noqa: E501
+        :rtype: Metro
+        """
+        return self._metro
+
+    @metro.setter
+    def metro(self, metro):
+        """Sets the metro of this Interconnection.
+
+
+        :param metro: The metro of this Interconnection.  # noqa: E501
+        :type metro: Metro
+        """
+
+        self._metro = metro
+
+    @property
+    def mode(self):
+        """Gets the mode of this Interconnection.  # noqa: E501
+
+        The mode of the connection (only relevant to dedicated connections). Shared connections won't have this field. Can be either 'standard' or 'tunnel'.   The default mode of a dedicated connection is 'standard'. The mode can only be changed when there are no associated virtual circuits on the connection.   In tunnel mode, an 802.1q tunnel is added to a port to send/receive double tagged packets from server instances.  # noqa: E501
+
+        :return: The mode of this Interconnection.  # noqa: E501
+        :rtype: str
+        """
+        return self._mode
+
+    @mode.setter
+    def mode(self, mode):
+        """Sets the mode of this Interconnection.
+
+        The mode of the connection (only relevant to dedicated connections). Shared connections won't have this field. Can be either 'standard' or 'tunnel'.   The default mode of a dedicated connection is 'standard'. The mode can only be changed when there are no associated virtual circuits on the connection.   In tunnel mode, an 802.1q tunnel is added to a port to send/receive double tagged packets from server instances.  # noqa: E501
+
+        :param mode: The mode of this Interconnection.  # noqa: E501
+        :type mode: str
+        """
+        allowed_values = ["standard", "tunnel"]  # noqa: E501
+        if self.local_vars_configuration.client_side_validation and mode not in allowed_values:  # noqa: E501
+            raise ValueError(
+                "Invalid value for `mode` ({0}), must be one of {1}"  # noqa: E501
+                .format(mode, allowed_values)
+            )
+
+        self._mode = mode
+
     def to_dict(self, serialize=False):
         """Returns the model properties as a dict"""
         result = {}
 
         def convert(x):
             if hasattr(x, "to_dict"):
-                args = inspect.getargspec(x.to_dict).args
+                args = getfullargspec(x.to_dict).args
                 if len(args) == 1:
                     return x.to_dict()
                 else:

@@ -3,7 +3,7 @@
 """
     Metal API
 
-    This is the API for Equinix Metal Product. Interact with your devices, user account, and projects.  # noqa: E501
+    This is the API for Equinix Metal. The API allows you to programmatically interact with all of your Equinix Metal resources, including devices, networks, addresses, organizations, projects, and your user account.  The official API docs are hosted at <https://metal.equinix.com/developers/api>.   # noqa: E501
 
     The version of the OpenAPI document: 1.0.0
     Contact: support@equinixmetal.com
@@ -11,7 +11,10 @@
 """
 
 
-import inspect
+try:
+    from inspect import getfullargspec
+except ImportError:
+    from inspect import getargspec as getfullargspec
 import pprint
 import re  # noqa: F401
 import six
@@ -38,7 +41,9 @@ class Facility(object):
         'name': 'str',
         'code': 'str',
         'features': 'list[str]',
-        'address': 'Address'
+        'ip_ranges': 'list[str]',
+        'address': 'Address',
+        'metro': 'Metro'
     }
 
     attribute_map = {
@@ -46,10 +51,12 @@ class Facility(object):
         'name': 'name',
         'code': 'code',
         'features': 'features',
-        'address': 'address'
+        'ip_ranges': 'ip_ranges',
+        'address': 'address',
+        'metro': 'metro'
     }
 
-    def __init__(self, id=None, name=None, code=None, features=None, address=None, local_vars_configuration=None):  # noqa: E501
+    def __init__(self, id=None, name=None, code=None, features=None, ip_ranges=None, address=None, metro=None, local_vars_configuration=None):  # noqa: E501
         """Facility - a model defined in OpenAPI"""  # noqa: E501
         if local_vars_configuration is None:
             local_vars_configuration = Configuration.get_default_copy()
@@ -59,7 +66,9 @@ class Facility(object):
         self._name = None
         self._code = None
         self._features = None
+        self._ip_ranges = None
         self._address = None
+        self._metro = None
         self.discriminator = None
 
         if id is not None:
@@ -70,8 +79,12 @@ class Facility(object):
             self.code = code
         if features is not None:
             self.features = features
+        if ip_ranges is not None:
+            self.ip_ranges = ip_ranges
         if address is not None:
             self.address = address
+        if metro is not None:
+            self.metro = metro
 
     @property
     def id(self):
@@ -154,8 +167,39 @@ class Facility(object):
         :param features: The features of this Facility.  # noqa: E501
         :type features: list[str]
         """
+        allowed_values = ["baremetal", "backend_transfer", "layer_2", "global_ipv4", "ibx"]  # noqa: E501
+        if (self.local_vars_configuration.client_side_validation and
+                not set(features).issubset(set(allowed_values))):  # noqa: E501
+            raise ValueError(
+                "Invalid values for `features` [{0}], must be a subset of [{1}]"  # noqa: E501
+                .format(", ".join(map(str, set(features) - set(allowed_values))),  # noqa: E501
+                        ", ".join(map(str, allowed_values)))
+            )
 
         self._features = features
+
+    @property
+    def ip_ranges(self):
+        """Gets the ip_ranges of this Facility.  # noqa: E501
+
+        IP ranges registered in facility. Can be used for GeoIP location  # noqa: E501
+
+        :return: The ip_ranges of this Facility.  # noqa: E501
+        :rtype: list[str]
+        """
+        return self._ip_ranges
+
+    @ip_ranges.setter
+    def ip_ranges(self, ip_ranges):
+        """Sets the ip_ranges of this Facility.
+
+        IP ranges registered in facility. Can be used for GeoIP location  # noqa: E501
+
+        :param ip_ranges: The ip_ranges of this Facility.  # noqa: E501
+        :type ip_ranges: list[str]
+        """
+
+        self._ip_ranges = ip_ranges
 
     @property
     def address(self):
@@ -178,13 +222,34 @@ class Facility(object):
 
         self._address = address
 
+    @property
+    def metro(self):
+        """Gets the metro of this Facility.  # noqa: E501
+
+
+        :return: The metro of this Facility.  # noqa: E501
+        :rtype: Metro
+        """
+        return self._metro
+
+    @metro.setter
+    def metro(self, metro):
+        """Sets the metro of this Facility.
+
+
+        :param metro: The metro of this Facility.  # noqa: E501
+        :type metro: Metro
+        """
+
+        self._metro = metro
+
     def to_dict(self, serialize=False):
         """Returns the model properties as a dict"""
         result = {}
 
         def convert(x):
             if hasattr(x, "to_dict"):
-                args = inspect.getargspec(x.to_dict).args
+                args = getfullargspec(x.to_dict).args
                 if len(args) == 1:
                     return x.to_dict()
                 else:

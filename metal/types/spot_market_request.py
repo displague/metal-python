@@ -3,7 +3,7 @@
 """
     Metal API
 
-    This is the API for Equinix Metal Product. Interact with your devices, user account, and projects.  # noqa: E501
+    This is the API for Equinix Metal. The API allows you to programmatically interact with all of your Equinix Metal resources, including devices, networks, addresses, organizations, projects, and your user account.  The official API docs are hosted at <https://metal.equinix.com/developers/api>.   # noqa: E501
 
     The version of the OpenAPI document: 1.0.0
     Contact: support@equinixmetal.com
@@ -11,7 +11,10 @@
 """
 
 
-import inspect
+try:
+    from inspect import getfullargspec
+except ImportError:
+    from inspect import getargspec as getfullargspec
 import pprint
 import re  # noqa: F401
 import six
@@ -42,6 +45,7 @@ class SpotMarketRequest(object):
         'end_at': 'datetime',
         'href': 'str',
         'facilities': 'Href',
+        'metro': 'Metro',
         'project': 'Href',
         'instances': 'Href'
     }
@@ -55,11 +59,12 @@ class SpotMarketRequest(object):
         'end_at': 'end_at',
         'href': 'href',
         'facilities': 'facilities',
+        'metro': 'metro',
         'project': 'project',
         'instances': 'instances'
     }
 
-    def __init__(self, id=None, devices_min=None, devices_max=None, max_bid_price=None, created_at=None, end_at=None, href=None, facilities=None, project=None, instances=None, local_vars_configuration=None):  # noqa: E501
+    def __init__(self, id=None, devices_min=None, devices_max=None, max_bid_price=None, created_at=None, end_at=None, href=None, facilities=None, metro=None, project=None, instances=None, local_vars_configuration=None):  # noqa: E501
         """SpotMarketRequest - a model defined in OpenAPI"""  # noqa: E501
         if local_vars_configuration is None:
             local_vars_configuration = Configuration.get_default_copy()
@@ -73,6 +78,7 @@ class SpotMarketRequest(object):
         self._end_at = None
         self._href = None
         self._facilities = None
+        self._metro = None
         self._project = None
         self._instances = None
         self.discriminator = None
@@ -93,6 +99,8 @@ class SpotMarketRequest(object):
             self.href = href
         if facilities is not None:
             self.facilities = facilities
+        if metro is not None:
+            self.metro = metro
         if project is not None:
             self.project = project
         if instances is not None:
@@ -267,6 +275,27 @@ class SpotMarketRequest(object):
         self._facilities = facilities
 
     @property
+    def metro(self):
+        """Gets the metro of this SpotMarketRequest.  # noqa: E501
+
+
+        :return: The metro of this SpotMarketRequest.  # noqa: E501
+        :rtype: Metro
+        """
+        return self._metro
+
+    @metro.setter
+    def metro(self, metro):
+        """Sets the metro of this SpotMarketRequest.
+
+
+        :param metro: The metro of this SpotMarketRequest.  # noqa: E501
+        :type metro: Metro
+        """
+
+        self._metro = metro
+
+    @property
     def project(self):
         """Gets the project of this SpotMarketRequest.  # noqa: E501
 
@@ -314,7 +343,7 @@ class SpotMarketRequest(object):
 
         def convert(x):
             if hasattr(x, "to_dict"):
-                args = inspect.getargspec(x.to_dict).args
+                args = getfullargspec(x.to_dict).args
                 if len(args) == 1:
                     return x.to_dict()
                 else:

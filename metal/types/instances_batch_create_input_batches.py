@@ -3,7 +3,7 @@
 """
     Metal API
 
-    This is the API for Equinix Metal Product. Interact with your devices, user account, and projects.  # noqa: E501
+    This is the API for Equinix Metal. The API allows you to programmatically interact with all of your Equinix Metal resources, including devices, networks, addresses, organizations, projects, and your user account.  The official API docs are hosted at <https://metal.equinix.com/developers/api>.   # noqa: E501
 
     The version of the OpenAPI document: 1.0.0
     Contact: support@equinixmetal.com
@@ -11,7 +11,10 @@
 """
 
 
-import inspect
+try:
+    from inspect import getfullargspec
+except ImportError:
+    from inspect import getargspec as getfullargspec
 import pprint
 import re  # noqa: F401
 import six
@@ -37,6 +40,8 @@ class InstancesBatchCreateInputBatches(object):
         'plan': 'str',
         'hostname': 'str',
         'hostnames': 'list[str]',
+        'facility': 'list[str]',
+        'metro': 'str',
         'description': 'str',
         'billing_cycle': 'str',
         'operating_system': 'str',
@@ -47,6 +52,7 @@ class InstancesBatchCreateInputBatches(object):
         'tags': 'list[str]',
         'project_ssh_keys': 'list[str]',
         'user_ssh_keys': 'list[str]',
+        'no_ssh_keys': 'bool',
         'features': 'list[str]',
         'customdata': 'object',
         'ip_addresses': 'list[InstancesBatchCreateInputIpAddresses]'
@@ -56,6 +62,8 @@ class InstancesBatchCreateInputBatches(object):
         'plan': 'plan',
         'hostname': 'hostname',
         'hostnames': 'hostnames',
+        'facility': 'facility',
+        'metro': 'metro',
         'description': 'description',
         'billing_cycle': 'billing_cycle',
         'operating_system': 'operating_system',
@@ -66,12 +74,13 @@ class InstancesBatchCreateInputBatches(object):
         'tags': 'tags',
         'project_ssh_keys': 'project_ssh_keys',
         'user_ssh_keys': 'user_ssh_keys',
+        'no_ssh_keys': 'no_ssh_keys',
         'features': 'features',
         'customdata': 'customdata',
         'ip_addresses': 'ip_addresses'
     }
 
-    def __init__(self, plan=None, hostname=None, hostnames=None, description=None, billing_cycle=None, operating_system=None, always_pxe=None, userdata=None, locked=None, termination_time=None, tags=None, project_ssh_keys=None, user_ssh_keys=None, features=None, customdata=None, ip_addresses=None, local_vars_configuration=None):  # noqa: E501
+    def __init__(self, plan=None, hostname=None, hostnames=None, facility=None, metro=None, description=None, billing_cycle=None, operating_system=None, always_pxe=None, userdata=None, locked=None, termination_time=None, tags=None, project_ssh_keys=None, user_ssh_keys=None, no_ssh_keys=None, features=None, customdata=None, ip_addresses=None, local_vars_configuration=None):  # noqa: E501
         """InstancesBatchCreateInputBatches - a model defined in OpenAPI"""  # noqa: E501
         if local_vars_configuration is None:
             local_vars_configuration = Configuration.get_default_copy()
@@ -80,6 +89,8 @@ class InstancesBatchCreateInputBatches(object):
         self._plan = None
         self._hostname = None
         self._hostnames = None
+        self._facility = None
+        self._metro = None
         self._description = None
         self._billing_cycle = None
         self._operating_system = None
@@ -90,6 +101,7 @@ class InstancesBatchCreateInputBatches(object):
         self._tags = None
         self._project_ssh_keys = None
         self._user_ssh_keys = None
+        self._no_ssh_keys = None
         self._features = None
         self._customdata = None
         self._ip_addresses = None
@@ -101,6 +113,10 @@ class InstancesBatchCreateInputBatches(object):
             self.hostname = hostname
         if hostnames is not None:
             self.hostnames = hostnames
+        if facility is not None:
+            self.facility = facility
+        if metro is not None:
+            self.metro = metro
         if description is not None:
             self.description = description
         if billing_cycle is not None:
@@ -121,6 +137,8 @@ class InstancesBatchCreateInputBatches(object):
             self.project_ssh_keys = project_ssh_keys
         if user_ssh_keys is not None:
             self.user_ssh_keys = user_ssh_keys
+        if no_ssh_keys is not None:
+            self.no_ssh_keys = no_ssh_keys
         if features is not None:
             self.features = features
         if customdata is not None:
@@ -190,6 +208,52 @@ class InstancesBatchCreateInputBatches(object):
         """
 
         self._hostnames = hostnames
+
+    @property
+    def facility(self):
+        """Gets the facility of this InstancesBatchCreateInputBatches.  # noqa: E501
+
+        Array of facility codes the batch can use for provisioning. This param also takes a string if you want the batch to be fulfilled in only one facility. Cannot be set if the metro is already set.  # noqa: E501
+
+        :return: The facility of this InstancesBatchCreateInputBatches.  # noqa: E501
+        :rtype: list[str]
+        """
+        return self._facility
+
+    @facility.setter
+    def facility(self, facility):
+        """Sets the facility of this InstancesBatchCreateInputBatches.
+
+        Array of facility codes the batch can use for provisioning. This param also takes a string if you want the batch to be fulfilled in only one facility. Cannot be set if the metro is already set.  # noqa: E501
+
+        :param facility: The facility of this InstancesBatchCreateInputBatches.  # noqa: E501
+        :type facility: list[str]
+        """
+
+        self._facility = facility
+
+    @property
+    def metro(self):
+        """Gets the metro of this InstancesBatchCreateInputBatches.  # noqa: E501
+
+        The metro ID or code the batch can use for provisioning. Cannot be set if the facility is already set.  # noqa: E501
+
+        :return: The metro of this InstancesBatchCreateInputBatches.  # noqa: E501
+        :rtype: str
+        """
+        return self._metro
+
+    @metro.setter
+    def metro(self, metro):
+        """Sets the metro of this InstancesBatchCreateInputBatches.
+
+        The metro ID or code the batch can use for provisioning. Cannot be set if the facility is already set.  # noqa: E501
+
+        :param metro: The metro of this InstancesBatchCreateInputBatches.  # noqa: E501
+        :type metro: str
+        """
+
+        self._metro = metro
 
     @property
     def description(self):
@@ -404,6 +468,27 @@ class InstancesBatchCreateInputBatches(object):
         self._user_ssh_keys = user_ssh_keys
 
     @property
+    def no_ssh_keys(self):
+        """Gets the no_ssh_keys of this InstancesBatchCreateInputBatches.  # noqa: E501
+
+
+        :return: The no_ssh_keys of this InstancesBatchCreateInputBatches.  # noqa: E501
+        :rtype: bool
+        """
+        return self._no_ssh_keys
+
+    @no_ssh_keys.setter
+    def no_ssh_keys(self, no_ssh_keys):
+        """Sets the no_ssh_keys of this InstancesBatchCreateInputBatches.
+
+
+        :param no_ssh_keys: The no_ssh_keys of this InstancesBatchCreateInputBatches.  # noqa: E501
+        :type no_ssh_keys: bool
+        """
+
+        self._no_ssh_keys = no_ssh_keys
+
+    @property
     def features(self):
         """Gets the features of this InstancesBatchCreateInputBatches.  # noqa: E501
 
@@ -472,7 +557,7 @@ class InstancesBatchCreateInputBatches(object):
 
         def convert(x):
             if hasattr(x, "to_dict"):
-                args = inspect.getargspec(x.to_dict).args
+                args = getfullargspec(x.to_dict).args
                 if len(args) == 1:
                     return x.to_dict()
                 else:

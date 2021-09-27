@@ -3,7 +3,7 @@
 """
     Metal API
 
-    This is the API for Equinix Metal Product. Interact with your devices, user account, and projects.  # noqa: E501
+    This is the API for Equinix Metal. The API allows you to programmatically interact with all of your Equinix Metal resources, including devices, networks, addresses, organizations, projects, and your user account.  The official API docs are hosted at <https://metal.equinix.com/developers/api>.   # noqa: E501
 
     The version of the OpenAPI document: 1.0.0
     Contact: support@equinixmetal.com
@@ -11,7 +11,10 @@
 """
 
 
-import inspect
+try:
+    from inspect import getfullargspec
+except ImportError:
+    from inspect import getargspec as getfullargspec
 import pprint
 import re  # noqa: F401
 import six
@@ -39,6 +42,9 @@ class VirtualNetwork(object):
         'vxlan': 'int',
         'facility': 'Href',
         'instances': 'list[Href]',
+        'metro_code': 'str',
+        'metro': 'Href',
+        'assigned_to_virtual_circuit': 'bool',
         'assigned_to': 'Href',
         'href': 'str'
     }
@@ -49,11 +55,14 @@ class VirtualNetwork(object):
         'vxlan': 'vxlan',
         'facility': 'facility',
         'instances': 'instances',
+        'metro_code': 'metro_code',
+        'metro': 'metro',
+        'assigned_to_virtual_circuit': 'assigned_to_virtual_circuit',
         'assigned_to': 'assigned_to',
         'href': 'href'
     }
 
-    def __init__(self, id=None, description=None, vxlan=None, facility=None, instances=None, assigned_to=None, href=None, local_vars_configuration=None):  # noqa: E501
+    def __init__(self, id=None, description=None, vxlan=None, facility=None, instances=None, metro_code=None, metro=None, assigned_to_virtual_circuit=None, assigned_to=None, href=None, local_vars_configuration=None):  # noqa: E501
         """VirtualNetwork - a model defined in OpenAPI"""  # noqa: E501
         if local_vars_configuration is None:
             local_vars_configuration = Configuration.get_default_copy()
@@ -64,6 +73,9 @@ class VirtualNetwork(object):
         self._vxlan = None
         self._facility = None
         self._instances = None
+        self._metro_code = None
+        self._metro = None
+        self._assigned_to_virtual_circuit = None
         self._assigned_to = None
         self._href = None
         self.discriminator = None
@@ -78,6 +90,12 @@ class VirtualNetwork(object):
             self.facility = facility
         if instances is not None:
             self.instances = instances
+        if metro_code is not None:
+            self.metro_code = metro_code
+        if metro is not None:
+            self.metro = metro
+        if assigned_to_virtual_circuit is not None:
+            self.assigned_to_virtual_circuit = assigned_to_virtual_circuit
         if assigned_to is not None:
             self.assigned_to = assigned_to
         if href is not None:
@@ -171,6 +189,7 @@ class VirtualNetwork(object):
     def instances(self):
         """Gets the instances of this VirtualNetwork.  # noqa: E501
 
+        A list of instances with ports currently associated to this Virtual Network.  # noqa: E501
 
         :return: The instances of this VirtualNetwork.  # noqa: E501
         :rtype: list[Href]
@@ -181,12 +200,80 @@ class VirtualNetwork(object):
     def instances(self, instances):
         """Sets the instances of this VirtualNetwork.
 
+        A list of instances with ports currently associated to this Virtual Network.  # noqa: E501
 
         :param instances: The instances of this VirtualNetwork.  # noqa: E501
         :type instances: list[Href]
         """
 
         self._instances = instances
+
+    @property
+    def metro_code(self):
+        """Gets the metro_code of this VirtualNetwork.  # noqa: E501
+
+        The Metro code of the metro in which this Virtual Network is defined.  # noqa: E501
+
+        :return: The metro_code of this VirtualNetwork.  # noqa: E501
+        :rtype: str
+        """
+        return self._metro_code
+
+    @metro_code.setter
+    def metro_code(self, metro_code):
+        """Sets the metro_code of this VirtualNetwork.
+
+        The Metro code of the metro in which this Virtual Network is defined.  # noqa: E501
+
+        :param metro_code: The metro_code of this VirtualNetwork.  # noqa: E501
+        :type metro_code: str
+        """
+
+        self._metro_code = metro_code
+
+    @property
+    def metro(self):
+        """Gets the metro of this VirtualNetwork.  # noqa: E501
+
+
+        :return: The metro of this VirtualNetwork.  # noqa: E501
+        :rtype: Href
+        """
+        return self._metro
+
+    @metro.setter
+    def metro(self, metro):
+        """Sets the metro of this VirtualNetwork.
+
+
+        :param metro: The metro of this VirtualNetwork.  # noqa: E501
+        :type metro: Href
+        """
+
+        self._metro = metro
+
+    @property
+    def assigned_to_virtual_circuit(self):
+        """Gets the assigned_to_virtual_circuit of this VirtualNetwork.  # noqa: E501
+
+        True if the virtual network is attached to a virtual circuit. False if not.  # noqa: E501
+
+        :return: The assigned_to_virtual_circuit of this VirtualNetwork.  # noqa: E501
+        :rtype: bool
+        """
+        return self._assigned_to_virtual_circuit
+
+    @assigned_to_virtual_circuit.setter
+    def assigned_to_virtual_circuit(self, assigned_to_virtual_circuit):
+        """Sets the assigned_to_virtual_circuit of this VirtualNetwork.
+
+        True if the virtual network is attached to a virtual circuit. False if not.  # noqa: E501
+
+        :param assigned_to_virtual_circuit: The assigned_to_virtual_circuit of this VirtualNetwork.  # noqa: E501
+        :type assigned_to_virtual_circuit: bool
+        """
+
+        self._assigned_to_virtual_circuit = assigned_to_virtual_circuit
 
     @property
     def assigned_to(self):
@@ -236,7 +323,7 @@ class VirtualNetwork(object):
 
         def convert(x):
             if hasattr(x, "to_dict"):
-                args = inspect.getargspec(x.to_dict).args
+                args = getfullargspec(x.to_dict).args
                 if len(args) == 1:
                     return x.to_dict()
                 else:

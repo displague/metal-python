@@ -3,7 +3,7 @@
 """
     Metal API
 
-    This is the API for Equinix Metal Product. Interact with your devices, user account, and projects.  # noqa: E501
+    This is the API for Equinix Metal. The API allows you to programmatically interact with all of your Equinix Metal resources, including devices, networks, addresses, organizations, projects, and your user account.  The official API docs are hosted at <https://metal.equinix.com/developers/api>.   # noqa: E501
 
     The version of the OpenAPI document: 1.0.0
     Contact: support@equinixmetal.com
@@ -11,7 +11,10 @@
 """
 
 
-import inspect
+try:
+    from inspect import getfullargspec
+except ImportError:
+    from inspect import getargspec as getfullargspec
 import pprint
 import re  # noqa: F401
 import six
@@ -56,11 +59,13 @@ class Device(object):
         'operating_system': 'OperatingSystem',
         'always_pxe': 'bool',
         'ipxe_script_url': 'str',
-        'location': 'HardwareLocation',
         'facility': 'Facility',
+        'metro': 'Metro',
         'plan': 'Plan',
         'userdata': 'str',
         'root_password': 'str',
+        'switch_uuid': 'str',
+        'network_ports': 'Port',
         'href': 'str',
         'project': 'Href',
         'project_lite': 'Href',
@@ -94,11 +99,13 @@ class Device(object):
         'operating_system': 'operating_system',
         'always_pxe': 'always_pxe',
         'ipxe_script_url': 'ipxe_script_url',
-        'location': 'location',
         'facility': 'facility',
+        'metro': 'metro',
         'plan': 'plan',
         'userdata': 'userdata',
         'root_password': 'root_password',
+        'switch_uuid': 'switch_uuid',
+        'network_ports': 'network_ports',
         'href': 'href',
         'project': 'project',
         'project_lite': 'project_lite',
@@ -109,7 +116,7 @@ class Device(object):
         'provisioning_events': 'provisioning_events'
     }
 
-    def __init__(self, id=None, short_id=None, hostname=None, description=None, state=None, tags=None, image_url=None, billing_cycle=None, user=None, iqn=None, locked=None, bonding_mode=None, created_at=None, updated_at=None, spot_instance=None, spot_price_max=None, termination_time=None, customdata=None, provisioning_percentage=None, operating_system=None, always_pxe=None, ipxe_script_url=None, location=None, facility=None, plan=None, userdata=None, root_password=None, href=None, project=None, project_lite=None, volumes=None, hardware_reservation=None, ssh_keys=None, ip_addresses=None, provisioning_events=None, local_vars_configuration=None):  # noqa: E501
+    def __init__(self, id=None, short_id=None, hostname=None, description=None, state=None, tags=None, image_url=None, billing_cycle=None, user=None, iqn=None, locked=None, bonding_mode=None, created_at=None, updated_at=None, spot_instance=None, spot_price_max=None, termination_time=None, customdata=None, provisioning_percentage=None, operating_system=None, always_pxe=None, ipxe_script_url=None, facility=None, metro=None, plan=None, userdata=None, root_password=None, switch_uuid=None, network_ports=None, href=None, project=None, project_lite=None, volumes=None, hardware_reservation=None, ssh_keys=None, ip_addresses=None, provisioning_events=None, local_vars_configuration=None):  # noqa: E501
         """Device - a model defined in OpenAPI"""  # noqa: E501
         if local_vars_configuration is None:
             local_vars_configuration = Configuration.get_default_copy()
@@ -137,11 +144,13 @@ class Device(object):
         self._operating_system = None
         self._always_pxe = None
         self._ipxe_script_url = None
-        self._location = None
         self._facility = None
+        self._metro = None
         self._plan = None
         self._userdata = None
         self._root_password = None
+        self._switch_uuid = None
+        self._network_ports = None
         self._href = None
         self._project = None
         self._project_lite = None
@@ -196,16 +205,20 @@ class Device(object):
             self.always_pxe = always_pxe
         if ipxe_script_url is not None:
             self.ipxe_script_url = ipxe_script_url
-        if location is not None:
-            self.location = location
         if facility is not None:
             self.facility = facility
+        if metro is not None:
+            self.metro = metro
         if plan is not None:
             self.plan = plan
         if userdata is not None:
             self.userdata = userdata
         if root_password is not None:
             self.root_password = root_password
+        if switch_uuid is not None:
+            self.switch_uuid = switch_uuid
+        if network_ports is not None:
+            self.network_ports = network_ports
         if href is not None:
             self.href = href
         if project is not None:
@@ -521,6 +534,7 @@ class Device(object):
     def spot_instance(self):
         """Gets the spot_instance of this Device.  # noqa: E501
 
+        Whether or not the device is a spot instance.  # noqa: E501
 
         :return: The spot_instance of this Device.  # noqa: E501
         :rtype: bool
@@ -531,6 +545,7 @@ class Device(object):
     def spot_instance(self, spot_instance):
         """Sets the spot_instance of this Device.
 
+        Whether or not the device is a spot instance.  # noqa: E501
 
         :param spot_instance: The spot_instance of this Device.  # noqa: E501
         :type spot_instance: bool
@@ -542,6 +557,7 @@ class Device(object):
     def spot_price_max(self):
         """Gets the spot_price_max of this Device.  # noqa: E501
 
+        The maximum price per hour you are willing to pay to keep this spot instance.  If you are outbid, the termination will be set allowing two minutes before shutdown.  # noqa: E501
 
         :return: The spot_price_max of this Device.  # noqa: E501
         :rtype: float
@@ -552,6 +568,7 @@ class Device(object):
     def spot_price_max(self, spot_price_max):
         """Sets the spot_price_max of this Device.
 
+        The maximum price per hour you are willing to pay to keep this spot instance.  If you are outbid, the termination will be set allowing two minutes before shutdown.  # noqa: E501
 
         :param spot_price_max: The spot_price_max of this Device.  # noqa: E501
         :type spot_price_max: float
@@ -563,6 +580,7 @@ class Device(object):
     def termination_time(self):
         """Gets the termination_time of this Device.  # noqa: E501
 
+        When the device will be terminated. This is commonly set in advance for ephemeral spot market instances but this field may also be set with on-demand and reservation instances to automatically delete the resource at a given time. The termination time can also be used to release a hardware reservation instance at a given time, keeping the reservation open for other uses.  On a spot market device, the termination time will be set automatically when outbid.  # noqa: E501
 
         :return: The termination_time of this Device.  # noqa: E501
         :rtype: datetime
@@ -573,6 +591,7 @@ class Device(object):
     def termination_time(self, termination_time):
         """Sets the termination_time of this Device.
 
+        When the device will be terminated. This is commonly set in advance for ephemeral spot market instances but this field may also be set with on-demand and reservation instances to automatically delete the resource at a given time. The termination time can also be used to release a hardware reservation instance at a given time, keeping the reservation open for other uses.  On a spot market device, the termination time will be set automatically when outbid.  # noqa: E501
 
         :param termination_time: The termination_time of this Device.  # noqa: E501
         :type termination_time: datetime
@@ -605,6 +624,7 @@ class Device(object):
     def provisioning_percentage(self):
         """Gets the provisioning_percentage of this Device.  # noqa: E501
 
+        Only visible while device provisioning  # noqa: E501
 
         :return: The provisioning_percentage of this Device.  # noqa: E501
         :rtype: float
@@ -615,6 +635,7 @@ class Device(object):
     def provisioning_percentage(self, provisioning_percentage):
         """Sets the provisioning_percentage of this Device.
 
+        Only visible while device provisioning  # noqa: E501
 
         :param provisioning_percentage: The provisioning_percentage of this Device.  # noqa: E501
         :type provisioning_percentage: float
@@ -686,27 +707,6 @@ class Device(object):
         self._ipxe_script_url = ipxe_script_url
 
     @property
-    def location(self):
-        """Gets the location of this Device.  # noqa: E501
-
-
-        :return: The location of this Device.  # noqa: E501
-        :rtype: HardwareLocation
-        """
-        return self._location
-
-    @location.setter
-    def location(self, location):
-        """Sets the location of this Device.
-
-
-        :param location: The location of this Device.  # noqa: E501
-        :type location: HardwareLocation
-        """
-
-        self._location = location
-
-    @property
     def facility(self):
         """Gets the facility of this Device.  # noqa: E501
 
@@ -726,6 +726,27 @@ class Device(object):
         """
 
         self._facility = facility
+
+    @property
+    def metro(self):
+        """Gets the metro of this Device.  # noqa: E501
+
+
+        :return: The metro of this Device.  # noqa: E501
+        :rtype: Metro
+        """
+        return self._metro
+
+    @metro.setter
+    def metro(self, metro):
+        """Sets the metro of this Device.
+
+
+        :param metro: The metro of this Device.  # noqa: E501
+        :type metro: Metro
+        """
+
+        self._metro = metro
 
     @property
     def plan(self):
@@ -773,6 +794,7 @@ class Device(object):
     def root_password(self):
         """Gets the root_password of this Device.  # noqa: E501
 
+        Root password is automatically generated when server is provisioned and it is removed after 24 hours  # noqa: E501
 
         :return: The root_password of this Device.  # noqa: E501
         :rtype: str
@@ -783,12 +805,57 @@ class Device(object):
     def root_password(self, root_password):
         """Sets the root_password of this Device.
 
+        Root password is automatically generated when server is provisioned and it is removed after 24 hours  # noqa: E501
 
         :param root_password: The root_password of this Device.  # noqa: E501
         :type root_password: str
         """
 
         self._root_password = root_password
+
+    @property
+    def switch_uuid(self):
+        """Gets the switch_uuid of this Device.  # noqa: E501
+
+        Switch short id. This can be used to determine if two devices are connected to the same switch, for example.  # noqa: E501
+
+        :return: The switch_uuid of this Device.  # noqa: E501
+        :rtype: str
+        """
+        return self._switch_uuid
+
+    @switch_uuid.setter
+    def switch_uuid(self, switch_uuid):
+        """Sets the switch_uuid of this Device.
+
+        Switch short id. This can be used to determine if two devices are connected to the same switch, for example.  # noqa: E501
+
+        :param switch_uuid: The switch_uuid of this Device.  # noqa: E501
+        :type switch_uuid: str
+        """
+
+        self._switch_uuid = switch_uuid
+
+    @property
+    def network_ports(self):
+        """Gets the network_ports of this Device.  # noqa: E501
+
+
+        :return: The network_ports of this Device.  # noqa: E501
+        :rtype: Port
+        """
+        return self._network_ports
+
+    @network_ports.setter
+    def network_ports(self, network_ports):
+        """Sets the network_ports of this Device.
+
+
+        :param network_ports: The network_ports of this Device.  # noqa: E501
+        :type network_ports: Port
+        """
+
+        self._network_ports = network_ports
 
     @property
     def href(self):
@@ -964,7 +1031,7 @@ class Device(object):
 
         def convert(x):
             if hasattr(x, "to_dict"):
-                args = inspect.getargspec(x.to_dict).args
+                args = getfullargspec(x.to_dict).args
                 if len(args) == 1:
                     return x.to_dict()
                 else:

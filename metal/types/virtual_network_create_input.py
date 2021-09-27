@@ -3,7 +3,7 @@
 """
     Metal API
 
-    This is the API for Equinix Metal Product. Interact with your devices, user account, and projects.  # noqa: E501
+    This is the API for Equinix Metal. The API allows you to programmatically interact with all of your Equinix Metal resources, including devices, networks, addresses, organizations, projects, and your user account.  The official API docs are hosted at <https://metal.equinix.com/developers/api>.   # noqa: E501
 
     The version of the OpenAPI document: 1.0.0
     Contact: support@equinixmetal.com
@@ -11,7 +11,10 @@
 """
 
 
-import inspect
+try:
+    from inspect import getfullargspec
+except ImportError:
+    from inspect import getargspec as getfullargspec
 import pprint
 import re  # noqa: F401
 import six
@@ -37,19 +40,19 @@ class VirtualNetworkCreateInput(object):
         'project_id': 'str',
         'description': 'str',
         'facility': 'str',
-        'vxlan': 'int',
-        'vlan': 'int'
+        'metro': 'str',
+        'vxlan': 'int'
     }
 
     attribute_map = {
         'project_id': 'project_id',
         'description': 'description',
         'facility': 'facility',
-        'vxlan': 'vxlan',
-        'vlan': 'vlan'
+        'metro': 'metro',
+        'vxlan': 'vxlan'
     }
 
-    def __init__(self, project_id=None, description=None, facility=None, vxlan=None, vlan=None, local_vars_configuration=None):  # noqa: E501
+    def __init__(self, project_id=None, description=None, facility=None, metro=None, vxlan=None, local_vars_configuration=None):  # noqa: E501
         """VirtualNetworkCreateInput - a model defined in OpenAPI"""  # noqa: E501
         if local_vars_configuration is None:
             local_vars_configuration = Configuration.get_default_copy()
@@ -58,20 +61,19 @@ class VirtualNetworkCreateInput(object):
         self._project_id = None
         self._description = None
         self._facility = None
+        self._metro = None
         self._vxlan = None
-        self._vlan = None
         self.discriminator = None
 
-        if project_id is not None:
-            self.project_id = project_id
+        self.project_id = project_id
         if description is not None:
             self.description = description
         if facility is not None:
             self.facility = facility
+        if metro is not None:
+            self.metro = metro
         if vxlan is not None:
             self.vxlan = vxlan
-        if vlan is not None:
-            self.vlan = vlan
 
     @property
     def project_id(self):
@@ -91,6 +93,8 @@ class VirtualNetworkCreateInput(object):
         :param project_id: The project_id of this VirtualNetworkCreateInput.  # noqa: E501
         :type project_id: str
         """
+        if self.local_vars_configuration.client_side_validation and project_id is None:  # noqa: E501
+            raise ValueError("Invalid value for `project_id`, must not be `None`")  # noqa: E501
 
         self._project_id = project_id
 
@@ -119,6 +123,7 @@ class VirtualNetworkCreateInput(object):
     def facility(self):
         """Gets the facility of this VirtualNetworkCreateInput.  # noqa: E501
 
+        The UUID (or facility code) for the Facility in which to create this Virtual network.  # noqa: E501
 
         :return: The facility of this VirtualNetworkCreateInput.  # noqa: E501
         :rtype: str
@@ -129,6 +134,7 @@ class VirtualNetworkCreateInput(object):
     def facility(self, facility):
         """Sets the facility of this VirtualNetworkCreateInput.
 
+        The UUID (or facility code) for the Facility in which to create this Virtual network.  # noqa: E501
 
         :param facility: The facility of this VirtualNetworkCreateInput.  # noqa: E501
         :type facility: str
@@ -137,9 +143,33 @@ class VirtualNetworkCreateInput(object):
         self._facility = facility
 
     @property
+    def metro(self):
+        """Gets the metro of this VirtualNetworkCreateInput.  # noqa: E501
+
+        The UUID (or metro code) for the Metro in which to create this Virtual Network.  # noqa: E501
+
+        :return: The metro of this VirtualNetworkCreateInput.  # noqa: E501
+        :rtype: str
+        """
+        return self._metro
+
+    @metro.setter
+    def metro(self, metro):
+        """Sets the metro of this VirtualNetworkCreateInput.
+
+        The UUID (or metro code) for the Metro in which to create this Virtual Network.  # noqa: E501
+
+        :param metro: The metro of this VirtualNetworkCreateInput.  # noqa: E501
+        :type metro: str
+        """
+
+        self._metro = metro
+
+    @property
     def vxlan(self):
         """Gets the vxlan of this VirtualNetworkCreateInput.  # noqa: E501
 
+        VLAN ID between 2-3999. Must be unique for the project within the Metro in which this Virtual Network is being created. If no value is specified, the next-available VLAN ID in the range 1000-1999 will be automatically selected.  # noqa: E501
 
         :return: The vxlan of this VirtualNetworkCreateInput.  # noqa: E501
         :rtype: int
@@ -150,6 +180,7 @@ class VirtualNetworkCreateInput(object):
     def vxlan(self, vxlan):
         """Sets the vxlan of this VirtualNetworkCreateInput.
 
+        VLAN ID between 2-3999. Must be unique for the project within the Metro in which this Virtual Network is being created. If no value is specified, the next-available VLAN ID in the range 1000-1999 will be automatically selected.  # noqa: E501
 
         :param vxlan: The vxlan of this VirtualNetworkCreateInput.  # noqa: E501
         :type vxlan: int
@@ -157,34 +188,13 @@ class VirtualNetworkCreateInput(object):
 
         self._vxlan = vxlan
 
-    @property
-    def vlan(self):
-        """Gets the vlan of this VirtualNetworkCreateInput.  # noqa: E501
-
-
-        :return: The vlan of this VirtualNetworkCreateInput.  # noqa: E501
-        :rtype: int
-        """
-        return self._vlan
-
-    @vlan.setter
-    def vlan(self, vlan):
-        """Sets the vlan of this VirtualNetworkCreateInput.
-
-
-        :param vlan: The vlan of this VirtualNetworkCreateInput.  # noqa: E501
-        :type vlan: int
-        """
-
-        self._vlan = vlan
-
     def to_dict(self, serialize=False):
         """Returns the model properties as a dict"""
         result = {}
 
         def convert(x):
             if hasattr(x, "to_dict"):
-                args = inspect.getargspec(x.to_dict).args
+                args = getfullargspec(x.to_dict).args
                 if len(args) == 1:
                     return x.to_dict()
                 else:

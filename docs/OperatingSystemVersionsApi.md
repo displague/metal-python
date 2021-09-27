@@ -8,7 +8,7 @@ Method | HTTP request | Description
 
 
 # **find_operating_system_version**
-> list[OperatingSystem] find_operating_system_version()
+> OperatingSystemList find_operating_system_version()
 
 Retrieve all operating system versions
 
@@ -58,7 +58,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**list[OperatingSystem]**](OperatingSystem.md)
+[**OperatingSystemList**](OperatingSystemList.md)
 
 ### Authorization
 

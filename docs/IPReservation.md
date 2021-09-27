@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **cidr** | **int** |  | [optional] 
 **management** | **bool** |  | [optional] 
 **manageable** | **bool** |  | [optional] 
+**global_ip** | **bool** |  | [optional] 
 **addon** | **bool** |  | [optional] 
 **bill** | **bool** |  | [optional] 
 **assignments** | [**list[IPAssignment]**](IPAssignment.md) |  | [optional] 
@@ -21,6 +22,7 @@ Name | Type | Description | Notes
 **href** | **str** |  | [optional] 
 **tags** | **list[str]** |  | [optional] 
 **state** | **str** |  | [optional] 
+**metro** | [**Metro**](Metro.md) |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

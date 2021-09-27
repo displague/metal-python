@@ -3,7 +3,7 @@
 """
     Metal API
 
-    This is the API for Equinix Metal Product. Interact with your devices, user account, and projects.  # noqa: E501
+    This is the API for Equinix Metal. The API allows you to programmatically interact with all of your Equinix Metal resources, including devices, networks, addresses, organizations, projects, and your user account.  The official API docs are hosted at <https://metal.equinix.com/developers/api>.   # noqa: E501
 
     The version of the OpenAPI document: 1.0.0
     Contact: support@equinixmetal.com
@@ -11,7 +11,10 @@
 """
 
 
-import inspect
+try:
+    from inspect import getfullargspec
+except ImportError:
+    from inspect import getargspec as getfullargspec
 import pprint
 import re  # noqa: F401
 import six
@@ -43,7 +46,8 @@ class DeviceUpdateInput(object):
         'always_pxe': 'bool',
         'ipxe_script_url': 'str',
         'spot_instance': 'bool',
-        'customdata': 'object'
+        'customdata': 'object',
+        'network_frozen': 'bool'
     }
 
     attribute_map = {
@@ -56,10 +60,11 @@ class DeviceUpdateInput(object):
         'always_pxe': 'always_pxe',
         'ipxe_script_url': 'ipxe_script_url',
         'spot_instance': 'spot_instance',
-        'customdata': 'customdata'
+        'customdata': 'customdata',
+        'network_frozen': 'network_frozen'
     }
 
-    def __init__(self, hostname=None, description=None, billing_cycle=None, userdata=None, locked=None, tags=None, always_pxe=None, ipxe_script_url=None, spot_instance=None, customdata=None, local_vars_configuration=None):  # noqa: E501
+    def __init__(self, hostname=None, description=None, billing_cycle=None, userdata=None, locked=None, tags=None, always_pxe=None, ipxe_script_url=None, spot_instance=None, customdata=None, network_frozen=None, local_vars_configuration=None):  # noqa: E501
         """DeviceUpdateInput - a model defined in OpenAPI"""  # noqa: E501
         if local_vars_configuration is None:
             local_vars_configuration = Configuration.get_default_copy()
@@ -75,6 +80,7 @@ class DeviceUpdateInput(object):
         self._ipxe_script_url = None
         self._spot_instance = None
         self._customdata = None
+        self._network_frozen = None
         self.discriminator = None
 
         if hostname is not None:
@@ -97,6 +103,8 @@ class DeviceUpdateInput(object):
             self.spot_instance = spot_instance
         if customdata is not None:
             self.customdata = customdata
+        if network_frozen is not None:
+            self.network_frozen = network_frozen
 
     @property
     def hostname(self):
@@ -308,13 +316,36 @@ class DeviceUpdateInput(object):
 
         self._customdata = customdata
 
+    @property
+    def network_frozen(self):
+        """Gets the network_frozen of this DeviceUpdateInput.  # noqa: E501
+
+        If true, this instance can not be converted to a different network type.  # noqa: E501
+
+        :return: The network_frozen of this DeviceUpdateInput.  # noqa: E501
+        :rtype: bool
+        """
+        return self._network_frozen
+
+    @network_frozen.setter
+    def network_frozen(self, network_frozen):
+        """Sets the network_frozen of this DeviceUpdateInput.
+
+        If true, this instance can not be converted to a different network type.  # noqa: E501
+
+        :param network_frozen: The network_frozen of this DeviceUpdateInput.  # noqa: E501
+        :type network_frozen: bool
+        """
+
+        self._network_frozen = network_frozen
+
     def to_dict(self, serialize=False):
         """Returns the model properties as a dict"""
         result = {}
 
         def convert(x):
             if hasattr(x, "to_dict"):
-                args = inspect.getargspec(x.to_dict).args
+                args = getfullargspec(x.to_dict).args
                 if len(args) == 1:
                     return x.to_dict()
                 else:

@@ -3,7 +3,7 @@
 """
     Metal API
 
-    This is the API for Equinix Metal Product. Interact with your devices, user account, and projects.  # noqa: E501
+    This is the API for Equinix Metal. The API allows you to programmatically interact with all of your Equinix Metal resources, including devices, networks, addresses, organizations, projects, and your user account.  The official API docs are hosted at <https://metal.equinix.com/developers/api>.   # noqa: E501
 
     The version of the OpenAPI document: 1.0.0
     Contact: support@equinixmetal.com
@@ -11,7 +11,10 @@
 """
 
 
-import inspect
+try:
+    from inspect import getfullargspec
+except ImportError:
+    from inspect import getargspec as getfullargspec
 import pprint
 import re  # noqa: F401
 import six
@@ -291,6 +294,7 @@ class Plan(object):
     def available_in(self):
         """Gets the available_in of this Plan.  # noqa: E501
 
+        Shows which facilities the plan is available in, and the facility-based price if it is different from the default price.  # noqa: E501
 
         :return: The available_in of this Plan.  # noqa: E501
         :rtype: list[Href]
@@ -301,6 +305,7 @@ class Plan(object):
     def available_in(self, available_in):
         """Sets the available_in of this Plan.
 
+        Shows which facilities the plan is available in, and the facility-based price if it is different from the default price.  # noqa: E501
 
         :param available_in: The available_in of this Plan.  # noqa: E501
         :type available_in: list[Href]
@@ -314,7 +319,7 @@ class Plan(object):
 
         def convert(x):
             if hasattr(x, "to_dict"):
-                args = inspect.getargspec(x.to_dict).args
+                args = getfullargspec(x.to_dict).args
                 if len(args) == 1:
                     return x.to_dict()
                 else:

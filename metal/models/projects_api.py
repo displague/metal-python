@@ -3,7 +3,7 @@
 """
     Metal API
 
-    This is the API for Equinix Metal Product. Interact with your devices, user account, and projects.  # noqa: E501
+    This is the API for Equinix Metal. The API allows you to programmatically interact with all of your Equinix Metal resources, including devices, networks, addresses, organizations, projects, and your user account.  The official API docs are hosted at <https://metal.equinix.com/developers/api>.   # noqa: E501
 
     The version of the OpenAPI document: 1.0.0
     Contact: support@equinixmetal.com
@@ -40,7 +40,7 @@ class ProjectsApi(object):
     def create_device(self, id, device, **kwargs):  # noqa: E501
         """Create a device  # noqa: E501
 
-        Creates a new device and provisions it in our datacenter.  Type-specific options (such as operating_system for baremetal devices) should be included in the main data structure alongside hostname and plan.  The features attribute allows you to optionally specify what features your server should have.  For example, if you require a server with a TPM chip, you may specify `{ \"features\": { \"tpm\": \"required\" } }` (or `{ \"features\": [\"tpm\"] }` in shorthand).  The request will fail if there are no available servers matching your criteria. Alternatively, if you do not require a certain feature, but would prefer to be assigned a server with that feature if there are any available, you may specify that feature with a preferred value (see the example request below).  The request will not fail if we have no servers with that feature in our inventory.  The facilities attribute specifies in what datacenter you wish to create the device.  You can either specify a single facility `{ \"facility\": \"f1\" }` , or you can instruct to create the device in the best available datacenter `{ \"facility\": \"any\" }`. Additionally it is possible to set a prioritized location selection.  For example `{ \"facility\": [\"f3\", \"f2\", \"any\"] }` will try to assign to the facility f3, if there are no available f2, and so on. If \"any\" is not specified for \"facility\", the request will fail unless it can assign in the selected locations.  The `ip_addresses attribute will allow you to specify the addresses you want created with your device.  To maintain backwards compatibility, If the attribute is not sent in the request, it will be treated as if `{ \"ip_addresses\": [{ \"address_family\": 4, \"public\": true }, { \"address_family\": 4, \"public\": false }, { \"address_family\": 6, \"public\": true }] }` was sent.  The private IPv4 address is required and always need to be sent in the array. Not all operating systems support no public IPv4 address, so in those cases you will receive an error message.  For example, to only configure your server with a private IPv4 address, you can send `{ \"ip_addresses\": [{ \"address_family\": 4, \"public\": false }] }`.  Note: when specifying a subnet size larger than a /30, you will need to supply the UUID(s) of existing ip_reservations in your project to assign IPs from.  For example, `{ \"ip_addresses\": [..., {\"address_family\": 4, \"public\": true, \"ip_reservations\": [\"uuid1\", \"uuid2\"]}] }`  To access a server without public IPs, you can use our Out-of-Band console access (SOS) or use another server with public IPs as a proxy.   # noqa: E501
+        Creates a new device and provisions it in the specified location.        Device type-specific options are accepted.  For example, `baremetal` devices accept `operating_system`, `hostname`, and `plan`. These parameters may not be accepted for other device types. The default device type is `baremetal`.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -72,7 +72,7 @@ class ProjectsApi(object):
     def create_device_with_http_info(self, id, device, **kwargs):  # noqa: E501
         """Create a device  # noqa: E501
 
-        Creates a new device and provisions it in our datacenter.  Type-specific options (such as operating_system for baremetal devices) should be included in the main data structure alongside hostname and plan.  The features attribute allows you to optionally specify what features your server should have.  For example, if you require a server with a TPM chip, you may specify `{ \"features\": { \"tpm\": \"required\" } }` (or `{ \"features\": [\"tpm\"] }` in shorthand).  The request will fail if there are no available servers matching your criteria. Alternatively, if you do not require a certain feature, but would prefer to be assigned a server with that feature if there are any available, you may specify that feature with a preferred value (see the example request below).  The request will not fail if we have no servers with that feature in our inventory.  The facilities attribute specifies in what datacenter you wish to create the device.  You can either specify a single facility `{ \"facility\": \"f1\" }` , or you can instruct to create the device in the best available datacenter `{ \"facility\": \"any\" }`. Additionally it is possible to set a prioritized location selection.  For example `{ \"facility\": [\"f3\", \"f2\", \"any\"] }` will try to assign to the facility f3, if there are no available f2, and so on. If \"any\" is not specified for \"facility\", the request will fail unless it can assign in the selected locations.  The `ip_addresses attribute will allow you to specify the addresses you want created with your device.  To maintain backwards compatibility, If the attribute is not sent in the request, it will be treated as if `{ \"ip_addresses\": [{ \"address_family\": 4, \"public\": true }, { \"address_family\": 4, \"public\": false }, { \"address_family\": 6, \"public\": true }] }` was sent.  The private IPv4 address is required and always need to be sent in the array. Not all operating systems support no public IPv4 address, so in those cases you will receive an error message.  For example, to only configure your server with a private IPv4 address, you can send `{ \"ip_addresses\": [{ \"address_family\": 4, \"public\": false }] }`.  Note: when specifying a subnet size larger than a /30, you will need to supply the UUID(s) of existing ip_reservations in your project to assign IPs from.  For example, `{ \"ip_addresses\": [..., {\"address_family\": 4, \"public\": true, \"ip_reservations\": [\"uuid1\", \"uuid2\"]}] }`  To access a server without public IPs, you can use our Out-of-Band console access (SOS) or use another server with public IPs as a proxy.   # noqa: E501
+        Creates a new device and provisions it in the specified location.        Device type-specific options are accepted.  For example, `baremetal` devices accept `operating_system`, `hostname`, and `plan`. These parameters may not be accepted for other device types. The default device type is `baremetal`.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
@@ -165,13 +165,13 @@ class ProjectsApi(object):
 
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
-        
+
         response_types_map = {
             201: "Device",
-            401: None,
-            403: None,
-            404: None,
-            422: None,
+            401: "Error",
+            403: "Error",
+            404: "Error",
+            422: "Error",
         }
 
         return self.api_client.call_api(
@@ -319,13 +319,13 @@ class ProjectsApi(object):
 
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
-        
+
         response_types_map = {
             201: "License",
-            401: None,
-            403: None,
-            404: None,
-            422: None,
+            401: "Error",
+            403: "Error",
+            404: "Error",
+            422: "Error",
         }
 
         return self.api_client.call_api(
@@ -473,11 +473,11 @@ class ProjectsApi(object):
 
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
-        
+
         response_types_map = {
             201: "Project",
-            401: None,
-            422: None,
+            401: "Error",
+            422: "Error",
         }
 
         return self.api_client.call_api(
@@ -614,11 +614,11 @@ class ProjectsApi(object):
 
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
-        
+
         response_types_map = {
             201: "Project",
-            401: None,
-            422: None,
+            401: "Error",
+            422: "Error",
         }
 
         return self.api_client.call_api(
@@ -766,13 +766,13 @@ class ProjectsApi(object):
 
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
-        
+
         response_types_map = {
             201: "Invitation",
-            401: None,
-            403: None,
-            404: None,
-            422: None,
+            401: "Error",
+            403: "Error",
+            404: "Error",
+            422: "Error",
         }
 
         return self.api_client.call_api(
@@ -805,7 +805,7 @@ class ProjectsApi(object):
         :param id: Project UUID (required)
         :type id: str
         :param ssh_key: ssh key to create (required)
-        :type ssh_key: SSHKeyInput
+        :type ssh_key: SSHKeyCreateInput
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _preload_content: if False, the urllib3.HTTPResponse object will
@@ -837,7 +837,7 @@ class ProjectsApi(object):
         :param id: Project UUID (required)
         :type id: str
         :param ssh_key: ssh key to create (required)
-        :type ssh_key: SSHKeyInput
+        :type ssh_key: SSHKeyCreateInput
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _return_http_data_only: response data without head status code
@@ -920,11 +920,11 @@ class ProjectsApi(object):
 
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
-        
+
         response_types_map = {
             201: "SSHKey",
-            401: None,
-            422: None,
+            401: "Error",
+            422: "Error",
         }
 
         return self.api_client.call_api(
@@ -1072,12 +1072,12 @@ class ProjectsApi(object):
 
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
-        
+
         response_types_map = {
             201: "SpotMarketRequest",
-            401: None,
-            404: None,
-            422: None,
+            401: "Error",
+            404: "Error",
+            422: "Error",
         }
 
         return self.api_client.call_api(
@@ -1225,13 +1225,13 @@ class ProjectsApi(object):
 
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
-        
+
         response_types_map = {
             201: "TransferRequest",
-            401: None,
-            403: None,
-            404: None,
-            422: None,
+            401: "Error",
+            403: "Error",
+            404: "Error",
+            422: "Error",
         }
 
         return self.api_client.call_api(
@@ -1252,7 +1252,7 @@ class ProjectsApi(object):
             _request_auth=local_var_params.get('_request_auth'))
 
     def create_virtual_network(self, id, virtual_network, **kwargs):  # noqa: E501
-        """Create an virtual network  # noqa: E501
+        """Create a virtual network  # noqa: E501
 
         Creates an virtual network.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
@@ -1284,7 +1284,7 @@ class ProjectsApi(object):
         return self.create_virtual_network_with_http_info(id, virtual_network, **kwargs)  # noqa: E501
 
     def create_virtual_network_with_http_info(self, id, virtual_network, **kwargs):  # noqa: E501
-        """Create an virtual network  # noqa: E501
+        """Create a virtual network  # noqa: E501
 
         Creates an virtual network.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
@@ -1379,13 +1379,13 @@ class ProjectsApi(object):
 
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
-        
+
         response_types_map = {
             201: "VirtualNetwork",
-            401: None,
-            403: None,
-            404: None,
-            422: None,
+            401: "Error",
+            403: "Error",
+            404: "Error",
+            422: "Error",
         }
 
         return self.api_client.call_api(
@@ -1512,9 +1512,13 @@ class ProjectsApi(object):
         local_var_files = {}
 
         body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
+
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
-        
+
         response_types_map = {}
 
         return self.api_client.call_api(
@@ -1663,12 +1667,12 @@ class ProjectsApi(object):
 
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
-        
+
         response_types_map = {
             200: "BatchesList",
-            401: None,
-            403: None,
-            404: None,
+            401: "Error",
+            403: "Error",
+            404: "Error",
         }
 
         return self.api_client.call_api(
@@ -1817,12 +1821,12 @@ class ProjectsApi(object):
 
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
-        
+
         response_types_map = {
             200: "BgpConfig",
-            401: None,
-            403: None,
-            404: None,
+            401: "Error",
+            403: "Error",
+            404: "Error",
         }
 
         return self.api_client.call_api(
@@ -1978,10 +1982,10 @@ class ProjectsApi(object):
 
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
-        
+
         response_types_map = {
             200: "SSHKeyList",
-            401: None,
+            401: "Error",
         }
 
         return self.api_client.call_api(
@@ -2130,16 +2134,154 @@ class ProjectsApi(object):
 
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
-        
+
         response_types_map = {
             200: "FacilityList",
-            401: None,
-            403: None,
-            404: None,
+            401: "Error",
+            403: "Error",
+            404: "Error",
         }
 
         return self.api_client.call_api(
             '/projects/{id}/facilities', 'GET',
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_types_map=response_types_map,
+            auth_settings=auth_settings,
+            async_req=local_var_params.get('async_req'),
+            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
+            _preload_content=local_var_params.get('_preload_content', True),
+            _request_timeout=local_var_params.get('_request_timeout'),
+            collection_formats=collection_formats,
+            _request_auth=local_var_params.get('_request_auth'))
+
+    def find_global_bgp_ranges(self, id, **kwargs):  # noqa: E501
+        """Retrieve all global bgp ranges  # noqa: E501
+
+        Returns all global bgp ranges for a project  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+
+        >>> thread = api.find_global_bgp_ranges(id, async_req=True)
+        >>> result = thread.get()
+
+        :param id: Project UUID (required)
+        :type id: str
+        :param async_req: Whether to execute the request asynchronously.
+        :type async_req: bool, optional
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :type _preload_content: bool, optional
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: Returns the result object.
+                 If the method is called asynchronously,
+                 returns the request thread.
+        :rtype: GlobalBgpRangeList
+        """
+        kwargs['_return_http_data_only'] = True
+        return self.find_global_bgp_ranges_with_http_info(id, **kwargs)  # noqa: E501
+
+    def find_global_bgp_ranges_with_http_info(self, id, **kwargs):  # noqa: E501
+        """Retrieve all global bgp ranges  # noqa: E501
+
+        Returns all global bgp ranges for a project  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+
+        >>> thread = api.find_global_bgp_ranges_with_http_info(id, async_req=True)
+        >>> result = thread.get()
+
+        :param id: Project UUID (required)
+        :type id: str
+        :param async_req: Whether to execute the request asynchronously.
+        :type async_req: bool, optional
+        :param _return_http_data_only: response data without head status code
+                                       and headers
+        :type _return_http_data_only: bool, optional
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :type _preload_content: bool, optional
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the authentication
+                              in the spec for a single request.
+        :type _request_auth: dict, optional
+        :return: Returns the result object.
+                 If the method is called asynchronously,
+                 returns the request thread.
+        :rtype: tuple(GlobalBgpRangeList, status_code(int), headers(HTTPHeaderDict))
+        """
+
+        local_var_params = locals()
+
+        all_params = [
+            'id'
+        ]
+        all_params.extend(
+            [
+                'async_req',
+                '_return_http_data_only',
+                '_preload_content',
+                '_request_timeout',
+                '_request_auth'
+            ]
+        )
+
+        for key, val in six.iteritems(local_var_params['kwargs']):
+            if key not in all_params:
+                raise ApiTypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method find_global_bgp_ranges" % key
+                )
+            local_var_params[key] = val
+        del local_var_params['kwargs']
+        # verify the required parameter 'id' is set
+        if self.api_client.client_side_validation and ('id' not in local_var_params or  # noqa: E501
+                                                        local_var_params['id'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `id` when calling `find_global_bgp_ranges`")  # noqa: E501
+
+        collection_formats = {}
+
+        path_params = {}
+        if 'id' in local_var_params:
+            path_params['id'] = local_var_params['id']  # noqa: E501
+
+        query_params = []
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
+
+        # Authentication setting
+        auth_settings = ['x_auth_token']  # noqa: E501
+
+        response_types_map = {
+            200: "GlobalBgpRangeList",
+            401: "Error",
+            403: "Error",
+            404: "Error",
+        }
+
+        return self.api_client.call_api(
+            '/projects/{id}/global-bgp-ranges', 'GET',
             path_params,
             query_params,
             header_params,
@@ -2273,9 +2415,13 @@ class ProjectsApi(object):
         local_var_files = {}
 
         body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
+
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
-        
+
         response_types_map = {}
 
         return self.api_client.call_api(
@@ -2424,12 +2570,12 @@ class ProjectsApi(object):
 
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
-        
+
         response_types_map = {
             200: "IPReservationList",
-            401: None,
-            403: None,
-            404: None,
+            401: "Error",
+            403: "Error",
+            404: "Error",
         }
 
         return self.api_client.call_api(
@@ -2600,10 +2746,10 @@ class ProjectsApi(object):
 
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
-        
+
         response_types_map = {
             200: "ProjectList",
-            401: None,
+            401: "Error",
         }
 
         return self.api_client.call_api(
@@ -2752,12 +2898,12 @@ class ProjectsApi(object):
 
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
-        
+
         response_types_map = {
             200: "PlanList",
-            401: None,
-            403: None,
-            404: None,
+            401: "Error",
+            403: "Error",
+            404: "Error",
         }
 
         return self.api_client.call_api(
@@ -2890,11 +3036,11 @@ class ProjectsApi(object):
 
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
-        
+
         response_types_map = {
             200: "BgpSessionList",
-            401: None,
-            404: None,
+            401: "Error",
+            404: "Error",
         }
 
         return self.api_client.call_api(
@@ -3043,12 +3189,12 @@ class ProjectsApi(object):
 
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
-        
+
         response_types_map = {
             200: "Project",
-            401: None,
-            403: None,
-            404: None,
+            401: "Error",
+            403: "Error",
+            404: "Error",
         }
 
         return self.api_client.call_api(
@@ -3175,9 +3321,13 @@ class ProjectsApi(object):
         local_var_files = {}
 
         body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
+
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
-        
+
         response_types_map = {}
 
         return self.api_client.call_api(
@@ -3348,12 +3498,12 @@ class ProjectsApi(object):
 
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
-        
+
         response_types_map = {
             200: "DeviceList",
-            401: None,
-            403: None,
-            404: None,
+            401: "Error",
+            403: "Error",
+            404: "Error",
         }
 
         return self.api_client.call_api(
@@ -3524,12 +3674,12 @@ class ProjectsApi(object):
 
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
-        
+
         response_types_map = {
             200: "EventList",
-            401: None,
-            403: None,
-            404: None,
+            401: "Error",
+            403: "Error",
+            404: "Error",
         }
 
         return self.api_client.call_api(
@@ -3700,12 +3850,12 @@ class ProjectsApi(object):
 
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
-        
+
         response_types_map = {
             200: "HardwareReservationList",
-            401: None,
-            403: None,
-            404: None,
+            401: "Error",
+            403: "Error",
+            404: "Error",
         }
 
         return self.api_client.call_api(
@@ -3876,12 +4026,12 @@ class ProjectsApi(object):
 
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
-        
+
         response_types_map = {
             200: "InvitationList",
-            401: None,
-            403: None,
-            404: None,
+            401: "Error",
+            403: "Error",
+            404: "Error",
         }
 
         return self.api_client.call_api(
@@ -4052,12 +4202,12 @@ class ProjectsApi(object):
 
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
-        
+
         response_types_map = {
             200: "LicenseList",
-            401: None,
-            403: None,
-            404: None,
+            401: "Error",
+            403: "Error",
+            404: "Error",
         }
 
         return self.api_client.call_api(
@@ -4228,12 +4378,12 @@ class ProjectsApi(object):
 
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
-        
+
         response_types_map = {
             200: "MembershipList",
-            401: None,
-            403: None,
-            404: None,
+            401: "Error",
+            403: "Error",
+            404: "Error",
         }
 
         return self.api_client.call_api(
@@ -4389,10 +4539,10 @@ class ProjectsApi(object):
 
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
-        
+
         response_types_map = {
             200: "SSHKeyList",
-            401: None,
+            401: "Error",
         }
 
         return self.api_client.call_api(
@@ -4552,10 +4702,10 @@ class ProjectsApi(object):
 
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
-        
+
         response_types_map = {
             200: "ProjectList",
-            401: None,
+            401: "Error",
         }
 
         return self.api_client.call_api(
@@ -4591,6 +4741,10 @@ class ProjectsApi(object):
         :type include: list[str]
         :param exclude: Nested attributes to exclude. Excluded objects will return only the href attribute. Attribute names can be dotted (up to 3 levels) to exclude deeply nested objects.
         :type exclude: list[str]
+        :param facility: Filter by Facility ID (uuid) or Facility Code
+        :type facility: str
+        :param metro: Filter by Metro ID (uuid) or Metro Code
+        :type metro: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _preload_content: if False, the urllib3.HTTPResponse object will
@@ -4625,6 +4779,10 @@ class ProjectsApi(object):
         :type include: list[str]
         :param exclude: Nested attributes to exclude. Excluded objects will return only the href attribute. Attribute names can be dotted (up to 3 levels) to exclude deeply nested objects.
         :type exclude: list[str]
+        :param facility: Filter by Facility ID (uuid) or Facility Code
+        :type facility: str
+        :param metro: Filter by Metro ID (uuid) or Metro Code
+        :type metro: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _return_http_data_only: response data without head status code
@@ -4653,7 +4811,9 @@ class ProjectsApi(object):
         all_params = [
             'id',
             'include',
-            'exclude'
+            'exclude',
+            'facility',
+            'metro'
         ]
         all_params.extend(
             [
@@ -4691,6 +4851,10 @@ class ProjectsApi(object):
         if 'exclude' in local_var_params and local_var_params['exclude'] is not None:  # noqa: E501
             query_params.append(('exclude', local_var_params['exclude']))  # noqa: E501
             collection_formats['exclude'] = 'csv'  # noqa: E501
+        if 'facility' in local_var_params and local_var_params['facility'] is not None:  # noqa: E501
+            query_params.append(('facility', local_var_params['facility']))  # noqa: E501
+        if 'metro' in local_var_params and local_var_params['metro'] is not None:  # noqa: E501
+            query_params.append(('metro', local_var_params['metro']))  # noqa: E501
 
         header_params = {}
 
@@ -4704,12 +4868,12 @@ class ProjectsApi(object):
 
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
-        
+
         response_types_map = {
             200: "VirtualNetworkList",
-            401: None,
-            403: None,
-            404: None,
+            401: "Error",
+            403: "Error",
+            404: "Error",
         }
 
         return self.api_client.call_api(
@@ -4842,11 +5006,11 @@ class ProjectsApi(object):
 
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
-        
+
         response_types_map = {
             200: "SpotMarketRequestList",
-            401: None,
-            404: None,
+            401: "Error",
+            404: "Error",
         }
 
         return self.api_client.call_api(
@@ -4984,13 +5148,17 @@ class ProjectsApi(object):
         body_params = None
         if 'bgp_config_request' in local_var_params:
             body_params = local_var_params['bgp_config_request']
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
+
         # HTTP header `Content-Type`
         header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
             ['application/json'])  # noqa: E501
 
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
-        
+
         response_types_map = {}
 
         return self.api_client.call_api(
@@ -5138,13 +5306,13 @@ class ProjectsApi(object):
 
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
-        
+
         response_types_map = {
             201: "IPReservation",
-            401: None,
-            403: None,
-            404: None,
-            422: None,
+            401: "Error",
+            403: "Error",
+            404: "Error",
+            422: "Error",
         }
 
         return self.api_client.call_api(
@@ -5292,13 +5460,13 @@ class ProjectsApi(object):
 
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
-        
+
         response_types_map = {
             200: "Project",
-            401: None,
-            403: None,
-            404: None,
-            422: None,
+            401: "Error",
+            403: "Error",
+            404: "Error",
+            422: "Error",
         }
 
         return self.api_client.call_api(

@@ -3,7 +3,7 @@
 """
     Metal API
 
-    This is the API for Equinix Metal Product. Interact with your devices, user account, and projects.  # noqa: E501
+    This is the API for Equinix Metal. The API allows you to programmatically interact with all of your Equinix Metal resources, including devices, networks, addresses, organizations, projects, and your user account.  The official API docs are hosted at <https://metal.equinix.com/developers/api>.   # noqa: E501
 
     The version of the OpenAPI document: 1.0.0
     Contact: support@equinixmetal.com
@@ -165,13 +165,13 @@ class BatchesApi(object):
 
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
-        
+
         response_types_map = {
             201: "BatchesList",
-            401: None,
-            403: None,
-            404: None,
-            422: None,
+            401: "Error",
+            403: "Error",
+            404: "Error",
+            422: "Error",
         }
 
         return self.api_client.call_api(
@@ -191,19 +191,19 @@ class BatchesApi(object):
             collection_formats=collection_formats,
             _request_auth=local_var_params.get('_request_auth'))
 
-    def delete_batch(self, id, remove_associated_instances, **kwargs):  # noqa: E501
+    def delete_batch(self, id, **kwargs):  # noqa: E501
         """Delete the Batch  # noqa: E501
 
         Deletes the Batch.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.delete_batch(id, remove_associated_instances, async_req=True)
+        >>> thread = api.delete_batch(id, async_req=True)
         >>> result = thread.get()
 
         :param id: Batch UUID (required)
         :type id: str
-        :param remove_associated_instances: Default route (required)
+        :param remove_associated_instances: Delete all instances created from this batch
         :type remove_associated_instances: bool
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
@@ -221,21 +221,21 @@ class BatchesApi(object):
         :rtype: None
         """
         kwargs['_return_http_data_only'] = True
-        return self.delete_batch_with_http_info(id, remove_associated_instances, **kwargs)  # noqa: E501
+        return self.delete_batch_with_http_info(id, **kwargs)  # noqa: E501
 
-    def delete_batch_with_http_info(self, id, remove_associated_instances, **kwargs):  # noqa: E501
+    def delete_batch_with_http_info(self, id, **kwargs):  # noqa: E501
         """Delete the Batch  # noqa: E501
 
         Deletes the Batch.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.delete_batch_with_http_info(id, remove_associated_instances, async_req=True)
+        >>> thread = api.delete_batch_with_http_info(id, async_req=True)
         >>> result = thread.get()
 
         :param id: Batch UUID (required)
         :type id: str
-        :param remove_associated_instances: Default route (required)
+        :param remove_associated_instances: Delete all instances created from this batch
         :type remove_associated_instances: bool
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
@@ -288,10 +288,6 @@ class BatchesApi(object):
         if self.api_client.client_side_validation and ('id' not in local_var_params or  # noqa: E501
                                                         local_var_params['id'] is None):  # noqa: E501
             raise ApiValueError("Missing the required parameter `id` when calling `delete_batch`")  # noqa: E501
-        # verify the required parameter 'remove_associated_instances' is set
-        if self.api_client.client_side_validation and ('remove_associated_instances' not in local_var_params or  # noqa: E501
-                                                        local_var_params['remove_associated_instances'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `remove_associated_instances` when calling `delete_batch`")  # noqa: E501
 
         collection_formats = {}
 
@@ -300,6 +296,8 @@ class BatchesApi(object):
             path_params['id'] = local_var_params['id']  # noqa: E501
 
         query_params = []
+        if 'remove_associated_instances' in local_var_params and local_var_params['remove_associated_instances'] is not None:  # noqa: E501
+            query_params.append(('remove_associated_instances', local_var_params['remove_associated_instances']))  # noqa: E501
 
         header_params = {}
 
@@ -307,15 +305,13 @@ class BatchesApi(object):
         local_var_files = {}
 
         body_params = None
-        if 'remove_associated_instances' in local_var_params:
-            body_params = local_var_params['remove_associated_instances']
-        # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
             ['application/json'])  # noqa: E501
 
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
-        
+
         response_types_map = {}
 
         return self.api_client.call_api(
@@ -464,11 +460,11 @@ class BatchesApi(object):
 
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
-        
+
         response_types_map = {
             200: "Batch",
-            401: None,
-            404: None,
+            401: "Error",
+            404: "Error",
         }
 
         return self.api_client.call_api(
@@ -617,12 +613,12 @@ class BatchesApi(object):
 
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
-        
+
         response_types_map = {
             200: "BatchesList",
-            401: None,
-            403: None,
-            404: None,
+            401: "Error",
+            403: "Error",
+            404: "Error",
         }
 
         return self.api_client.call_api(

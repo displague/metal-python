@@ -3,7 +3,7 @@
 """
     Metal API
 
-    This is the API for Equinix Metal Product. Interact with your devices, user account, and projects.  # noqa: E501
+    This is the API for Equinix Metal. The API allows you to programmatically interact with all of your Equinix Metal resources, including devices, networks, addresses, organizations, projects, and your user account.  The official API docs are hosted at <https://metal.equinix.com/developers/api>.   # noqa: E501
 
     The version of the OpenAPI document: 1.0.0
     Contact: support@equinixmetal.com
@@ -11,7 +11,10 @@
 """
 
 
-import inspect
+try:
+    from inspect import getfullargspec
+except ImportError:
+    from inspect import getargspec as getfullargspec
 import pprint
 import re  # noqa: F401
 import six
@@ -42,7 +45,11 @@ class HardwareReservation(object):
         'project': 'Project',
         'device': 'Device',
         'created_at': 'datetime',
-        'remove_at': 'datetime'
+        'spare': 'bool',
+        'need_of_service': 'bool',
+        'provisionable': 'bool',
+        'custom_rate': 'float',
+        'switch_uuid': 'str'
     }
 
     attribute_map = {
@@ -54,10 +61,14 @@ class HardwareReservation(object):
         'project': 'project',
         'device': 'device',
         'created_at': 'created_at',
-        'remove_at': 'remove_at'
+        'spare': 'spare',
+        'need_of_service': 'need_of_service',
+        'provisionable': 'provisionable',
+        'custom_rate': 'custom_rate',
+        'switch_uuid': 'switch_uuid'
     }
 
-    def __init__(self, id=None, short_id=None, facility=None, plan=None, href=None, project=None, device=None, created_at=None, remove_at=None, local_vars_configuration=None):  # noqa: E501
+    def __init__(self, id=None, short_id=None, facility=None, plan=None, href=None, project=None, device=None, created_at=None, spare=None, need_of_service=None, provisionable=None, custom_rate=None, switch_uuid=None, local_vars_configuration=None):  # noqa: E501
         """HardwareReservation - a model defined in OpenAPI"""  # noqa: E501
         if local_vars_configuration is None:
             local_vars_configuration = Configuration.get_default_copy()
@@ -71,7 +82,11 @@ class HardwareReservation(object):
         self._project = None
         self._device = None
         self._created_at = None
-        self._remove_at = None
+        self._spare = None
+        self._need_of_service = None
+        self._provisionable = None
+        self._custom_rate = None
+        self._switch_uuid = None
         self.discriminator = None
 
         if id is not None:
@@ -90,8 +105,16 @@ class HardwareReservation(object):
             self.device = device
         if created_at is not None:
             self.created_at = created_at
-        if remove_at is not None:
-            self.remove_at = remove_at
+        if spare is not None:
+            self.spare = spare
+        if need_of_service is not None:
+            self.need_of_service = need_of_service
+        if provisionable is not None:
+            self.provisionable = provisionable
+        if custom_rate is not None:
+            self.custom_rate = custom_rate
+        if switch_uuid is not None:
+            self.switch_uuid = switch_uuid
 
     @property
     def id(self):
@@ -118,6 +141,7 @@ class HardwareReservation(object):
     def short_id(self):
         """Gets the short_id of this HardwareReservation.  # noqa: E501
 
+        Short version of the ID.  # noqa: E501
 
         :return: The short_id of this HardwareReservation.  # noqa: E501
         :rtype: str
@@ -128,6 +152,7 @@ class HardwareReservation(object):
     def short_id(self, short_id):
         """Sets the short_id of this HardwareReservation.
 
+        Short version of the ID.  # noqa: E501
 
         :param short_id: The short_id of this HardwareReservation.  # noqa: E501
         :type short_id: str
@@ -262,25 +287,119 @@ class HardwareReservation(object):
         self._created_at = created_at
 
     @property
-    def remove_at(self):
-        """Gets the remove_at of this HardwareReservation.  # noqa: E501
+    def spare(self):
+        """Gets the spare of this HardwareReservation.  # noqa: E501
 
+        Whether the Hardware Reservation is a spare. Spare Hardware Reservations are used when a Hardware Reservations requires service from Metal Equinix  # noqa: E501
 
-        :return: The remove_at of this HardwareReservation.  # noqa: E501
-        :rtype: datetime
+        :return: The spare of this HardwareReservation.  # noqa: E501
+        :rtype: bool
         """
-        return self._remove_at
+        return self._spare
 
-    @remove_at.setter
-    def remove_at(self, remove_at):
-        """Sets the remove_at of this HardwareReservation.
+    @spare.setter
+    def spare(self, spare):
+        """Sets the spare of this HardwareReservation.
 
+        Whether the Hardware Reservation is a spare. Spare Hardware Reservations are used when a Hardware Reservations requires service from Metal Equinix  # noqa: E501
 
-        :param remove_at: The remove_at of this HardwareReservation.  # noqa: E501
-        :type remove_at: datetime
+        :param spare: The spare of this HardwareReservation.  # noqa: E501
+        :type spare: bool
         """
 
-        self._remove_at = remove_at
+        self._spare = spare
+
+    @property
+    def need_of_service(self):
+        """Gets the need_of_service of this HardwareReservation.  # noqa: E501
+
+        Whether this Device requires assistance from Metal Equinix.  # noqa: E501
+
+        :return: The need_of_service of this HardwareReservation.  # noqa: E501
+        :rtype: bool
+        """
+        return self._need_of_service
+
+    @need_of_service.setter
+    def need_of_service(self, need_of_service):
+        """Sets the need_of_service of this HardwareReservation.
+
+        Whether this Device requires assistance from Metal Equinix.  # noqa: E501
+
+        :param need_of_service: The need_of_service of this HardwareReservation.  # noqa: E501
+        :type need_of_service: bool
+        """
+
+        self._need_of_service = need_of_service
+
+    @property
+    def provisionable(self):
+        """Gets the provisionable of this HardwareReservation.  # noqa: E501
+
+        Whether the reserved server is provisionable or not. Spare devices can't be provisioned unless they are activated first.  # noqa: E501
+
+        :return: The provisionable of this HardwareReservation.  # noqa: E501
+        :rtype: bool
+        """
+        return self._provisionable
+
+    @provisionable.setter
+    def provisionable(self, provisionable):
+        """Sets the provisionable of this HardwareReservation.
+
+        Whether the reserved server is provisionable or not. Spare devices can't be provisioned unless they are activated first.  # noqa: E501
+
+        :param provisionable: The provisionable of this HardwareReservation.  # noqa: E501
+        :type provisionable: bool
+        """
+
+        self._provisionable = provisionable
+
+    @property
+    def custom_rate(self):
+        """Gets the custom_rate of this HardwareReservation.  # noqa: E501
+
+        Amount that will be charged for every billing_cycle.  # noqa: E501
+
+        :return: The custom_rate of this HardwareReservation.  # noqa: E501
+        :rtype: float
+        """
+        return self._custom_rate
+
+    @custom_rate.setter
+    def custom_rate(self, custom_rate):
+        """Sets the custom_rate of this HardwareReservation.
+
+        Amount that will be charged for every billing_cycle.  # noqa: E501
+
+        :param custom_rate: The custom_rate of this HardwareReservation.  # noqa: E501
+        :type custom_rate: float
+        """
+
+        self._custom_rate = custom_rate
+
+    @property
+    def switch_uuid(self):
+        """Gets the switch_uuid of this HardwareReservation.  # noqa: E501
+
+        Switch short id. This can be used to determine if two devices are connected to the same switch, for example.  # noqa: E501
+
+        :return: The switch_uuid of this HardwareReservation.  # noqa: E501
+        :rtype: str
+        """
+        return self._switch_uuid
+
+    @switch_uuid.setter
+    def switch_uuid(self, switch_uuid):
+        """Sets the switch_uuid of this HardwareReservation.
+
+        Switch short id. This can be used to determine if two devices are connected to the same switch, for example.  # noqa: E501
+
+        :param switch_uuid: The switch_uuid of this HardwareReservation.  # noqa: E501
+        :type switch_uuid: str
+        """
+
+        self._switch_uuid = switch_uuid
 
     def to_dict(self, serialize=False):
         """Returns the model properties as a dict"""
@@ -288,7 +407,7 @@ class HardwareReservation(object):
 
         def convert(x):
             if hasattr(x, "to_dict"):
-                args = inspect.getargspec(x.to_dict).args
+                args = getfullargspec(x.to_dict).args
                 if len(args) == 1:
                     return x.to_dict()
                 else:

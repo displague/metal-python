@@ -3,7 +3,7 @@
 """
     Metal API
 
-    This is the API for Equinix Metal Product. Interact with your devices, user account, and projects.  # noqa: E501
+    This is the API for Equinix Metal. The API allows you to programmatically interact with all of your Equinix Metal resources, including devices, networks, addresses, organizations, projects, and your user account.  The official API docs are hosted at <https://metal.equinix.com/developers/api>.   # noqa: E501
 
     The version of the OpenAPI document: 1.0.0
     Contact: support@equinixmetal.com
@@ -165,13 +165,12 @@ class BGPApi(object):
 
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
-        
+
         response_types_map = {
-            200: "BgpSession",
             201: "BgpSession",
-            401: None,
-            403: None,
-            422: None,
+            401: "Error",
+            403: "Error",
+            422: "Error",
         }
 
         return self.api_client.call_api(
@@ -298,9 +297,13 @@ class BGPApi(object):
         local_var_files = {}
 
         body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
+
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
-        
+
         response_types_map = {}
 
         return self.api_client.call_api(
@@ -449,12 +452,12 @@ class BGPApi(object):
 
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
-        
+
         response_types_map = {
             200: "BgpConfig",
-            401: None,
-            403: None,
-            404: None,
+            401: "Error",
+            403: "Error",
+            404: "Error",
         }
 
         return self.api_client.call_api(
@@ -603,12 +606,12 @@ class BGPApi(object):
 
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
-        
+
         response_types_map = {
             200: "BgpSession",
-            401: None,
-            403: None,
-            404: None,
+            401: "Error",
+            403: "Error",
+            404: "Error",
         }
 
         return self.api_client.call_api(
@@ -741,11 +744,11 @@ class BGPApi(object):
 
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
-        
+
         response_types_map = {
             200: "BgpSessionList",
-            401: None,
-            403: None,
+            401: "Error",
+            403: "Error",
         }
 
         return self.api_client.call_api(
@@ -878,11 +881,11 @@ class BGPApi(object):
 
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
-        
+
         response_types_map = {
             200: "BgpSessionList",
-            401: None,
-            404: None,
+            401: "Error",
+            404: "Error",
         }
 
         return self.api_client.call_api(
@@ -1015,12 +1018,12 @@ class BGPApi(object):
 
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
-        
+
         response_types_map = {
             200: "BgpSessionNeighbors",
-            401: None,
-            403: None,
-            404: None,
+            401: "Error",
+            403: "Error",
+            404: "Error",
         }
 
         return self.api_client.call_api(
@@ -1158,13 +1161,17 @@ class BGPApi(object):
         body_params = None
         if 'bgp_config_request' in local_var_params:
             body_params = local_var_params['bgp_config_request']
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
+
         # HTTP header `Content-Type`
         header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
             ['application/json'])  # noqa: E501
 
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
-        
+
         response_types_map = {}
 
         return self.api_client.call_api(
@@ -1302,13 +1309,17 @@ class BGPApi(object):
         body_params = None
         if 'default_route' in local_var_params:
             body_params = local_var_params['default_route']
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
+
         # HTTP header `Content-Type`
         header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
             ['application/json'])  # noqa: E501
 
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
-        
+
         response_types_map = {}
 
         return self.api_client.call_api(

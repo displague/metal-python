@@ -3,7 +3,7 @@
 """
     Metal API
 
-    This is the API for Equinix Metal Product. Interact with your devices, user account, and projects.  # noqa: E501
+    This is the API for Equinix Metal. The API allows you to programmatically interact with all of your Equinix Metal resources, including devices, networks, addresses, organizations, projects, and your user account.  The official API docs are hosted at <https://metal.equinix.com/developers/api>.   # noqa: E501
 
     The version of the OpenAPI document: 1.0.0
     Contact: support@equinixmetal.com
@@ -11,7 +11,10 @@
 """
 
 
-import inspect
+try:
+    from inspect import getfullargspec
+except ImportError:
+    from inspect import getargspec as getfullargspec
 import pprint
 import re  # noqa: F401
 import six
@@ -45,6 +48,7 @@ class DeviceCreateInput(object):
         'userdata': 'str',
         'locked': 'bool',
         'customdata': 'object',
+        'metro': 'str',
         'hardware_reservation_id': 'str',
         'spot_instance': 'bool',
         'spot_price_max': 'float',
@@ -52,6 +56,8 @@ class DeviceCreateInput(object):
         'tags': 'list[str]',
         'project_ssh_keys': 'list[str]',
         'user_ssh_keys': 'list[str]',
+        'ssh_keys': 'list[SSHKeyInput]',
+        'no_ssh_keys': 'bool',
         'features': 'list[str]',
         'public_ipv4_subnet_size': 'float',
         'private_ipv4_subnet_size': 'float',
@@ -70,6 +76,7 @@ class DeviceCreateInput(object):
         'userdata': 'userdata',
         'locked': 'locked',
         'customdata': 'customdata',
+        'metro': 'metro',
         'hardware_reservation_id': 'hardware_reservation_id',
         'spot_instance': 'spot_instance',
         'spot_price_max': 'spot_price_max',
@@ -77,13 +84,15 @@ class DeviceCreateInput(object):
         'tags': 'tags',
         'project_ssh_keys': 'project_ssh_keys',
         'user_ssh_keys': 'user_ssh_keys',
+        'ssh_keys': 'ssh_keys',
+        'no_ssh_keys': 'no_ssh_keys',
         'features': 'features',
         'public_ipv4_subnet_size': 'public_ipv4_subnet_size',
         'private_ipv4_subnet_size': 'private_ipv4_subnet_size',
         'ip_addresses': 'ip_addresses'
     }
 
-    def __init__(self, facility=None, plan=None, hostname=None, description=None, billing_cycle=None, operating_system=None, always_pxe=None, ipxe_script_url=None, userdata=None, locked=None, customdata=None, hardware_reservation_id=None, spot_instance=None, spot_price_max=None, termination_time=None, tags=None, project_ssh_keys=None, user_ssh_keys=None, features=None, public_ipv4_subnet_size=None, private_ipv4_subnet_size=None, ip_addresses=None, local_vars_configuration=None):  # noqa: E501
+    def __init__(self, facility=None, plan=None, hostname=None, description=None, billing_cycle=None, operating_system=None, always_pxe=False, ipxe_script_url=None, userdata=None, locked=False, customdata=None, metro=None, hardware_reservation_id='', spot_instance=None, spot_price_max=None, termination_time=None, tags=None, project_ssh_keys=None, user_ssh_keys=None, ssh_keys=None, no_ssh_keys=False, features=None, public_ipv4_subnet_size=None, private_ipv4_subnet_size=None, ip_addresses=None, local_vars_configuration=None):  # noqa: E501
         """DeviceCreateInput - a model defined in OpenAPI"""  # noqa: E501
         if local_vars_configuration is None:
             local_vars_configuration = Configuration.get_default_copy()
@@ -100,6 +109,7 @@ class DeviceCreateInput(object):
         self._userdata = None
         self._locked = None
         self._customdata = None
+        self._metro = None
         self._hardware_reservation_id = None
         self._spot_instance = None
         self._spot_price_max = None
@@ -107,6 +117,8 @@ class DeviceCreateInput(object):
         self._tags = None
         self._project_ssh_keys = None
         self._user_ssh_keys = None
+        self._ssh_keys = None
+        self._no_ssh_keys = None
         self._features = None
         self._public_ipv4_subnet_size = None
         self._private_ipv4_subnet_size = None
@@ -132,6 +144,8 @@ class DeviceCreateInput(object):
             self.locked = locked
         if customdata is not None:
             self.customdata = customdata
+        if metro is not None:
+            self.metro = metro
         if hardware_reservation_id is not None:
             self.hardware_reservation_id = hardware_reservation_id
         if spot_instance is not None:
@@ -142,10 +156,10 @@ class DeviceCreateInput(object):
             self.termination_time = termination_time
         if tags is not None:
             self.tags = tags
-        if project_ssh_keys is not None:
-            self.project_ssh_keys = project_ssh_keys
-        if user_ssh_keys is not None:
-            self.user_ssh_keys = user_ssh_keys
+        self.project_ssh_keys = project_ssh_keys
+        self.user_ssh_keys = user_ssh_keys
+        self.ssh_keys = ssh_keys
+        self.no_ssh_keys = no_ssh_keys
         if features is not None:
             self.features = features
         if public_ipv4_subnet_size is not None:
@@ -159,6 +173,7 @@ class DeviceCreateInput(object):
     def facility(self):
         """Gets the facility of this DeviceCreateInput.  # noqa: E501
 
+        The datacenter where the device should be created.  The API will accept either a single facility `{ \"facility\": \"f1\" }`, or it can be instructed to create the device in the best available datacenter `{ \"facility\": \"any\" }`.  Additionally it is possible to set a prioritized location selection. For example `{ \"facility\": [\"f3\", \"f2\", \"any\"] }` can be used to prioritize `f3` and then `f2` before accepting `any` facility. If none of the facilities provided have availability for the requested device the request will fail.  # noqa: E501
 
         :return: The facility of this DeviceCreateInput.  # noqa: E501
         :rtype: str
@@ -169,6 +184,7 @@ class DeviceCreateInput(object):
     def facility(self, facility):
         """Sets the facility of this DeviceCreateInput.
 
+        The datacenter where the device should be created.  The API will accept either a single facility `{ \"facility\": \"f1\" }`, or it can be instructed to create the device in the best available datacenter `{ \"facility\": \"any\" }`.  Additionally it is possible to set a prioritized location selection. For example `{ \"facility\": [\"f3\", \"f2\", \"any\"] }` can be used to prioritize `f3` and then `f2` before accepting `any` facility. If none of the facilities provided have availability for the requested device the request will fail.  # noqa: E501
 
         :param facility: The facility of this DeviceCreateInput.  # noqa: E501
         :type facility: str
@@ -182,6 +198,7 @@ class DeviceCreateInput(object):
     def plan(self):
         """Gets the plan of this DeviceCreateInput.  # noqa: E501
 
+        The slug of the device plan to provision.  # noqa: E501
 
         :return: The plan of this DeviceCreateInput.  # noqa: E501
         :rtype: str
@@ -192,6 +209,7 @@ class DeviceCreateInput(object):
     def plan(self, plan):
         """Sets the plan of this DeviceCreateInput.
 
+        The slug of the device plan to provision.  # noqa: E501
 
         :param plan: The plan of this DeviceCreateInput.  # noqa: E501
         :type plan: str
@@ -205,6 +223,7 @@ class DeviceCreateInput(object):
     def hostname(self):
         """Gets the hostname of this DeviceCreateInput.  # noqa: E501
 
+        The hostname to use within the operating system. The same hostname may be used on multiple devices within a project.  # noqa: E501
 
         :return: The hostname of this DeviceCreateInput.  # noqa: E501
         :rtype: str
@@ -215,6 +234,7 @@ class DeviceCreateInput(object):
     def hostname(self, hostname):
         """Sets the hostname of this DeviceCreateInput.
 
+        The hostname to use within the operating system. The same hostname may be used on multiple devices within a project.  # noqa: E501
 
         :param hostname: The hostname of this DeviceCreateInput.  # noqa: E501
         :type hostname: str
@@ -226,6 +246,7 @@ class DeviceCreateInput(object):
     def description(self):
         """Gets the description of this DeviceCreateInput.  # noqa: E501
 
+        Any description of the device or how it will be used. This may be used to inform other API consumers with project access.  # noqa: E501
 
         :return: The description of this DeviceCreateInput.  # noqa: E501
         :rtype: str
@@ -236,6 +257,7 @@ class DeviceCreateInput(object):
     def description(self, description):
         """Sets the description of this DeviceCreateInput.
 
+        Any description of the device or how it will be used. This may be used to inform other API consumers with project access.  # noqa: E501
 
         :param description: The description of this DeviceCreateInput.  # noqa: E501
         :type description: str
@@ -247,6 +269,7 @@ class DeviceCreateInput(object):
     def billing_cycle(self):
         """Gets the billing_cycle of this DeviceCreateInput.  # noqa: E501
 
+        The billing cycle of the device.  # noqa: E501
 
         :return: The billing_cycle of this DeviceCreateInput.  # noqa: E501
         :rtype: str
@@ -257,10 +280,17 @@ class DeviceCreateInput(object):
     def billing_cycle(self, billing_cycle):
         """Sets the billing_cycle of this DeviceCreateInput.
 
+        The billing cycle of the device.  # noqa: E501
 
         :param billing_cycle: The billing_cycle of this DeviceCreateInput.  # noqa: E501
         :type billing_cycle: str
         """
+        allowed_values = ["hourly", "daily", "monthly", "yearly"]  # noqa: E501
+        if self.local_vars_configuration.client_side_validation and billing_cycle not in allowed_values:  # noqa: E501
+            raise ValueError(
+                "Invalid value for `billing_cycle` ({0}), must be one of {1}"  # noqa: E501
+                .format(billing_cycle, allowed_values)
+            )
 
         self._billing_cycle = billing_cycle
 
@@ -268,6 +298,7 @@ class DeviceCreateInput(object):
     def operating_system(self):
         """Gets the operating_system of this DeviceCreateInput.  # noqa: E501
 
+        The slug of the operating system to provision. Check the Equinix Metal operating system documentation for rules that may be imposed per operating system, including restrictions on IP address options and device plans.  # noqa: E501
 
         :return: The operating_system of this DeviceCreateInput.  # noqa: E501
         :rtype: str
@@ -278,6 +309,7 @@ class DeviceCreateInput(object):
     def operating_system(self, operating_system):
         """Sets the operating_system of this DeviceCreateInput.
 
+        The slug of the operating system to provision. Check the Equinix Metal operating system documentation for rules that may be imposed per operating system, including restrictions on IP address options and device plans.  # noqa: E501
 
         :param operating_system: The operating_system of this DeviceCreateInput.  # noqa: E501
         :type operating_system: str
@@ -291,6 +323,7 @@ class DeviceCreateInput(object):
     def always_pxe(self):
         """Gets the always_pxe of this DeviceCreateInput.  # noqa: E501
 
+        When true, devices with a `custom_ipxe` OS will always boot to iPXE. The default setting of false ensures that iPXE will be used on only the first boot.  # noqa: E501
 
         :return: The always_pxe of this DeviceCreateInput.  # noqa: E501
         :rtype: bool
@@ -301,6 +334,7 @@ class DeviceCreateInput(object):
     def always_pxe(self, always_pxe):
         """Sets the always_pxe of this DeviceCreateInput.
 
+        When true, devices with a `custom_ipxe` OS will always boot to iPXE. The default setting of false ensures that iPXE will be used on only the first boot.  # noqa: E501
 
         :param always_pxe: The always_pxe of this DeviceCreateInput.  # noqa: E501
         :type always_pxe: bool
@@ -312,6 +346,7 @@ class DeviceCreateInput(object):
     def ipxe_script_url(self):
         """Gets the ipxe_script_url of this DeviceCreateInput.  # noqa: E501
 
+        When set, the device will chainload an iPXE Script at boot fetched from the supplied URL.        See [Custom iPXE](https://metal.equinix.com/developers/docs/operating-systems/custom-ipxe/) for more details.  # noqa: E501
 
         :return: The ipxe_script_url of this DeviceCreateInput.  # noqa: E501
         :rtype: str
@@ -322,6 +357,7 @@ class DeviceCreateInput(object):
     def ipxe_script_url(self, ipxe_script_url):
         """Sets the ipxe_script_url of this DeviceCreateInput.
 
+        When set, the device will chainload an iPXE Script at boot fetched from the supplied URL.        See [Custom iPXE](https://metal.equinix.com/developers/docs/operating-systems/custom-ipxe/) for more details.  # noqa: E501
 
         :param ipxe_script_url: The ipxe_script_url of this DeviceCreateInput.  # noqa: E501
         :type ipxe_script_url: str
@@ -333,6 +369,7 @@ class DeviceCreateInput(object):
     def userdata(self):
         """Gets the userdata of this DeviceCreateInput.  # noqa: E501
 
+        The userdata presented in the metadata service for this device.  Userdata is fetched and interpretted by the operating system installed on the device. Acceptable formats are determined by the operating system, with the exception of a special iPXE enabling syntax which is handled before the operating system starts.        See [Server User Data](https://metal.equinix.com/developers/docs/servers/user-data/) and [Provisioning with Custom iPXE](https://metal.equinix.com/developers/docs/operating-systems/custom-ipxe/#provisioning-with-custom-ipxe) for more details.  # noqa: E501
 
         :return: The userdata of this DeviceCreateInput.  # noqa: E501
         :rtype: str
@@ -343,6 +380,7 @@ class DeviceCreateInput(object):
     def userdata(self, userdata):
         """Sets the userdata of this DeviceCreateInput.
 
+        The userdata presented in the metadata service for this device.  Userdata is fetched and interpretted by the operating system installed on the device. Acceptable formats are determined by the operating system, with the exception of a special iPXE enabling syntax which is handled before the operating system starts.        See [Server User Data](https://metal.equinix.com/developers/docs/servers/user-data/) and [Provisioning with Custom iPXE](https://metal.equinix.com/developers/docs/operating-systems/custom-ipxe/#provisioning-with-custom-ipxe) for more details.  # noqa: E501
 
         :param userdata: The userdata of this DeviceCreateInput.  # noqa: E501
         :type userdata: str
@@ -354,6 +392,7 @@ class DeviceCreateInput(object):
     def locked(self):
         """Gets the locked of this DeviceCreateInput.  # noqa: E501
 
+        Whether the device should be locked, preventing accidental deletion.  # noqa: E501
 
         :return: The locked of this DeviceCreateInput.  # noqa: E501
         :rtype: bool
@@ -364,6 +403,7 @@ class DeviceCreateInput(object):
     def locked(self, locked):
         """Sets the locked of this DeviceCreateInput.
 
+        Whether the device should be locked, preventing accidental deletion.  # noqa: E501
 
         :param locked: The locked of this DeviceCreateInput.  # noqa: E501
         :type locked: bool
@@ -375,6 +415,7 @@ class DeviceCreateInput(object):
     def customdata(self):
         """Gets the customdata of this DeviceCreateInput.  # noqa: E501
 
+        Customdata is an arbitrary JSON value that can be accessed via the metadata service.  # noqa: E501
 
         :return: The customdata of this DeviceCreateInput.  # noqa: E501
         :rtype: object
@@ -385,6 +426,7 @@ class DeviceCreateInput(object):
     def customdata(self, customdata):
         """Sets the customdata of this DeviceCreateInput.
 
+        Customdata is an arbitrary JSON value that can be accessed via the metadata service.  # noqa: E501
 
         :param customdata: The customdata of this DeviceCreateInput.  # noqa: E501
         :type customdata: object
@@ -393,9 +435,33 @@ class DeviceCreateInput(object):
         self._customdata = customdata
 
     @property
+    def metro(self):
+        """Gets the metro of this DeviceCreateInput.  # noqa: E501
+
+        Metro code or ID of where the instance should be provisioned in.  # noqa: E501
+
+        :return: The metro of this DeviceCreateInput.  # noqa: E501
+        :rtype: str
+        """
+        return self._metro
+
+    @metro.setter
+    def metro(self, metro):
+        """Sets the metro of this DeviceCreateInput.
+
+        Metro code or ID of where the instance should be provisioned in.  # noqa: E501
+
+        :param metro: The metro of this DeviceCreateInput.  # noqa: E501
+        :type metro: str
+        """
+
+        self._metro = metro
+
+    @property
     def hardware_reservation_id(self):
         """Gets the hardware_reservation_id of this DeviceCreateInput.  # noqa: E501
 
+        The Hardware Reservation UUID to provision. Alternatively, `next-available` can be specified to select from any of the available hardware reservations. An error will be returned if the requested reservation option is not available.        See [Reserved Hardware](https://metal.equinix.com/developers/docs/deploy/reserved/) for more details.  # noqa: E501
 
         :return: The hardware_reservation_id of this DeviceCreateInput.  # noqa: E501
         :rtype: str
@@ -406,6 +472,7 @@ class DeviceCreateInput(object):
     def hardware_reservation_id(self, hardware_reservation_id):
         """Sets the hardware_reservation_id of this DeviceCreateInput.
 
+        The Hardware Reservation UUID to provision. Alternatively, `next-available` can be specified to select from any of the available hardware reservations. An error will be returned if the requested reservation option is not available.        See [Reserved Hardware](https://metal.equinix.com/developers/docs/deploy/reserved/) for more details.  # noqa: E501
 
         :param hardware_reservation_id: The hardware_reservation_id of this DeviceCreateInput.  # noqa: E501
         :type hardware_reservation_id: str
@@ -501,6 +568,7 @@ class DeviceCreateInput(object):
     def project_ssh_keys(self):
         """Gets the project_ssh_keys of this DeviceCreateInput.  # noqa: E501
 
+        A list of UUIDs identifying the device parent project that should be authorized to access this device (typically via /root/.ssh/authorized_keys). These keys will also appear in the device metadata.  If no SSH keys are specified (`user_ssh_keys`, `project_ssh_keys`, and `ssh_keys` are all empty lists or omitted), all parent project keys, parent project members keys and organization members keys will be included. This behaviour can be changed with 'no_ssh_keys' option to omit any SSH key being added.    # noqa: E501
 
         :return: The project_ssh_keys of this DeviceCreateInput.  # noqa: E501
         :rtype: list[str]
@@ -511,6 +579,7 @@ class DeviceCreateInput(object):
     def project_ssh_keys(self, project_ssh_keys):
         """Sets the project_ssh_keys of this DeviceCreateInput.
 
+        A list of UUIDs identifying the device parent project that should be authorized to access this device (typically via /root/.ssh/authorized_keys). These keys will also appear in the device metadata.  If no SSH keys are specified (`user_ssh_keys`, `project_ssh_keys`, and `ssh_keys` are all empty lists or omitted), all parent project keys, parent project members keys and organization members keys will be included. This behaviour can be changed with 'no_ssh_keys' option to omit any SSH key being added.    # noqa: E501
 
         :param project_ssh_keys: The project_ssh_keys of this DeviceCreateInput.  # noqa: E501
         :type project_ssh_keys: list[str]
@@ -522,7 +591,7 @@ class DeviceCreateInput(object):
     def user_ssh_keys(self):
         """Gets the user_ssh_keys of this DeviceCreateInput.  # noqa: E501
 
-        The UUIDs of users whose SSH keys should be included on the provisioned device.  # noqa: E501
+        A list of UUIDs identifying the users that should be authorized to access this device (typically via /root/.ssh/authorized_keys).  These keys will also appear in the device metadata.  The users must be members of the project or organization.  If no SSH keys are specified (`user_ssh_keys`, `project_ssh_keys`, and `ssh_keys` are all empty lists or omitted), all parent project keys, parent project members keys and organization members keys will be included. This behaviour can be changed with 'no_ssh_keys' option to omit any SSH key being added.   # noqa: E501
 
         :return: The user_ssh_keys of this DeviceCreateInput.  # noqa: E501
         :rtype: list[str]
@@ -533,7 +602,7 @@ class DeviceCreateInput(object):
     def user_ssh_keys(self, user_ssh_keys):
         """Sets the user_ssh_keys of this DeviceCreateInput.
 
-        The UUIDs of users whose SSH keys should be included on the provisioned device.  # noqa: E501
+        A list of UUIDs identifying the users that should be authorized to access this device (typically via /root/.ssh/authorized_keys).  These keys will also appear in the device metadata.  The users must be members of the project or organization.  If no SSH keys are specified (`user_ssh_keys`, `project_ssh_keys`, and `ssh_keys` are all empty lists or omitted), all parent project keys, parent project members keys and organization members keys will be included. This behaviour can be changed with 'no_ssh_keys' option to omit any SSH key being added.   # noqa: E501
 
         :param user_ssh_keys: The user_ssh_keys of this DeviceCreateInput.  # noqa: E501
         :type user_ssh_keys: list[str]
@@ -542,9 +611,56 @@ class DeviceCreateInput(object):
         self._user_ssh_keys = user_ssh_keys
 
     @property
+    def ssh_keys(self):
+        """Gets the ssh_keys of this DeviceCreateInput.  # noqa: E501
+
+        A list of new or existing project ssh_keys that should be authorized to access this device (typically via /root/.ssh/authorized_keys). These keys will also appear in the device metadata.  These keys are added in addition to any keys defined by   `project_ssh_keys` and `user_ssh_keys`.   # noqa: E501
+
+        :return: The ssh_keys of this DeviceCreateInput.  # noqa: E501
+        :rtype: list[SSHKeyInput]
+        """
+        return self._ssh_keys
+
+    @ssh_keys.setter
+    def ssh_keys(self, ssh_keys):
+        """Sets the ssh_keys of this DeviceCreateInput.
+
+        A list of new or existing project ssh_keys that should be authorized to access this device (typically via /root/.ssh/authorized_keys). These keys will also appear in the device metadata.  These keys are added in addition to any keys defined by   `project_ssh_keys` and `user_ssh_keys`.   # noqa: E501
+
+        :param ssh_keys: The ssh_keys of this DeviceCreateInput.  # noqa: E501
+        :type ssh_keys: list[SSHKeyInput]
+        """
+
+        self._ssh_keys = ssh_keys
+
+    @property
+    def no_ssh_keys(self):
+        """Gets the no_ssh_keys of this DeviceCreateInput.  # noqa: E501
+
+        Overrides default behaviour of attaching all of the organization members ssh keys and project ssh keys to device if no specific keys specified  # noqa: E501
+
+        :return: The no_ssh_keys of this DeviceCreateInput.  # noqa: E501
+        :rtype: bool
+        """
+        return self._no_ssh_keys
+
+    @no_ssh_keys.setter
+    def no_ssh_keys(self, no_ssh_keys):
+        """Sets the no_ssh_keys of this DeviceCreateInput.
+
+        Overrides default behaviour of attaching all of the organization members ssh keys and project ssh keys to device if no specific keys specified  # noqa: E501
+
+        :param no_ssh_keys: The no_ssh_keys of this DeviceCreateInput.  # noqa: E501
+        :type no_ssh_keys: bool
+        """
+
+        self._no_ssh_keys = no_ssh_keys
+
+    @property
     def features(self):
         """Gets the features of this DeviceCreateInput.  # noqa: E501
 
+        The features attribute allows you to optionally specify what features your server should have.  In the API shorthand syntax, all features listed are `required`:  ``` { \"features\": [\"tpm\"] } ```  Alternatively, if you do not require a certain feature, but would prefer to be assigned a server with that feature if there are any available, you may specify that feature with a `preferred` value. The request will not fail if we have no servers with that feature in our inventory. The API offers an alternative syntax for mixing preferred and required features:  ``` { \"features\": { \"tpm\": \"required\", \"raid\": \"preferred\" } } ```  The request will only fail if there are no available servers matching the required `tpm` criteria.  # noqa: E501
 
         :return: The features of this DeviceCreateInput.  # noqa: E501
         :rtype: list[str]
@@ -555,6 +671,7 @@ class DeviceCreateInput(object):
     def features(self, features):
         """Sets the features of this DeviceCreateInput.
 
+        The features attribute allows you to optionally specify what features your server should have.  In the API shorthand syntax, all features listed are `required`:  ``` { \"features\": [\"tpm\"] } ```  Alternatively, if you do not require a certain feature, but would prefer to be assigned a server with that feature if there are any available, you may specify that feature with a `preferred` value. The request will not fail if we have no servers with that feature in our inventory. The API offers an alternative syntax for mixing preferred and required features:  ``` { \"features\": { \"tpm\": \"required\", \"raid\": \"preferred\" } } ```  The request will only fail if there are no available servers matching the required `tpm` criteria.  # noqa: E501
 
         :param features: The features of this DeviceCreateInput.  # noqa: E501
         :type features: list[str]
@@ -612,6 +729,7 @@ class DeviceCreateInput(object):
     def ip_addresses(self):
         """Gets the ip_addresses of this DeviceCreateInput.  # noqa: E501
 
+        The `ip_addresses attribute will allow you to specify the addresses you want created with your device.  The default value configures public IPv4, public IPv6, and private IPv4.  Private IPv4 address is required. When specifying `ip_addresses`, one of the array items must enable private IPv4.  Some operating systems require public IPv4 address. In those cases you will receive an error message if public IPv4 is not enabled.  For example, to only configure your server with a private IPv4 address, you can send `{ \"ip_addresses\": [{ \"address_family\": 4, \"public\": false }] }`.  It is possible to request a subnet size larger than a `/30` by assigning addresses using the UUID(s) of ip_reservations in your project.  For example, `{ \"ip_addresses\": [..., {\"address_family\": 4, \"public\": true, \"ip_reservations\": [\"uuid1\", \"uuid2\"]}] }`  To access a server without public IPs, you can use our Out-of-Band console access (SOS) or proxy through another server in the project with public IPs enabled.  # noqa: E501
 
         :return: The ip_addresses of this DeviceCreateInput.  # noqa: E501
         :rtype: list[DeviceCreateInputIpAddresses]
@@ -622,6 +740,7 @@ class DeviceCreateInput(object):
     def ip_addresses(self, ip_addresses):
         """Sets the ip_addresses of this DeviceCreateInput.
 
+        The `ip_addresses attribute will allow you to specify the addresses you want created with your device.  The default value configures public IPv4, public IPv6, and private IPv4.  Private IPv4 address is required. When specifying `ip_addresses`, one of the array items must enable private IPv4.  Some operating systems require public IPv4 address. In those cases you will receive an error message if public IPv4 is not enabled.  For example, to only configure your server with a private IPv4 address, you can send `{ \"ip_addresses\": [{ \"address_family\": 4, \"public\": false }] }`.  It is possible to request a subnet size larger than a `/30` by assigning addresses using the UUID(s) of ip_reservations in your project.  For example, `{ \"ip_addresses\": [..., {\"address_family\": 4, \"public\": true, \"ip_reservations\": [\"uuid1\", \"uuid2\"]}] }`  To access a server without public IPs, you can use our Out-of-Band console access (SOS) or proxy through another server in the project with public IPs enabled.  # noqa: E501
 
         :param ip_addresses: The ip_addresses of this DeviceCreateInput.  # noqa: E501
         :type ip_addresses: list[DeviceCreateInputIpAddresses]
@@ -635,7 +754,7 @@ class DeviceCreateInput(object):
 
         def convert(x):
             if hasattr(x, "to_dict"):
-                args = inspect.getargspec(x.to_dict).args
+                args = getfullargspec(x.to_dict).args
                 if len(args) == 1:
                     return x.to_dict()
                 else:

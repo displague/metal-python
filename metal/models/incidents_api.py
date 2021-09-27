@@ -3,7 +3,7 @@
 """
     Metal API
 
-    This is the API for Equinix Metal Product. Interact with your devices, user account, and projects.  # noqa: E501
+    This is the API for Equinix Metal. The API allows you to programmatically interact with all of your Equinix Metal resources, including devices, networks, addresses, organizations, projects, and your user account.  The official API docs are hosted at <https://metal.equinix.com/developers/api>.   # noqa: E501
 
     The version of the OpenAPI document: 1.0.0
     Contact: support@equinixmetal.com
@@ -37,14 +37,14 @@ class IncidentsApi(object):
             api_client = ApiClient()
         self.api_client = api_client
 
-    def incidents_get(self, **kwargs):  # noqa: E501
+    def find_incidents(self, **kwargs):  # noqa: E501
         """Retrieve the number of incidents  # noqa: E501
 
         Retrieve the number of incidents.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.incidents_get(async_req=True)
+        >>> thread = api.find_incidents(async_req=True)
         >>> result = thread.get()
 
         :param include: Nested attributes to include. Included objects will return their full attributes. Attribute names can be dotted (up to 3 levels) to included deeply nested objects.
@@ -67,16 +67,16 @@ class IncidentsApi(object):
         :rtype: None
         """
         kwargs['_return_http_data_only'] = True
-        return self.incidents_get_with_http_info(**kwargs)  # noqa: E501
+        return self.find_incidents_with_http_info(**kwargs)  # noqa: E501
 
-    def incidents_get_with_http_info(self, **kwargs):  # noqa: E501
+    def find_incidents_with_http_info(self, **kwargs):  # noqa: E501
         """Retrieve the number of incidents  # noqa: E501
 
         Retrieve the number of incidents.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.incidents_get_with_http_info(async_req=True)
+        >>> thread = api.find_incidents_with_http_info(async_req=True)
         >>> result = thread.get()
 
         :param include: Nested attributes to include. Included objects will return their full attributes. Attribute names can be dotted (up to 3 levels) to included deeply nested objects.
@@ -126,7 +126,7 @@ class IncidentsApi(object):
             if key not in all_params:
                 raise ApiTypeError(
                     "Got an unexpected keyword argument '%s'"
-                    " to method incidents_get" % key
+                    " to method find_incidents" % key
                 )
             local_var_params[key] = val
         del local_var_params['kwargs']
@@ -149,9 +149,13 @@ class IncidentsApi(object):
         local_var_files = {}
 
         body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
+
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
-        
+
         response_types_map = {}
 
         return self.api_client.call_api(

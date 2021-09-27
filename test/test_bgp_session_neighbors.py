@@ -3,7 +3,7 @@
 """
     Metal API
 
-    This is the API for Equinix Metal Product. Interact with your devices, user account, and projects.  # noqa: E501
+    This is the API for Equinix Metal. The API allows you to programmatically interact with all of your Equinix Metal resources, including devices, networks, addresses, organizations, projects, and your user account.  The official API docs are hosted at <https://metal.equinix.com/developers/api>.   # noqa: E501
 
     The version of the OpenAPI document: 1.0.0
     Contact: support@equinixmetal.com
@@ -39,14 +39,14 @@ class TestBgpSessionNeighbors(unittest.TestCase):
             return BgpSessionNeighbors(
                 bgp_neighbors = [
                     metal.models.bgp_neighbor_data.BgpNeighborData(
-                        address_family = 1.337, 
+                        address_family = 4.0, 
                         customer_as = 65000.0, 
                         customer_ip = '10.32.16.1 (IPv4) or 2604:1380:4111:2700::1 (IPv6)', 
                         md5_enabled = True, 
                         md5_password = '', 
                         multihop = True, 
                         peer_as = 65530.0, 
-                        peer_ips = ["10.32.16.0"] or ["169.254.255.1", "169.254.255.2"], 
+                        peer_ips = [169.254.255.1, 169.254.255.2], 
                         routes_in = [
                             metal.models.bgp_neighbor_data_routes_in.BgpNeighborData_routes_in(
                                 route = '10.32.16.0/31', 

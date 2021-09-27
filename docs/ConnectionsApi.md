@@ -176,6 +176,7 @@ Name | Type | Description  | Notes
 **201** | created |  -  |
 **403** | forbidden |  -  |
 **404** | not found |  -  |
+**422** | unprocessable entity |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -252,6 +253,7 @@ Name | Type | Description  | Notes
 |-------------|-------------|------------------|
 **201** | created |  -  |
 **403** | forbidden |  -  |
+**422** | unprocessable entity |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

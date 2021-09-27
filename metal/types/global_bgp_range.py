@@ -3,7 +3,7 @@
 """
     Metal API
 
-    This is the API for Equinix Metal Product. Interact with your devices, user account, and projects.  # noqa: E501
+    This is the API for Equinix Metal. The API allows you to programmatically interact with all of your Equinix Metal resources, including devices, networks, addresses, organizations, projects, and your user account.  The official API docs are hosted at <https://metal.equinix.com/developers/api>.   # noqa: E501
 
     The version of the OpenAPI document: 1.0.0
     Contact: support@equinixmetal.com
@@ -11,7 +11,10 @@
 """
 
 
-import inspect
+try:
+    from inspect import getfullargspec
+except ImportError:
+    from inspect import getargspec as getfullargspec
 import pprint
 import re  # noqa: F401
 import six
@@ -37,17 +40,19 @@ class GlobalBgpRange(object):
         'id': 'str',
         'address_family': 'int',
         'range': 'str',
-        'href': 'str'
+        'href': 'str',
+        'project': 'Href'
     }
 
     attribute_map = {
         'id': 'id',
         'address_family': 'address_family',
         'range': 'range',
-        'href': 'href'
+        'href': 'href',
+        'project': 'project'
     }
 
-    def __init__(self, id=None, address_family=None, range=None, href=None, local_vars_configuration=None):  # noqa: E501
+    def __init__(self, id=None, address_family=None, range=None, href=None, project=None, local_vars_configuration=None):  # noqa: E501
         """GlobalBgpRange - a model defined in OpenAPI"""  # noqa: E501
         if local_vars_configuration is None:
             local_vars_configuration = Configuration.get_default_copy()
@@ -57,6 +62,7 @@ class GlobalBgpRange(object):
         self._address_family = None
         self._range = None
         self._href = None
+        self._project = None
         self.discriminator = None
 
         if id is not None:
@@ -67,6 +73,8 @@ class GlobalBgpRange(object):
             self.range = range
         if href is not None:
             self.href = href
+        if project is not None:
+            self.project = project
 
     @property
     def id(self):
@@ -152,13 +160,34 @@ class GlobalBgpRange(object):
 
         self._href = href
 
+    @property
+    def project(self):
+        """Gets the project of this GlobalBgpRange.  # noqa: E501
+
+
+        :return: The project of this GlobalBgpRange.  # noqa: E501
+        :rtype: Href
+        """
+        return self._project
+
+    @project.setter
+    def project(self, project):
+        """Sets the project of this GlobalBgpRange.
+
+
+        :param project: The project of this GlobalBgpRange.  # noqa: E501
+        :type project: Href
+        """
+
+        self._project = project
+
     def to_dict(self, serialize=False):
         """Returns the model properties as a dict"""
         result = {}
 
         def convert(x):
             if hasattr(x, "to_dict"):
-                args = inspect.getargspec(x.to_dict).args
+                args = getfullargspec(x.to_dict).args
                 if len(args) == 1:
                     return x.to_dict()
                 else:

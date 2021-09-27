@@ -3,7 +3,7 @@
 """
     Metal API
 
-    This is the API for Equinix Metal Product. Interact with your devices, user account, and projects.  # noqa: E501
+    This is the API for Equinix Metal. The API allows you to programmatically interact with all of your Equinix Metal resources, including devices, networks, addresses, organizations, projects, and your user account.  The official API docs are hosted at <https://metal.equinix.com/developers/api>.   # noqa: E501
 
     The version of the OpenAPI document: 1.0.0
     Contact: support@equinixmetal.com
@@ -38,7 +38,7 @@ class IPAddressesApi(object):
         self.api_client = api_client
 
     def create_ip_assignment(self, id, ip_assignment, **kwargs):  # noqa: E501
-        """Create a ip assignment  # noqa: E501
+        """Create an ip assignment  # noqa: E501
 
         Creates an ip assignment for a device.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
@@ -70,7 +70,7 @@ class IPAddressesApi(object):
         return self.create_ip_assignment_with_http_info(id, ip_assignment, **kwargs)  # noqa: E501
 
     def create_ip_assignment_with_http_info(self, id, ip_assignment, **kwargs):  # noqa: E501
-        """Create a ip assignment  # noqa: E501
+        """Create an ip assignment  # noqa: E501
 
         Creates an ip assignment for a device.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
@@ -165,16 +165,168 @@ class IPAddressesApi(object):
 
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
-        
+
         response_types_map = {
             201: "IPAssignment",
-            401: None,
-            404: None,
-            422: None,
+            401: "Error",
+            404: "Error",
+            422: "Error",
         }
 
         return self.api_client.call_api(
             '/devices/{id}/ips', 'POST',
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_types_map=response_types_map,
+            auth_settings=auth_settings,
+            async_req=local_var_params.get('async_req'),
+            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
+            _preload_content=local_var_params.get('_preload_content', True),
+            _request_timeout=local_var_params.get('_request_timeout'),
+            collection_formats=collection_formats,
+            _request_auth=local_var_params.get('_request_auth'))
+
+    def create_self_service_reservation(self, project_id, reservation, **kwargs):  # noqa: E501
+        """Create a reservation  # noqa: E501
+
+        Creates a reservation.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+
+        >>> thread = api.create_self_service_reservation(project_id, reservation, async_req=True)
+        >>> result = thread.get()
+
+        :param project_id: Project UUID (required)
+        :type project_id: str
+        :param reservation: reservation to create (required)
+        :type reservation: CreateSelfServiceReservationRequest
+        :param async_req: Whether to execute the request asynchronously.
+        :type async_req: bool, optional
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :type _preload_content: bool, optional
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: Returns the result object.
+                 If the method is called asynchronously,
+                 returns the request thread.
+        :rtype: SelfServiceReservationResponse
+        """
+        kwargs['_return_http_data_only'] = True
+        return self.create_self_service_reservation_with_http_info(project_id, reservation, **kwargs)  # noqa: E501
+
+    def create_self_service_reservation_with_http_info(self, project_id, reservation, **kwargs):  # noqa: E501
+        """Create a reservation  # noqa: E501
+
+        Creates a reservation.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+
+        >>> thread = api.create_self_service_reservation_with_http_info(project_id, reservation, async_req=True)
+        >>> result = thread.get()
+
+        :param project_id: Project UUID (required)
+        :type project_id: str
+        :param reservation: reservation to create (required)
+        :type reservation: CreateSelfServiceReservationRequest
+        :param async_req: Whether to execute the request asynchronously.
+        :type async_req: bool, optional
+        :param _return_http_data_only: response data without head status code
+                                       and headers
+        :type _return_http_data_only: bool, optional
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :type _preload_content: bool, optional
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the authentication
+                              in the spec for a single request.
+        :type _request_auth: dict, optional
+        :return: Returns the result object.
+                 If the method is called asynchronously,
+                 returns the request thread.
+        :rtype: tuple(SelfServiceReservationResponse, status_code(int), headers(HTTPHeaderDict))
+        """
+
+        local_var_params = locals()
+
+        all_params = [
+            'project_id',
+            'reservation'
+        ]
+        all_params.extend(
+            [
+                'async_req',
+                '_return_http_data_only',
+                '_preload_content',
+                '_request_timeout',
+                '_request_auth'
+            ]
+        )
+
+        for key, val in six.iteritems(local_var_params['kwargs']):
+            if key not in all_params:
+                raise ApiTypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method create_self_service_reservation" % key
+                )
+            local_var_params[key] = val
+        del local_var_params['kwargs']
+        # verify the required parameter 'project_id' is set
+        if self.api_client.client_side_validation and ('project_id' not in local_var_params or  # noqa: E501
+                                                        local_var_params['project_id'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `project_id` when calling `create_self_service_reservation`")  # noqa: E501
+        # verify the required parameter 'reservation' is set
+        if self.api_client.client_side_validation and ('reservation' not in local_var_params or  # noqa: E501
+                                                        local_var_params['reservation'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `reservation` when calling `create_self_service_reservation`")  # noqa: E501
+
+        collection_formats = {}
+
+        path_params = {}
+        if 'project_id' in local_var_params:
+            path_params['project_id'] = local_var_params['project_id']  # noqa: E501
+
+        query_params = []
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        if 'reservation' in local_var_params:
+            body_params = local_var_params['reservation']
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
+
+        # HTTP header `Content-Type`
+        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
+            ['application/json'])  # noqa: E501
+
+        # Authentication setting
+        auth_settings = ['x_auth_token']  # noqa: E501
+
+        response_types_map = {
+            201: "SelfServiceReservationResponse",
+            401: "Error",
+            422: "Error",
+        }
+
+        return self.api_client.call_api(
+            '/projects/{project_id}/self-service/reservations', 'POST',
             path_params,
             query_params,
             header_params,
@@ -297,9 +449,13 @@ class IPAddressesApi(object):
         local_var_files = {}
 
         body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
+
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
-        
+
         response_types_map = {}
 
         return self.api_client.call_api(
@@ -448,12 +604,12 @@ class IPAddressesApi(object):
 
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
-        
+
         response_types_map = {
             200: "IPAssignment",
-            401: None,
-            403: None,
-            404: None,
+            401: "Error",
+            403: "Error",
+            404: "Error",
         }
 
         return self.api_client.call_api(
@@ -580,9 +736,13 @@ class IPAddressesApi(object):
         local_var_files = {}
 
         body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
+
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
-        
+
         response_types_map = {}
 
         return self.api_client.call_api(
@@ -731,11 +891,11 @@ class IPAddressesApi(object):
 
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
-        
+
         response_types_map = {
             200: "IPAssignmentList",
-            401: None,
-            404: None,
+            401: "Error",
+            404: "Error",
         }
 
         return self.api_client.call_api(
@@ -879,12 +1039,12 @@ class IPAddressesApi(object):
 
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
-        
+
         response_types_map = {
             200: "IPAvailabilitiesList",
-            401: None,
-            403: None,
-            404: None,
+            401: "Error",
+            403: "Error",
+            404: "Error",
         }
 
         return self.api_client.call_api(
@@ -1033,16 +1193,322 @@ class IPAddressesApi(object):
 
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
-        
+
         response_types_map = {
             200: "IPReservationList",
-            401: None,
-            403: None,
-            404: None,
+            401: "Error",
+            403: "Error",
+            404: "Error",
         }
 
         return self.api_client.call_api(
             '/projects/{id}/ips', 'GET',
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_types_map=response_types_map,
+            auth_settings=auth_settings,
+            async_req=local_var_params.get('async_req'),
+            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
+            _preload_content=local_var_params.get('_preload_content', True),
+            _request_timeout=local_var_params.get('_request_timeout'),
+            collection_formats=collection_formats,
+            _request_auth=local_var_params.get('_request_auth'))
+
+    def find_self_service_reservation(self, id, project_id, **kwargs):  # noqa: E501
+        """Retrieve a reservation  # noqa: E501
+
+        Returns a reservation  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+
+        >>> thread = api.find_self_service_reservation(id, project_id, async_req=True)
+        >>> result = thread.get()
+
+        :param id: Reservation short_id (required)
+        :type id: str
+        :param project_id: Project UUID (required)
+        :type project_id: str
+        :param async_req: Whether to execute the request asynchronously.
+        :type async_req: bool, optional
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :type _preload_content: bool, optional
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: Returns the result object.
+                 If the method is called asynchronously,
+                 returns the request thread.
+        :rtype: SelfServiceReservationResponse
+        """
+        kwargs['_return_http_data_only'] = True
+        return self.find_self_service_reservation_with_http_info(id, project_id, **kwargs)  # noqa: E501
+
+    def find_self_service_reservation_with_http_info(self, id, project_id, **kwargs):  # noqa: E501
+        """Retrieve a reservation  # noqa: E501
+
+        Returns a reservation  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+
+        >>> thread = api.find_self_service_reservation_with_http_info(id, project_id, async_req=True)
+        >>> result = thread.get()
+
+        :param id: Reservation short_id (required)
+        :type id: str
+        :param project_id: Project UUID (required)
+        :type project_id: str
+        :param async_req: Whether to execute the request asynchronously.
+        :type async_req: bool, optional
+        :param _return_http_data_only: response data without head status code
+                                       and headers
+        :type _return_http_data_only: bool, optional
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :type _preload_content: bool, optional
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the authentication
+                              in the spec for a single request.
+        :type _request_auth: dict, optional
+        :return: Returns the result object.
+                 If the method is called asynchronously,
+                 returns the request thread.
+        :rtype: tuple(SelfServiceReservationResponse, status_code(int), headers(HTTPHeaderDict))
+        """
+
+        local_var_params = locals()
+
+        all_params = [
+            'id',
+            'project_id'
+        ]
+        all_params.extend(
+            [
+                'async_req',
+                '_return_http_data_only',
+                '_preload_content',
+                '_request_timeout',
+                '_request_auth'
+            ]
+        )
+
+        for key, val in six.iteritems(local_var_params['kwargs']):
+            if key not in all_params:
+                raise ApiTypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method find_self_service_reservation" % key
+                )
+            local_var_params[key] = val
+        del local_var_params['kwargs']
+        # verify the required parameter 'id' is set
+        if self.api_client.client_side_validation and ('id' not in local_var_params or  # noqa: E501
+                                                        local_var_params['id'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `id` when calling `find_self_service_reservation`")  # noqa: E501
+        # verify the required parameter 'project_id' is set
+        if self.api_client.client_side_validation and ('project_id' not in local_var_params or  # noqa: E501
+                                                        local_var_params['project_id'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `project_id` when calling `find_self_service_reservation`")  # noqa: E501
+
+        collection_formats = {}
+
+        path_params = {}
+        if 'id' in local_var_params:
+            path_params['id'] = local_var_params['id']  # noqa: E501
+        if 'project_id' in local_var_params:
+            path_params['project_id'] = local_var_params['project_id']  # noqa: E501
+
+        query_params = []
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
+
+        # Authentication setting
+        auth_settings = ['x_auth_token']  # noqa: E501
+
+        response_types_map = {
+            200: "SelfServiceReservationResponse",
+            401: "Error",
+            404: "Error",
+        }
+
+        return self.api_client.call_api(
+            '/projects/{project_id}/self-service/reservations/{id}', 'GET',
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_types_map=response_types_map,
+            auth_settings=auth_settings,
+            async_req=local_var_params.get('async_req'),
+            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
+            _preload_content=local_var_params.get('_preload_content', True),
+            _request_timeout=local_var_params.get('_request_timeout'),
+            collection_formats=collection_formats,
+            _request_auth=local_var_params.get('_request_auth'))
+
+    def find_self_service_reservations(self, project_id, **kwargs):  # noqa: E501
+        """Retrieve all reservations  # noqa: E501
+
+        Returns all reservations.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+
+        >>> thread = api.find_self_service_reservations(project_id, async_req=True)
+        >>> result = thread.get()
+
+        :param project_id: Project UUID (required)
+        :type project_id: str
+        :param page: Page to return
+        :type page: int
+        :param per_page: Items returned per page
+        :type per_page: int
+        :param async_req: Whether to execute the request asynchronously.
+        :type async_req: bool, optional
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :type _preload_content: bool, optional
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: Returns the result object.
+                 If the method is called asynchronously,
+                 returns the request thread.
+        :rtype: SelfServiceReservationList
+        """
+        kwargs['_return_http_data_only'] = True
+        return self.find_self_service_reservations_with_http_info(project_id, **kwargs)  # noqa: E501
+
+    def find_self_service_reservations_with_http_info(self, project_id, **kwargs):  # noqa: E501
+        """Retrieve all reservations  # noqa: E501
+
+        Returns all reservations.  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+
+        >>> thread = api.find_self_service_reservations_with_http_info(project_id, async_req=True)
+        >>> result = thread.get()
+
+        :param project_id: Project UUID (required)
+        :type project_id: str
+        :param page: Page to return
+        :type page: int
+        :param per_page: Items returned per page
+        :type per_page: int
+        :param async_req: Whether to execute the request asynchronously.
+        :type async_req: bool, optional
+        :param _return_http_data_only: response data without head status code
+                                       and headers
+        :type _return_http_data_only: bool, optional
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :type _preload_content: bool, optional
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the authentication
+                              in the spec for a single request.
+        :type _request_auth: dict, optional
+        :return: Returns the result object.
+                 If the method is called asynchronously,
+                 returns the request thread.
+        :rtype: tuple(SelfServiceReservationList, status_code(int), headers(HTTPHeaderDict))
+        """
+
+        local_var_params = locals()
+
+        all_params = [
+            'project_id',
+            'page',
+            'per_page'
+        ]
+        all_params.extend(
+            [
+                'async_req',
+                '_return_http_data_only',
+                '_preload_content',
+                '_request_timeout',
+                '_request_auth'
+            ]
+        )
+
+        for key, val in six.iteritems(local_var_params['kwargs']):
+            if key not in all_params:
+                raise ApiTypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method find_self_service_reservations" % key
+                )
+            local_var_params[key] = val
+        del local_var_params['kwargs']
+        # verify the required parameter 'project_id' is set
+        if self.api_client.client_side_validation and ('project_id' not in local_var_params or  # noqa: E501
+                                                        local_var_params['project_id'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `project_id` when calling `find_self_service_reservations`")  # noqa: E501
+
+        if self.api_client.client_side_validation and 'page' in local_var_params and local_var_params['page'] > 100000:  # noqa: E501
+            raise ApiValueError("Invalid value for parameter `page` when calling `find_self_service_reservations`, must be a value less than or equal to `100000`")  # noqa: E501
+        if self.api_client.client_side_validation and 'page' in local_var_params and local_var_params['page'] < 1:  # noqa: E501
+            raise ApiValueError("Invalid value for parameter `page` when calling `find_self_service_reservations`, must be a value greater than or equal to `1`")  # noqa: E501
+        if self.api_client.client_side_validation and 'per_page' in local_var_params and local_var_params['per_page'] > 1000:  # noqa: E501
+            raise ApiValueError("Invalid value for parameter `per_page` when calling `find_self_service_reservations`, must be a value less than or equal to `1000`")  # noqa: E501
+        if self.api_client.client_side_validation and 'per_page' in local_var_params and local_var_params['per_page'] < 1:  # noqa: E501
+            raise ApiValueError("Invalid value for parameter `per_page` when calling `find_self_service_reservations`, must be a value greater than or equal to `1`")  # noqa: E501
+        collection_formats = {}
+
+        path_params = {}
+        if 'project_id' in local_var_params:
+            path_params['project_id'] = local_var_params['project_id']  # noqa: E501
+
+        query_params = []
+        if 'page' in local_var_params and local_var_params['page'] is not None:  # noqa: E501
+            query_params.append(('page', local_var_params['page']))  # noqa: E501
+        if 'per_page' in local_var_params and local_var_params['per_page'] is not None:  # noqa: E501
+            query_params.append(('per_page', local_var_params['per_page']))  # noqa: E501
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
+
+        # Authentication setting
+        auth_settings = ['x_auth_token']  # noqa: E501
+
+        response_types_map = {
+            200: "SelfServiceReservationList",
+            401: "Error",
+        }
+
+        return self.api_client.call_api(
+            '/projects/{project_id}/self-service/reservations', 'GET',
             path_params,
             query_params,
             header_params,
@@ -1186,17 +1652,177 @@ class IPAddressesApi(object):
 
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
-        
+
         response_types_map = {
             201: "IPReservation",
-            401: None,
-            403: None,
-            404: None,
-            422: None,
+            401: "Error",
+            403: "Error",
+            404: "Error",
+            422: "Error",
         }
 
         return self.api_client.call_api(
             '/projects/{id}/ips', 'POST',
+            path_params,
+            query_params,
+            header_params,
+            body=body_params,
+            post_params=form_params,
+            files=local_var_files,
+            response_types_map=response_types_map,
+            auth_settings=auth_settings,
+            async_req=local_var_params.get('async_req'),
+            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
+            _preload_content=local_var_params.get('_preload_content', True),
+            _request_timeout=local_var_params.get('_request_timeout'),
+            collection_formats=collection_formats,
+            _request_auth=local_var_params.get('_request_auth'))
+
+    def update_ip_address(self, id, details, customdata, **kwargs):  # noqa: E501
+        """Update an ip address  # noqa: E501
+
+        Update details about an ip address  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+
+        >>> thread = api.update_ip_address(id, details, customdata, async_req=True)
+        >>> result = thread.get()
+
+        :param id: IP Address UUID (required)
+        :type id: str
+        :param details: Notes for this IP Assignment (required)
+        :type details: str
+        :param customdata: Provides the custom metadata stored for this IP Assignment in json format (required)
+        :type customdata: str
+        :param async_req: Whether to execute the request asynchronously.
+        :type async_req: bool, optional
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :type _preload_content: bool, optional
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :return: Returns the result object.
+                 If the method is called asynchronously,
+                 returns the request thread.
+        :rtype: IPAssignment
+        """
+        kwargs['_return_http_data_only'] = True
+        return self.update_ip_address_with_http_info(id, details, customdata, **kwargs)  # noqa: E501
+
+    def update_ip_address_with_http_info(self, id, details, customdata, **kwargs):  # noqa: E501
+        """Update an ip address  # noqa: E501
+
+        Update details about an ip address  # noqa: E501
+        This method makes a synchronous HTTP request by default. To make an
+        asynchronous HTTP request, please pass async_req=True
+
+        >>> thread = api.update_ip_address_with_http_info(id, details, customdata, async_req=True)
+        >>> result = thread.get()
+
+        :param id: IP Address UUID (required)
+        :type id: str
+        :param details: Notes for this IP Assignment (required)
+        :type details: str
+        :param customdata: Provides the custom metadata stored for this IP Assignment in json format (required)
+        :type customdata: str
+        :param async_req: Whether to execute the request asynchronously.
+        :type async_req: bool, optional
+        :param _return_http_data_only: response data without head status code
+                                       and headers
+        :type _return_http_data_only: bool, optional
+        :param _preload_content: if False, the urllib3.HTTPResponse object will
+                                 be returned without reading/decoding response
+                                 data. Default is True.
+        :type _preload_content: bool, optional
+        :param _request_timeout: timeout setting for this request. If one
+                                 number provided, it will be total request
+                                 timeout. It can also be a pair (tuple) of
+                                 (connection, read) timeouts.
+        :param _request_auth: set to override the auth_settings for an a single
+                              request; this effectively ignores the authentication
+                              in the spec for a single request.
+        :type _request_auth: dict, optional
+        :return: Returns the result object.
+                 If the method is called asynchronously,
+                 returns the request thread.
+        :rtype: tuple(IPAssignment, status_code(int), headers(HTTPHeaderDict))
+        """
+
+        local_var_params = locals()
+
+        all_params = [
+            'id',
+            'details',
+            'customdata'
+        ]
+        all_params.extend(
+            [
+                'async_req',
+                '_return_http_data_only',
+                '_preload_content',
+                '_request_timeout',
+                '_request_auth'
+            ]
+        )
+
+        for key, val in six.iteritems(local_var_params['kwargs']):
+            if key not in all_params:
+                raise ApiTypeError(
+                    "Got an unexpected keyword argument '%s'"
+                    " to method update_ip_address" % key
+                )
+            local_var_params[key] = val
+        del local_var_params['kwargs']
+        # verify the required parameter 'id' is set
+        if self.api_client.client_side_validation and ('id' not in local_var_params or  # noqa: E501
+                                                        local_var_params['id'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `id` when calling `update_ip_address`")  # noqa: E501
+        # verify the required parameter 'details' is set
+        if self.api_client.client_side_validation and ('details' not in local_var_params or  # noqa: E501
+                                                        local_var_params['details'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `details` when calling `update_ip_address`")  # noqa: E501
+        # verify the required parameter 'customdata' is set
+        if self.api_client.client_side_validation and ('customdata' not in local_var_params or  # noqa: E501
+                                                        local_var_params['customdata'] is None):  # noqa: E501
+            raise ApiValueError("Missing the required parameter `customdata` when calling `update_ip_address`")  # noqa: E501
+
+        collection_formats = {}
+
+        path_params = {}
+        if 'id' in local_var_params:
+            path_params['id'] = local_var_params['id']  # noqa: E501
+
+        query_params = []
+        if 'details' in local_var_params and local_var_params['details'] is not None:  # noqa: E501
+            query_params.append(('details', local_var_params['details']))  # noqa: E501
+        if 'customdata' in local_var_params and local_var_params['customdata'] is not None:  # noqa: E501
+            query_params.append(('customdata', local_var_params['customdata']))  # noqa: E501
+
+        header_params = {}
+
+        form_params = []
+        local_var_files = {}
+
+        body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
+
+        # Authentication setting
+        auth_settings = ['x_auth_token']  # noqa: E501
+
+        response_types_map = {
+            200: "IPAssignment",
+            401: "Error",
+            403: "Error",
+            404: "Error",
+        }
+
+        return self.api_client.call_api(
+            '/ips/{id}', 'PATCH',
             path_params,
             query_params,
             header_params,

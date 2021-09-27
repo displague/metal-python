@@ -3,7 +3,7 @@
 """
     Metal API
 
-    This is the API for Equinix Metal Product. Interact with your devices, user account, and projects.  # noqa: E501
+    This is the API for Equinix Metal. The API allows you to programmatically interact with all of your Equinix Metal resources, including devices, networks, addresses, organizations, projects, and your user account.  The official API docs are hosted at <https://metal.equinix.com/developers/api>.   # noqa: E501
 
     The version of the OpenAPI document: 1.0.0
     Contact: support@equinixmetal.com
@@ -88,7 +88,7 @@ class TestProjectsApi(unittest.TestCase):
     def test_create_virtual_network(self):
         """Test case for create_virtual_network
 
-        Create an virtual network  # noqa: E501
+        Create a virtual network  # noqa: E501
         """
         pass
 
@@ -124,6 +124,13 @@ class TestProjectsApi(unittest.TestCase):
         """Test case for find_facilities_by_project
 
         Retrieve all facilities visible by the project  # noqa: E501
+        """
+        pass
+
+    def test_find_global_bgp_ranges(self):
+        """Test case for find_global_bgp_ranges
+
+        Retrieve all global bgp ranges  # noqa: E501
         """
         pass
 

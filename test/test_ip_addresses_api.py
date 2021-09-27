@@ -3,7 +3,7 @@
 """
     Metal API
 
-    This is the API for Equinix Metal Product. Interact with your devices, user account, and projects.  # noqa: E501
+    This is the API for Equinix Metal. The API allows you to programmatically interact with all of your Equinix Metal resources, including devices, networks, addresses, organizations, projects, and your user account.  The official API docs are hosted at <https://metal.equinix.com/developers/api>.   # noqa: E501
 
     The version of the OpenAPI document: 1.0.0
     Contact: support@equinixmetal.com
@@ -32,7 +32,14 @@ class TestIPAddressesApi(unittest.TestCase):
     def test_create_ip_assignment(self):
         """Test case for create_ip_assignment
 
-        Create a ip assignment  # noqa: E501
+        Create an ip assignment  # noqa: E501
+        """
+        pass
+
+    def test_create_self_service_reservation(self):
+        """Test case for create_self_service_reservation
+
+        Create a reservation  # noqa: E501
         """
         pass
 
@@ -78,10 +85,31 @@ class TestIPAddressesApi(unittest.TestCase):
         """
         pass
 
+    def test_find_self_service_reservation(self):
+        """Test case for find_self_service_reservation
+
+        Retrieve a reservation  # noqa: E501
+        """
+        pass
+
+    def test_find_self_service_reservations(self):
+        """Test case for find_self_service_reservations
+
+        Retrieve all reservations  # noqa: E501
+        """
+        pass
+
     def test_request_ip_reservation(self):
         """Test case for request_ip_reservation
 
         Requesting IP reservations  # noqa: E501
+        """
+        pass
+
+    def test_update_ip_address(self):
+        """Test case for update_ip_address
+
+        Update an ip address  # noqa: E501
         """
         pass
 

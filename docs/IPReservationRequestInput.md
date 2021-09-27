@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **quantity** | **int** |  | 
 **comments** | **str** |  | [optional] 
 **facility** | **str** |  | [optional] 
+**metro** | **str** | The code of the metro you are requesting the IP reservation in. | [optional] 
 **customdata** | **object** |  | [optional] 
 **tags** | **list[str]** |  | [optional] 
 **details** | **str** |  | [optional] 

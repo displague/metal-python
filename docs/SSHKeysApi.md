@@ -52,7 +52,7 @@ with metal.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = metal.SSHKeysApi(api_client)
     id = 'id_example' # str | Project UUID
-ssh_key = metal.SSHKeyInput() # SSHKeyInput | ssh key to create
+ssh_key = metal.SSHKeyCreateInput() # SSHKeyCreateInput | ssh key to create
 
     try:
         # Create a ssh key for the given project
@@ -67,7 +67,7 @@ ssh_key = metal.SSHKeyInput() # SSHKeyInput | ssh key to create
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | [**str**](.md)| Project UUID | 
- **ssh_key** | [**SSHKeyInput**](SSHKeyInput.md)| ssh key to create | 
+ **ssh_key** | [**SSHKeyCreateInput**](SSHKeyCreateInput.md)| ssh key to create | 
 
 ### Return type
 
@@ -128,7 +128,7 @@ configuration.api_key['x_auth_token'] = 'YOUR_API_KEY'
 with metal.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = metal.SSHKeysApi(api_client)
-    ssh_key = metal.SSHKeyInput() # SSHKeyInput | ssh key to create
+    ssh_key = metal.SSHKeyCreateInput() # SSHKeyCreateInput | ssh key to create
 
     try:
         # Create a ssh key for the current user
@@ -142,7 +142,7 @@ with metal.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ssh_key** | [**SSHKeyInput**](SSHKeyInput.md)| ssh key to create | 
+ **ssh_key** | [**SSHKeyCreateInput**](SSHKeyCreateInput.md)| ssh key to create | 
 
 ### Return type
 
@@ -229,7 +229,7 @@ void (empty response body)
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |

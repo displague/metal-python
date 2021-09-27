@@ -3,7 +3,7 @@
 """
     Metal API
 
-    This is the API for Equinix Metal Product. Interact with your devices, user account, and projects.  # noqa: E501
+    This is the API for Equinix Metal. The API allows you to programmatically interact with all of your Equinix Metal resources, including devices, networks, addresses, organizations, projects, and your user account.  The official API docs are hosted at <https://metal.equinix.com/developers/api>.   # noqa: E501
 
     The version of the OpenAPI document: 1.0.0
     Contact: support@equinixmetal.com
@@ -82,6 +82,20 @@ class TestOrganizationsApi(unittest.TestCase):
         """Test case for find_organization_by_id
 
         Retrieve an organization's details  # noqa: E501
+        """
+        pass
+
+    def test_find_organization_capacity_per_facility(self):
+        """Test case for find_organization_capacity_per_facility
+
+        View available hardware plans per Facility for given organization  # noqa: E501
+        """
+        pass
+
+    def test_find_organization_capacity_per_metro(self):
+        """Test case for find_organization_capacity_per_metro
+
+        View available hardware plans per Metro for given organization  # noqa: E501
         """
         pass
 

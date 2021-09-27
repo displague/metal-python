@@ -4,11 +4,11 @@ All URIs are relative to *https://api.equinix.com/metal/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**incidents_get**](IncidentsApi.md#incidents_get) | **GET** /incidents | Retrieve the number of incidents
+[**find_incidents**](IncidentsApi.md#find_incidents) | **GET** /incidents | Retrieve the number of incidents
 
 
-# **incidents_get**
-> incidents_get(include=include, exclude=exclude)
+# **find_incidents**
+> find_incidents(include=include, exclude=exclude)
 
 Retrieve the number of incidents
 
@@ -49,9 +49,9 @@ exclude = ['exclude_example'] # list[str] | Nested attributes to exclude. Exclud
 
     try:
         # Retrieve the number of incidents
-        api_instance.incidents_get(include=include, exclude=exclude)
+        api_instance.find_incidents(include=include, exclude=exclude)
     except ApiException as e:
-        print("Exception when calling IncidentsApi->incidents_get: %s\n" % e)
+        print("Exception when calling IncidentsApi->find_incidents: %s\n" % e)
 ```
 
 ### Parameters
@@ -72,7 +72,7 @@ void (empty response body)
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |

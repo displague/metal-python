@@ -3,7 +3,7 @@
 """
     Metal API
 
-    This is the API for Equinix Metal Product. Interact with your devices, user account, and projects.  # noqa: E501
+    This is the API for Equinix Metal. The API allows you to programmatically interact with all of your Equinix Metal resources, including devices, networks, addresses, organizations, projects, and your user account.  The official API docs are hosted at <https://metal.equinix.com/developers/api>.   # noqa: E501
 
     The version of the OpenAPI document: 1.0.0
     Contact: support@equinixmetal.com
@@ -11,7 +11,10 @@
 """
 
 
-import inspect
+try:
+    from inspect import getfullargspec
+except ImportError:
+    from inspect import getargspec as getfullargspec
 import pprint
 import re  # noqa: F401
 import six
@@ -43,7 +46,7 @@ class BGPSessionInput(object):
         'default_route': 'default_route'
     }
 
-    def __init__(self, address_family=None, default_route=None, local_vars_configuration=None):  # noqa: E501
+    def __init__(self, address_family=None, default_route=False, local_vars_configuration=None):  # noqa: E501
         """BGPSessionInput - a model defined in OpenAPI"""  # noqa: E501
         if local_vars_configuration is None:
             local_vars_configuration = Configuration.get_default_copy()
@@ -62,6 +65,7 @@ class BGPSessionInput(object):
     def address_family(self):
         """Gets the address_family of this BGPSessionInput.  # noqa: E501
 
+        Address family for BGP session.  # noqa: E501
 
         :return: The address_family of this BGPSessionInput.  # noqa: E501
         :rtype: str
@@ -72,10 +76,17 @@ class BGPSessionInput(object):
     def address_family(self, address_family):
         """Sets the address_family of this BGPSessionInput.
 
+        Address family for BGP session.  # noqa: E501
 
         :param address_family: The address_family of this BGPSessionInput.  # noqa: E501
         :type address_family: str
         """
+        allowed_values = ["ipv4", "ipv6"]  # noqa: E501
+        if self.local_vars_configuration.client_side_validation and address_family not in allowed_values:  # noqa: E501
+            raise ValueError(
+                "Invalid value for `address_family` ({0}), must be one of {1}"  # noqa: E501
+                .format(address_family, allowed_values)
+            )
 
         self._address_family = address_family
 
@@ -83,6 +94,7 @@ class BGPSessionInput(object):
     def default_route(self):
         """Gets the default_route of this BGPSessionInput.  # noqa: E501
 
+        Set the default route policy.  # noqa: E501
 
         :return: The default_route of this BGPSessionInput.  # noqa: E501
         :rtype: bool
@@ -93,6 +105,7 @@ class BGPSessionInput(object):
     def default_route(self, default_route):
         """Sets the default_route of this BGPSessionInput.
 
+        Set the default route policy.  # noqa: E501
 
         :param default_route: The default_route of this BGPSessionInput.  # noqa: E501
         :type default_route: bool
@@ -106,7 +119,7 @@ class BGPSessionInput(object):
 
         def convert(x):
             if hasattr(x, "to_dict"):
-                args = inspect.getargspec(x.to_dict).args
+                args = getfullargspec(x.to_dict).args
                 if len(args) == 1:
                     return x.to_dict()
                 else:

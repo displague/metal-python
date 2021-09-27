@@ -3,7 +3,7 @@
 """
     Metal API
 
-    This is the API for Equinix Metal Product. Interact with your devices, user account, and projects.  # noqa: E501
+    This is the API for Equinix Metal. The API allows you to programmatically interact with all of your Equinix Metal resources, including devices, networks, addresses, organizations, projects, and your user account.  The official API docs are hosted at <https://metal.equinix.com/developers/api>.   # noqa: E501
 
     The version of the OpenAPI document: 1.0.0
     Contact: support@equinixmetal.com
@@ -40,11 +40,12 @@ class TestVirtualNetworkCreateInput(unittest.TestCase):
                 project_id = '', 
                 description = '', 
                 facility = '', 
-                vxlan = 56, 
-                vlan = 56
+                metro = '', 
+                vxlan = 1099
             )
         else :
             return VirtualNetworkCreateInput(
+                project_id = '',
         )
 
     def testVirtualNetworkCreateInput(self):

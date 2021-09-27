@@ -3,7 +3,7 @@
 """
     Metal API
 
-    This is the API for Equinix Metal Product. Interact with your devices, user account, and projects.  # noqa: E501
+    This is the API for Equinix Metal. The API allows you to programmatically interact with all of your Equinix Metal resources, including devices, networks, addresses, organizations, projects, and your user account.  The official API docs are hosted at <https://metal.equinix.com/developers/api>.   # noqa: E501
 
     The version of the OpenAPI document: 1.0.0
     Contact: support@equinixmetal.com
@@ -166,12 +166,12 @@ class HardwareReservationsApi(object):
 
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
-        
+
         response_types_map = {
             200: "Device",
-            401: None,
-            403: None,
-            404: None,
+            401: "Error",
+            403: "Error",
+            404: "Error",
         }
 
         return self.api_client.call_api(
@@ -342,12 +342,12 @@ class HardwareReservationsApi(object):
 
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
-        
+
         response_types_map = {
             200: "HardwareReservationList",
-            401: None,
-            403: None,
-            404: None,
+            401: "Error",
+            403: "Error",
+            404: "Error",
         }
 
         return self.api_client.call_api(
@@ -367,14 +367,14 @@ class HardwareReservationsApi(object):
             collection_formats=collection_formats,
             _request_auth=local_var_params.get('_request_auth'))
 
-    def hardware_reservations_id_move_post(self, id, project_id, **kwargs):  # noqa: E501
+    def move_hardware_reservation(self, id, project_id, **kwargs):  # noqa: E501
         """Move a hardware reservation  # noqa: E501
 
         Move a hardware reservation to another project  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.hardware_reservations_id_move_post(id, project_id, async_req=True)
+        >>> thread = api.move_hardware_reservation(id, project_id, async_req=True)
         >>> result = thread.get()
 
         :param id: Hardware Reservation UUID (required)
@@ -397,16 +397,16 @@ class HardwareReservationsApi(object):
         :rtype: HardwareReservation
         """
         kwargs['_return_http_data_only'] = True
-        return self.hardware_reservations_id_move_post_with_http_info(id, project_id, **kwargs)  # noqa: E501
+        return self.move_hardware_reservation_with_http_info(id, project_id, **kwargs)  # noqa: E501
 
-    def hardware_reservations_id_move_post_with_http_info(self, id, project_id, **kwargs):  # noqa: E501
+    def move_hardware_reservation_with_http_info(self, id, project_id, **kwargs):  # noqa: E501
         """Move a hardware reservation  # noqa: E501
 
         Move a hardware reservation to another project  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.hardware_reservations_id_move_post_with_http_info(id, project_id, async_req=True)
+        >>> thread = api.move_hardware_reservation_with_http_info(id, project_id, async_req=True)
         >>> result = thread.get()
 
         :param id: Hardware Reservation UUID (required)
@@ -456,18 +456,18 @@ class HardwareReservationsApi(object):
             if key not in all_params:
                 raise ApiTypeError(
                     "Got an unexpected keyword argument '%s'"
-                    " to method hardware_reservations_id_move_post" % key
+                    " to method move_hardware_reservation" % key
                 )
             local_var_params[key] = val
         del local_var_params['kwargs']
         # verify the required parameter 'id' is set
         if self.api_client.client_side_validation and ('id' not in local_var_params or  # noqa: E501
                                                         local_var_params['id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `id` when calling `hardware_reservations_id_move_post`")  # noqa: E501
+            raise ApiValueError("Missing the required parameter `id` when calling `move_hardware_reservation`")  # noqa: E501
         # verify the required parameter 'project_id' is set
         if self.api_client.client_side_validation and ('project_id' not in local_var_params or  # noqa: E501
                                                         local_var_params['project_id'] is None):  # noqa: E501
-            raise ApiValueError("Missing the required parameter `project_id` when calling `hardware_reservations_id_move_post`")  # noqa: E501
+            raise ApiValueError("Missing the required parameter `project_id` when calling `move_hardware_reservation`")  # noqa: E501
 
         collection_formats = {}
 
@@ -495,12 +495,12 @@ class HardwareReservationsApi(object):
 
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
-        
+
         response_types_map = {
             201: "HardwareReservation",
-            401: None,
-            403: None,
-            404: None,
+            401: "Error",
+            403: "Error",
+            404: "Error",
         }
 
         return self.api_client.call_api(

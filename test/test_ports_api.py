@@ -3,7 +3,7 @@
 """
     Metal API
 
-    This is the API for Equinix Metal Product. Interact with your devices, user account, and projects.  # noqa: E501
+    This is the API for Equinix Metal. The API allows you to programmatically interact with all of your Equinix Metal resources, including devices, networks, addresses, organizations, projects, and your user account.  The official API docs are hosted at <https://metal.equinix.com/developers/api>.   # noqa: E501
 
     The version of the OpenAPI document: 1.0.0
     Contact: support@equinixmetal.com
@@ -64,6 +64,13 @@ class TestPortsApi(unittest.TestCase):
         """
         pass
 
+    def test_create_port_vlan_assignment_batch(self):
+        """Test case for create_port_vlan_assignment_batch
+
+        Create a new Port-VLAN Assignment management batch  # noqa: E501
+        """
+        pass
+
     def test_delete_native_vlan(self):
         """Test case for delete_native_vlan
 
@@ -82,6 +89,34 @@ class TestPortsApi(unittest.TestCase):
         """Test case for find_port_by_id
 
         Retrieve a port  # noqa: E501
+        """
+        pass
+
+    def test_find_port_vlan_assignment_batch_by_port_id_and_batch_id(self):
+        """Test case for find_port_vlan_assignment_batch_by_port_id_and_batch_id
+
+        Retrieve a VLAN Assignment Batch's details  # noqa: E501
+        """
+        pass
+
+    def test_find_port_vlan_assignment_batches(self):
+        """Test case for find_port_vlan_assignment_batches
+
+        List the VLAN Assignment Batches for a port  # noqa: E501
+        """
+        pass
+
+    def test_find_port_vlan_assignment_by_port_id_and_assignment_id(self):
+        """Test case for find_port_vlan_assignment_by_port_id_and_assignment_id
+
+        Show a particular Port VLAN assignment's details  # noqa: E501
+        """
+        pass
+
+    def test_find_port_vlan_assignments(self):
+        """Test case for find_port_vlan_assignments
+
+        List Current VLAN assignments for a port  # noqa: E501
         """
         pass
 

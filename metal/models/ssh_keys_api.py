@@ -3,7 +3,7 @@
 """
     Metal API
 
-    This is the API for Equinix Metal Product. Interact with your devices, user account, and projects.  # noqa: E501
+    This is the API for Equinix Metal. The API allows you to programmatically interact with all of your Equinix Metal resources, including devices, networks, addresses, organizations, projects, and your user account.  The official API docs are hosted at <https://metal.equinix.com/developers/api>.   # noqa: E501
 
     The version of the OpenAPI document: 1.0.0
     Contact: support@equinixmetal.com
@@ -50,7 +50,7 @@ class SSHKeysApi(object):
         :param id: Project UUID (required)
         :type id: str
         :param ssh_key: ssh key to create (required)
-        :type ssh_key: SSHKeyInput
+        :type ssh_key: SSHKeyCreateInput
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _preload_content: if False, the urllib3.HTTPResponse object will
@@ -82,7 +82,7 @@ class SSHKeysApi(object):
         :param id: Project UUID (required)
         :type id: str
         :param ssh_key: ssh key to create (required)
-        :type ssh_key: SSHKeyInput
+        :type ssh_key: SSHKeyCreateInput
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _return_http_data_only: response data without head status code
@@ -165,11 +165,11 @@ class SSHKeysApi(object):
 
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
-        
+
         response_types_map = {
             201: "SSHKey",
-            401: None,
-            422: None,
+            401: "Error",
+            422: "Error",
         }
 
         return self.api_client.call_api(
@@ -200,7 +200,7 @@ class SSHKeysApi(object):
         >>> result = thread.get()
 
         :param ssh_key: ssh key to create (required)
-        :type ssh_key: SSHKeyInput
+        :type ssh_key: SSHKeyCreateInput
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _preload_content: if False, the urllib3.HTTPResponse object will
@@ -230,7 +230,7 @@ class SSHKeysApi(object):
         >>> result = thread.get()
 
         :param ssh_key: ssh key to create (required)
-        :type ssh_key: SSHKeyInput
+        :type ssh_key: SSHKeyCreateInput
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _return_http_data_only: response data without head status code
@@ -306,11 +306,11 @@ class SSHKeysApi(object):
 
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
-        
+
         response_types_map = {
             201: "SSHKey",
-            401: None,
-            422: None,
+            401: "Error",
+            422: "Error",
         }
 
         return self.api_client.call_api(
@@ -437,9 +437,13 @@ class SSHKeysApi(object):
         local_var_files = {}
 
         body_params = None
+        # HTTP header `Accept`
+        header_params['Accept'] = self.api_client.select_header_accept(
+            ['application/json'])  # noqa: E501
+
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
-        
+
         response_types_map = {}
 
         return self.api_client.call_api(
@@ -595,10 +599,10 @@ class SSHKeysApi(object):
 
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
-        
+
         response_types_map = {
             200: "SSHKeyList",
-            401: None,
+            401: "Error",
         }
 
         return self.api_client.call_api(
@@ -754,10 +758,10 @@ class SSHKeysApi(object):
 
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
-        
+
         response_types_map = {
             200: "SSHKeyList",
-            401: None,
+            401: "Error",
         }
 
         return self.api_client.call_api(
@@ -906,12 +910,12 @@ class SSHKeysApi(object):
 
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
-        
+
         response_types_map = {
             200: "SSHKey",
-            401: None,
-            403: None,
-            404: None,
+            401: "Error",
+            403: "Error",
+            404: "Error",
         }
 
         return self.api_client.call_api(
@@ -1056,10 +1060,10 @@ class SSHKeysApi(object):
 
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
-        
+
         response_types_map = {
             200: "SSHKeyList",
-            401: None,
+            401: "Error",
         }
 
         return self.api_client.call_api(
@@ -1207,13 +1211,13 @@ class SSHKeysApi(object):
 
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
-        
+
         response_types_map = {
             200: "SSHKey",
-            401: None,
-            403: None,
-            404: None,
-            422: None,
+            401: "Error",
+            403: "Error",
+            404: "Error",
+            422: "Error",
         }
 
         return self.api_client.call_api(

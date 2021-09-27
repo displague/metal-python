@@ -3,7 +3,7 @@
 """
     Metal API
 
-    This is the API for Equinix Metal Product. Interact with your devices, user account, and projects.  # noqa: E501
+    This is the API for Equinix Metal. The API allows you to programmatically interact with all of your Equinix Metal resources, including devices, networks, addresses, organizations, projects, and your user account.  The official API docs are hosted at <https://metal.equinix.com/developers/api>.   # noqa: E501
 
     The version of the OpenAPI document: 1.0.0
     Contact: support@equinixmetal.com
@@ -41,13 +41,14 @@ class TestDeviceCreateInput(unittest.TestCase):
                 plan = '', 
                 hostname = '', 
                 description = '', 
-                billing_cycle = '', 
+                billing_cycle = 'hourly', 
                 operating_system = '', 
                 always_pxe = True, 
                 ipxe_script_url = '', 
                 userdata = '', 
                 locked = True, 
                 customdata = None, 
+                metro = '', 
                 hardware_reservation_id = '', 
                 spot_instance = True, 
                 spot_price_max = 1.337, 
@@ -61,6 +62,12 @@ class TestDeviceCreateInput(unittest.TestCase):
                 user_ssh_keys = [
                     ''
                     ], 
+                ssh_keys = [
+                    metal.models.ssh_key_input.SSHKeyInput(
+                        label = '', 
+                        key = '', )
+                    ], 
+                no_ssh_keys = True, 
                 features = [
                     ''
                     ], 
