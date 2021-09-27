@@ -13,10 +13,10 @@ CRI=$(shell which nerdctl > /dev/null && echo nerdctl || echo docker)
 SWAGGER=${CRI} run --rm -v $(CURDIR):/local ${IMAGE}
 # CONVERT="curl -q ${SPEC_URL} | python3 -c 'import sys, yaml, json; j=json.loads(sys.stdin.read()); print(yaml.safe_dump(j))'"
 CONVERT=${CRI} run --rm -i mikefarah/yq -P
-all: pull fetch patch clean gen
+all: fetch patch clean gen
 
 pull:
-	${CRI} pull ${IMAGE}
+	# ${CRI} pull ${IMAGE}
 
 fetch:
 	curl -q ${SPEC_URL} | ${CONVERT} > ${SPEC_FETCHED_FILE}
@@ -32,7 +32,7 @@ patch:
 	done
 
 clean:
-	rm -rf metal docs test
+	rm -rf metal-api-client metal-python metal_python metal_api_client README.md pyproject.toml metal
 
 validate:
 	${SWAGGER} validate \
@@ -40,14 +40,11 @@ validate:
 		-i /local/${SPEC_PATCHED_FILE}
 
 gen:
-	${SWAGGER} generate -g ${GENERATOR} \
-		--package-name ${PACKAGE_NAME} \
-		--model-package types \
-		--api-package models \
-		--git-user-id ${GIT_ORG} \
-		--git-repo-id ${GIT_REPO} \
-		-o /local/ \
-		-i /local/${SPEC_PATCHED_FILE}
+	#pipx install openapi-python-client --include-deps
+	#pipx upgrade openapi-python-client
+	openapi-python-client generate --config openapi-python-client.conf --path ${SPEC_PATCHED_FILE} || true
+	mv metal-python/* .
+	rm -r metal-python
 
 test:
 	tox
