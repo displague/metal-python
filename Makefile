@@ -1,4 +1,4 @@
-.PHONY: all gen patch fetch clean validate
+.PHONY: all gen patch fetch clean validate test
 
 SPEC_URL:=https://api.equinix.com/metal/v1/api-docs
 SPEC_FETCHED_FILE:=fetched.openapi.yaml
@@ -47,3 +47,6 @@ gen:
 		--git-repo-id ${GIT_REPO} \
 		-o /local/ \
 		-i /local/${SPEC_PATCHED_FILE}
+
+test:
+	tox
