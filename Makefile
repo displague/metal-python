@@ -11,24 +11,25 @@ PACKAGE_NAME=metal
 GENERATOR=python-legacy
 CRI=$(shell which nerdctl > /dev/null && echo nerdctl || echo docker)
 SWAGGER=${CRI} run --rm -v $(CURDIR):/local ${IMAGE}
-
+# CONVERT="curl -q ${SPEC_URL} | python3 -c 'import sys, yaml, json; j=json.loads(sys.stdin.read()); print(yaml.safe_dump(j))'"
+CONVERT=${CRI} run --rm -i mikefarah/yq -P
 all: pull fetch patch clean gen
 
 pull:
 	${CRI} pull ${IMAGE}
 
 fetch:
-	curl -o ${SPEC_FETCHED_FILE} ${SPEC_URL}
+	curl -q ${SPEC_URL} | ${CONVERT} > ${SPEC_FETCHED_FILE}
 
 patch:
 	# patch is idempotent, always starting with the fetched
 	# fetched file to create the patched file.
+	cp ${SPEC_FETCHED_FILE} ${SPEC_PATCHED_FILE}
 	ARGS="-o ${SPEC_PATCHED_FILE} ${SPEC_FETCHED_FILE}"; \
-	for diff in $(shell find patches -name \*.patch | sort -n); do \
+	for diff in $(shell find patches/${SPEC_FETCHED_FILE} -name \*.patch | sort -n); do \
 		patch --no-backup-if-mismatch -N -t $$ARGS $$diff; \
 		ARGS=${SPEC_PATCHED_FILE}; \
 	done
-	find ${SPEC_PATCHED_FILE} -empty -exec cp ${SPEC_FETCHED_FILE} ${SPEC_PATCHED_FILE} \;
 
 clean:
 	rm -rf metal docs test
