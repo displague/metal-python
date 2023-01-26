@@ -62,7 +62,7 @@ spot_market_request = metal.SpotMarketRequestCreateInput() # SpotMarketRequestCr
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**str**](.md)| Project UUID | 
+ **id** | **str**| Project UUID | 
  **spot_market_request** | [**SpotMarketRequestCreateInput**](SpotMarketRequestCreateInput.md)| Spot Market Request to create | 
 
 ### Return type
@@ -83,8 +83,8 @@ Name | Type | Description  | Notes
 |-------------|-------------|------------------|
 **201** | created |  -  |
 **401** | unauthorized |  -  |
-**404** | not found |  -  |
 **422** | unprocessable entity |  -  |
+**404** | not found |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -139,7 +139,7 @@ force_termination = True # bool | Terminate associated spot instances (optional)
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**str**](.md)| SpotMarketRequest UUID | 
+ **id** | **str**| SpotMarketRequest UUID | 
  **force_termination** | **bool**| Terminate associated spot instances | [optional] 
 
 ### Return type
@@ -218,7 +218,7 @@ exclude = ['exclude_example'] # list[str] | Nested attributes to exclude. Exclud
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**str**](.md)| SpotMarketRequest UUID | 
+ **id** | **str**| SpotMarketRequest UUID | 
  **include** | [**list[str]**](str.md)| Nested attributes to include. Included objects will return their full attributes. Attribute names can be dotted (up to 3 levels) to included deeply nested objects. | [optional] 
  **exclude** | [**list[str]**](str.md)| Nested attributes to exclude. Excluded objects will return only the href attribute. Attribute names can be dotted (up to 3 levels) to exclude deeply nested objects. | [optional] 
 
@@ -296,7 +296,7 @@ with metal.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**str**](.md)| Project UUID | 
+ **id** | **str**| Project UUID | 
 
 ### Return type
 

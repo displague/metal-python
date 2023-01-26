@@ -62,7 +62,7 @@ batch = metal.InstancesBatchCreateInput() # InstancesBatchCreateInput | Batches 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**str**](.md)| Project UUID | 
+ **id** | **str**| Project UUID | 
  **batch** | [**InstancesBatchCreateInput**](InstancesBatchCreateInput.md)| Batches to create | 
 
 ### Return type
@@ -83,9 +83,9 @@ Name | Type | Description  | Notes
 |-------------|-------------|------------------|
 **201** | created |  -  |
 **401** | unauthorized |  -  |
+**422** | unprocessable entity |  -  |
 **403** | forbidden |  -  |
 **404** | not found |  -  |
-**422** | unprocessable entity |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -140,7 +140,7 @@ remove_associated_instances = False # bool | Delete all instances created from t
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**str**](.md)| Batch UUID | 
+ **id** | **str**| Batch UUID | 
  **remove_associated_instances** | **bool**| Delete all instances created from this batch | [optional] [default to False]
 
 ### Return type
@@ -218,7 +218,7 @@ exclude = ['exclude_example'] # list[str] | Nested attributes to exclude. Exclud
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**str**](.md)| Batch UUID | 
+ **id** | **str**| Batch UUID | 
  **include** | [**list[str]**](str.md)| Nested attributes to include. Included objects will return their full attributes. Attribute names can be dotted (up to 3 levels) to included deeply nested objects. | [optional] 
  **exclude** | [**list[str]**](str.md)| Nested attributes to exclude. Excluded objects will return only the href attribute. Attribute names can be dotted (up to 3 levels) to exclude deeply nested objects. | [optional] 
 
@@ -297,7 +297,7 @@ exclude = ['exclude_example'] # list[str] | Nested attributes to exclude. Exclud
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**str**](.md)| Project UUID | 
+ **id** | **str**| Project UUID | 
  **include** | [**list[str]**](str.md)| Nested attributes to include. Included objects will return their full attributes. Attribute names can be dotted (up to 3 levels) to included deeply nested objects. | [optional] 
  **exclude** | [**list[str]**](str.md)| Nested attributes to exclude. Excluded objects will return only the href attribute. Attribute names can be dotted (up to 3 levels) to exclude deeply nested objects. | [optional] 
 

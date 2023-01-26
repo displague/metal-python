@@ -60,7 +60,7 @@ with metal.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**str**](.md)| Membership UUID | 
+ **id** | **str**| Membership UUID | 
 
 ### Return type
 
@@ -138,7 +138,7 @@ exclude = ['exclude_example'] # list[str] | Nested attributes to exclude. Exclud
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**str**](.md)| Membership UUID | 
+ **id** | **str**| Membership UUID | 
  **include** | [**list[str]**](str.md)| Nested attributes to include. Included objects will return their full attributes. Attribute names can be dotted (up to 3 levels) to included deeply nested objects. | [optional] 
  **exclude** | [**list[str]**](str.md)| Nested attributes to exclude. Excluded objects will return only the href attribute. Attribute names can be dotted (up to 3 levels) to exclude deeply nested objects. | [optional] 
 
@@ -220,7 +220,7 @@ per_page = 10 # int | Items returned per page (optional) (default to 10)
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | [**str**](.md)| Project UUID | 
+ **project_id** | **str**| Project UUID | 
  **include** | [**list[str]**](str.md)| Nested attributes to include. Included objects will return their full attributes. Attribute names can be dotted (up to 3 levels) to included deeply nested objects. | [optional] 
  **exclude** | [**list[str]**](str.md)| Nested attributes to exclude. Excluded objects will return only the href attribute. Attribute names can be dotted (up to 3 levels) to exclude deeply nested objects. | [optional] 
  **page** | **int**| Page to return | [optional] [default to 1]
@@ -301,7 +301,7 @@ membership = metal.MembershipInput() # MembershipInput | Membership to update
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**str**](.md)| Membership UUID | 
+ **id** | **str**| Membership UUID | 
  **membership** | [**MembershipInput**](MembershipInput.md)| Membership to update | 
 
 ### Return type

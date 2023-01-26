@@ -100,6 +100,7 @@ class DevicesApi(object):
                               request; this effectively ignores the authentication
                               in the spec for a single request.
         :type _request_auth: dict, optional
+        :type _content_type: string, optional: force content-type for the request
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
@@ -118,7 +119,9 @@ class DevicesApi(object):
                 '_return_http_data_only',
                 '_preload_content',
                 '_request_timeout',
-                '_request_auth'
+                '_request_auth',
+                '_content_type',
+                '_headers'
             ]
         )
 
@@ -131,12 +134,10 @@ class DevicesApi(object):
             local_var_params[key] = val
         del local_var_params['kwargs']
         # verify the required parameter 'id' is set
-        if self.api_client.client_side_validation and ('id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['id'] is None):  # noqa: E501
+        if self.api_client.client_side_validation and local_var_params.get('id') is None:  # noqa: E501
             raise ApiValueError("Missing the required parameter `id` when calling `create_bgp_session`")  # noqa: E501
         # verify the required parameter 'bgp_session' is set
-        if self.api_client.client_side_validation and ('bgp_session' not in local_var_params or  # noqa: E501
-                                                        local_var_params['bgp_session'] is None):  # noqa: E501
+        if self.api_client.client_side_validation and local_var_params.get('bgp_session') is None:  # noqa: E501
             raise ApiValueError("Missing the required parameter `bgp_session` when calling `create_bgp_session`")  # noqa: E501
 
         collection_formats = {}
@@ -147,7 +148,7 @@ class DevicesApi(object):
 
         query_params = []
 
-        header_params = {}
+        header_params = dict(local_var_params.get('_headers', {}))
 
         form_params = []
         local_var_files = {}
@@ -160,8 +161,12 @@ class DevicesApi(object):
             ['application/json'])  # noqa: E501
 
         # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['application/json'])  # noqa: E501
+        content_types_list = local_var_params.get('_content_type',
+            self.api_client.select_header_content_type(
+                ['application/json'],
+                'POST', body_params))  # noqa: E501
+        if content_types_list:
+                header_params['Content-Type'] = content_types_list
 
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
@@ -253,6 +258,7 @@ class DevicesApi(object):
                               request; this effectively ignores the authentication
                               in the spec for a single request.
         :type _request_auth: dict, optional
+        :type _content_type: string, optional: force content-type for the request
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
@@ -271,7 +277,9 @@ class DevicesApi(object):
                 '_return_http_data_only',
                 '_preload_content',
                 '_request_timeout',
-                '_request_auth'
+                '_request_auth',
+                '_content_type',
+                '_headers'
             ]
         )
 
@@ -284,12 +292,10 @@ class DevicesApi(object):
             local_var_params[key] = val
         del local_var_params['kwargs']
         # verify the required parameter 'id' is set
-        if self.api_client.client_side_validation and ('id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['id'] is None):  # noqa: E501
+        if self.api_client.client_side_validation and local_var_params.get('id') is None:  # noqa: E501
             raise ApiValueError("Missing the required parameter `id` when calling `create_device`")  # noqa: E501
         # verify the required parameter 'device' is set
-        if self.api_client.client_side_validation and ('device' not in local_var_params or  # noqa: E501
-                                                        local_var_params['device'] is None):  # noqa: E501
+        if self.api_client.client_side_validation and local_var_params.get('device') is None:  # noqa: E501
             raise ApiValueError("Missing the required parameter `device` when calling `create_device`")  # noqa: E501
 
         collection_formats = {}
@@ -300,7 +306,7 @@ class DevicesApi(object):
 
         query_params = []
 
-        header_params = {}
+        header_params = dict(local_var_params.get('_headers', {}))
 
         form_params = []
         local_var_files = {}
@@ -313,8 +319,12 @@ class DevicesApi(object):
             ['application/json'])  # noqa: E501
 
         # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['application/json'])  # noqa: E501
+        content_types_list = local_var_params.get('_content_type',
+            self.api_client.select_header_content_type(
+                ['application/json'],
+                'POST', body_params))  # noqa: E501
+        if content_types_list:
+                header_params['Content-Type'] = content_types_list
 
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
@@ -322,9 +332,9 @@ class DevicesApi(object):
         response_types_map = {
             201: "Device",
             401: "Error",
+            422: "Error",
             403: "Error",
             404: "Error",
-            422: "Error",
         }
 
         return self.api_client.call_api(
@@ -407,6 +417,7 @@ class DevicesApi(object):
                               request; this effectively ignores the authentication
                               in the spec for a single request.
         :type _request_auth: dict, optional
+        :type _content_type: string, optional: force content-type for the request
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
@@ -425,7 +436,9 @@ class DevicesApi(object):
                 '_return_http_data_only',
                 '_preload_content',
                 '_request_timeout',
-                '_request_auth'
+                '_request_auth',
+                '_content_type',
+                '_headers'
             ]
         )
 
@@ -438,12 +451,10 @@ class DevicesApi(object):
             local_var_params[key] = val
         del local_var_params['kwargs']
         # verify the required parameter 'id' is set
-        if self.api_client.client_side_validation and ('id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['id'] is None):  # noqa: E501
+        if self.api_client.client_side_validation and local_var_params.get('id') is None:  # noqa: E501
             raise ApiValueError("Missing the required parameter `id` when calling `create_device_batch`")  # noqa: E501
         # verify the required parameter 'batch' is set
-        if self.api_client.client_side_validation and ('batch' not in local_var_params or  # noqa: E501
-                                                        local_var_params['batch'] is None):  # noqa: E501
+        if self.api_client.client_side_validation and local_var_params.get('batch') is None:  # noqa: E501
             raise ApiValueError("Missing the required parameter `batch` when calling `create_device_batch`")  # noqa: E501
 
         collection_formats = {}
@@ -454,7 +465,7 @@ class DevicesApi(object):
 
         query_params = []
 
-        header_params = {}
+        header_params = dict(local_var_params.get('_headers', {}))
 
         form_params = []
         local_var_files = {}
@@ -467,8 +478,12 @@ class DevicesApi(object):
             ['application/json'])  # noqa: E501
 
         # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['application/json'])  # noqa: E501
+        content_types_list = local_var_params.get('_content_type',
+            self.api_client.select_header_content_type(
+                ['application/json'],
+                'POST', body_params))  # noqa: E501
+        if content_types_list:
+                header_params['Content-Type'] = content_types_list
 
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
@@ -476,9 +491,9 @@ class DevicesApi(object):
         response_types_map = {
             201: "BatchesList",
             401: "Error",
+            422: "Error",
             403: "Error",
             404: "Error",
-            422: "Error",
         }
 
         return self.api_client.call_api(
@@ -561,6 +576,7 @@ class DevicesApi(object):
                               request; this effectively ignores the authentication
                               in the spec for a single request.
         :type _request_auth: dict, optional
+        :type _content_type: string, optional: force content-type for the request
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
@@ -579,7 +595,9 @@ class DevicesApi(object):
                 '_return_http_data_only',
                 '_preload_content',
                 '_request_timeout',
-                '_request_auth'
+                '_request_auth',
+                '_content_type',
+                '_headers'
             ]
         )
 
@@ -592,12 +610,10 @@ class DevicesApi(object):
             local_var_params[key] = val
         del local_var_params['kwargs']
         # verify the required parameter 'id' is set
-        if self.api_client.client_side_validation and ('id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['id'] is None):  # noqa: E501
+        if self.api_client.client_side_validation and local_var_params.get('id') is None:  # noqa: E501
             raise ApiValueError("Missing the required parameter `id` when calling `create_ip_assignment`")  # noqa: E501
         # verify the required parameter 'ip_assignment' is set
-        if self.api_client.client_side_validation and ('ip_assignment' not in local_var_params or  # noqa: E501
-                                                        local_var_params['ip_assignment'] is None):  # noqa: E501
+        if self.api_client.client_side_validation and local_var_params.get('ip_assignment') is None:  # noqa: E501
             raise ApiValueError("Missing the required parameter `ip_assignment` when calling `create_ip_assignment`")  # noqa: E501
 
         collection_formats = {}
@@ -608,7 +624,7 @@ class DevicesApi(object):
 
         query_params = []
 
-        header_params = {}
+        header_params = dict(local_var_params.get('_headers', {}))
 
         form_params = []
         local_var_files = {}
@@ -621,8 +637,12 @@ class DevicesApi(object):
             ['application/json'])  # noqa: E501
 
         # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['application/json'])  # noqa: E501
+        content_types_list = local_var_params.get('_content_type',
+            self.api_client.select_header_content_type(
+                ['application/json'],
+                'POST', body_params))  # noqa: E501
+        if content_types_list:
+                header_params['Content-Type'] = content_types_list
 
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
@@ -714,6 +734,7 @@ class DevicesApi(object):
                               request; this effectively ignores the authentication
                               in the spec for a single request.
         :type _request_auth: dict, optional
+        :type _content_type: string, optional: force content-type for the request
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
@@ -732,7 +753,9 @@ class DevicesApi(object):
                 '_return_http_data_only',
                 '_preload_content',
                 '_request_timeout',
-                '_request_auth'
+                '_request_auth',
+                '_content_type',
+                '_headers'
             ]
         )
 
@@ -745,8 +768,7 @@ class DevicesApi(object):
             local_var_params[key] = val
         del local_var_params['kwargs']
         # verify the required parameter 'id' is set
-        if self.api_client.client_side_validation and ('id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['id'] is None):  # noqa: E501
+        if self.api_client.client_side_validation and local_var_params.get('id') is None:  # noqa: E501
             raise ApiValueError("Missing the required parameter `id` when calling `delete_device`")  # noqa: E501
 
         collection_formats = {}
@@ -756,10 +778,10 @@ class DevicesApi(object):
             path_params['id'] = local_var_params['id']  # noqa: E501
 
         query_params = []
-        if 'force_delete' in local_var_params and local_var_params['force_delete'] is not None:  # noqa: E501
+        if local_var_params.get('force_delete') is not None:  # noqa: E501
             query_params.append(('force_delete', local_var_params['force_delete']))  # noqa: E501
 
-        header_params = {}
+        header_params = dict(local_var_params.get('_headers', {}))
 
         form_params = []
         local_var_files = {}
@@ -850,6 +872,7 @@ class DevicesApi(object):
                               request; this effectively ignores the authentication
                               in the spec for a single request.
         :type _request_auth: dict, optional
+        :type _content_type: string, optional: force content-type for the request
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
@@ -867,7 +890,9 @@ class DevicesApi(object):
                 '_return_http_data_only',
                 '_preload_content',
                 '_request_timeout',
-                '_request_auth'
+                '_request_auth',
+                '_content_type',
+                '_headers'
             ]
         )
 
@@ -880,8 +905,7 @@ class DevicesApi(object):
             local_var_params[key] = val
         del local_var_params['kwargs']
         # verify the required parameter 'id' is set
-        if self.api_client.client_side_validation and ('id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['id'] is None):  # noqa: E501
+        if self.api_client.client_side_validation and local_var_params.get('id') is None:  # noqa: E501
             raise ApiValueError("Missing the required parameter `id` when calling `find_bgp_sessions`")  # noqa: E501
 
         collection_formats = {}
@@ -892,7 +916,7 @@ class DevicesApi(object):
 
         query_params = []
 
-        header_params = {}
+        header_params = dict(local_var_params.get('_headers', {}))
 
         form_params = []
         local_var_files = {}
@@ -995,6 +1019,7 @@ class DevicesApi(object):
                               request; this effectively ignores the authentication
                               in the spec for a single request.
         :type _request_auth: dict, optional
+        :type _content_type: string, optional: force content-type for the request
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
@@ -1014,7 +1039,9 @@ class DevicesApi(object):
                 '_return_http_data_only',
                 '_preload_content',
                 '_request_timeout',
-                '_request_auth'
+                '_request_auth',
+                '_content_type',
+                '_headers'
             ]
         )
 
@@ -1027,8 +1054,7 @@ class DevicesApi(object):
             local_var_params[key] = val
         del local_var_params['kwargs']
         # verify the required parameter 'id' is set
-        if self.api_client.client_side_validation and ('id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['id'] is None):  # noqa: E501
+        if self.api_client.client_side_validation and local_var_params.get('id') is None:  # noqa: E501
             raise ApiValueError("Missing the required parameter `id` when calling `find_device_by_id`")  # noqa: E501
 
         collection_formats = {}
@@ -1038,14 +1064,14 @@ class DevicesApi(object):
             path_params['id'] = local_var_params['id']  # noqa: E501
 
         query_params = []
-        if 'include' in local_var_params and local_var_params['include'] is not None:  # noqa: E501
+        if local_var_params.get('include') is not None:  # noqa: E501
             query_params.append(('include', local_var_params['include']))  # noqa: E501
             collection_formats['include'] = 'csv'  # noqa: E501
-        if 'exclude' in local_var_params and local_var_params['exclude'] is not None:  # noqa: E501
+        if local_var_params.get('exclude') is not None:  # noqa: E501
             query_params.append(('exclude', local_var_params['exclude']))  # noqa: E501
             collection_formats['exclude'] = 'csv'  # noqa: E501
 
-        header_params = {}
+        header_params = dict(local_var_params.get('_headers', {}))
 
         form_params = []
         local_var_files = {}
@@ -1141,6 +1167,7 @@ class DevicesApi(object):
                               request; this effectively ignores the authentication
                               in the spec for a single request.
         :type _request_auth: dict, optional
+        :type _content_type: string, optional: force content-type for the request
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
@@ -1158,7 +1185,9 @@ class DevicesApi(object):
                 '_return_http_data_only',
                 '_preload_content',
                 '_request_timeout',
-                '_request_auth'
+                '_request_auth',
+                '_content_type',
+                '_headers'
             ]
         )
 
@@ -1171,8 +1200,7 @@ class DevicesApi(object):
             local_var_params[key] = val
         del local_var_params['kwargs']
         # verify the required parameter 'id' is set
-        if self.api_client.client_side_validation and ('id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['id'] is None):  # noqa: E501
+        if self.api_client.client_side_validation and local_var_params.get('id') is None:  # noqa: E501
             raise ApiValueError("Missing the required parameter `id` when calling `find_device_customdata`")  # noqa: E501
 
         collection_formats = {}
@@ -1183,7 +1211,7 @@ class DevicesApi(object):
 
         query_params = []
 
-        header_params = {}
+        header_params = dict(local_var_params.get('_headers', {}))
 
         form_params = []
         local_var_files = {}
@@ -1290,6 +1318,7 @@ class DevicesApi(object):
                               request; this effectively ignores the authentication
                               in the spec for a single request.
         :type _request_auth: dict, optional
+        :type _content_type: string, optional: force content-type for the request
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
@@ -1311,7 +1340,9 @@ class DevicesApi(object):
                 '_return_http_data_only',
                 '_preload_content',
                 '_request_timeout',
-                '_request_auth'
+                '_request_auth',
+                '_content_type',
+                '_headers'
             ]
         )
 
@@ -1324,8 +1355,7 @@ class DevicesApi(object):
             local_var_params[key] = val
         del local_var_params['kwargs']
         # verify the required parameter 'id' is set
-        if self.api_client.client_side_validation and ('id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['id'] is None):  # noqa: E501
+        if self.api_client.client_side_validation and local_var_params.get('id') is None:  # noqa: E501
             raise ApiValueError("Missing the required parameter `id` when calling `find_device_events`")  # noqa: E501
 
         if self.api_client.client_side_validation and 'page' in local_var_params and local_var_params['page'] > 100000:  # noqa: E501
@@ -1343,18 +1373,18 @@ class DevicesApi(object):
             path_params['id'] = local_var_params['id']  # noqa: E501
 
         query_params = []
-        if 'include' in local_var_params and local_var_params['include'] is not None:  # noqa: E501
+        if local_var_params.get('include') is not None:  # noqa: E501
             query_params.append(('include', local_var_params['include']))  # noqa: E501
             collection_formats['include'] = 'csv'  # noqa: E501
-        if 'exclude' in local_var_params and local_var_params['exclude'] is not None:  # noqa: E501
+        if local_var_params.get('exclude') is not None:  # noqa: E501
             query_params.append(('exclude', local_var_params['exclude']))  # noqa: E501
             collection_formats['exclude'] = 'csv'  # noqa: E501
-        if 'page' in local_var_params and local_var_params['page'] is not None:  # noqa: E501
+        if local_var_params.get('page') is not None:  # noqa: E501
             query_params.append(('page', local_var_params['page']))  # noqa: E501
-        if 'per_page' in local_var_params and local_var_params['per_page'] is not None:  # noqa: E501
+        if local_var_params.get('per_page') is not None:  # noqa: E501
             query_params.append(('per_page', local_var_params['per_page']))  # noqa: E501
 
-        header_params = {}
+        header_params = dict(local_var_params.get('_headers', {}))
 
         form_params = []
         local_var_files = {}
@@ -1458,6 +1488,7 @@ class DevicesApi(object):
                               request; this effectively ignores the authentication
                               in the spec for a single request.
         :type _request_auth: dict, optional
+        :type _content_type: string, optional: force content-type for the request
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
@@ -1477,7 +1508,9 @@ class DevicesApi(object):
                 '_return_http_data_only',
                 '_preload_content',
                 '_request_timeout',
-                '_request_auth'
+                '_request_auth',
+                '_content_type',
+                '_headers'
             ]
         )
 
@@ -1490,8 +1523,7 @@ class DevicesApi(object):
             local_var_params[key] = val
         del local_var_params['kwargs']
         # verify the required parameter 'id' is set
-        if self.api_client.client_side_validation and ('id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['id'] is None):  # noqa: E501
+        if self.api_client.client_side_validation and local_var_params.get('id') is None:  # noqa: E501
             raise ApiValueError("Missing the required parameter `id` when calling `find_device_usages`")  # noqa: E501
 
         collection_formats = {}
@@ -1501,12 +1533,12 @@ class DevicesApi(object):
             path_params['id'] = local_var_params['id']  # noqa: E501
 
         query_params = []
-        if 'created_after' in local_var_params and local_var_params['created_after'] is not None:  # noqa: E501
+        if local_var_params.get('created_after') is not None:  # noqa: E501
             query_params.append(('created[after]', local_var_params['created_after']))  # noqa: E501
-        if 'created_before' in local_var_params and local_var_params['created_before'] is not None:  # noqa: E501
+        if local_var_params.get('created_before') is not None:  # noqa: E501
             query_params.append(('created[before]', local_var_params['created_before']))  # noqa: E501
 
-        header_params = {}
+        header_params = dict(local_var_params.get('_headers', {}))
 
         form_params = []
         local_var_files = {}
@@ -1609,6 +1641,7 @@ class DevicesApi(object):
                               request; this effectively ignores the authentication
                               in the spec for a single request.
         :type _request_auth: dict, optional
+        :type _content_type: string, optional: force content-type for the request
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
@@ -1628,7 +1661,9 @@ class DevicesApi(object):
                 '_return_http_data_only',
                 '_preload_content',
                 '_request_timeout',
-                '_request_auth'
+                '_request_auth',
+                '_content_type',
+                '_headers'
             ]
         )
 
@@ -1641,16 +1676,13 @@ class DevicesApi(object):
             local_var_params[key] = val
         del local_var_params['kwargs']
         # verify the required parameter 'id' is set
-        if self.api_client.client_side_validation and ('id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['id'] is None):  # noqa: E501
+        if self.api_client.client_side_validation and local_var_params.get('id') is None:  # noqa: E501
             raise ApiValueError("Missing the required parameter `id` when calling `find_instance_bandwidth`")  # noqa: E501
         # verify the required parameter '_from' is set
-        if self.api_client.client_side_validation and ('_from' not in local_var_params or  # noqa: E501
-                                                        local_var_params['_from'] is None):  # noqa: E501
+        if self.api_client.client_side_validation and local_var_params.get('_from') is None:  # noqa: E501
             raise ApiValueError("Missing the required parameter `_from` when calling `find_instance_bandwidth`")  # noqa: E501
         # verify the required parameter 'until' is set
-        if self.api_client.client_side_validation and ('until' not in local_var_params or  # noqa: E501
-                                                        local_var_params['until'] is None):  # noqa: E501
+        if self.api_client.client_side_validation and local_var_params.get('until') is None:  # noqa: E501
             raise ApiValueError("Missing the required parameter `until` when calling `find_instance_bandwidth`")  # noqa: E501
 
         collection_formats = {}
@@ -1660,12 +1692,12 @@ class DevicesApi(object):
             path_params['id'] = local_var_params['id']  # noqa: E501
 
         query_params = []
-        if '_from' in local_var_params and local_var_params['_from'] is not None:  # noqa: E501
+        if local_var_params.get('_from') is not None:  # noqa: E501
             query_params.append(('from', local_var_params['_from']))  # noqa: E501
-        if 'until' in local_var_params and local_var_params['until'] is not None:  # noqa: E501
+        if local_var_params.get('until') is not None:  # noqa: E501
             query_params.append(('until', local_var_params['until']))  # noqa: E501
 
-        header_params = {}
+        header_params = dict(local_var_params.get('_headers', {}))
 
         form_params = []
         local_var_files = {}
@@ -1760,6 +1792,7 @@ class DevicesApi(object):
                               request; this effectively ignores the authentication
                               in the spec for a single request.
         :type _request_auth: dict, optional
+        :type _content_type: string, optional: force content-type for the request
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
@@ -1778,7 +1811,9 @@ class DevicesApi(object):
                 '_return_http_data_only',
                 '_preload_content',
                 '_request_timeout',
-                '_request_auth'
+                '_request_auth',
+                '_content_type',
+                '_headers'
             ]
         )
 
@@ -1791,12 +1826,10 @@ class DevicesApi(object):
             local_var_params[key] = val
         del local_var_params['kwargs']
         # verify the required parameter 'instance_id' is set
-        if self.api_client.client_side_validation and ('instance_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['instance_id'] is None):  # noqa: E501
+        if self.api_client.client_side_validation and local_var_params.get('instance_id') is None:  # noqa: E501
             raise ApiValueError("Missing the required parameter `instance_id` when calling `find_ip_assignment_customdata`")  # noqa: E501
         # verify the required parameter 'id' is set
-        if self.api_client.client_side_validation and ('id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['id'] is None):  # noqa: E501
+        if self.api_client.client_side_validation and local_var_params.get('id') is None:  # noqa: E501
             raise ApiValueError("Missing the required parameter `id` when calling `find_ip_assignment_customdata`")  # noqa: E501
 
         collection_formats = {}
@@ -1809,7 +1842,7 @@ class DevicesApi(object):
 
         query_params = []
 
-        header_params = {}
+        header_params = dict(local_var_params.get('_headers', {}))
 
         form_params = []
         local_var_files = {}
@@ -1908,6 +1941,7 @@ class DevicesApi(object):
                               request; this effectively ignores the authentication
                               in the spec for a single request.
         :type _request_auth: dict, optional
+        :type _content_type: string, optional: force content-type for the request
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
@@ -1927,7 +1961,9 @@ class DevicesApi(object):
                 '_return_http_data_only',
                 '_preload_content',
                 '_request_timeout',
-                '_request_auth'
+                '_request_auth',
+                '_content_type',
+                '_headers'
             ]
         )
 
@@ -1940,8 +1976,7 @@ class DevicesApi(object):
             local_var_params[key] = val
         del local_var_params['kwargs']
         # verify the required parameter 'id' is set
-        if self.api_client.client_side_validation and ('id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['id'] is None):  # noqa: E501
+        if self.api_client.client_side_validation and local_var_params.get('id') is None:  # noqa: E501
             raise ApiValueError("Missing the required parameter `id` when calling `find_ip_assignments`")  # noqa: E501
 
         collection_formats = {}
@@ -1951,14 +1986,14 @@ class DevicesApi(object):
             path_params['id'] = local_var_params['id']  # noqa: E501
 
         query_params = []
-        if 'include' in local_var_params and local_var_params['include'] is not None:  # noqa: E501
+        if local_var_params.get('include') is not None:  # noqa: E501
             query_params.append(('include', local_var_params['include']))  # noqa: E501
             collection_formats['include'] = 'csv'  # noqa: E501
-        if 'exclude' in local_var_params and local_var_params['exclude'] is not None:  # noqa: E501
+        if local_var_params.get('exclude') is not None:  # noqa: E501
             query_params.append(('exclude', local_var_params['exclude']))  # noqa: E501
             collection_formats['exclude'] = 'csv'  # noqa: E501
 
-        header_params = {}
+        header_params = dict(local_var_params.get('_headers', {}))
 
         form_params = []
         local_var_files = {}
@@ -2069,6 +2104,7 @@ class DevicesApi(object):
                               request; this effectively ignores the authentication
                               in the spec for a single request.
         :type _request_auth: dict, optional
+        :type _content_type: string, optional: force content-type for the request
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
@@ -2090,7 +2126,9 @@ class DevicesApi(object):
                 '_return_http_data_only',
                 '_preload_content',
                 '_request_timeout',
-                '_request_auth'
+                '_request_auth',
+                '_content_type',
+                '_headers'
             ]
         )
 
@@ -2103,8 +2141,7 @@ class DevicesApi(object):
             local_var_params[key] = val
         del local_var_params['kwargs']
         # verify the required parameter 'id' is set
-        if self.api_client.client_side_validation and ('id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['id'] is None):  # noqa: E501
+        if self.api_client.client_side_validation and local_var_params.get('id') is None:  # noqa: E501
             raise ApiValueError("Missing the required parameter `id` when calling `find_organization_devices`")  # noqa: E501
 
         if self.api_client.client_side_validation and 'page' in local_var_params and local_var_params['page'] > 100000:  # noqa: E501
@@ -2122,18 +2159,18 @@ class DevicesApi(object):
             path_params['id'] = local_var_params['id']  # noqa: E501
 
         query_params = []
-        if 'include' in local_var_params and local_var_params['include'] is not None:  # noqa: E501
+        if local_var_params.get('include') is not None:  # noqa: E501
             query_params.append(('include', local_var_params['include']))  # noqa: E501
             collection_formats['include'] = 'csv'  # noqa: E501
-        if 'exclude' in local_var_params and local_var_params['exclude'] is not None:  # noqa: E501
+        if local_var_params.get('exclude') is not None:  # noqa: E501
             query_params.append(('exclude', local_var_params['exclude']))  # noqa: E501
             collection_formats['exclude'] = 'csv'  # noqa: E501
-        if 'page' in local_var_params and local_var_params['page'] is not None:  # noqa: E501
+        if local_var_params.get('page') is not None:  # noqa: E501
             query_params.append(('page', local_var_params['page']))  # noqa: E501
-        if 'per_page' in local_var_params and local_var_params['per_page'] is not None:  # noqa: E501
+        if local_var_params.get('per_page') is not None:  # noqa: E501
             query_params.append(('per_page', local_var_params['per_page']))  # noqa: E501
 
-        header_params = {}
+        header_params = dict(local_var_params.get('_headers', {}))
 
         form_params = []
         local_var_files = {}
@@ -2245,6 +2282,7 @@ class DevicesApi(object):
                               request; this effectively ignores the authentication
                               in the spec for a single request.
         :type _request_auth: dict, optional
+        :type _content_type: string, optional: force content-type for the request
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
@@ -2266,7 +2304,9 @@ class DevicesApi(object):
                 '_return_http_data_only',
                 '_preload_content',
                 '_request_timeout',
-                '_request_auth'
+                '_request_auth',
+                '_content_type',
+                '_headers'
             ]
         )
 
@@ -2279,8 +2319,7 @@ class DevicesApi(object):
             local_var_params[key] = val
         del local_var_params['kwargs']
         # verify the required parameter 'id' is set
-        if self.api_client.client_side_validation and ('id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['id'] is None):  # noqa: E501
+        if self.api_client.client_side_validation and local_var_params.get('id') is None:  # noqa: E501
             raise ApiValueError("Missing the required parameter `id` when calling `find_project_devices`")  # noqa: E501
 
         if self.api_client.client_side_validation and 'page' in local_var_params and local_var_params['page'] > 100000:  # noqa: E501
@@ -2298,18 +2337,18 @@ class DevicesApi(object):
             path_params['id'] = local_var_params['id']  # noqa: E501
 
         query_params = []
-        if 'include' in local_var_params and local_var_params['include'] is not None:  # noqa: E501
+        if local_var_params.get('include') is not None:  # noqa: E501
             query_params.append(('include', local_var_params['include']))  # noqa: E501
             collection_formats['include'] = 'csv'  # noqa: E501
-        if 'exclude' in local_var_params and local_var_params['exclude'] is not None:  # noqa: E501
+        if local_var_params.get('exclude') is not None:  # noqa: E501
             query_params.append(('exclude', local_var_params['exclude']))  # noqa: E501
             collection_formats['exclude'] = 'csv'  # noqa: E501
-        if 'page' in local_var_params and local_var_params['page'] is not None:  # noqa: E501
+        if local_var_params.get('page') is not None:  # noqa: E501
             query_params.append(('page', local_var_params['page']))  # noqa: E501
-        if 'per_page' in local_var_params and local_var_params['per_page'] is not None:  # noqa: E501
+        if local_var_params.get('per_page') is not None:  # noqa: E501
             query_params.append(('per_page', local_var_params['per_page']))  # noqa: E501
 
-        header_params = {}
+        header_params = dict(local_var_params.get('_headers', {}))
 
         form_params = []
         local_var_files = {}
@@ -2413,6 +2452,7 @@ class DevicesApi(object):
                               request; this effectively ignores the authentication
                               in the spec for a single request.
         :type _request_auth: dict, optional
+        :type _content_type: string, optional: force content-type for the request
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
@@ -2432,7 +2472,9 @@ class DevicesApi(object):
                 '_return_http_data_only',
                 '_preload_content',
                 '_request_timeout',
-                '_request_auth'
+                '_request_auth',
+                '_content_type',
+                '_headers'
             ]
         )
 
@@ -2445,8 +2487,7 @@ class DevicesApi(object):
             local_var_params[key] = val
         del local_var_params['kwargs']
         # verify the required parameter 'id' is set
-        if self.api_client.client_side_validation and ('id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['id'] is None):  # noqa: E501
+        if self.api_client.client_side_validation and local_var_params.get('id') is None:  # noqa: E501
             raise ApiValueError("Missing the required parameter `id` when calling `find_project_usage`")  # noqa: E501
 
         collection_formats = {}
@@ -2456,12 +2497,12 @@ class DevicesApi(object):
             path_params['id'] = local_var_params['id']  # noqa: E501
 
         query_params = []
-        if 'created_after' in local_var_params and local_var_params['created_after'] is not None:  # noqa: E501
+        if local_var_params.get('created_after') is not None:  # noqa: E501
             query_params.append(('created[after]', local_var_params['created_after']))  # noqa: E501
-        if 'created_before' in local_var_params and local_var_params['created_before'] is not None:  # noqa: E501
+        if local_var_params.get('created_before') is not None:  # noqa: E501
             query_params.append(('created[before]', local_var_params['created_before']))  # noqa: E501
 
-        header_params = {}
+        header_params = dict(local_var_params.get('_headers', {}))
 
         form_params = []
         local_var_files = {}
@@ -2572,6 +2613,7 @@ class DevicesApi(object):
                               request; this effectively ignores the authentication
                               in the spec for a single request.
         :type _request_auth: dict, optional
+        :type _content_type: string, optional: force content-type for the request
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
@@ -2593,7 +2635,9 @@ class DevicesApi(object):
                 '_return_http_data_only',
                 '_preload_content',
                 '_request_timeout',
-                '_request_auth'
+                '_request_auth',
+                '_content_type',
+                '_headers'
             ]
         )
 
@@ -2606,16 +2650,13 @@ class DevicesApi(object):
             local_var_params[key] = val
         del local_var_params['kwargs']
         # verify the required parameter 'id' is set
-        if self.api_client.client_side_validation and ('id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['id'] is None):  # noqa: E501
+        if self.api_client.client_side_validation and local_var_params.get('id') is None:  # noqa: E501
             raise ApiValueError("Missing the required parameter `id` when calling `find_traffic`")  # noqa: E501
         # verify the required parameter 'direction' is set
-        if self.api_client.client_side_validation and ('direction' not in local_var_params or  # noqa: E501
-                                                        local_var_params['direction'] is None):  # noqa: E501
+        if self.api_client.client_side_validation and local_var_params.get('direction') is None:  # noqa: E501
             raise ApiValueError("Missing the required parameter `direction` when calling `find_traffic`")  # noqa: E501
         # verify the required parameter 'timeframe' is set
-        if self.api_client.client_side_validation and ('timeframe' not in local_var_params or  # noqa: E501
-                                                        local_var_params['timeframe'] is None):  # noqa: E501
+        if self.api_client.client_side_validation and local_var_params.get('timeframe') is None:  # noqa: E501
             raise ApiValueError("Missing the required parameter `timeframe` when calling `find_traffic`")  # noqa: E501
 
         collection_formats = {}
@@ -2625,14 +2666,14 @@ class DevicesApi(object):
             path_params['id'] = local_var_params['id']  # noqa: E501
 
         query_params = []
-        if 'direction' in local_var_params and local_var_params['direction'] is not None:  # noqa: E501
+        if local_var_params.get('direction') is not None:  # noqa: E501
             query_params.append(('direction', local_var_params['direction']))  # noqa: E501
-        if 'interval' in local_var_params and local_var_params['interval'] is not None:  # noqa: E501
+        if local_var_params.get('interval') is not None:  # noqa: E501
             query_params.append(('interval', local_var_params['interval']))  # noqa: E501
-        if 'bucket' in local_var_params and local_var_params['bucket'] is not None:  # noqa: E501
+        if local_var_params.get('bucket') is not None:  # noqa: E501
             query_params.append(('bucket', local_var_params['bucket']))  # noqa: E501
 
-        header_params = {}
+        header_params = dict(local_var_params.get('_headers', {}))
 
         form_params = []
         local_var_files = {}
@@ -2645,8 +2686,12 @@ class DevicesApi(object):
             ['application/json'])  # noqa: E501
 
         # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['application/json'])  # noqa: E501
+        content_types_list = local_var_params.get('_content_type',
+            self.api_client.select_header_content_type(
+                ['application/json'],
+                'GET', body_params))  # noqa: E501
+        if content_types_list:
+                header_params['Content-Type'] = content_types_list
 
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
@@ -2729,6 +2774,7 @@ class DevicesApi(object):
                               request; this effectively ignores the authentication
                               in the spec for a single request.
         :type _request_auth: dict, optional
+        :type _content_type: string, optional: force content-type for the request
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
@@ -2746,7 +2792,9 @@ class DevicesApi(object):
                 '_return_http_data_only',
                 '_preload_content',
                 '_request_timeout',
-                '_request_auth'
+                '_request_auth',
+                '_content_type',
+                '_headers'
             ]
         )
 
@@ -2759,8 +2807,7 @@ class DevicesApi(object):
             local_var_params[key] = val
         del local_var_params['kwargs']
         # verify the required parameter 'id' is set
-        if self.api_client.client_side_validation and ('id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['id'] is None):  # noqa: E501
+        if self.api_client.client_side_validation and local_var_params.get('id') is None:  # noqa: E501
             raise ApiValueError("Missing the required parameter `id` when calling `get_bgp_neighbor_data`")  # noqa: E501
 
         collection_formats = {}
@@ -2771,7 +2818,7 @@ class DevicesApi(object):
 
         query_params = []
 
-        header_params = {}
+        header_params = dict(local_var_params.get('_headers', {}))
 
         form_params = []
         local_var_files = {}
@@ -2871,6 +2918,7 @@ class DevicesApi(object):
                               request; this effectively ignores the authentication
                               in the spec for a single request.
         :type _request_auth: dict, optional
+        :type _content_type: string, optional: force content-type for the request
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
@@ -2889,7 +2937,9 @@ class DevicesApi(object):
                 '_return_http_data_only',
                 '_preload_content',
                 '_request_timeout',
-                '_request_auth'
+                '_request_auth',
+                '_content_type',
+                '_headers'
             ]
         )
 
@@ -2902,12 +2952,10 @@ class DevicesApi(object):
             local_var_params[key] = val
         del local_var_params['kwargs']
         # verify the required parameter 'id' is set
-        if self.api_client.client_side_validation and ('id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['id'] is None):  # noqa: E501
+        if self.api_client.client_side_validation and local_var_params.get('id') is None:  # noqa: E501
             raise ApiValueError("Missing the required parameter `id` when calling `perform_action`")  # noqa: E501
         # verify the required parameter 'type' is set
-        if self.api_client.client_side_validation and ('type' not in local_var_params or  # noqa: E501
-                                                        local_var_params['type'] is None):  # noqa: E501
+        if self.api_client.client_side_validation and local_var_params.get('type') is None:  # noqa: E501
             raise ApiValueError("Missing the required parameter `type` when calling `perform_action`")  # noqa: E501
 
         collection_formats = {}
@@ -2917,10 +2965,10 @@ class DevicesApi(object):
             path_params['id'] = local_var_params['id']  # noqa: E501
 
         query_params = []
-        if 'type' in local_var_params and local_var_params['type'] is not None:  # noqa: E501
+        if local_var_params.get('type') is not None:  # noqa: E501
             query_params.append(('type', local_var_params['type']))  # noqa: E501
 
-        header_params = {}
+        header_params = dict(local_var_params.get('_headers', {}))
 
         form_params = []
         local_var_files = {}
@@ -3015,6 +3063,7 @@ class DevicesApi(object):
                               request; this effectively ignores the authentication
                               in the spec for a single request.
         :type _request_auth: dict, optional
+        :type _content_type: string, optional: force content-type for the request
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
@@ -3033,7 +3082,9 @@ class DevicesApi(object):
                 '_return_http_data_only',
                 '_preload_content',
                 '_request_timeout',
-                '_request_auth'
+                '_request_auth',
+                '_content_type',
+                '_headers'
             ]
         )
 
@@ -3046,12 +3097,10 @@ class DevicesApi(object):
             local_var_params[key] = val
         del local_var_params['kwargs']
         # verify the required parameter 'id' is set
-        if self.api_client.client_side_validation and ('id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['id'] is None):  # noqa: E501
+        if self.api_client.client_side_validation and local_var_params.get('id') is None:  # noqa: E501
             raise ApiValueError("Missing the required parameter `id` when calling `update_device`")  # noqa: E501
         # verify the required parameter 'device' is set
-        if self.api_client.client_side_validation and ('device' not in local_var_params or  # noqa: E501
-                                                        local_var_params['device'] is None):  # noqa: E501
+        if self.api_client.client_side_validation and local_var_params.get('device') is None:  # noqa: E501
             raise ApiValueError("Missing the required parameter `device` when calling `update_device`")  # noqa: E501
 
         collection_formats = {}
@@ -3062,7 +3111,7 @@ class DevicesApi(object):
 
         query_params = []
 
-        header_params = {}
+        header_params = dict(local_var_params.get('_headers', {}))
 
         form_params = []
         local_var_files = {}
@@ -3075,8 +3124,12 @@ class DevicesApi(object):
             ['application/json'])  # noqa: E501
 
         # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['application/json'])  # noqa: E501
+        content_types_list = local_var_params.get('_content_type',
+            self.api_client.select_header_content_type(
+                ['application/json'],
+                'PUT', body_params))  # noqa: E501
+        if content_types_list:
+                header_params['Content-Type'] = content_types_list
 
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501

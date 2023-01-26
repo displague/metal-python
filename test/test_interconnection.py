@@ -62,7 +62,7 @@ class TestInterconnection(unittest.TestCase):
                     href = '', ), 
                 organization = metal.models.href.Href(
                     href = '', ), 
-                metro = None, 
+                metro = metal.models.interconnection_metro.Interconnection_metro(), 
                 mode = 'standard'
             )
         else :

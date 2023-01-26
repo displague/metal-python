@@ -37,7 +37,7 @@ class InstancesBatchCreateInput(object):
                             and the value is json key in definition.
     """
     openapi_types = {
-        'batches': 'list[InstancesBatchCreateInputBatches]'
+        'batches': 'list[InstancesBatchCreateInputBatchesInner]'
     }
 
     attribute_map = {
@@ -62,7 +62,7 @@ class InstancesBatchCreateInput(object):
 
 
         :return: The batches of this InstancesBatchCreateInput.  # noqa: E501
-        :rtype: list[InstancesBatchCreateInputBatches]
+        :rtype: list[InstancesBatchCreateInputBatchesInner]
         """
         return self._batches
 
@@ -72,7 +72,7 @@ class InstancesBatchCreateInput(object):
 
 
         :param batches: The batches of this InstancesBatchCreateInput.  # noqa: E501
-        :type batches: list[InstancesBatchCreateInputBatches]
+        :type batches: list[InstancesBatchCreateInputBatchesInner]
         """
 
         self._batches = batches

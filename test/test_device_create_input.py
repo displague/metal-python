@@ -74,7 +74,7 @@ class TestDeviceCreateInput(unittest.TestCase):
                 public_ipv4_subnet_size = 1.337, 
                 private_ipv4_subnet_size = 1.337, 
                 ip_addresses = [
-                    metal.models.device_create_input_ip_addresses.DeviceCreateInput_ip_addresses(
+                    metal.models.device_create_input_ip_addresses_inner.DeviceCreateInput_ip_addresses_inner(
                         address_family = 4.0, 
                         public = False, 
                         cidr = 28.0, 

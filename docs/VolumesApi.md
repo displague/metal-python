@@ -76,7 +76,7 @@ snapshot_timestamp = 'snapshot_timestamp_example' # str | snapshot timestamp (op
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**str**](.md)| Volume UUID | 
+ **id** | **str**| Volume UUID | 
  **snapshot_timestamp** | **str**| snapshot timestamp | [optional] 
 
 ### Return type
@@ -155,7 +155,7 @@ volume = metal.VolumeCreateInput() # VolumeCreateInput | Volume to create
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**str**](.md)| Project UUID | 
+ **id** | **str**| Project UUID | 
  **volume** | [**VolumeCreateInput**](VolumeCreateInput.md)| Volume to create | 
 
 ### Return type
@@ -234,7 +234,7 @@ attachment = metal.VolumeAttachmentInput() # VolumeAttachmentInput | Device to a
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**str**](.md)| Volume UUID | 
+ **id** | **str**| Volume UUID | 
  **attachment** | [**VolumeAttachmentInput**](VolumeAttachmentInput.md)| Device to attach | 
 
 ### Return type
@@ -314,7 +314,7 @@ snapshot_count = 56 # int | Snapshot count (optional)
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**str**](.md)| Volume UUID | 
+ **id** | **str**| Volume UUID | 
  **snapshot_frequency** | **str**| Snapshot frequency | 
  **snapshot_count** | **int**| Snapshot count | [optional] 
 
@@ -392,7 +392,7 @@ with metal.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**str**](.md)| Volume UUID | 
+ **id** | **str**| Volume UUID | 
 
 ### Return type
 
@@ -467,7 +467,7 @@ with metal.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**str**](.md)| Attachment UUID | 
+ **id** | **str**| Attachment UUID | 
 
 ### Return type
 
@@ -543,8 +543,8 @@ id = 'id_example' # str | Snapshot UUID
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **volume_id** | [**str**](.md)| Volume UUID | 
- **id** | [**str**](.md)| Snapshot UUID | 
+ **volume_id** | **str**| Volume UUID | 
+ **id** | **str**| Snapshot UUID | 
 
 ### Return type
 
@@ -619,7 +619,7 @@ with metal.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**str**](.md)| Snapshot Policy UUID | 
+ **id** | **str**| Snapshot Policy UUID | 
 
 ### Return type
 
@@ -697,7 +697,7 @@ exclude = ['exclude_example'] # list[str] | Nested attributes to exclude. Exclud
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**str**](.md)| Attachment UUID | 
+ **id** | **str**| Attachment UUID | 
  **include** | [**list[str]**](str.md)| Nested attributes to include. Included objects will return their full attributes. Attribute names can be dotted (up to 3 levels) to included deeply nested objects. | [optional] 
  **exclude** | [**list[str]**](str.md)| Nested attributes to exclude. Excluded objects will return only the href attribute. Attribute names can be dotted (up to 3 levels) to exclude deeply nested objects. | [optional] 
 
@@ -777,7 +777,7 @@ exclude = ['exclude_example'] # list[str] | Nested attributes to exclude. Exclud
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**str**](.md)| Volume UUID | 
+ **id** | **str**| Volume UUID | 
  **include** | [**list[str]**](str.md)| Nested attributes to include. Included objects will return their full attributes. Attribute names can be dotted (up to 3 levels) to included deeply nested objects. | [optional] 
  **exclude** | [**list[str]**](str.md)| Nested attributes to exclude. Excluded objects will return only the href attribute. Attribute names can be dotted (up to 3 levels) to exclude deeply nested objects. | [optional] 
 
@@ -857,7 +857,7 @@ exclude = ['exclude_example'] # list[str] | Nested attributes to exclude. Exclud
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**str**](.md)| Volume UUID | 
+ **id** | **str**| Volume UUID | 
  **include** | [**list[str]**](str.md)| Nested attributes to include. Included objects will return their full attributes. Attribute names can be dotted (up to 3 levels) to included deeply nested objects. | [optional] 
  **exclude** | [**list[str]**](str.md)| Nested attributes to exclude. Excluded objects will return only the href attribute. Attribute names can be dotted (up to 3 levels) to exclude deeply nested objects. | [optional] 
 
@@ -934,7 +934,7 @@ with metal.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**str**](.md)| Storage Volume UUID | 
+ **id** | **str**| Storage Volume UUID | 
 
 ### Return type
 
@@ -1014,7 +1014,7 @@ per_page = 10 # int | Items returned per page (optional) (default to 10)
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**str**](.md)| Volume UUID | 
+ **id** | **str**| Volume UUID | 
  **include** | [**list[str]**](str.md)| Nested attributes to include. Included objects will return their full attributes. Attribute names can be dotted (up to 3 levels) to included deeply nested objects. | [optional] 
  **exclude** | [**list[str]**](str.md)| Nested attributes to exclude. Excluded objects will return only the href attribute. Attribute names can be dotted (up to 3 levels) to exclude deeply nested objects. | [optional] 
  **page** | **int**| Page to return | [optional] [default to 1]
@@ -1096,7 +1096,7 @@ exclude = ['exclude_example'] # list[str] | Nested attributes to exclude. Exclud
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**str**](.md)| Volume UUID | 
+ **id** | **str**| Volume UUID | 
  **include** | [**list[str]**](str.md)| Nested attributes to include. Included objects will return their full attributes. Attribute names can be dotted (up to 3 levels) to included deeply nested objects. | [optional] 
  **exclude** | [**list[str]**](str.md)| Nested attributes to exclude. Excluded objects will return only the href attribute. Attribute names can be dotted (up to 3 levels) to exclude deeply nested objects. | [optional] 
 
@@ -1178,7 +1178,7 @@ per_page = 10 # int | Items returned per page (optional) (default to 10)
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**str**](.md)| Project UUID | 
+ **id** | **str**| Project UUID | 
  **include** | [**list[str]**](str.md)| Nested attributes to include. Included objects will return their full attributes. Attribute names can be dotted (up to 3 levels) to included deeply nested objects. | [optional] 
  **exclude** | [**list[str]**](str.md)| Nested attributes to exclude. Excluded objects will return only the href attribute. Attribute names can be dotted (up to 3 levels) to exclude deeply nested objects. | [optional] 
  **page** | **int**| Page to return | [optional] [default to 1]
@@ -1259,7 +1259,7 @@ restore_point = 'restore_point_example' # str | restore point
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**str**](.md)| Volume UUID | 
+ **id** | **str**| Volume UUID | 
  **restore_point** | **str**| restore point | 
 
 ### Return type
@@ -1338,7 +1338,7 @@ volume = metal.VolumeUpdateInput() # VolumeUpdateInput | Volume to update
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**str**](.md)| Volume UUID | 
+ **id** | **str**| Volume UUID | 
  **volume** | [**VolumeUpdateInput**](VolumeUpdateInput.md)| Volume to update | 
 
 ### Return type
@@ -1418,7 +1418,7 @@ snapshot_count = 56 # int | Snapshot count (optional)
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**str**](.md)| Snapshot Policy UUID | 
+ **id** | **str**| Snapshot Policy UUID | 
  **snapshot_frequency** | **str**| Snapshot frequency | 
  **snapshot_count** | **int**| Snapshot count | [optional] 
 

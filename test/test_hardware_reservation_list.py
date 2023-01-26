@@ -57,7 +57,7 @@ class TestHardwareReservationList(unittest.TestCase):
                                 coordinates = metal.models.coordinates.Coordinates(
                                     latitude = '', 
                                     longitude = '', ), ), 
-                            metro = metal.models.metro.metro(), ), 
+                            metro = metal.models.facility_metro.Facility_metro(), ), 
                         plan = metal.models.plan.Plan(
                             id = '', 
                             slug = '', 
@@ -84,30 +84,23 @@ class TestHardwareReservationList(unittest.TestCase):
                                     href = '', )
                                 ], 
                             memberships = [
-                                metal.models.href.Href(
-                                    href = '', )
+                                
                                 ], 
                             network_status = metal.models.network_status.network_status(), 
                             invitations = [
-                                metal.models.href.Href(
-                                    href = '', )
+                                
                                 ], 
-                            payment_method = metal.models.href.Href(
-                                href = '', ), 
+                            payment_method = , 
                             devices = [
-                                metal.models.href.Href(
-                                    href = '', )
+                                
                                 ], 
                             ssh_keys = [
-                                metal.models.href.Href(
-                                    href = '', )
+                                
                                 ], 
                             volumes = [
-                                metal.models.href.Href(
-                                    href = '', )
+                                
                                 ], 
-                            bgp_config = metal.models.href.Href(
-                                href = '', ), 
+                            bgp_config = , 
                             customdata = metal.models.customdata.customdata(), ), 
                         device = metal.models.device.Device(
                             id = '', 
@@ -145,15 +138,13 @@ class TestHardwareReservationList(unittest.TestCase):
                                 licensed = True, ), 
                             always_pxe = True, 
                             ipxe_script_url = '', 
-                            metro = metal.models.metro.metro(), 
                             userdata = '', 
                             root_password = '', 
                             switch_uuid = '', 
-                            network_ports = metal.models.network_ports.network_ports(), 
+                            network_ports = metal.models.device_network_ports.Device_network_ports(), 
                             href = '', 
-                            project_lite = metal.models.project_lite.project_lite(), 
-                            hardware_reservation = metal.models.href.Href(
-                                href = '', ), 
+                            project_lite = metal.models.device_project_lite.Device_project_lite(), 
+                            hardware_reservation = , 
                             ip_addresses = [
                                 metal.models.ip_assignment.IPAssignment(
                                     id = '', 
@@ -165,13 +156,11 @@ class TestHardwareReservationList(unittest.TestCase):
                                     management = True, 
                                     manageable = True, 
                                     global_ip = True, 
-                                    assigned_to = metal.models.href.Href(
-                                        href = '', ), 
+                                    assigned_to = , 
                                     network = '', 
                                     gateway = '', 
                                     href = '', 
                                     created_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
-                                    metro = metal.models.metro.metro(), 
                                     parent_block = metal.models.parent_block.ParentBlock(
                                         network = '', 
                                         netmask = '', 
@@ -185,8 +174,7 @@ class TestHardwareReservationList(unittest.TestCase):
                                     type = '', 
                                     body = '', 
                                     relationships = [
-                                        metal.models.href.Href(
-                                            href = '', )
+                                        
                                         ], 
                                     interpolated = '', 
                                     created_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
@@ -204,12 +192,9 @@ class TestHardwareReservationList(unittest.TestCase):
                         href = '', ), 
                     previous = metal.models.href.Href(
                         href = '', ), 
-                    self = metal.models.href.Href(
-                        href = '', ), 
-                    next = metal.models.href.Href(
-                        href = '', ), 
-                    last = metal.models.href.Href(
-                        href = '', ), 
+                    self = , 
+                    next = , 
+                    last = , 
                     total = 56, )
             )
         else :

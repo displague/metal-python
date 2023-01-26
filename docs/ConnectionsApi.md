@@ -76,8 +76,8 @@ virtual_circuit = metal.VirtualCircuitCreateInput() # VirtualCircuitCreateInput 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **connection_id** | [**str**](.md)| UUID of the connection | 
- **port_id** | [**str**](.md)| UUID of the connection port | 
+ **connection_id** | **str**| UUID of the connection | 
+ **port_id** | **str**| UUID of the connection port | 
  **virtual_circuit** | [**VirtualCircuitCreateInput**](VirtualCircuitCreateInput.md)| Virtual Circuit details | 
 
 ### Return type
@@ -154,7 +154,7 @@ connection = metal.InterconnectionCreateInput() # InterconnectionCreateInput | C
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **organization_id** | [**str**](.md)| UUID of the organization | 
+ **organization_id** | **str**| UUID of the organization | 
  **connection** | [**InterconnectionCreateInput**](InterconnectionCreateInput.md)| Connection details | 
 
 ### Return type
@@ -232,7 +232,7 @@ connection = metal.InterconnectionCreateInput() # InterconnectionCreateInput | C
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | [**str**](.md)| UUID of the project | 
+ **project_id** | **str**| UUID of the project | 
  **connection** | [**InterconnectionCreateInput**](InterconnectionCreateInput.md)| Connection details | 
 
 ### Return type
@@ -308,7 +308,7 @@ with metal.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **connection_id** | [**str**](.md)| Connection UUID | 
+ **connection_id** | **str**| Connection UUID | 
 
 ### Return type
 
@@ -383,7 +383,7 @@ with metal.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**str**](.md)| Virtual Circuit UUID | 
+ **id** | **str**| Virtual Circuit UUID | 
 
 ### Return type
 
@@ -462,7 +462,7 @@ per_page = 10 # int | Items returned per page (optional) (default to 10)
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **connection_id** | [**str**](.md)| Connection UUID | 
+ **connection_id** | **str**| Connection UUID | 
  **include** | [**list[str]**](str.md)| Nested attributes to include. Included objects will return their full attributes. Attribute names can be dotted (up to 3 levels) to included deeply nested objects. | [optional] 
  **exclude** | [**list[str]**](str.md)| Nested attributes to exclude. Excluded objects will return only the href attribute. Attribute names can be dotted (up to 3 levels) to exclude deeply nested objects. | [optional] 
  **page** | **int**| Page to return | [optional] [default to 1]
@@ -547,8 +547,8 @@ per_page = 10 # int | Items returned per page (optional) (default to 10)
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **connection_id** | [**str**](.md)| Connection UUID | 
- **id** | [**str**](.md)| Connection Port UUID | 
+ **connection_id** | **str**| Connection UUID | 
+ **id** | **str**| Connection Port UUID | 
  **include** | [**list[str]**](str.md)| Nested attributes to include. Included objects will return their full attributes. Attribute names can be dotted (up to 3 levels) to included deeply nested objects. | [optional] 
  **exclude** | [**list[str]**](str.md)| Nested attributes to exclude. Excluded objects will return only the href attribute. Attribute names can be dotted (up to 3 levels) to exclude deeply nested objects. | [optional] 
  **page** | **int**| Page to return | [optional] [default to 1]
@@ -632,7 +632,7 @@ per_page = 10 # int | Items returned per page (optional) (default to 10)
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**str**](.md)| Virtual Circuit UUID | 
+ **id** | **str**| Virtual Circuit UUID | 
  **include** | [**list[str]**](str.md)| Nested attributes to include. Included objects will return their full attributes. Attribute names can be dotted (up to 3 levels) to included deeply nested objects. | [optional] 
  **exclude** | [**list[str]**](str.md)| Nested attributes to exclude. Excluded objects will return only the href attribute. Attribute names can be dotted (up to 3 levels) to exclude deeply nested objects. | [optional] 
  **page** | **int**| Page to return | [optional] [default to 1]
@@ -713,8 +713,8 @@ id = 'id_example' # str | Port UUID
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **connection_id** | [**str**](.md)| UUID of the connection | 
- **id** | [**str**](.md)| Port UUID | 
+ **connection_id** | **str**| UUID of the connection | 
+ **id** | **str**| Port UUID | 
 
 ### Return type
 
@@ -789,7 +789,7 @@ with metal.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **connection_id** | [**str**](.md)| Connection UUID | 
+ **connection_id** | **str**| Connection UUID | 
 
 ### Return type
 
@@ -864,7 +864,7 @@ with metal.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**str**](.md)| Virtual Circuit UUID | 
+ **id** | **str**| Virtual Circuit UUID | 
 
 ### Return type
 
@@ -940,8 +940,8 @@ port_id = 'port_id_example' # str | UUID of the connection port
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **connection_id** | [**str**](.md)| UUID of the connection | 
- **port_id** | [**str**](.md)| UUID of the connection port | 
+ **connection_id** | **str**| UUID of the connection | 
+ **port_id** | **str**| UUID of the connection port | 
 
 ### Return type
 
@@ -1016,7 +1016,7 @@ with metal.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **connection_id** | [**str**](.md)| UUID of the connection | 
+ **connection_id** | **str**| UUID of the connection | 
 
 ### Return type
 
@@ -1091,7 +1091,7 @@ with metal.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **organization_id** | [**str**](.md)| UUID of the organization | 
+ **organization_id** | **str**| UUID of the organization | 
 
 ### Return type
 
@@ -1166,7 +1166,7 @@ with metal.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | [**str**](.md)| UUID of the project | 
+ **project_id** | **str**| UUID of the project | 
 
 ### Return type
 
@@ -1242,7 +1242,7 @@ connection = metal.InterconnectionUpdateInput() # InterconnectionUpdateInput | U
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **connection_id** | [**str**](.md)| Connection UUID | 
+ **connection_id** | **str**| Connection UUID | 
  **connection** | [**InterconnectionUpdateInput**](InterconnectionUpdateInput.md)| Updated connection details | 
 
 ### Return type
@@ -1319,7 +1319,7 @@ virtual_circuit = metal.VirtualCircuitUpdateInput() # VirtualCircuitUpdateInput 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**str**](.md)| Virtual Circuit UUID | 
+ **id** | **str**| Virtual Circuit UUID | 
  **virtual_circuit** | [**VirtualCircuitUpdateInput**](VirtualCircuitUpdateInput.md)| Updated Virtual Circuit details | 
 
 ### Return type

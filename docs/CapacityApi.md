@@ -353,7 +353,7 @@ with metal.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**str**](.md)| Organization UUID | 
+ **id** | **str**| Organization UUID | 
 
 ### Return type
 
@@ -428,7 +428,7 @@ with metal.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**str**](.md)| Organization UUID | 
+ **id** | **str**| Organization UUID | 
 
 ### Return type
 

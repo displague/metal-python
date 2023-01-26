@@ -62,9 +62,8 @@ class TestInterconnectionList(unittest.TestCase):
                             ], 
                         facility = metal.models.href.Href(
                             href = '', ), 
-                        organization = metal.models.href.Href(
-                            href = '', ), 
-                        metro = metal.models.metro.metro(), 
+                        organization = , 
+                        metro = metal.models.interconnection_metro.Interconnection_metro(), 
                         mode = 'standard', )
                     ]
             )

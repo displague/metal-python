@@ -100,6 +100,7 @@ class VolumesApi(object):
                               request; this effectively ignores the authentication
                               in the spec for a single request.
         :type _request_auth: dict, optional
+        :type _content_type: string, optional: force content-type for the request
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
@@ -118,7 +119,9 @@ class VolumesApi(object):
                 '_return_http_data_only',
                 '_preload_content',
                 '_request_timeout',
-                '_request_auth'
+                '_request_auth',
+                '_content_type',
+                '_headers'
             ]
         )
 
@@ -131,8 +134,7 @@ class VolumesApi(object):
             local_var_params[key] = val
         del local_var_params['kwargs']
         # verify the required parameter 'id' is set
-        if self.api_client.client_side_validation and ('id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['id'] is None):  # noqa: E501
+        if self.api_client.client_side_validation and local_var_params.get('id') is None:  # noqa: E501
             raise ApiValueError("Missing the required parameter `id` when calling `clone_volume`")  # noqa: E501
 
         collection_formats = {}
@@ -142,10 +144,10 @@ class VolumesApi(object):
             path_params['id'] = local_var_params['id']  # noqa: E501
 
         query_params = []
-        if 'snapshot_timestamp' in local_var_params and local_var_params['snapshot_timestamp'] is not None:  # noqa: E501
+        if local_var_params.get('snapshot_timestamp') is not None:  # noqa: E501
             query_params.append(('snapshot_timestamp', local_var_params['snapshot_timestamp']))  # noqa: E501
 
-        header_params = {}
+        header_params = dict(local_var_params.get('_headers', {}))
 
         form_params = []
         local_var_files = {}
@@ -246,6 +248,7 @@ class VolumesApi(object):
                               request; this effectively ignores the authentication
                               in the spec for a single request.
         :type _request_auth: dict, optional
+        :type _content_type: string, optional: force content-type for the request
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
@@ -264,7 +267,9 @@ class VolumesApi(object):
                 '_return_http_data_only',
                 '_preload_content',
                 '_request_timeout',
-                '_request_auth'
+                '_request_auth',
+                '_content_type',
+                '_headers'
             ]
         )
 
@@ -277,12 +282,10 @@ class VolumesApi(object):
             local_var_params[key] = val
         del local_var_params['kwargs']
         # verify the required parameter 'id' is set
-        if self.api_client.client_side_validation and ('id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['id'] is None):  # noqa: E501
+        if self.api_client.client_side_validation and local_var_params.get('id') is None:  # noqa: E501
             raise ApiValueError("Missing the required parameter `id` when calling `create_volume`")  # noqa: E501
         # verify the required parameter 'volume' is set
-        if self.api_client.client_side_validation and ('volume' not in local_var_params or  # noqa: E501
-                                                        local_var_params['volume'] is None):  # noqa: E501
+        if self.api_client.client_side_validation and local_var_params.get('volume') is None:  # noqa: E501
             raise ApiValueError("Missing the required parameter `volume` when calling `create_volume`")  # noqa: E501
 
         collection_formats = {}
@@ -293,7 +296,7 @@ class VolumesApi(object):
 
         query_params = []
 
-        header_params = {}
+        header_params = dict(local_var_params.get('_headers', {}))
 
         form_params = []
         local_var_files = {}
@@ -306,8 +309,12 @@ class VolumesApi(object):
             ['application/json'])  # noqa: E501
 
         # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['application/json'])  # noqa: E501
+        content_types_list = local_var_params.get('_content_type',
+            self.api_client.select_header_content_type(
+                ['application/json'],
+                'POST', body_params))  # noqa: E501
+        if content_types_list:
+                header_params['Content-Type'] = content_types_list
 
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
@@ -400,6 +407,7 @@ class VolumesApi(object):
                               request; this effectively ignores the authentication
                               in the spec for a single request.
         :type _request_auth: dict, optional
+        :type _content_type: string, optional: force content-type for the request
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
@@ -418,7 +426,9 @@ class VolumesApi(object):
                 '_return_http_data_only',
                 '_preload_content',
                 '_request_timeout',
-                '_request_auth'
+                '_request_auth',
+                '_content_type',
+                '_headers'
             ]
         )
 
@@ -431,12 +441,10 @@ class VolumesApi(object):
             local_var_params[key] = val
         del local_var_params['kwargs']
         # verify the required parameter 'id' is set
-        if self.api_client.client_side_validation and ('id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['id'] is None):  # noqa: E501
+        if self.api_client.client_side_validation and local_var_params.get('id') is None:  # noqa: E501
             raise ApiValueError("Missing the required parameter `id` when calling `create_volume_attachment`")  # noqa: E501
         # verify the required parameter 'attachment' is set
-        if self.api_client.client_side_validation and ('attachment' not in local_var_params or  # noqa: E501
-                                                        local_var_params['attachment'] is None):  # noqa: E501
+        if self.api_client.client_side_validation and local_var_params.get('attachment') is None:  # noqa: E501
             raise ApiValueError("Missing the required parameter `attachment` when calling `create_volume_attachment`")  # noqa: E501
 
         collection_formats = {}
@@ -447,7 +455,7 @@ class VolumesApi(object):
 
         query_params = []
 
-        header_params = {}
+        header_params = dict(local_var_params.get('_headers', {}))
 
         form_params = []
         local_var_files = {}
@@ -460,8 +468,12 @@ class VolumesApi(object):
             ['application/json'])  # noqa: E501
 
         # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['application/json'])  # noqa: E501
+        content_types_list = local_var_params.get('_content_type',
+            self.api_client.select_header_content_type(
+                ['application/json'],
+                'POST', body_params))  # noqa: E501
+        if content_types_list:
+                header_params['Content-Type'] = content_types_list
 
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
@@ -558,6 +570,7 @@ class VolumesApi(object):
                               request; this effectively ignores the authentication
                               in the spec for a single request.
         :type _request_auth: dict, optional
+        :type _content_type: string, optional: force content-type for the request
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
@@ -577,7 +590,9 @@ class VolumesApi(object):
                 '_return_http_data_only',
                 '_preload_content',
                 '_request_timeout',
-                '_request_auth'
+                '_request_auth',
+                '_content_type',
+                '_headers'
             ]
         )
 
@@ -590,12 +605,10 @@ class VolumesApi(object):
             local_var_params[key] = val
         del local_var_params['kwargs']
         # verify the required parameter 'id' is set
-        if self.api_client.client_side_validation and ('id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['id'] is None):  # noqa: E501
+        if self.api_client.client_side_validation and local_var_params.get('id') is None:  # noqa: E501
             raise ApiValueError("Missing the required parameter `id` when calling `create_volume_snapshot_policy`")  # noqa: E501
         # verify the required parameter 'snapshot_frequency' is set
-        if self.api_client.client_side_validation and ('snapshot_frequency' not in local_var_params or  # noqa: E501
-                                                        local_var_params['snapshot_frequency'] is None):  # noqa: E501
+        if self.api_client.client_side_validation and local_var_params.get('snapshot_frequency') is None:  # noqa: E501
             raise ApiValueError("Missing the required parameter `snapshot_frequency` when calling `create_volume_snapshot_policy`")  # noqa: E501
 
         collection_formats = {}
@@ -605,12 +618,12 @@ class VolumesApi(object):
             path_params['id'] = local_var_params['id']  # noqa: E501
 
         query_params = []
-        if 'snapshot_count' in local_var_params and local_var_params['snapshot_count'] is not None:  # noqa: E501
+        if local_var_params.get('snapshot_count') is not None:  # noqa: E501
             query_params.append(('snapshot_count', local_var_params['snapshot_count']))  # noqa: E501
-        if 'snapshot_frequency' in local_var_params and local_var_params['snapshot_frequency'] is not None:  # noqa: E501
+        if local_var_params.get('snapshot_frequency') is not None:  # noqa: E501
             query_params.append(('snapshot_frequency', local_var_params['snapshot_frequency']))  # noqa: E501
 
-        header_params = {}
+        header_params = dict(local_var_params.get('_headers', {}))
 
         form_params = []
         local_var_files = {}
@@ -707,6 +720,7 @@ class VolumesApi(object):
                               request; this effectively ignores the authentication
                               in the spec for a single request.
         :type _request_auth: dict, optional
+        :type _content_type: string, optional: force content-type for the request
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
@@ -724,7 +738,9 @@ class VolumesApi(object):
                 '_return_http_data_only',
                 '_preload_content',
                 '_request_timeout',
-                '_request_auth'
+                '_request_auth',
+                '_content_type',
+                '_headers'
             ]
         )
 
@@ -737,8 +753,7 @@ class VolumesApi(object):
             local_var_params[key] = val
         del local_var_params['kwargs']
         # verify the required parameter 'id' is set
-        if self.api_client.client_side_validation and ('id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['id'] is None):  # noqa: E501
+        if self.api_client.client_side_validation and local_var_params.get('id') is None:  # noqa: E501
             raise ApiValueError("Missing the required parameter `id` when calling `delete_volume`")  # noqa: E501
 
         collection_formats = {}
@@ -749,7 +764,7 @@ class VolumesApi(object):
 
         query_params = []
 
-        header_params = {}
+        header_params = dict(local_var_params.get('_headers', {}))
 
         form_params = []
         local_var_files = {}
@@ -840,6 +855,7 @@ class VolumesApi(object):
                               request; this effectively ignores the authentication
                               in the spec for a single request.
         :type _request_auth: dict, optional
+        :type _content_type: string, optional: force content-type for the request
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
@@ -857,7 +873,9 @@ class VolumesApi(object):
                 '_return_http_data_only',
                 '_preload_content',
                 '_request_timeout',
-                '_request_auth'
+                '_request_auth',
+                '_content_type',
+                '_headers'
             ]
         )
 
@@ -870,8 +888,7 @@ class VolumesApi(object):
             local_var_params[key] = val
         del local_var_params['kwargs']
         # verify the required parameter 'id' is set
-        if self.api_client.client_side_validation and ('id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['id'] is None):  # noqa: E501
+        if self.api_client.client_side_validation and local_var_params.get('id') is None:  # noqa: E501
             raise ApiValueError("Missing the required parameter `id` when calling `delete_volume_attachment`")  # noqa: E501
 
         collection_formats = {}
@@ -882,7 +899,7 @@ class VolumesApi(object):
 
         query_params = []
 
-        header_params = {}
+        header_params = dict(local_var_params.get('_headers', {}))
 
         form_params = []
         local_var_files = {}
@@ -977,6 +994,7 @@ class VolumesApi(object):
                               request; this effectively ignores the authentication
                               in the spec for a single request.
         :type _request_auth: dict, optional
+        :type _content_type: string, optional: force content-type for the request
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
@@ -995,7 +1013,9 @@ class VolumesApi(object):
                 '_return_http_data_only',
                 '_preload_content',
                 '_request_timeout',
-                '_request_auth'
+                '_request_auth',
+                '_content_type',
+                '_headers'
             ]
         )
 
@@ -1008,12 +1028,10 @@ class VolumesApi(object):
             local_var_params[key] = val
         del local_var_params['kwargs']
         # verify the required parameter 'volume_id' is set
-        if self.api_client.client_side_validation and ('volume_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['volume_id'] is None):  # noqa: E501
+        if self.api_client.client_side_validation and local_var_params.get('volume_id') is None:  # noqa: E501
             raise ApiValueError("Missing the required parameter `volume_id` when calling `delete_volume_snapshot`")  # noqa: E501
         # verify the required parameter 'id' is set
-        if self.api_client.client_side_validation and ('id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['id'] is None):  # noqa: E501
+        if self.api_client.client_side_validation and local_var_params.get('id') is None:  # noqa: E501
             raise ApiValueError("Missing the required parameter `id` when calling `delete_volume_snapshot`")  # noqa: E501
 
         collection_formats = {}
@@ -1026,7 +1044,7 @@ class VolumesApi(object):
 
         query_params = []
 
-        header_params = {}
+        header_params = dict(local_var_params.get('_headers', {}))
 
         form_params = []
         local_var_files = {}
@@ -1117,6 +1135,7 @@ class VolumesApi(object):
                               request; this effectively ignores the authentication
                               in the spec for a single request.
         :type _request_auth: dict, optional
+        :type _content_type: string, optional: force content-type for the request
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
@@ -1134,7 +1153,9 @@ class VolumesApi(object):
                 '_return_http_data_only',
                 '_preload_content',
                 '_request_timeout',
-                '_request_auth'
+                '_request_auth',
+                '_content_type',
+                '_headers'
             ]
         )
 
@@ -1147,8 +1168,7 @@ class VolumesApi(object):
             local_var_params[key] = val
         del local_var_params['kwargs']
         # verify the required parameter 'id' is set
-        if self.api_client.client_side_validation and ('id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['id'] is None):  # noqa: E501
+        if self.api_client.client_side_validation and local_var_params.get('id') is None:  # noqa: E501
             raise ApiValueError("Missing the required parameter `id` when calling `delete_volume_snapshot_policy`")  # noqa: E501
 
         collection_formats = {}
@@ -1159,7 +1179,7 @@ class VolumesApi(object):
 
         query_params = []
 
-        header_params = {}
+        header_params = dict(local_var_params.get('_headers', {}))
 
         form_params = []
         local_var_files = {}
@@ -1258,6 +1278,7 @@ class VolumesApi(object):
                               request; this effectively ignores the authentication
                               in the spec for a single request.
         :type _request_auth: dict, optional
+        :type _content_type: string, optional: force content-type for the request
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
@@ -1277,7 +1298,9 @@ class VolumesApi(object):
                 '_return_http_data_only',
                 '_preload_content',
                 '_request_timeout',
-                '_request_auth'
+                '_request_auth',
+                '_content_type',
+                '_headers'
             ]
         )
 
@@ -1290,8 +1313,7 @@ class VolumesApi(object):
             local_var_params[key] = val
         del local_var_params['kwargs']
         # verify the required parameter 'id' is set
-        if self.api_client.client_side_validation and ('id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['id'] is None):  # noqa: E501
+        if self.api_client.client_side_validation and local_var_params.get('id') is None:  # noqa: E501
             raise ApiValueError("Missing the required parameter `id` when calling `find_volume_attachment_by_id`")  # noqa: E501
 
         collection_formats = {}
@@ -1301,14 +1323,14 @@ class VolumesApi(object):
             path_params['id'] = local_var_params['id']  # noqa: E501
 
         query_params = []
-        if 'include' in local_var_params and local_var_params['include'] is not None:  # noqa: E501
+        if local_var_params.get('include') is not None:  # noqa: E501
             query_params.append(('include', local_var_params['include']))  # noqa: E501
             collection_formats['include'] = 'csv'  # noqa: E501
-        if 'exclude' in local_var_params and local_var_params['exclude'] is not None:  # noqa: E501
+        if local_var_params.get('exclude') is not None:  # noqa: E501
             query_params.append(('exclude', local_var_params['exclude']))  # noqa: E501
             collection_formats['exclude'] = 'csv'  # noqa: E501
 
-        header_params = {}
+        header_params = dict(local_var_params.get('_headers', {}))
 
         form_params = []
         local_var_files = {}
@@ -1412,6 +1434,7 @@ class VolumesApi(object):
                               request; this effectively ignores the authentication
                               in the spec for a single request.
         :type _request_auth: dict, optional
+        :type _content_type: string, optional: force content-type for the request
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
@@ -1431,7 +1454,9 @@ class VolumesApi(object):
                 '_return_http_data_only',
                 '_preload_content',
                 '_request_timeout',
-                '_request_auth'
+                '_request_auth',
+                '_content_type',
+                '_headers'
             ]
         )
 
@@ -1444,8 +1469,7 @@ class VolumesApi(object):
             local_var_params[key] = val
         del local_var_params['kwargs']
         # verify the required parameter 'id' is set
-        if self.api_client.client_side_validation and ('id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['id'] is None):  # noqa: E501
+        if self.api_client.client_side_validation and local_var_params.get('id') is None:  # noqa: E501
             raise ApiValueError("Missing the required parameter `id` when calling `find_volume_attachments`")  # noqa: E501
 
         collection_formats = {}
@@ -1455,14 +1479,14 @@ class VolumesApi(object):
             path_params['id'] = local_var_params['id']  # noqa: E501
 
         query_params = []
-        if 'include' in local_var_params and local_var_params['include'] is not None:  # noqa: E501
+        if local_var_params.get('include') is not None:  # noqa: E501
             query_params.append(('include', local_var_params['include']))  # noqa: E501
             collection_formats['include'] = 'csv'  # noqa: E501
-        if 'exclude' in local_var_params and local_var_params['exclude'] is not None:  # noqa: E501
+        if local_var_params.get('exclude') is not None:  # noqa: E501
             query_params.append(('exclude', local_var_params['exclude']))  # noqa: E501
             collection_formats['exclude'] = 'csv'  # noqa: E501
 
-        header_params = {}
+        header_params = dict(local_var_params.get('_headers', {}))
 
         form_params = []
         local_var_files = {}
@@ -1566,6 +1590,7 @@ class VolumesApi(object):
                               request; this effectively ignores the authentication
                               in the spec for a single request.
         :type _request_auth: dict, optional
+        :type _content_type: string, optional: force content-type for the request
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
@@ -1585,7 +1610,9 @@ class VolumesApi(object):
                 '_return_http_data_only',
                 '_preload_content',
                 '_request_timeout',
-                '_request_auth'
+                '_request_auth',
+                '_content_type',
+                '_headers'
             ]
         )
 
@@ -1598,8 +1625,7 @@ class VolumesApi(object):
             local_var_params[key] = val
         del local_var_params['kwargs']
         # verify the required parameter 'id' is set
-        if self.api_client.client_side_validation and ('id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['id'] is None):  # noqa: E501
+        if self.api_client.client_side_validation and local_var_params.get('id') is None:  # noqa: E501
             raise ApiValueError("Missing the required parameter `id` when calling `find_volume_by_id`")  # noqa: E501
 
         collection_formats = {}
@@ -1609,14 +1635,14 @@ class VolumesApi(object):
             path_params['id'] = local_var_params['id']  # noqa: E501
 
         query_params = []
-        if 'include' in local_var_params and local_var_params['include'] is not None:  # noqa: E501
+        if local_var_params.get('include') is not None:  # noqa: E501
             query_params.append(('include', local_var_params['include']))  # noqa: E501
             collection_formats['include'] = 'csv'  # noqa: E501
-        if 'exclude' in local_var_params and local_var_params['exclude'] is not None:  # noqa: E501
+        if local_var_params.get('exclude') is not None:  # noqa: E501
             query_params.append(('exclude', local_var_params['exclude']))  # noqa: E501
             collection_formats['exclude'] = 'csv'  # noqa: E501
 
-        header_params = {}
+        header_params = dict(local_var_params.get('_headers', {}))
 
         form_params = []
         local_var_files = {}
@@ -1712,6 +1738,7 @@ class VolumesApi(object):
                               request; this effectively ignores the authentication
                               in the spec for a single request.
         :type _request_auth: dict, optional
+        :type _content_type: string, optional: force content-type for the request
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
@@ -1729,7 +1756,9 @@ class VolumesApi(object):
                 '_return_http_data_only',
                 '_preload_content',
                 '_request_timeout',
-                '_request_auth'
+                '_request_auth',
+                '_content_type',
+                '_headers'
             ]
         )
 
@@ -1742,8 +1771,7 @@ class VolumesApi(object):
             local_var_params[key] = val
         del local_var_params['kwargs']
         # verify the required parameter 'id' is set
-        if self.api_client.client_side_validation and ('id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['id'] is None):  # noqa: E501
+        if self.api_client.client_side_validation and local_var_params.get('id') is None:  # noqa: E501
             raise ApiValueError("Missing the required parameter `id` when calling `find_volume_customdata`")  # noqa: E501
 
         collection_formats = {}
@@ -1754,7 +1782,7 @@ class VolumesApi(object):
 
         query_params = []
 
-        header_params = {}
+        header_params = dict(local_var_params.get('_headers', {}))
 
         form_params = []
         local_var_files = {}
@@ -1861,6 +1889,7 @@ class VolumesApi(object):
                               request; this effectively ignores the authentication
                               in the spec for a single request.
         :type _request_auth: dict, optional
+        :type _content_type: string, optional: force content-type for the request
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
@@ -1882,7 +1911,9 @@ class VolumesApi(object):
                 '_return_http_data_only',
                 '_preload_content',
                 '_request_timeout',
-                '_request_auth'
+                '_request_auth',
+                '_content_type',
+                '_headers'
             ]
         )
 
@@ -1895,8 +1926,7 @@ class VolumesApi(object):
             local_var_params[key] = val
         del local_var_params['kwargs']
         # verify the required parameter 'id' is set
-        if self.api_client.client_side_validation and ('id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['id'] is None):  # noqa: E501
+        if self.api_client.client_side_validation and local_var_params.get('id') is None:  # noqa: E501
             raise ApiValueError("Missing the required parameter `id` when calling `find_volume_events`")  # noqa: E501
 
         if self.api_client.client_side_validation and 'page' in local_var_params and local_var_params['page'] > 100000:  # noqa: E501
@@ -1914,18 +1944,18 @@ class VolumesApi(object):
             path_params['id'] = local_var_params['id']  # noqa: E501
 
         query_params = []
-        if 'include' in local_var_params and local_var_params['include'] is not None:  # noqa: E501
+        if local_var_params.get('include') is not None:  # noqa: E501
             query_params.append(('include', local_var_params['include']))  # noqa: E501
             collection_formats['include'] = 'csv'  # noqa: E501
-        if 'exclude' in local_var_params and local_var_params['exclude'] is not None:  # noqa: E501
+        if local_var_params.get('exclude') is not None:  # noqa: E501
             query_params.append(('exclude', local_var_params['exclude']))  # noqa: E501
             collection_formats['exclude'] = 'csv'  # noqa: E501
-        if 'page' in local_var_params and local_var_params['page'] is not None:  # noqa: E501
+        if local_var_params.get('page') is not None:  # noqa: E501
             query_params.append(('page', local_var_params['page']))  # noqa: E501
-        if 'per_page' in local_var_params and local_var_params['per_page'] is not None:  # noqa: E501
+        if local_var_params.get('per_page') is not None:  # noqa: E501
             query_params.append(('per_page', local_var_params['per_page']))  # noqa: E501
 
-        header_params = {}
+        header_params = dict(local_var_params.get('_headers', {}))
 
         form_params = []
         local_var_files = {}
@@ -2029,6 +2059,7 @@ class VolumesApi(object):
                               request; this effectively ignores the authentication
                               in the spec for a single request.
         :type _request_auth: dict, optional
+        :type _content_type: string, optional: force content-type for the request
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
@@ -2048,7 +2079,9 @@ class VolumesApi(object):
                 '_return_http_data_only',
                 '_preload_content',
                 '_request_timeout',
-                '_request_auth'
+                '_request_auth',
+                '_content_type',
+                '_headers'
             ]
         )
 
@@ -2061,8 +2094,7 @@ class VolumesApi(object):
             local_var_params[key] = val
         del local_var_params['kwargs']
         # verify the required parameter 'id' is set
-        if self.api_client.client_side_validation and ('id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['id'] is None):  # noqa: E501
+        if self.api_client.client_side_validation and local_var_params.get('id') is None:  # noqa: E501
             raise ApiValueError("Missing the required parameter `id` when calling `find_volume_snapshots`")  # noqa: E501
 
         collection_formats = {}
@@ -2072,14 +2104,14 @@ class VolumesApi(object):
             path_params['id'] = local_var_params['id']  # noqa: E501
 
         query_params = []
-        if 'include' in local_var_params and local_var_params['include'] is not None:  # noqa: E501
+        if local_var_params.get('include') is not None:  # noqa: E501
             query_params.append(('include', local_var_params['include']))  # noqa: E501
             collection_formats['include'] = 'csv'  # noqa: E501
-        if 'exclude' in local_var_params and local_var_params['exclude'] is not None:  # noqa: E501
+        if local_var_params.get('exclude') is not None:  # noqa: E501
             query_params.append(('exclude', local_var_params['exclude']))  # noqa: E501
             collection_formats['exclude'] = 'csv'  # noqa: E501
 
-        header_params = {}
+        header_params = dict(local_var_params.get('_headers', {}))
 
         form_params = []
         local_var_files = {}
@@ -2191,6 +2223,7 @@ class VolumesApi(object):
                               request; this effectively ignores the authentication
                               in the spec for a single request.
         :type _request_auth: dict, optional
+        :type _content_type: string, optional: force content-type for the request
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
@@ -2212,7 +2245,9 @@ class VolumesApi(object):
                 '_return_http_data_only',
                 '_preload_content',
                 '_request_timeout',
-                '_request_auth'
+                '_request_auth',
+                '_content_type',
+                '_headers'
             ]
         )
 
@@ -2225,8 +2260,7 @@ class VolumesApi(object):
             local_var_params[key] = val
         del local_var_params['kwargs']
         # verify the required parameter 'id' is set
-        if self.api_client.client_side_validation and ('id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['id'] is None):  # noqa: E501
+        if self.api_client.client_side_validation and local_var_params.get('id') is None:  # noqa: E501
             raise ApiValueError("Missing the required parameter `id` when calling `find_volumes`")  # noqa: E501
 
         if self.api_client.client_side_validation and 'page' in local_var_params and local_var_params['page'] > 100000:  # noqa: E501
@@ -2244,18 +2278,18 @@ class VolumesApi(object):
             path_params['id'] = local_var_params['id']  # noqa: E501
 
         query_params = []
-        if 'include' in local_var_params and local_var_params['include'] is not None:  # noqa: E501
+        if local_var_params.get('include') is not None:  # noqa: E501
             query_params.append(('include', local_var_params['include']))  # noqa: E501
             collection_formats['include'] = 'csv'  # noqa: E501
-        if 'exclude' in local_var_params and local_var_params['exclude'] is not None:  # noqa: E501
+        if local_var_params.get('exclude') is not None:  # noqa: E501
             query_params.append(('exclude', local_var_params['exclude']))  # noqa: E501
             collection_formats['exclude'] = 'csv'  # noqa: E501
-        if 'page' in local_var_params and local_var_params['page'] is not None:  # noqa: E501
+        if local_var_params.get('page') is not None:  # noqa: E501
             query_params.append(('page', local_var_params['page']))  # noqa: E501
-        if 'per_page' in local_var_params and local_var_params['per_page'] is not None:  # noqa: E501
+        if local_var_params.get('per_page') is not None:  # noqa: E501
             query_params.append(('per_page', local_var_params['per_page']))  # noqa: E501
 
-        header_params = {}
+        header_params = dict(local_var_params.get('_headers', {}))
 
         form_params = []
         local_var_files = {}
@@ -2355,6 +2389,7 @@ class VolumesApi(object):
                               request; this effectively ignores the authentication
                               in the spec for a single request.
         :type _request_auth: dict, optional
+        :type _content_type: string, optional: force content-type for the request
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
@@ -2373,7 +2408,9 @@ class VolumesApi(object):
                 '_return_http_data_only',
                 '_preload_content',
                 '_request_timeout',
-                '_request_auth'
+                '_request_auth',
+                '_content_type',
+                '_headers'
             ]
         )
 
@@ -2386,12 +2423,10 @@ class VolumesApi(object):
             local_var_params[key] = val
         del local_var_params['kwargs']
         # verify the required parameter 'id' is set
-        if self.api_client.client_side_validation and ('id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['id'] is None):  # noqa: E501
+        if self.api_client.client_side_validation and local_var_params.get('id') is None:  # noqa: E501
             raise ApiValueError("Missing the required parameter `id` when calling `restore_volume`")  # noqa: E501
         # verify the required parameter 'restore_point' is set
-        if self.api_client.client_side_validation and ('restore_point' not in local_var_params or  # noqa: E501
-                                                        local_var_params['restore_point'] is None):  # noqa: E501
+        if self.api_client.client_side_validation and local_var_params.get('restore_point') is None:  # noqa: E501
             raise ApiValueError("Missing the required parameter `restore_point` when calling `restore_volume`")  # noqa: E501
 
         collection_formats = {}
@@ -2401,10 +2436,10 @@ class VolumesApi(object):
             path_params['id'] = local_var_params['id']  # noqa: E501
 
         query_params = []
-        if 'restore_point' in local_var_params and local_var_params['restore_point'] is not None:  # noqa: E501
+        if local_var_params.get('restore_point') is not None:  # noqa: E501
             query_params.append(('restore_point', local_var_params['restore_point']))  # noqa: E501
 
-        header_params = {}
+        header_params = dict(local_var_params.get('_headers', {}))
 
         form_params = []
         local_var_files = {}
@@ -2505,6 +2540,7 @@ class VolumesApi(object):
                               request; this effectively ignores the authentication
                               in the spec for a single request.
         :type _request_auth: dict, optional
+        :type _content_type: string, optional: force content-type for the request
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
@@ -2523,7 +2559,9 @@ class VolumesApi(object):
                 '_return_http_data_only',
                 '_preload_content',
                 '_request_timeout',
-                '_request_auth'
+                '_request_auth',
+                '_content_type',
+                '_headers'
             ]
         )
 
@@ -2536,12 +2574,10 @@ class VolumesApi(object):
             local_var_params[key] = val
         del local_var_params['kwargs']
         # verify the required parameter 'id' is set
-        if self.api_client.client_side_validation and ('id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['id'] is None):  # noqa: E501
+        if self.api_client.client_side_validation and local_var_params.get('id') is None:  # noqa: E501
             raise ApiValueError("Missing the required parameter `id` when calling `update_volume`")  # noqa: E501
         # verify the required parameter 'volume' is set
-        if self.api_client.client_side_validation and ('volume' not in local_var_params or  # noqa: E501
-                                                        local_var_params['volume'] is None):  # noqa: E501
+        if self.api_client.client_side_validation and local_var_params.get('volume') is None:  # noqa: E501
             raise ApiValueError("Missing the required parameter `volume` when calling `update_volume`")  # noqa: E501
 
         collection_formats = {}
@@ -2552,7 +2588,7 @@ class VolumesApi(object):
 
         query_params = []
 
-        header_params = {}
+        header_params = dict(local_var_params.get('_headers', {}))
 
         form_params = []
         local_var_files = {}
@@ -2565,8 +2601,12 @@ class VolumesApi(object):
             ['application/json'])  # noqa: E501
 
         # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['application/json'])  # noqa: E501
+        content_types_list = local_var_params.get('_content_type',
+            self.api_client.select_header_content_type(
+                ['application/json'],
+                'PUT', body_params))  # noqa: E501
+        if content_types_list:
+                header_params['Content-Type'] = content_types_list
 
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
@@ -2663,6 +2703,7 @@ class VolumesApi(object):
                               request; this effectively ignores the authentication
                               in the spec for a single request.
         :type _request_auth: dict, optional
+        :type _content_type: string, optional: force content-type for the request
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
@@ -2682,7 +2723,9 @@ class VolumesApi(object):
                 '_return_http_data_only',
                 '_preload_content',
                 '_request_timeout',
-                '_request_auth'
+                '_request_auth',
+                '_content_type',
+                '_headers'
             ]
         )
 
@@ -2695,12 +2738,10 @@ class VolumesApi(object):
             local_var_params[key] = val
         del local_var_params['kwargs']
         # verify the required parameter 'id' is set
-        if self.api_client.client_side_validation and ('id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['id'] is None):  # noqa: E501
+        if self.api_client.client_side_validation and local_var_params.get('id') is None:  # noqa: E501
             raise ApiValueError("Missing the required parameter `id` when calling `update_volume_snapshot_policy`")  # noqa: E501
         # verify the required parameter 'snapshot_frequency' is set
-        if self.api_client.client_side_validation and ('snapshot_frequency' not in local_var_params or  # noqa: E501
-                                                        local_var_params['snapshot_frequency'] is None):  # noqa: E501
+        if self.api_client.client_side_validation and local_var_params.get('snapshot_frequency') is None:  # noqa: E501
             raise ApiValueError("Missing the required parameter `snapshot_frequency` when calling `update_volume_snapshot_policy`")  # noqa: E501
 
         collection_formats = {}
@@ -2710,12 +2751,12 @@ class VolumesApi(object):
             path_params['id'] = local_var_params['id']  # noqa: E501
 
         query_params = []
-        if 'snapshot_count' in local_var_params and local_var_params['snapshot_count'] is not None:  # noqa: E501
+        if local_var_params.get('snapshot_count') is not None:  # noqa: E501
             query_params.append(('snapshot_count', local_var_params['snapshot_count']))  # noqa: E501
-        if 'snapshot_frequency' in local_var_params and local_var_params['snapshot_frequency'] is not None:  # noqa: E501
+        if local_var_params.get('snapshot_frequency') is not None:  # noqa: E501
             query_params.append(('snapshot_frequency', local_var_params['snapshot_frequency']))  # noqa: E501
 
-        header_params = {}
+        header_params = dict(local_var_params.get('_headers', {}))
 
         form_params = []
         local_var_files = {}

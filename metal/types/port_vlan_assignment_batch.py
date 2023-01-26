@@ -44,7 +44,7 @@ class PortVlanAssignmentBatch(object):
         'created_at': 'datetime',
         'updated_at': 'datetime',
         'port': 'Port',
-        'vlan_assignments': 'list[PortVlanAssignmentBatchVlanAssignments]'
+        'vlan_assignments': 'list[PortVlanAssignmentBatchVlanAssignmentsInner]'
     }
 
     attribute_map = {
@@ -250,7 +250,7 @@ class PortVlanAssignmentBatch(object):
 
 
         :return: The vlan_assignments of this PortVlanAssignmentBatch.  # noqa: E501
-        :rtype: list[PortVlanAssignmentBatchVlanAssignments]
+        :rtype: list[PortVlanAssignmentBatchVlanAssignmentsInner]
         """
         return self._vlan_assignments
 
@@ -260,7 +260,7 @@ class PortVlanAssignmentBatch(object):
 
 
         :param vlan_assignments: The vlan_assignments of this PortVlanAssignmentBatch.  # noqa: E501
-        :type vlan_assignments: list[PortVlanAssignmentBatchVlanAssignments]
+        :type vlan_assignments: list[PortVlanAssignmentBatchVlanAssignmentsInner]
         """
 
         self._vlan_assignments = vlan_assignments

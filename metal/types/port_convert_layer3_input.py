@@ -37,7 +37,7 @@ class PortConvertLayer3Input(object):
                             and the value is json key in definition.
     """
     openapi_types = {
-        'request_ips': 'list[PortConvertLayer3InputRequestIps]'
+        'request_ips': 'list[PortConvertLayer3InputRequestIpsInner]'
     }
 
     attribute_map = {
@@ -62,7 +62,7 @@ class PortConvertLayer3Input(object):
 
 
         :return: The request_ips of this PortConvertLayer3Input.  # noqa: E501
-        :rtype: list[PortConvertLayer3InputRequestIps]
+        :rtype: list[PortConvertLayer3InputRequestIpsInner]
         """
         return self._request_ips
 
@@ -72,7 +72,7 @@ class PortConvertLayer3Input(object):
 
 
         :param request_ips: The request_ips of this PortConvertLayer3Input.  # noqa: E501
-        :type request_ips: list[PortConvertLayer3InputRequestIps]
+        :type request_ips: list[PortConvertLayer3InputRequestIpsInner]
         """
 
         self._request_ips = request_ips

@@ -57,7 +57,7 @@ class TestPortVlanAssignmentBatch(unittest.TestCase):
                         ], 
                     href = '', ), 
                 vlan_assignments = [
-                    metal.models.port_vlan_assignment_batch_vlan_assignments.PortVlanAssignmentBatch_vlan_assignments(
+                    metal.models.port_vlan_assignment_batch_vlan_assignments_inner.PortVlanAssignmentBatch_vlan_assignments_inner(
                         id = '', 
                         vlan = 56, 
                         state = 'assigned', 

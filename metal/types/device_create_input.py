@@ -61,7 +61,7 @@ class DeviceCreateInput(object):
         'features': 'list[str]',
         'public_ipv4_subnet_size': 'float',
         'private_ipv4_subnet_size': 'float',
-        'ip_addresses': 'list[DeviceCreateInputIpAddresses]'
+        'ip_addresses': 'list[DeviceCreateInputIpAddressesInner]'
     }
 
     attribute_map = {
@@ -732,7 +732,7 @@ class DeviceCreateInput(object):
         The `ip_addresses attribute will allow you to specify the addresses you want created with your device.  The default value configures public IPv4, public IPv6, and private IPv4.  Private IPv4 address is required. When specifying `ip_addresses`, one of the array items must enable private IPv4.  Some operating systems require public IPv4 address. In those cases you will receive an error message if public IPv4 is not enabled.  For example, to only configure your server with a private IPv4 address, you can send `{ \"ip_addresses\": [{ \"address_family\": 4, \"public\": false }] }`.  It is possible to request a subnet size larger than a `/30` by assigning addresses using the UUID(s) of ip_reservations in your project.  For example, `{ \"ip_addresses\": [..., {\"address_family\": 4, \"public\": true, \"ip_reservations\": [\"uuid1\", \"uuid2\"]}] }`  To access a server without public IPs, you can use our Out-of-Band console access (SOS) or proxy through another server in the project with public IPs enabled.  # noqa: E501
 
         :return: The ip_addresses of this DeviceCreateInput.  # noqa: E501
-        :rtype: list[DeviceCreateInputIpAddresses]
+        :rtype: list[DeviceCreateInputIpAddressesInner]
         """
         return self._ip_addresses
 
@@ -743,7 +743,7 @@ class DeviceCreateInput(object):
         The `ip_addresses attribute will allow you to specify the addresses you want created with your device.  The default value configures public IPv4, public IPv6, and private IPv4.  Private IPv4 address is required. When specifying `ip_addresses`, one of the array items must enable private IPv4.  Some operating systems require public IPv4 address. In those cases you will receive an error message if public IPv4 is not enabled.  For example, to only configure your server with a private IPv4 address, you can send `{ \"ip_addresses\": [{ \"address_family\": 4, \"public\": false }] }`.  It is possible to request a subnet size larger than a `/30` by assigning addresses using the UUID(s) of ip_reservations in your project.  For example, `{ \"ip_addresses\": [..., {\"address_family\": 4, \"public\": true, \"ip_reservations\": [\"uuid1\", \"uuid2\"]}] }`  To access a server without public IPs, you can use our Out-of-Band console access (SOS) or proxy through another server in the project with public IPs enabled.  # noqa: E501
 
         :param ip_addresses: The ip_addresses of this DeviceCreateInput.  # noqa: E501
-        :type ip_addresses: list[DeviceCreateInputIpAddresses]
+        :type ip_addresses: list[DeviceCreateInputIpAddressesInner]
         """
 
         self._ip_addresses = ip_addresses

@@ -129,7 +129,7 @@ with metal.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**str**](.md)| Metro UUID | 
+ **id** | **str**| Metro UUID | 
 
 ### Return type
 

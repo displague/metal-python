@@ -100,6 +100,7 @@ class MarketApi(object):
                               request; this effectively ignores the authentication
                               in the spec for a single request.
         :type _request_auth: dict, optional
+        :type _content_type: string, optional: force content-type for the request
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
@@ -118,7 +119,9 @@ class MarketApi(object):
                 '_return_http_data_only',
                 '_preload_content',
                 '_request_timeout',
-                '_request_auth'
+                '_request_auth',
+                '_content_type',
+                '_headers'
             ]
         )
 
@@ -136,12 +139,12 @@ class MarketApi(object):
         path_params = {}
 
         query_params = []
-        if 'metro' in local_var_params and local_var_params['metro'] is not None:  # noqa: E501
+        if local_var_params.get('metro') is not None:  # noqa: E501
             query_params.append(('metro', local_var_params['metro']))  # noqa: E501
-        if 'plan' in local_var_params and local_var_params['plan'] is not None:  # noqa: E501
+        if local_var_params.get('plan') is not None:  # noqa: E501
             query_params.append(('plan', local_var_params['plan']))  # noqa: E501
 
-        header_params = {}
+        header_params = dict(local_var_params.get('_headers', {}))
 
         form_params = []
         local_var_files = {}
@@ -238,6 +241,7 @@ class MarketApi(object):
                               request; this effectively ignores the authentication
                               in the spec for a single request.
         :type _request_auth: dict, optional
+        :type _content_type: string, optional: force content-type for the request
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
@@ -256,7 +260,9 @@ class MarketApi(object):
                 '_return_http_data_only',
                 '_preload_content',
                 '_request_timeout',
-                '_request_auth'
+                '_request_auth',
+                '_content_type',
+                '_headers'
             ]
         )
 
@@ -274,12 +280,12 @@ class MarketApi(object):
         path_params = {}
 
         query_params = []
-        if 'facility' in local_var_params and local_var_params['facility'] is not None:  # noqa: E501
+        if local_var_params.get('facility') is not None:  # noqa: E501
             query_params.append(('facility', local_var_params['facility']))  # noqa: E501
-        if 'plan' in local_var_params and local_var_params['plan'] is not None:  # noqa: E501
+        if local_var_params.get('plan') is not None:  # noqa: E501
             query_params.append(('plan', local_var_params['plan']))  # noqa: E501
 
-        header_params = {}
+        header_params = dict(local_var_params.get('_headers', {}))
 
         form_params = []
         local_var_files = {}
@@ -388,6 +394,7 @@ class MarketApi(object):
                               request; this effectively ignores the authentication
                               in the spec for a single request.
         :type _request_auth: dict, optional
+        :type _content_type: string, optional: force content-type for the request
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
@@ -409,7 +416,9 @@ class MarketApi(object):
                 '_return_http_data_only',
                 '_preload_content',
                 '_request_timeout',
-                '_request_auth'
+                '_request_auth',
+                '_content_type',
+                '_headers'
             ]
         )
 
@@ -422,20 +431,16 @@ class MarketApi(object):
             local_var_params[key] = val
         del local_var_params['kwargs']
         # verify the required parameter 'facility' is set
-        if self.api_client.client_side_validation and ('facility' not in local_var_params or  # noqa: E501
-                                                        local_var_params['facility'] is None):  # noqa: E501
+        if self.api_client.client_side_validation and local_var_params.get('facility') is None:  # noqa: E501
             raise ApiValueError("Missing the required parameter `facility` when calling `find_spot_market_prices_history`")  # noqa: E501
         # verify the required parameter 'plan' is set
-        if self.api_client.client_side_validation and ('plan' not in local_var_params or  # noqa: E501
-                                                        local_var_params['plan'] is None):  # noqa: E501
+        if self.api_client.client_side_validation and local_var_params.get('plan') is None:  # noqa: E501
             raise ApiValueError("Missing the required parameter `plan` when calling `find_spot_market_prices_history`")  # noqa: E501
         # verify the required parameter '_from' is set
-        if self.api_client.client_side_validation and ('_from' not in local_var_params or  # noqa: E501
-                                                        local_var_params['_from'] is None):  # noqa: E501
+        if self.api_client.client_side_validation and local_var_params.get('_from') is None:  # noqa: E501
             raise ApiValueError("Missing the required parameter `_from` when calling `find_spot_market_prices_history`")  # noqa: E501
         # verify the required parameter 'until' is set
-        if self.api_client.client_side_validation and ('until' not in local_var_params or  # noqa: E501
-                                                        local_var_params['until'] is None):  # noqa: E501
+        if self.api_client.client_side_validation and local_var_params.get('until') is None:  # noqa: E501
             raise ApiValueError("Missing the required parameter `until` when calling `find_spot_market_prices_history`")  # noqa: E501
 
         collection_formats = {}
@@ -443,18 +448,18 @@ class MarketApi(object):
         path_params = {}
 
         query_params = []
-        if 'facility' in local_var_params and local_var_params['facility'] is not None:  # noqa: E501
+        if local_var_params.get('facility') is not None:  # noqa: E501
             query_params.append(('facility', local_var_params['facility']))  # noqa: E501
-        if 'plan' in local_var_params and local_var_params['plan'] is not None:  # noqa: E501
+        if local_var_params.get('plan') is not None:  # noqa: E501
             query_params.append(('plan', local_var_params['plan']))  # noqa: E501
-        if 'metro' in local_var_params and local_var_params['metro'] is not None:  # noqa: E501
+        if local_var_params.get('metro') is not None:  # noqa: E501
             query_params.append(('metro', local_var_params['metro']))  # noqa: E501
-        if '_from' in local_var_params and local_var_params['_from'] is not None:  # noqa: E501
+        if local_var_params.get('_from') is not None:  # noqa: E501
             query_params.append(('from', local_var_params['_from']))  # noqa: E501
-        if 'until' in local_var_params and local_var_params['until'] is not None:  # noqa: E501
+        if local_var_params.get('until') is not None:  # noqa: E501
             query_params.append(('until', local_var_params['until']))  # noqa: E501
 
-        header_params = {}
+        header_params = dict(local_var_params.get('_headers', {}))
 
         form_params = []
         local_var_files = {}

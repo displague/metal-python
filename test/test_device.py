@@ -88,8 +88,8 @@ class TestDevice(unittest.TestCase):
                         coordinates = metal.models.coordinates.Coordinates(
                             latitude = '', 
                             longitude = '', ), ), 
-                    metro = metal.models.metro.metro(), ), 
-                metro = metal.models.metro.metro(), 
+                    metro = metal.models.facility_metro.Facility_metro(), ), 
+                metro = metal.models.facility_metro.Facility_metro(), 
                 plan = metal.models.plan.Plan(
                     id = '', 
                     slug = '', 
@@ -107,10 +107,10 @@ class TestDevice(unittest.TestCase):
                 userdata = '', 
                 root_password = '', 
                 switch_uuid = '', 
-                network_ports = metal.models.network_ports.network_ports(), 
+                network_ports = metal.models.device_network_ports.Device_network_ports(), 
                 href = '', 
-                project = metal.models.project.project(), 
-                project_lite = metal.models.project_lite.project_lite(), 
+                project = metal.models.device_project.Device_project(), 
+                project_lite = metal.models.device_project_lite.Device_project_lite(), 
                 volumes = [
                     metal.models.href.Href(
                         href = '', )
@@ -139,7 +139,7 @@ class TestDevice(unittest.TestCase):
                         gateway = '', 
                         href = '', 
                         created_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
-                        metro = metal.models.metro.metro(), 
+                        metro = metal.models.ip_assignment_metro.IPAssignment_metro(), 
                         parent_block = metal.models.parent_block.ParentBlock(
                             network = '', 
                             netmask = '', 

@@ -53,7 +53,7 @@ class TestIPAssignment(unittest.TestCase):
                 gateway = '', 
                 href = '', 
                 created_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
-                metro = metal.models.metro.metro(), 
+                metro = metal.models.ip_assignment_metro.IPAssignment_metro(), 
                 parent_block = metal.models.parent_block.ParentBlock(
                     network = '', 
                     netmask = '', 

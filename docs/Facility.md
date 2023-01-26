@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **features** | **list[str]** |  | [optional] 
 **ip_ranges** | **list[str]** | IP ranges registered in facility. Can be used for GeoIP location | [optional] 
 **address** | [**Address**](Address.md) |  | [optional] 
-**metro** | [**Metro**](Metro.md) |  | [optional] 
+**metro** | [**FacilityMetro**](FacilityMetro.md) |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

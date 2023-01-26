@@ -100,6 +100,7 @@ class VLANsApi(object):
                               request; this effectively ignores the authentication
                               in the spec for a single request.
         :type _request_auth: dict, optional
+        :type _content_type: string, optional: force content-type for the request
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
@@ -118,7 +119,9 @@ class VLANsApi(object):
                 '_return_http_data_only',
                 '_preload_content',
                 '_request_timeout',
-                '_request_auth'
+                '_request_auth',
+                '_content_type',
+                '_headers'
             ]
         )
 
@@ -131,12 +134,10 @@ class VLANsApi(object):
             local_var_params[key] = val
         del local_var_params['kwargs']
         # verify the required parameter 'id' is set
-        if self.api_client.client_side_validation and ('id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['id'] is None):  # noqa: E501
+        if self.api_client.client_side_validation and local_var_params.get('id') is None:  # noqa: E501
             raise ApiValueError("Missing the required parameter `id` when calling `assign_native_vlan`")  # noqa: E501
         # verify the required parameter 'vnid' is set
-        if self.api_client.client_side_validation and ('vnid' not in local_var_params or  # noqa: E501
-                                                        local_var_params['vnid'] is None):  # noqa: E501
+        if self.api_client.client_side_validation and local_var_params.get('vnid') is None:  # noqa: E501
             raise ApiValueError("Missing the required parameter `vnid` when calling `assign_native_vlan`")  # noqa: E501
 
         collection_formats = {}
@@ -146,10 +147,10 @@ class VLANsApi(object):
             path_params['id'] = local_var_params['id']  # noqa: E501
 
         query_params = []
-        if 'vnid' in local_var_params and local_var_params['vnid'] is not None:  # noqa: E501
+        if local_var_params.get('vnid') is not None:  # noqa: E501
             query_params.append(('vnid', local_var_params['vnid']))  # noqa: E501
 
-        header_params = {}
+        header_params = dict(local_var_params.get('_headers', {}))
 
         form_params = []
         local_var_files = {}
@@ -249,6 +250,7 @@ class VLANsApi(object):
                               request; this effectively ignores the authentication
                               in the spec for a single request.
         :type _request_auth: dict, optional
+        :type _content_type: string, optional: force content-type for the request
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
@@ -267,7 +269,9 @@ class VLANsApi(object):
                 '_return_http_data_only',
                 '_preload_content',
                 '_request_timeout',
-                '_request_auth'
+                '_request_auth',
+                '_content_type',
+                '_headers'
             ]
         )
 
@@ -280,12 +284,10 @@ class VLANsApi(object):
             local_var_params[key] = val
         del local_var_params['kwargs']
         # verify the required parameter 'id' is set
-        if self.api_client.client_side_validation and ('id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['id'] is None):  # noqa: E501
+        if self.api_client.client_side_validation and local_var_params.get('id') is None:  # noqa: E501
             raise ApiValueError("Missing the required parameter `id` when calling `assign_port`")  # noqa: E501
         # verify the required parameter 'vnid' is set
-        if self.api_client.client_side_validation and ('vnid' not in local_var_params or  # noqa: E501
-                                                        local_var_params['vnid'] is None):  # noqa: E501
+        if self.api_client.client_side_validation and local_var_params.get('vnid') is None:  # noqa: E501
             raise ApiValueError("Missing the required parameter `vnid` when calling `assign_port`")  # noqa: E501
 
         collection_formats = {}
@@ -296,7 +298,7 @@ class VLANsApi(object):
 
         query_params = []
 
-        header_params = {}
+        header_params = dict(local_var_params.get('_headers', {}))
 
         form_params = []
         local_var_files = {}
@@ -309,8 +311,12 @@ class VLANsApi(object):
             ['application/json'])  # noqa: E501
 
         # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['application/json'])  # noqa: E501
+        content_types_list = local_var_params.get('_content_type',
+            self.api_client.select_header_content_type(
+                ['application/json'],
+                'POST', body_params))  # noqa: E501
+        if content_types_list:
+                header_params['Content-Type'] = content_types_list
 
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
@@ -403,6 +409,7 @@ class VLANsApi(object):
                               request; this effectively ignores the authentication
                               in the spec for a single request.
         :type _request_auth: dict, optional
+        :type _content_type: string, optional: force content-type for the request
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
@@ -421,7 +428,9 @@ class VLANsApi(object):
                 '_return_http_data_only',
                 '_preload_content',
                 '_request_timeout',
-                '_request_auth'
+                '_request_auth',
+                '_content_type',
+                '_headers'
             ]
         )
 
@@ -434,12 +443,10 @@ class VLANsApi(object):
             local_var_params[key] = val
         del local_var_params['kwargs']
         # verify the required parameter 'id' is set
-        if self.api_client.client_side_validation and ('id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['id'] is None):  # noqa: E501
+        if self.api_client.client_side_validation and local_var_params.get('id') is None:  # noqa: E501
             raise ApiValueError("Missing the required parameter `id` when calling `create_port_vlan_assignment_batch`")  # noqa: E501
         # verify the required parameter 'vlan_assignments' is set
-        if self.api_client.client_side_validation and ('vlan_assignments' not in local_var_params or  # noqa: E501
-                                                        local_var_params['vlan_assignments'] is None):  # noqa: E501
+        if self.api_client.client_side_validation and local_var_params.get('vlan_assignments') is None:  # noqa: E501
             raise ApiValueError("Missing the required parameter `vlan_assignments` when calling `create_port_vlan_assignment_batch`")  # noqa: E501
 
         collection_formats = {}
@@ -450,7 +457,7 @@ class VLANsApi(object):
 
         query_params = []
 
-        header_params = {}
+        header_params = dict(local_var_params.get('_headers', {}))
 
         form_params = []
         local_var_files = {}
@@ -463,8 +470,12 @@ class VLANsApi(object):
             ['application/json'])  # noqa: E501
 
         # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['application/json'])  # noqa: E501
+        content_types_list = local_var_params.get('_content_type',
+            self.api_client.select_header_content_type(
+                ['application/json'],
+                'POST', body_params))  # noqa: E501
+        if content_types_list:
+                header_params['Content-Type'] = content_types_list
 
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
@@ -557,6 +568,7 @@ class VLANsApi(object):
                               request; this effectively ignores the authentication
                               in the spec for a single request.
         :type _request_auth: dict, optional
+        :type _content_type: string, optional: force content-type for the request
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
@@ -575,7 +587,9 @@ class VLANsApi(object):
                 '_return_http_data_only',
                 '_preload_content',
                 '_request_timeout',
-                '_request_auth'
+                '_request_auth',
+                '_content_type',
+                '_headers'
             ]
         )
 
@@ -588,12 +602,10 @@ class VLANsApi(object):
             local_var_params[key] = val
         del local_var_params['kwargs']
         # verify the required parameter 'id' is set
-        if self.api_client.client_side_validation and ('id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['id'] is None):  # noqa: E501
+        if self.api_client.client_side_validation and local_var_params.get('id') is None:  # noqa: E501
             raise ApiValueError("Missing the required parameter `id` when calling `create_virtual_network`")  # noqa: E501
         # verify the required parameter 'virtual_network' is set
-        if self.api_client.client_side_validation and ('virtual_network' not in local_var_params or  # noqa: E501
-                                                        local_var_params['virtual_network'] is None):  # noqa: E501
+        if self.api_client.client_side_validation and local_var_params.get('virtual_network') is None:  # noqa: E501
             raise ApiValueError("Missing the required parameter `virtual_network` when calling `create_virtual_network`")  # noqa: E501
 
         collection_formats = {}
@@ -604,7 +616,7 @@ class VLANsApi(object):
 
         query_params = []
 
-        header_params = {}
+        header_params = dict(local_var_params.get('_headers', {}))
 
         form_params = []
         local_var_files = {}
@@ -617,8 +629,12 @@ class VLANsApi(object):
             ['application/json'])  # noqa: E501
 
         # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['application/json'])  # noqa: E501
+        content_types_list = local_var_params.get('_content_type',
+            self.api_client.select_header_content_type(
+                ['application/json'],
+                'POST', body_params))  # noqa: E501
+        if content_types_list:
+                header_params['Content-Type'] = content_types_list
 
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
@@ -707,6 +723,7 @@ class VLANsApi(object):
                               request; this effectively ignores the authentication
                               in the spec for a single request.
         :type _request_auth: dict, optional
+        :type _content_type: string, optional: force content-type for the request
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
@@ -724,7 +741,9 @@ class VLANsApi(object):
                 '_return_http_data_only',
                 '_preload_content',
                 '_request_timeout',
-                '_request_auth'
+                '_request_auth',
+                '_content_type',
+                '_headers'
             ]
         )
 
@@ -737,8 +756,7 @@ class VLANsApi(object):
             local_var_params[key] = val
         del local_var_params['kwargs']
         # verify the required parameter 'id' is set
-        if self.api_client.client_side_validation and ('id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['id'] is None):  # noqa: E501
+        if self.api_client.client_side_validation and local_var_params.get('id') is None:  # noqa: E501
             raise ApiValueError("Missing the required parameter `id` when calling `delete_native_vlan`")  # noqa: E501
 
         collection_formats = {}
@@ -749,7 +767,7 @@ class VLANsApi(object):
 
         query_params = []
 
-        header_params = {}
+        header_params = dict(local_var_params.get('_headers', {}))
 
         form_params = []
         local_var_files = {}
@@ -845,6 +863,7 @@ class VLANsApi(object):
                               request; this effectively ignores the authentication
                               in the spec for a single request.
         :type _request_auth: dict, optional
+        :type _content_type: string, optional: force content-type for the request
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
@@ -862,7 +881,9 @@ class VLANsApi(object):
                 '_return_http_data_only',
                 '_preload_content',
                 '_request_timeout',
-                '_request_auth'
+                '_request_auth',
+                '_content_type',
+                '_headers'
             ]
         )
 
@@ -875,8 +896,7 @@ class VLANsApi(object):
             local_var_params[key] = val
         del local_var_params['kwargs']
         # verify the required parameter 'id' is set
-        if self.api_client.client_side_validation and ('id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['id'] is None):  # noqa: E501
+        if self.api_client.client_side_validation and local_var_params.get('id') is None:  # noqa: E501
             raise ApiValueError("Missing the required parameter `id` when calling `delete_virtual_network`")  # noqa: E501
 
         collection_formats = {}
@@ -887,7 +907,7 @@ class VLANsApi(object):
 
         query_params = []
 
-        header_params = {}
+        header_params = dict(local_var_params.get('_headers', {}))
 
         form_params = []
         local_var_files = {}
@@ -988,6 +1008,7 @@ class VLANsApi(object):
                               request; this effectively ignores the authentication
                               in the spec for a single request.
         :type _request_auth: dict, optional
+        :type _content_type: string, optional: force content-type for the request
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
@@ -1006,7 +1027,9 @@ class VLANsApi(object):
                 '_return_http_data_only',
                 '_preload_content',
                 '_request_timeout',
-                '_request_auth'
+                '_request_auth',
+                '_content_type',
+                '_headers'
             ]
         )
 
@@ -1019,12 +1042,10 @@ class VLANsApi(object):
             local_var_params[key] = val
         del local_var_params['kwargs']
         # verify the required parameter 'id' is set
-        if self.api_client.client_side_validation and ('id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['id'] is None):  # noqa: E501
+        if self.api_client.client_side_validation and local_var_params.get('id') is None:  # noqa: E501
             raise ApiValueError("Missing the required parameter `id` when calling `find_port_vlan_assignment_batch_by_port_id_and_batch_id`")  # noqa: E501
         # verify the required parameter 'batch_id' is set
-        if self.api_client.client_side_validation and ('batch_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['batch_id'] is None):  # noqa: E501
+        if self.api_client.client_side_validation and local_var_params.get('batch_id') is None:  # noqa: E501
             raise ApiValueError("Missing the required parameter `batch_id` when calling `find_port_vlan_assignment_batch_by_port_id_and_batch_id`")  # noqa: E501
 
         collection_formats = {}
@@ -1037,7 +1058,7 @@ class VLANsApi(object):
 
         query_params = []
 
-        header_params = {}
+        header_params = dict(local_var_params.get('_headers', {}))
 
         form_params = []
         local_var_files = {}
@@ -1133,6 +1154,7 @@ class VLANsApi(object):
                               request; this effectively ignores the authentication
                               in the spec for a single request.
         :type _request_auth: dict, optional
+        :type _content_type: string, optional: force content-type for the request
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
@@ -1150,7 +1172,9 @@ class VLANsApi(object):
                 '_return_http_data_only',
                 '_preload_content',
                 '_request_timeout',
-                '_request_auth'
+                '_request_auth',
+                '_content_type',
+                '_headers'
             ]
         )
 
@@ -1163,8 +1187,7 @@ class VLANsApi(object):
             local_var_params[key] = val
         del local_var_params['kwargs']
         # verify the required parameter 'id' is set
-        if self.api_client.client_side_validation and ('id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['id'] is None):  # noqa: E501
+        if self.api_client.client_side_validation and local_var_params.get('id') is None:  # noqa: E501
             raise ApiValueError("Missing the required parameter `id` when calling `find_port_vlan_assignment_batches`")  # noqa: E501
 
         collection_formats = {}
@@ -1175,7 +1198,7 @@ class VLANsApi(object):
 
         query_params = []
 
-        header_params = {}
+        header_params = dict(local_var_params.get('_headers', {}))
 
         form_params = []
         local_var_files = {}
@@ -1283,6 +1306,7 @@ class VLANsApi(object):
                               request; this effectively ignores the authentication
                               in the spec for a single request.
         :type _request_auth: dict, optional
+        :type _content_type: string, optional: force content-type for the request
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
@@ -1303,7 +1327,9 @@ class VLANsApi(object):
                 '_return_http_data_only',
                 '_preload_content',
                 '_request_timeout',
-                '_request_auth'
+                '_request_auth',
+                '_content_type',
+                '_headers'
             ]
         )
 
@@ -1316,12 +1342,10 @@ class VLANsApi(object):
             local_var_params[key] = val
         del local_var_params['kwargs']
         # verify the required parameter 'id' is set
-        if self.api_client.client_side_validation and ('id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['id'] is None):  # noqa: E501
+        if self.api_client.client_side_validation and local_var_params.get('id') is None:  # noqa: E501
             raise ApiValueError("Missing the required parameter `id` when calling `find_port_vlan_assignment_by_port_id_and_assignment_id`")  # noqa: E501
         # verify the required parameter 'assignment_id' is set
-        if self.api_client.client_side_validation and ('assignment_id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['assignment_id'] is None):  # noqa: E501
+        if self.api_client.client_side_validation and local_var_params.get('assignment_id') is None:  # noqa: E501
             raise ApiValueError("Missing the required parameter `assignment_id` when calling `find_port_vlan_assignment_by_port_id_and_assignment_id`")  # noqa: E501
 
         collection_formats = {}
@@ -1333,14 +1357,14 @@ class VLANsApi(object):
             path_params['assignment_id'] = local_var_params['assignment_id']  # noqa: E501
 
         query_params = []
-        if 'include' in local_var_params and local_var_params['include'] is not None:  # noqa: E501
+        if local_var_params.get('include') is not None:  # noqa: E501
             query_params.append(('include', local_var_params['include']))  # noqa: E501
             collection_formats['include'] = 'csv'  # noqa: E501
-        if 'exclude' in local_var_params and local_var_params['exclude'] is not None:  # noqa: E501
+        if local_var_params.get('exclude') is not None:  # noqa: E501
             query_params.append(('exclude', local_var_params['exclude']))  # noqa: E501
             collection_formats['exclude'] = 'csv'  # noqa: E501
 
-        header_params = {}
+        header_params = dict(local_var_params.get('_headers', {}))
 
         form_params = []
         local_var_files = {}
@@ -1444,6 +1468,7 @@ class VLANsApi(object):
                               request; this effectively ignores the authentication
                               in the spec for a single request.
         :type _request_auth: dict, optional
+        :type _content_type: string, optional: force content-type for the request
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
@@ -1463,7 +1488,9 @@ class VLANsApi(object):
                 '_return_http_data_only',
                 '_preload_content',
                 '_request_timeout',
-                '_request_auth'
+                '_request_auth',
+                '_content_type',
+                '_headers'
             ]
         )
 
@@ -1476,8 +1503,7 @@ class VLANsApi(object):
             local_var_params[key] = val
         del local_var_params['kwargs']
         # verify the required parameter 'id' is set
-        if self.api_client.client_side_validation and ('id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['id'] is None):  # noqa: E501
+        if self.api_client.client_side_validation and local_var_params.get('id') is None:  # noqa: E501
             raise ApiValueError("Missing the required parameter `id` when calling `find_port_vlan_assignments`")  # noqa: E501
 
         collection_formats = {}
@@ -1487,14 +1513,14 @@ class VLANsApi(object):
             path_params['id'] = local_var_params['id']  # noqa: E501
 
         query_params = []
-        if 'include' in local_var_params and local_var_params['include'] is not None:  # noqa: E501
+        if local_var_params.get('include') is not None:  # noqa: E501
             query_params.append(('include', local_var_params['include']))  # noqa: E501
             collection_formats['include'] = 'csv'  # noqa: E501
-        if 'exclude' in local_var_params and local_var_params['exclude'] is not None:  # noqa: E501
+        if local_var_params.get('exclude') is not None:  # noqa: E501
             query_params.append(('exclude', local_var_params['exclude']))  # noqa: E501
             collection_formats['exclude'] = 'csv'  # noqa: E501
 
-        header_params = {}
+        header_params = dict(local_var_params.get('_headers', {}))
 
         form_params = []
         local_var_files = {}
@@ -1606,6 +1632,7 @@ class VLANsApi(object):
                               request; this effectively ignores the authentication
                               in the spec for a single request.
         :type _request_auth: dict, optional
+        :type _content_type: string, optional: force content-type for the request
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
@@ -1627,7 +1654,9 @@ class VLANsApi(object):
                 '_return_http_data_only',
                 '_preload_content',
                 '_request_timeout',
-                '_request_auth'
+                '_request_auth',
+                '_content_type',
+                '_headers'
             ]
         )
 
@@ -1640,8 +1669,7 @@ class VLANsApi(object):
             local_var_params[key] = val
         del local_var_params['kwargs']
         # verify the required parameter 'id' is set
-        if self.api_client.client_side_validation and ('id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['id'] is None):  # noqa: E501
+        if self.api_client.client_side_validation and local_var_params.get('id') is None:  # noqa: E501
             raise ApiValueError("Missing the required parameter `id` when calling `find_virtual_networks`")  # noqa: E501
 
         collection_formats = {}
@@ -1651,18 +1679,18 @@ class VLANsApi(object):
             path_params['id'] = local_var_params['id']  # noqa: E501
 
         query_params = []
-        if 'include' in local_var_params and local_var_params['include'] is not None:  # noqa: E501
+        if local_var_params.get('include') is not None:  # noqa: E501
             query_params.append(('include', local_var_params['include']))  # noqa: E501
             collection_formats['include'] = 'csv'  # noqa: E501
-        if 'exclude' in local_var_params and local_var_params['exclude'] is not None:  # noqa: E501
+        if local_var_params.get('exclude') is not None:  # noqa: E501
             query_params.append(('exclude', local_var_params['exclude']))  # noqa: E501
             collection_formats['exclude'] = 'csv'  # noqa: E501
-        if 'facility' in local_var_params and local_var_params['facility'] is not None:  # noqa: E501
+        if local_var_params.get('facility') is not None:  # noqa: E501
             query_params.append(('facility', local_var_params['facility']))  # noqa: E501
-        if 'metro' in local_var_params and local_var_params['metro'] is not None:  # noqa: E501
+        if local_var_params.get('metro') is not None:  # noqa: E501
             query_params.append(('metro', local_var_params['metro']))  # noqa: E501
 
-        header_params = {}
+        header_params = dict(local_var_params.get('_headers', {}))
 
         form_params = []
         local_var_files = {}
@@ -1758,6 +1786,7 @@ class VLANsApi(object):
                               request; this effectively ignores the authentication
                               in the spec for a single request.
         :type _request_auth: dict, optional
+        :type _content_type: string, optional: force content-type for the request
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
@@ -1775,7 +1804,9 @@ class VLANsApi(object):
                 '_return_http_data_only',
                 '_preload_content',
                 '_request_timeout',
-                '_request_auth'
+                '_request_auth',
+                '_content_type',
+                '_headers'
             ]
         )
 
@@ -1788,8 +1819,7 @@ class VLANsApi(object):
             local_var_params[key] = val
         del local_var_params['kwargs']
         # verify the required parameter 'id' is set
-        if self.api_client.client_side_validation and ('id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['id'] is None):  # noqa: E501
+        if self.api_client.client_side_validation and local_var_params.get('id') is None:  # noqa: E501
             raise ApiValueError("Missing the required parameter `id` when calling `get_virtual_network`")  # noqa: E501
 
         collection_formats = {}
@@ -1800,7 +1830,7 @@ class VLANsApi(object):
 
         query_params = []
 
-        header_params = {}
+        header_params = dict(local_var_params.get('_headers', {}))
 
         form_params = []
         local_var_files = {}
@@ -1901,6 +1931,7 @@ class VLANsApi(object):
                               request; this effectively ignores the authentication
                               in the spec for a single request.
         :type _request_auth: dict, optional
+        :type _content_type: string, optional: force content-type for the request
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
@@ -1919,7 +1950,9 @@ class VLANsApi(object):
                 '_return_http_data_only',
                 '_preload_content',
                 '_request_timeout',
-                '_request_auth'
+                '_request_auth',
+                '_content_type',
+                '_headers'
             ]
         )
 
@@ -1932,12 +1965,10 @@ class VLANsApi(object):
             local_var_params[key] = val
         del local_var_params['kwargs']
         # verify the required parameter 'id' is set
-        if self.api_client.client_side_validation and ('id' not in local_var_params or  # noqa: E501
-                                                        local_var_params['id'] is None):  # noqa: E501
+        if self.api_client.client_side_validation and local_var_params.get('id') is None:  # noqa: E501
             raise ApiValueError("Missing the required parameter `id` when calling `unassign_port`")  # noqa: E501
         # verify the required parameter 'vnid' is set
-        if self.api_client.client_side_validation and ('vnid' not in local_var_params or  # noqa: E501
-                                                        local_var_params['vnid'] is None):  # noqa: E501
+        if self.api_client.client_side_validation and local_var_params.get('vnid') is None:  # noqa: E501
             raise ApiValueError("Missing the required parameter `vnid` when calling `unassign_port`")  # noqa: E501
 
         collection_formats = {}
@@ -1948,7 +1979,7 @@ class VLANsApi(object):
 
         query_params = []
 
-        header_params = {}
+        header_params = dict(local_var_params.get('_headers', {}))
 
         form_params = []
         local_var_files = {}
@@ -1961,8 +1992,12 @@ class VLANsApi(object):
             ['application/json'])  # noqa: E501
 
         # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['application/json'])  # noqa: E501
+        content_types_list = local_var_params.get('_content_type',
+            self.api_client.select_header_content_type(
+                ['application/json'],
+                'POST', body_params))  # noqa: E501
+        if content_types_list:
+                header_params['Content-Type'] = content_types_list
 
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501

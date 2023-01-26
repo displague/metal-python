@@ -100,6 +100,7 @@ class IncidentsApi(object):
                               request; this effectively ignores the authentication
                               in the spec for a single request.
         :type _request_auth: dict, optional
+        :type _content_type: string, optional: force content-type for the request
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
@@ -118,7 +119,9 @@ class IncidentsApi(object):
                 '_return_http_data_only',
                 '_preload_content',
                 '_request_timeout',
-                '_request_auth'
+                '_request_auth',
+                '_content_type',
+                '_headers'
             ]
         )
 
@@ -136,14 +139,14 @@ class IncidentsApi(object):
         path_params = {}
 
         query_params = []
-        if 'include' in local_var_params and local_var_params['include'] is not None:  # noqa: E501
+        if local_var_params.get('include') is not None:  # noqa: E501
             query_params.append(('include', local_var_params['include']))  # noqa: E501
             collection_formats['include'] = 'csv'  # noqa: E501
-        if 'exclude' in local_var_params and local_var_params['exclude'] is not None:  # noqa: E501
+        if local_var_params.get('exclude') is not None:  # noqa: E501
             query_params.append(('exclude', local_var_params['exclude']))  # noqa: E501
             collection_formats['exclude'] = 'csv'  # noqa: E501
 
-        header_params = {}
+        header_params = dict(local_var_params.get('_headers', {}))
 
         form_params = []
         local_var_files = {}

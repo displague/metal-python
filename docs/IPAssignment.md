@@ -19,7 +19,7 @@ Name | Type | Description | Notes
 **gateway** | **str** |  | [optional] 
 **href** | **str** |  | [optional] 
 **created_at** | **datetime** |  | [optional] 
-**metro** | [**Metro**](Metro.md) |  | [optional] 
+**metro** | [**IPAssignmentMetro**](IPAssignmentMetro.md) |  | [optional] 
 **parent_block** | [**ParentBlock**](ParentBlock.md) |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)

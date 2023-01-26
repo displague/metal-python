@@ -67,7 +67,7 @@ bgp_session = metal.BGPSessionInput() # BGPSessionInput | BGP session to create
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**str**](.md)| Device UUID | 
+ **id** | **str**| Device UUID | 
  **bgp_session** | [**BGPSessionInput**](BGPSessionInput.md)| BGP session to create | 
 
 ### Return type
@@ -143,7 +143,7 @@ with metal.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**str**](.md)| BGP session UUID | 
+ **id** | **str**| BGP session UUID | 
 
 ### Return type
 
@@ -221,7 +221,7 @@ exclude = ['exclude_example'] # list[str] | Nested attributes to exclude. Exclud
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**str**](.md)| Project UUID | 
+ **id** | **str**| Project UUID | 
  **include** | [**list[str]**](str.md)| Nested attributes to include. Included objects will return their full attributes. Attribute names can be dotted (up to 3 levels) to included deeply nested objects. | [optional] 
  **exclude** | [**list[str]**](str.md)| Nested attributes to exclude. Excluded objects will return only the href attribute. Attribute names can be dotted (up to 3 levels) to exclude deeply nested objects. | [optional] 
 
@@ -301,7 +301,7 @@ exclude = ['exclude_example'] # list[str] | Nested attributes to exclude. Exclud
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**str**](.md)| BGP session UUID | 
+ **id** | **str**| BGP session UUID | 
  **include** | [**list[str]**](str.md)| Nested attributes to include. Included objects will return their full attributes. Attribute names can be dotted (up to 3 levels) to included deeply nested objects. | [optional] 
  **exclude** | [**list[str]**](str.md)| Nested attributes to exclude. Excluded objects will return only the href attribute. Attribute names can be dotted (up to 3 levels) to exclude deeply nested objects. | [optional] 
 
@@ -379,7 +379,7 @@ with metal.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**str**](.md)| Device UUID | 
+ **id** | **str**| Device UUID | 
 
 ### Return type
 
@@ -454,7 +454,7 @@ with metal.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**str**](.md)| Project UUID | 
+ **id** | **str**| Project UUID | 
 
 ### Return type
 
@@ -529,7 +529,7 @@ with metal.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**str**](.md)| Device UUID | 
+ **id** | **str**| Device UUID | 
 
 ### Return type
 
@@ -605,7 +605,7 @@ bgp_config_request = metal.BgpConfigRequestInput() # BgpConfigRequestInput | BGP
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**str**](.md)| Project UUID | 
+ **id** | **str**| Project UUID | 
  **bgp_config_request** | [**BgpConfigRequestInput**](BgpConfigRequestInput.md)| BGP config Request to create | 
 
 ### Return type
@@ -625,8 +625,8 @@ void (empty response body)
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **204** | no content |  -  |
-**401** | unauthorized |  -  |
 **403** | forbidden |  -  |
+**401** | unauthorized |  -  |
 **404** | not found |  -  |
 **422** | unprocessable entity |  -  |
 
@@ -683,7 +683,7 @@ default_route = True # bool | Default route
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**str**](.md)| BGP session UUID | 
+ **id** | **str**| BGP session UUID | 
  **default_route** | **bool**| Default route | 
 
 ### Return type

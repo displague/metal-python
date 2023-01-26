@@ -54,25 +54,19 @@ class TestProjectList(unittest.TestCase):
                             ], 
                         network_status = metal.models.network_status.network_status(), 
                         invitations = [
-                            metal.models.href.Href(
-                                href = '', )
+                            
                             ], 
-                        payment_method = metal.models.href.Href(
-                            href = '', ), 
+                        payment_method = , 
                         devices = [
-                            metal.models.href.Href(
-                                href = '', )
+                            
                             ], 
                         ssh_keys = [
-                            metal.models.href.Href(
-                                href = '', )
+                            
                             ], 
                         volumes = [
-                            metal.models.href.Href(
-                                href = '', )
+                            
                             ], 
-                        bgp_config = metal.models.href.Href(
-                            href = '', ), 
+                        bgp_config = , 
                         customdata = metal.models.customdata.customdata(), )
                     ], 
                 meta = metal.models.meta.Meta(
@@ -80,12 +74,9 @@ class TestProjectList(unittest.TestCase):
                         href = '', ), 
                     previous = metal.models.href.Href(
                         href = '', ), 
-                    self = metal.models.href.Href(
-                        href = '', ), 
-                    next = metal.models.href.Href(
-                        href = '', ), 
-                    last = metal.models.href.Href(
-                        href = '', ), 
+                    self = , 
+                    next = , 
+                    last = , 
                     total = 56, )
             )
         else :

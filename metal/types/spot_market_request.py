@@ -45,7 +45,7 @@ class SpotMarketRequest(object):
         'end_at': 'datetime',
         'href': 'str',
         'facilities': 'Href',
-        'metro': 'Metro',
+        'metro': 'SpotMarketRequestMetro',
         'project': 'Href',
         'instances': 'Href'
     }
@@ -280,7 +280,7 @@ class SpotMarketRequest(object):
 
 
         :return: The metro of this SpotMarketRequest.  # noqa: E501
-        :rtype: Metro
+        :rtype: SpotMarketRequestMetro
         """
         return self._metro
 
@@ -290,7 +290,7 @@ class SpotMarketRequest(object):
 
 
         :param metro: The metro of this SpotMarketRequest.  # noqa: E501
-        :type metro: Metro
+        :type metro: SpotMarketRequestMetro
         """
 
         self._metro = metro

@@ -96,6 +96,7 @@ class UserVerificationTokensApi(object):
                               request; this effectively ignores the authentication
                               in the spec for a single request.
         :type _request_auth: dict, optional
+        :type _content_type: string, optional: force content-type for the request
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
@@ -113,7 +114,9 @@ class UserVerificationTokensApi(object):
                 '_return_http_data_only',
                 '_preload_content',
                 '_request_timeout',
-                '_request_auth'
+                '_request_auth',
+                '_content_type',
+                '_headers'
             ]
         )
 
@@ -126,8 +129,7 @@ class UserVerificationTokensApi(object):
             local_var_params[key] = val
         del local_var_params['kwargs']
         # verify the required parameter 'token' is set
-        if self.api_client.client_side_validation and ('token' not in local_var_params or  # noqa: E501
-                                                        local_var_params['token'] is None):  # noqa: E501
+        if self.api_client.client_side_validation and local_var_params.get('token') is None:  # noqa: E501
             raise ApiValueError("Missing the required parameter `token` when calling `consume_verification_request`")  # noqa: E501
 
         collection_formats = {}
@@ -135,10 +137,10 @@ class UserVerificationTokensApi(object):
         path_params = {}
 
         query_params = []
-        if 'token' in local_var_params and local_var_params['token'] is not None:  # noqa: E501
+        if local_var_params.get('token') is not None:  # noqa: E501
             query_params.append(('token', local_var_params['token']))  # noqa: E501
 
-        header_params = {}
+        header_params = dict(local_var_params.get('_headers', {}))
 
         form_params = []
         local_var_files = {}
@@ -225,6 +227,7 @@ class UserVerificationTokensApi(object):
                               request; this effectively ignores the authentication
                               in the spec for a single request.
         :type _request_auth: dict, optional
+        :type _content_type: string, optional: force content-type for the request
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
@@ -242,7 +245,9 @@ class UserVerificationTokensApi(object):
                 '_return_http_data_only',
                 '_preload_content',
                 '_request_timeout',
-                '_request_auth'
+                '_request_auth',
+                '_content_type',
+                '_headers'
             ]
         )
 
@@ -255,8 +260,7 @@ class UserVerificationTokensApi(object):
             local_var_params[key] = val
         del local_var_params['kwargs']
         # verify the required parameter 'login' is set
-        if self.api_client.client_side_validation and ('login' not in local_var_params or  # noqa: E501
-                                                        local_var_params['login'] is None):  # noqa: E501
+        if self.api_client.client_side_validation and local_var_params.get('login') is None:  # noqa: E501
             raise ApiValueError("Missing the required parameter `login` when calling `create_validation_request`")  # noqa: E501
 
         collection_formats = {}
@@ -264,10 +268,10 @@ class UserVerificationTokensApi(object):
         path_params = {}
 
         query_params = []
-        if 'login' in local_var_params and local_var_params['login'] is not None:  # noqa: E501
+        if local_var_params.get('login') is not None:  # noqa: E501
             query_params.append(('login', local_var_params['login']))  # noqa: E501
 
-        header_params = {}
+        header_params = dict(local_var_params.get('_headers', {}))
 
         form_params = []
         local_var_files = {}

@@ -38,7 +38,7 @@ class TestInstancesBatchCreateInput(unittest.TestCase):
         if include_optional :
             return InstancesBatchCreateInput(
                 batches = [
-                    metal.models.instances_batch_create_input_batches.InstancesBatchCreateInput_batches(
+                    metal.models.instances_batch_create_input_batches_inner.InstancesBatchCreateInput_batches_inner(
                         plan = '', 
                         hostname = '', 
                         hostnames = [
@@ -70,7 +70,7 @@ class TestInstancesBatchCreateInput(unittest.TestCase):
                             ], 
                         customdata = metal.models.customdata.customdata(), 
                         ip_addresses = [
-                            metal.models.instances_batch_create_input_ip_addresses.InstancesBatchCreateInput_ip_addresses(
+                            metal.models.instances_batch_create_input_batches_inner_ip_addresses_inner.InstancesBatchCreateInput_batches_inner_ip_addresses_inner(
                                 address_family = 4.0, 
                                 public = False, 
                                 cidr = 28.0, 

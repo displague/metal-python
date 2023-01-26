@@ -68,12 +68,9 @@ class TestUserList(unittest.TestCase):
                         href = '', ), 
                     previous = metal.models.href.Href(
                         href = '', ), 
-                    self = metal.models.href.Href(
-                        href = '', ), 
-                    next = metal.models.href.Href(
-                        href = '', ), 
-                    last = metal.models.href.Href(
-                        href = '', ), 
+                    self = , 
+                    next = , 
+                    last = , 
                     total = 56, )
             )
         else :

@@ -43,26 +43,19 @@ class TestSpotMarketPricesPerMetroList(unittest.TestCase):
                             price = 1.337, ), 
                         baremetal_2a2 = metal.models.spot_prices_per_baremetal.SpotPricesPerBaremetal(
                             price = 1.337, ), 
-                        baremetal_1 = metal.models.spot_prices_per_baremetal.SpotPricesPerBaremetal(
-                            price = 1.337, ), 
-                        baremetal_3 = metal.models.spot_prices_per_baremetal.SpotPricesPerBaremetal(
-                            price = 1.337, ), 
-                        c2/medium/x86 = metal.models.spot_prices_per_baremetal.SpotPricesPerBaremetal(
-                            price = 1.337, ), 
-                        baremetal_2 = metal.models.spot_prices_per_baremetal.SpotPricesPerBaremetal(
-                            price = 1.337, ), 
-                        m2/xlarge/x86 = metal.models.spot_prices_per_baremetal.SpotPricesPerBaremetal(
-                            price = 1.337, ), 
-                        baremetal_s = metal.models.spot_prices_per_baremetal.SpotPricesPerBaremetal(
-                            price = 1.337, ), 
-                        baremetal_0 = metal.models.spot_prices_per_baremetal.SpotPricesPerBaremetal(
-                            price = 1.337, ), ), 
+                        baremetal_1 = , 
+                        baremetal_3 = , 
+                        c2/medium/x86 = , 
+                        baremetal_2 = , 
+                        m2/xlarge/x86 = , 
+                        baremetal_s = , 
+                        baremetal_0 = , ), 
                     sv = metal.models.spot_prices_per_facility.SpotPricesPerFacility(), 
-                    am = metal.models.spot_prices_per_facility.SpotPricesPerFacility(), 
-                    ch = metal.models.spot_prices_per_facility.SpotPricesPerFacility(), 
-                    la = metal.models.spot_prices_per_facility.SpotPricesPerFacility(), 
-                    sg = metal.models.spot_prices_per_facility.SpotPricesPerFacility(), 
-                    da = metal.models.spot_prices_per_facility.SpotPricesPerFacility(), )
+                    am = , 
+                    ch = , 
+                    la = , 
+                    sg = , 
+                    da = , )
             )
         else :
             return SpotMarketPricesPerMetroList(

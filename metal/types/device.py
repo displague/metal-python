@@ -60,15 +60,15 @@ class Device(object):
         'always_pxe': 'bool',
         'ipxe_script_url': 'str',
         'facility': 'Facility',
-        'metro': 'Metro',
+        'metro': 'FacilityMetro',
         'plan': 'Plan',
         'userdata': 'str',
         'root_password': 'str',
         'switch_uuid': 'str',
-        'network_ports': 'Port',
+        'network_ports': 'DeviceNetworkPorts',
         'href': 'str',
-        'project': 'Href',
-        'project_lite': 'Href',
+        'project': 'DeviceProject',
+        'project_lite': 'DeviceProjectLite',
         'volumes': 'list[Href]',
         'hardware_reservation': 'Href',
         'ssh_keys': 'list[Href]',
@@ -733,7 +733,7 @@ class Device(object):
 
 
         :return: The metro of this Device.  # noqa: E501
-        :rtype: Metro
+        :rtype: FacilityMetro
         """
         return self._metro
 
@@ -743,7 +743,7 @@ class Device(object):
 
 
         :param metro: The metro of this Device.  # noqa: E501
-        :type metro: Metro
+        :type metro: FacilityMetro
         """
 
         self._metro = metro
@@ -842,7 +842,7 @@ class Device(object):
 
 
         :return: The network_ports of this Device.  # noqa: E501
-        :rtype: Port
+        :rtype: DeviceNetworkPorts
         """
         return self._network_ports
 
@@ -852,7 +852,7 @@ class Device(object):
 
 
         :param network_ports: The network_ports of this Device.  # noqa: E501
-        :type network_ports: Port
+        :type network_ports: DeviceNetworkPorts
         """
 
         self._network_ports = network_ports
@@ -884,7 +884,7 @@ class Device(object):
 
 
         :return: The project of this Device.  # noqa: E501
-        :rtype: Href
+        :rtype: DeviceProject
         """
         return self._project
 
@@ -894,7 +894,7 @@ class Device(object):
 
 
         :param project: The project of this Device.  # noqa: E501
-        :type project: Href
+        :type project: DeviceProject
         """
 
         self._project = project
@@ -905,7 +905,7 @@ class Device(object):
 
 
         :return: The project_lite of this Device.  # noqa: E501
-        :rtype: Href
+        :rtype: DeviceProjectLite
         """
         return self._project_lite
 
@@ -915,7 +915,7 @@ class Device(object):
 
 
         :param project_lite: The project_lite of this Device.  # noqa: E501
-        :type project_lite: Href
+        :type project_lite: DeviceProjectLite
         """
 
         self._project_lite = project_lite

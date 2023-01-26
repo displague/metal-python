@@ -71,7 +71,7 @@ vnid = 'vnid_example' # str | Virtual Network ID. May be the UUID of the Virtual
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**str**](.md)| Port UUID | 
+ **id** | **str**| Port UUID | 
  **vnid** | **str**| Virtual Network ID. May be the UUID of the Virtual Network record, or the VLAN value itself (ex: &#39;1001&#39;). | 
 
 ### Return type
@@ -149,7 +149,7 @@ vnid = metal.PortAssignInput() # PortAssignInput | Virtual Network ID. May be th
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**str**](.md)| Port UUID | 
+ **id** | **str**| Port UUID | 
  **vnid** | [**PortAssignInput**](PortAssignInput.md)| Virtual Network ID. May be the UUID of the Virtual Network record, or the VLAN value itself (ex: &#39;1001&#39;). | 
 
 ### Return type
@@ -228,7 +228,7 @@ vlan_assignments = metal.PortVlanAssignmentBatchCreateInput() # PortVlanAssignme
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**str**](.md)| Port UUID | 
+ **id** | **str**| Port UUID | 
  **vlan_assignments** | [**PortVlanAssignmentBatchCreateInput**](PortVlanAssignmentBatchCreateInput.md)| VLAN Assignment batch details | 
 
 ### Return type
@@ -307,7 +307,7 @@ virtual_network = metal.VirtualNetworkCreateInput() # VirtualNetworkCreateInput 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**str**](.md)| Project UUID | 
+ **id** | **str**| Project UUID | 
  **virtual_network** | [**VirtualNetworkCreateInput**](VirtualNetworkCreateInput.md)| Virtual Network to create | 
 
 ### Return type
@@ -385,7 +385,7 @@ with metal.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**str**](.md)| Port UUID | 
+ **id** | **str**| Port UUID | 
 
 ### Return type
 
@@ -461,7 +461,7 @@ with metal.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**str**](.md)| Virtual Network UUID | 
+ **id** | **str**| Virtual Network UUID | 
 
 ### Return type
 
@@ -539,8 +539,8 @@ batch_id = 'batch_id_example' # str | Batch ID
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**str**](.md)| Port UUID | 
- **batch_id** | [**str**](.md)| Batch ID | 
+ **id** | **str**| Port UUID | 
+ **batch_id** | **str**| Batch ID | 
 
 ### Return type
 
@@ -616,7 +616,7 @@ with metal.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**str**](.md)| Port UUID | 
+ **id** | **str**| Port UUID | 
 
 ### Return type
 
@@ -695,8 +695,8 @@ exclude = ['exclude_example'] # list[str] | Nested attributes to exclude. Exclud
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**str**](.md)| Port UUID | 
- **assignment_id** | [**str**](.md)| Assignment ID | 
+ **id** | **str**| Port UUID | 
+ **assignment_id** | **str**| Assignment ID | 
  **include** | [**list[str]**](str.md)| Nested attributes to include. Included objects will return their full attributes. Attribute names can be dotted (up to 3 levels) to included deeply nested objects. | [optional] [default to [&quot;port&quot;,&quot;virtual_network&quot;]]
  **exclude** | [**list[str]**](str.md)| Nested attributes to exclude. Excluded objects will return only the href attribute. Attribute names can be dotted (up to 3 levels) to exclude deeply nested objects. | [optional] 
 
@@ -776,7 +776,7 @@ exclude = ['exclude_example'] # list[str] | Nested attributes to exclude. Exclud
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**str**](.md)| Port UUID | 
+ **id** | **str**| Port UUID | 
  **include** | [**list[str]**](str.md)| Nested attributes to include. Included objects will return their full attributes. Attribute names can be dotted (up to 3 levels) to included deeply nested objects. | [optional] [default to [&quot;port&quot;,&quot;virtual_network&quot;]]
  **exclude** | [**list[str]**](str.md)| Nested attributes to exclude. Excluded objects will return only the href attribute. Attribute names can be dotted (up to 3 levels) to exclude deeply nested objects. | [optional] 
 
@@ -858,7 +858,7 @@ metro = 'metro_example' # str | Filter by Metro ID (uuid) or Metro Code (optiona
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**str**](.md)| Project UUID | 
+ **id** | **str**| Project UUID | 
  **include** | [**list[str]**](str.md)| Nested attributes to include. Included objects will return their full attributes. Attribute names can be dotted (up to 3 levels) to included deeply nested objects. | [optional] 
  **exclude** | [**list[str]**](str.md)| Nested attributes to exclude. Excluded objects will return only the href attribute. Attribute names can be dotted (up to 3 levels) to exclude deeply nested objects. | [optional] 
  **facility** | **str**| Filter by Facility ID (uuid) or Facility Code | [optional] 
@@ -938,7 +938,7 @@ with metal.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**str**](.md)| Virtual Network UUID | 
+ **id** | **str**| Virtual Network UUID | 
 
 ### Return type
 
@@ -1016,7 +1016,7 @@ vnid = metal.PortAssignInput() # PortAssignInput | Virtual Network ID. May be th
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**str**](.md)| Port UUID | 
+ **id** | **str**| Port UUID | 
  **vnid** | [**PortAssignInput**](PortAssignInput.md)| Virtual Network ID. May be the UUID of the Virtual Network record, or the VLAN value itself (ex: &#39;1001&#39;). | 
 
 ### Return type

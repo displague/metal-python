@@ -49,11 +49,9 @@ class TestVirtualNetworkList(unittest.TestCase):
                                 href = '', )
                             ], 
                         metro_code = '', 
-                        metro = metal.models.href.Href(
-                            href = '', ), 
+                        metro = , 
                         assigned_to_virtual_circuit = True, 
-                        assigned_to = metal.models.href.Href(
-                            href = '', ), 
+                        assigned_to = , 
                         href = '', )
                     ]
             )

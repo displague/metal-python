@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **created_at** | **datetime** |  | [optional] 
 **updated_at** | **datetime** |  | [optional] 
 **port** | [**Port**](Port.md) |  | [optional] 
-**vlan_assignments** | [**list[PortVlanAssignmentBatchVlanAssignments]**](PortVlanAssignmentBatchVlanAssignments.md) |  | [optional] 
+**vlan_assignments** | [**list[PortVlanAssignmentBatchVlanAssignmentsInner]**](PortVlanAssignmentBatchVlanAssignmentsInner.md) |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

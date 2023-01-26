@@ -68,7 +68,7 @@ class TestIPReservationList(unittest.TestCase):
                                 gateway = '', 
                                 href = '', 
                                 created_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
-                                metro = metal.models.metro.metro(), 
+                                metro = metal.models.ip_assignment_metro.IPAssignment_metro(), 
                                 parent_block = metal.models.parent_block.ParentBlock(
                                     network = '', 
                                     netmask = '', 
@@ -77,13 +77,13 @@ class TestIPReservationList(unittest.TestCase):
                             ], 
                         network = '', 
                         created_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
-                        facility = metal.models.facility.facility(), 
+                        facility = metal.models.ip_reservation_facility.IPReservation_facility(), 
                         href = '', 
                         tags = [
                             ''
                             ], 
                         state = '', 
-                        metro = metal.models.metro.metro(), )
+                        metro = metal.models.ip_reservation_metro.IPReservation_metro(), )
                     ]
             )
         else :

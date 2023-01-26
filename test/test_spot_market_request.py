@@ -46,7 +46,7 @@ class TestSpotMarketRequest(unittest.TestCase):
                 href = '', 
                 facilities = metal.models.href.Href(
                     href = '', ), 
-                metro = None, 
+                metro = metal.models.spot_market_request_metro.SpotMarketRequest_metro(), 
                 project = metal.models.href.Href(
                     href = '', ), 
                 instances = metal.models.href.Href(

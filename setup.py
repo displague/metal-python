@@ -36,6 +36,7 @@ setup(
     packages=find_packages(exclude=["test", "tests"]),
     include_package_data=True,
     license="Equinix Metal",
+    long_description_content_type='text/markdown',
     long_description="""\
     This is the API for Equinix Metal. The API allows you to programmatically interact with all of your Equinix Metal resources, including devices, networks, addresses, organizations, projects, and your user account.  The official API docs are hosted at &lt;https://metal.equinix.com/developers/api&gt;.   # noqa: E501
     """

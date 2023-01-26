@@ -38,7 +38,7 @@ class TestPortVlanAssignmentBatchCreateInput(unittest.TestCase):
         if include_optional :
             return PortVlanAssignmentBatchCreateInput(
                 vlan_assignments = [
-                    metal.models.port_vlan_assignment_batch_create_input_vlan_assignments.PortVlanAssignmentBatchCreateInput_vlan_assignments(
+                    metal.models.port_vlan_assignment_batch_create_input_vlan_assignments_inner.PortVlanAssignmentBatchCreateInput_vlan_assignments_inner(
                         vlan = '', 
                         state = 'assigned', 
                         native = True, )

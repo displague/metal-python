@@ -18,11 +18,11 @@ Name | Type | Description | Notes
 **assignments** | [**list[IPAssignment]**](IPAssignment.md) |  | [optional] 
 **network** | **str** |  | [optional] 
 **created_at** | **datetime** |  | [optional] 
-**facility** | [**Facility**](Facility.md) |  | [optional] 
+**facility** | [**IPReservationFacility**](IPReservationFacility.md) |  | [optional] 
 **href** | **str** |  | [optional] 
 **tags** | **list[str]** |  | [optional] 
 **state** | **str** |  | [optional] 
-**metro** | [**Metro**](Metro.md) |  | [optional] 
+**metro** | [**IPReservationMetro**](IPReservationMetro.md) |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

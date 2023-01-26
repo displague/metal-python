@@ -46,12 +46,12 @@ class TestBgpNeighborData(unittest.TestCase):
                 peer_as = 65530.0, 
                 peer_ips = [169.254.255.1, 169.254.255.2], 
                 routes_in = [
-                    metal.models.bgp_neighbor_data_routes_in.BgpNeighborData_routes_in(
+                    metal.models.bgp_neighbor_data_routes_in_inner.BgpNeighborData_routes_in_inner(
                         route = '10.32.16.0/31', 
                         exact = True, )
                     ], 
                 routes_out = [
-                    metal.models.bgp_neighbor_data_routes_out.BgpNeighborData_routes_out(
+                    metal.models.bgp_neighbor_data_routes_out_inner.BgpNeighborData_routes_out_inner(
                         route = '0.0.0.0/0', 
                         exact = True, )
                     ]

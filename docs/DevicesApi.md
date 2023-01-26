@@ -78,7 +78,7 @@ bgp_session = metal.BGPSessionInput() # BGPSessionInput | BGP session to create
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**str**](.md)| Device UUID | 
+ **id** | **str**| Device UUID | 
  **bgp_session** | [**BGPSessionInput**](BGPSessionInput.md)| BGP session to create | 
 
 ### Return type
@@ -156,7 +156,7 @@ device = metal.DeviceCreateInput() # DeviceCreateInput | Device to create
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**str**](.md)| Project UUID | 
+ **id** | **str**| Project UUID | 
  **device** | [**DeviceCreateInput**](DeviceCreateInput.md)| Device to create | 
 
 ### Return type
@@ -177,9 +177,9 @@ Name | Type | Description  | Notes
 |-------------|-------------|------------------|
 **201** | created |  -  |
 **401** | unauthorized |  -  |
+**422** | unprocessable entity |  -  |
 **403** | forbidden |  -  |
 **404** | not found |  -  |
-**422** | unprocessable entity |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -235,7 +235,7 @@ batch = metal.InstancesBatchCreateInput() # InstancesBatchCreateInput | Batches 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**str**](.md)| Project UUID | 
+ **id** | **str**| Project UUID | 
  **batch** | [**InstancesBatchCreateInput**](InstancesBatchCreateInput.md)| Batches to create | 
 
 ### Return type
@@ -256,9 +256,9 @@ Name | Type | Description  | Notes
 |-------------|-------------|------------------|
 **201** | created |  -  |
 **401** | unauthorized |  -  |
+**422** | unprocessable entity |  -  |
 **403** | forbidden |  -  |
 **404** | not found |  -  |
-**422** | unprocessable entity |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -314,7 +314,7 @@ ip_assignment = metal.IPAssignmentInput() # IPAssignmentInput | IPAssignment to 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**str**](.md)| Device UUID | 
+ **id** | **str**| Device UUID | 
  **ip_assignment** | [**IPAssignmentInput**](IPAssignmentInput.md)| IPAssignment to create | 
 
 ### Return type
@@ -391,7 +391,7 @@ force_delete = True # bool | Force the deletion of the device, by detaching any 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**str**](.md)| Device UUID | 
+ **id** | **str**| Device UUID | 
  **force_delete** | **bool**| Force the deletion of the device, by detaching any storage volume still active. | [optional] 
 
 ### Return type
@@ -469,7 +469,7 @@ with metal.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**str**](.md)| Device UUID | 
+ **id** | **str**| Device UUID | 
 
 ### Return type
 
@@ -546,7 +546,7 @@ exclude = ['exclude_example'] # list[str] | Nested attributes to exclude. Exclud
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**str**](.md)| Device UUID | 
+ **id** | **str**| Device UUID | 
  **include** | [**list[str]**](str.md)| Nested attributes to include. Included objects will return their full attributes. Attribute names can be dotted (up to 3 levels) to included deeply nested objects. | [optional] 
  **exclude** | [**list[str]**](str.md)| Nested attributes to exclude. Excluded objects will return only the href attribute. Attribute names can be dotted (up to 3 levels) to exclude deeply nested objects. | [optional] 
 
@@ -623,7 +623,7 @@ with metal.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**str**](.md)| Instance UUID | 
+ **id** | **str**| Instance UUID | 
 
 ### Return type
 
@@ -703,7 +703,7 @@ per_page = 10 # int | Items returned per page (optional) (default to 10)
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**str**](.md)| Device UUID | 
+ **id** | **str**| Device UUID | 
  **include** | [**list[str]**](str.md)| Nested attributes to include. Included objects will return their full attributes. Attribute names can be dotted (up to 3 levels) to included deeply nested objects. | [optional] 
  **exclude** | [**list[str]**](str.md)| Nested attributes to exclude. Excluded objects will return only the href attribute. Attribute names can be dotted (up to 3 levels) to exclude deeply nested objects. | [optional] 
  **page** | **int**| Page to return | [optional] [default to 1]
@@ -785,7 +785,7 @@ created_before = 'created_before_example' # str | Filter usages created before t
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**str**](.md)| Device UUID | 
+ **id** | **str**| Device UUID | 
  **created_after** | **str**| Filter usages created after this date | [optional] 
  **created_before** | **str**| Filter usages created before this date | [optional] 
 
@@ -863,7 +863,7 @@ until = 'until_example' # str | Timestamp to range
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**str**](.md)| Device UUID | 
+ **id** | **str**| Device UUID | 
  **_from** | **str**| Timestamp from range | 
  **until** | **str**| Timestamp to range | 
 
@@ -940,8 +940,8 @@ id = 'id_example' # str | Ip Assignment UUID
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **instance_id** | [**str**](.md)| Instance UUID | 
- **id** | [**str**](.md)| Ip Assignment UUID | 
+ **instance_id** | **str**| Instance UUID | 
+ **id** | **str**| Ip Assignment UUID | 
 
 ### Return type
 
@@ -1019,7 +1019,7 @@ exclude = ['exclude_example'] # list[str] | Nested attributes to exclude. Exclud
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**str**](.md)| Device UUID | 
+ **id** | **str**| Device UUID | 
  **include** | [**list[str]**](str.md)| Nested attributes to include. Included objects will return their full attributes. Attribute names can be dotted (up to 3 levels) to included deeply nested objects. | [optional] 
  **exclude** | [**list[str]**](str.md)| Nested attributes to exclude. Excluded objects will return only the href attribute. Attribute names can be dotted (up to 3 levels) to exclude deeply nested objects. | [optional] 
 
@@ -1100,7 +1100,7 @@ per_page = 10 # int | Items returned per page (optional) (default to 10)
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**str**](.md)| Organization UUID | 
+ **id** | **str**| Organization UUID | 
  **include** | [**list[str]**](str.md)| Nested attributes to include. Included objects will return their full attributes. Attribute names can be dotted (up to 3 levels) to included deeply nested objects. | [optional] 
  **exclude** | [**list[str]**](str.md)| Nested attributes to exclude. Excluded objects will return only the href attribute. Attribute names can be dotted (up to 3 levels) to exclude deeply nested objects. | [optional] 
  **page** | **int**| Page to return | [optional] [default to 1]
@@ -1184,7 +1184,7 @@ per_page = 10 # int | Items returned per page (optional) (default to 10)
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**str**](.md)| Project UUID | 
+ **id** | **str**| Project UUID | 
  **include** | [**list[str]**](str.md)| Nested attributes to include. Included objects will return their full attributes. Attribute names can be dotted (up to 3 levels) to included deeply nested objects. | [optional] 
  **exclude** | [**list[str]**](str.md)| Nested attributes to exclude. Excluded objects will return only the href attribute. Attribute names can be dotted (up to 3 levels) to exclude deeply nested objects. | [optional] 
  **page** | **int**| Page to return | [optional] [default to 1]
@@ -1266,7 +1266,7 @@ created_before = 'created_before_example' # str | Filter usages created before t
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**str**](.md)| Project UUID | 
+ **id** | **str**| Project UUID | 
  **created_after** | **str**| Filter usages created after this date | [optional] 
  **created_before** | **str**| Filter usages created before this date | [optional] 
 
@@ -1346,7 +1346,7 @@ bucket = 'bucket_example' # str | Traffic bucket (optional)
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**str**](.md)| Device UUID | 
+ **id** | **str**| Device UUID | 
  **direction** | **str**| Traffic direction | 
  **timeframe** | [**Timeframe**](Timeframe.md)| Traffic timeframe | 
  **interval** | **str**| Traffic interval | [optional] 
@@ -1426,7 +1426,7 @@ with metal.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**str**](.md)| Device UUID | 
+ **id** | **str**| Device UUID | 
 
 ### Return type
 
@@ -1502,7 +1502,7 @@ type = 'type_example' # str | Action to perform
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**str**](.md)| Device UUID | 
+ **id** | **str**| Device UUID | 
  **type** | **str**| Action to perform | 
 
 ### Return type
@@ -1580,7 +1580,7 @@ device = metal.DeviceUpdateInput() # DeviceUpdateInput | Facility to update
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**str**](.md)| Device UUID | 
+ **id** | **str**| Device UUID | 
  **device** | [**DeviceUpdateInput**](DeviceUpdateInput.md)| Facility to update | 
 
 ### Return type

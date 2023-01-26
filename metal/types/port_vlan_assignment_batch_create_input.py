@@ -37,7 +37,7 @@ class PortVlanAssignmentBatchCreateInput(object):
                             and the value is json key in definition.
     """
     openapi_types = {
-        'vlan_assignments': 'list[PortVlanAssignmentBatchCreateInputVlanAssignments]'
+        'vlan_assignments': 'list[PortVlanAssignmentBatchCreateInputVlanAssignmentsInner]'
     }
 
     attribute_map = {
@@ -62,7 +62,7 @@ class PortVlanAssignmentBatchCreateInput(object):
 
 
         :return: The vlan_assignments of this PortVlanAssignmentBatchCreateInput.  # noqa: E501
-        :rtype: list[PortVlanAssignmentBatchCreateInputVlanAssignments]
+        :rtype: list[PortVlanAssignmentBatchCreateInputVlanAssignmentsInner]
         """
         return self._vlan_assignments
 
@@ -72,7 +72,7 @@ class PortVlanAssignmentBatchCreateInput(object):
 
 
         :param vlan_assignments: The vlan_assignments of this PortVlanAssignmentBatchCreateInput.  # noqa: E501
-        :type vlan_assignments: list[PortVlanAssignmentBatchCreateInputVlanAssignments]
+        :type vlan_assignments: list[PortVlanAssignmentBatchCreateInputVlanAssignmentsInner]
         """
 
         self._vlan_assignments = vlan_assignments

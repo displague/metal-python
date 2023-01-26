@@ -54,7 +54,7 @@ class TestFacilityList(unittest.TestCase):
                             coordinates = metal.models.coordinates.Coordinates(
                                 latitude = '', 
                                 longitude = '', ), ), 
-                        metro = metal.models.metro.metro(), )
+                        metro = metal.models.facility_metro.Facility_metro(), )
                     ]
             )
         else :

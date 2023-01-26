@@ -38,7 +38,7 @@ class TestPortConvertLayer3Input(unittest.TestCase):
         if include_optional :
             return PortConvertLayer3Input(
                 request_ips = [
-                    metal.models.port_convert_layer3_input_request_ips.PortConvertLayer3Input_request_ips(
+                    metal.models.port_convert_layer3_input_request_ips_inner.PortConvertLayer3Input_request_ips_inner(
                         address_family = 56, 
                         public = True, )
                     ]

@@ -56,8 +56,7 @@ class TestOrganizationList(unittest.TestCase):
                                 href = '', )
                             ], 
                         memberships = [
-                            metal.models.href.Href(
-                                href = '', )
+                            
                             ], 
                         address = metal.models.address.Address(
                             address = '', 
@@ -99,12 +98,9 @@ class TestOrganizationList(unittest.TestCase):
                         href = '', ), 
                     previous = metal.models.href.Href(
                         href = '', ), 
-                    self = metal.models.href.Href(
-                        href = '', ), 
-                    next = metal.models.href.Href(
-                        href = '', ), 
-                    last = metal.models.href.Href(
-                        href = '', ), 
+                    self = , 
+                    next = , 
+                    last = , 
                     total = 56, )
             )
         else :

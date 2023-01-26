@@ -52,7 +52,7 @@ class IPAssignment(object):
         'gateway': 'str',
         'href': 'str',
         'created_at': 'datetime',
-        'metro': 'Metro',
+        'metro': 'IPAssignmentMetro',
         'parent_block': 'ParentBlock'
     }
 
@@ -457,7 +457,7 @@ class IPAssignment(object):
 
 
         :return: The metro of this IPAssignment.  # noqa: E501
-        :rtype: Metro
+        :rtype: IPAssignmentMetro
         """
         return self._metro
 
@@ -467,7 +467,7 @@ class IPAssignment(object):
 
 
         :param metro: The metro of this IPAssignment.  # noqa: E501
-        :type metro: Metro
+        :type metro: IPAssignmentMetro
         """
 
         self._metro = metro

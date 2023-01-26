@@ -43,7 +43,7 @@ class Facility(object):
         'features': 'list[str]',
         'ip_ranges': 'list[str]',
         'address': 'Address',
-        'metro': 'Metro'
+        'metro': 'FacilityMetro'
     }
 
     attribute_map = {
@@ -228,7 +228,7 @@ class Facility(object):
 
 
         :return: The metro of this Facility.  # noqa: E501
-        :rtype: Metro
+        :rtype: FacilityMetro
         """
         return self._metro
 
@@ -238,7 +238,7 @@ class Facility(object):
 
 
         :param metro: The metro of this Facility.  # noqa: E501
-        :type metro: Metro
+        :type metro: FacilityMetro
         """
 
         self._metro = metro

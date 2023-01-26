@@ -61,7 +61,7 @@ created_before = 'created_before_example' # str | Filter usages created before t
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**str**](.md)| Device UUID | 
+ **id** | **str**| Device UUID | 
  **created_after** | **str**| Filter usages created after this date | [optional] 
  **created_before** | **str**| Filter usages created before this date | [optional] 
 
@@ -140,7 +140,7 @@ created_before = 'created_before_example' # str | Filter usages created before t
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**str**](.md)| Project UUID | 
+ **id** | **str**| Project UUID | 
  **created_after** | **str**| Filter usages created after this date | [optional] 
  **created_before** | **str**| Filter usages created before this date | [optional] 
 

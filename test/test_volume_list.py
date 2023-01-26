@@ -53,12 +53,10 @@ class TestVolumeList(unittest.TestCase):
                         facility = metal.models.href.Href(
                             href = '', ), 
                         snapshot_policies = [
-                            metal.models.href.Href(
-                                href = '', )
+                            
                             ], 
                         attachments = [
-                            metal.models.href.Href(
-                                href = '', )
+                            
                             ], 
                         plan = metal.models.plan.Plan(
                             id = '', 
@@ -71,8 +69,7 @@ class TestVolumeList(unittest.TestCase):
                             legacy = True, 
                             class = '', 
                             available_in = [
-                                metal.models.href.Href(
-                                    href = '', )
+                                
                                 ], ), 
                         href = '', 
                         customdata = metal.models.customdata.customdata(), )
@@ -82,12 +79,9 @@ class TestVolumeList(unittest.TestCase):
                         href = '', ), 
                     previous = metal.models.href.Href(
                         href = '', ), 
-                    self = metal.models.href.Href(
-                        href = '', ), 
-                    next = metal.models.href.Href(
-                        href = '', ), 
-                    last = metal.models.href.Href(
-                        href = '', ), 
+                    self = , 
+                    next = , 
+                    last = , 
                     total = 56, )
             )
         else :

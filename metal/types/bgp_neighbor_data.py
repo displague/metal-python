@@ -45,8 +45,8 @@ class BgpNeighborData(object):
         'multihop': 'bool',
         'peer_as': 'float',
         'peer_ips': 'list[str]',
-        'routes_in': 'list[BgpNeighborDataRoutesIn]',
-        'routes_out': 'list[BgpNeighborDataRoutesOut]'
+        'routes_in': 'list[BgpNeighborDataRoutesInInner]',
+        'routes_out': 'list[BgpNeighborDataRoutesOutInner]'
     }
 
     attribute_map = {
@@ -292,7 +292,7 @@ class BgpNeighborData(object):
         A list of project subnets  # noqa: E501
 
         :return: The routes_in of this BgpNeighborData.  # noqa: E501
-        :rtype: list[BgpNeighborDataRoutesIn]
+        :rtype: list[BgpNeighborDataRoutesInInner]
         """
         return self._routes_in
 
@@ -303,7 +303,7 @@ class BgpNeighborData(object):
         A list of project subnets  # noqa: E501
 
         :param routes_in: The routes_in of this BgpNeighborData.  # noqa: E501
-        :type routes_in: list[BgpNeighborDataRoutesIn]
+        :type routes_in: list[BgpNeighborDataRoutesInInner]
         """
 
         self._routes_in = routes_in
@@ -315,7 +315,7 @@ class BgpNeighborData(object):
         A list of outgoing routes. Only populated if the BGP session has default route enabled.  # noqa: E501
 
         :return: The routes_out of this BgpNeighborData.  # noqa: E501
-        :rtype: list[BgpNeighborDataRoutesOut]
+        :rtype: list[BgpNeighborDataRoutesOutInner]
         """
         return self._routes_out
 
@@ -326,7 +326,7 @@ class BgpNeighborData(object):
         A list of outgoing routes. Only populated if the BGP session has default route enabled.  # noqa: E501
 
         :param routes_out: The routes_out of this BgpNeighborData.  # noqa: E501
-        :type routes_out: list[BgpNeighborDataRoutesOut]
+        :type routes_out: list[BgpNeighborDataRoutesOutInner]
         """
 
         self._routes_out = routes_out

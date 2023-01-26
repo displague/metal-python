@@ -59,8 +59,7 @@ class TestPaymentMethodList(unittest.TestCase):
                         organization = metal.models.href.Href(
                             href = '', ), 
                         projects = [
-                            metal.models.href.Href(
-                                href = '', )
+                            
                             ], )
                     ]
             )

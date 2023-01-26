@@ -63,7 +63,7 @@ payment_method = metal.PaymentMethodCreateInput() # PaymentMethodCreateInput | P
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**str**](.md)| Organization UUID | 
+ **id** | **str**| Organization UUID | 
  **payment_method** | [**PaymentMethodCreateInput**](PaymentMethodCreateInput.md)| Payment Method to create | 
 
 ### Return type
@@ -139,7 +139,7 @@ with metal.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**str**](.md)| Payment Method UUID | 
+ **id** | **str**| Payment Method UUID | 
 
 ### Return type
 
@@ -218,7 +218,7 @@ per_page = 10 # int | Items returned per page (optional) (default to 10)
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**str**](.md)| Organization UUID | 
+ **id** | **str**| Organization UUID | 
  **include** | [**list[str]**](str.md)| Nested attributes to include. Included objects will return their full attributes. Attribute names can be dotted (up to 3 levels) to included deeply nested objects. | [optional] 
  **exclude** | [**list[str]**](str.md)| Nested attributes to exclude. Excluded objects will return only the href attribute. Attribute names can be dotted (up to 3 levels) to exclude deeply nested objects. | [optional] 
  **page** | **int**| Page to return | [optional] [default to 1]
@@ -299,7 +299,7 @@ exclude = ['exclude_example'] # list[str] | Nested attributes to exclude. Exclud
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**str**](.md)| Payment Method UUID | 
+ **id** | **str**| Payment Method UUID | 
  **include** | [**list[str]**](str.md)| Nested attributes to include. Included objects will return their full attributes. Attribute names can be dotted (up to 3 levels) to included deeply nested objects. | [optional] 
  **exclude** | [**list[str]**](str.md)| Nested attributes to exclude. Excluded objects will return only the href attribute. Attribute names can be dotted (up to 3 levels) to exclude deeply nested objects. | [optional] 
 
@@ -377,7 +377,7 @@ payment_method = metal.PaymentMethodUpdateInput() # PaymentMethodUpdateInput | P
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**str**](.md)| Payment Method UUID | 
+ **id** | **str**| Payment Method UUID | 
  **payment_method** | [**PaymentMethodUpdateInput**](PaymentMethodUpdateInput.md)| Payment Method to update | 
 
 ### Return type

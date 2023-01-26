@@ -43,8 +43,8 @@ class TestAuthToken(unittest.TestCase):
                 updated_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
                 description = '', 
                 read_only = True, 
-                user = None, 
-                project = None
+                user = metal.models.auth_token_user.AuthToken_user(), 
+                project = metal.models.auth_token_project.AuthToken_project()
             )
         else :
             return AuthToken(

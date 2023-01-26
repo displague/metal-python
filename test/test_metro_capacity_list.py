@@ -43,26 +43,19 @@ class TestMetroCapacityList(unittest.TestCase):
                             level = '', ), 
                         baremetal_2a2 = metal.models.capacity_level_per_baremetal.CapacityLevelPerBaremetal(
                             level = '', ), 
-                        baremetal_1 = metal.models.capacity_level_per_baremetal.CapacityLevelPerBaremetal(
-                            level = '', ), 
-                        baremetal_3 = metal.models.capacity_level_per_baremetal.CapacityLevelPerBaremetal(
-                            level = '', ), 
-                        c2/medium/x86 = metal.models.capacity_level_per_baremetal.CapacityLevelPerBaremetal(
-                            level = '', ), 
-                        baremetal_2 = metal.models.capacity_level_per_baremetal.CapacityLevelPerBaremetal(
-                            level = '', ), 
-                        m2/xlarge/x86 = metal.models.capacity_level_per_baremetal.CapacityLevelPerBaremetal(
-                            level = '', ), 
-                        baremetal_s = metal.models.capacity_level_per_baremetal.CapacityLevelPerBaremetal(
-                            level = '', ), 
-                        baremetal_0 = metal.models.capacity_level_per_baremetal.CapacityLevelPerBaremetal(
-                            level = '', ), ), 
+                        baremetal_1 = , 
+                        baremetal_3 = , 
+                        c2/medium/x86 = , 
+                        baremetal_2 = , 
+                        m2/xlarge/x86 = , 
+                        baremetal_s = , 
+                        baremetal_0 = , ), 
                     sv = metal.models.capacity_per_facility.CapacityPerFacility(), 
-                    am = metal.models.capacity_per_facility.CapacityPerFacility(), 
-                    ch = metal.models.capacity_per_facility.CapacityPerFacility(), 
-                    la = metal.models.capacity_per_facility.CapacityPerFacility(), 
-                    sg = metal.models.capacity_per_facility.CapacityPerFacility(), 
-                    da = metal.models.capacity_per_facility.CapacityPerFacility(), )
+                    am = , 
+                    ch = , 
+                    la = , 
+                    sg = , 
+                    da = , )
             )
         else :
             return MetroCapacityList(

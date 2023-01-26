@@ -51,11 +51,11 @@ class IPReservation(object):
         'assignments': 'list[IPAssignment]',
         'network': 'str',
         'created_at': 'datetime',
-        'facility': 'Facility',
+        'facility': 'IPReservationFacility',
         'href': 'str',
         'tags': 'list[str]',
         'state': 'str',
-        'metro': 'Metro'
+        'metro': 'IPReservationMetro'
     }
 
     attribute_map = {
@@ -446,7 +446,7 @@ class IPReservation(object):
 
 
         :return: The facility of this IPReservation.  # noqa: E501
-        :rtype: Facility
+        :rtype: IPReservationFacility
         """
         return self._facility
 
@@ -456,7 +456,7 @@ class IPReservation(object):
 
 
         :param facility: The facility of this IPReservation.  # noqa: E501
-        :type facility: Facility
+        :type facility: IPReservationFacility
         """
 
         self._facility = facility
@@ -530,7 +530,7 @@ class IPReservation(object):
 
 
         :return: The metro of this IPReservation.  # noqa: E501
-        :rtype: Metro
+        :rtype: IPReservationMetro
         """
         return self._metro
 
@@ -540,7 +540,7 @@ class IPReservation(object):
 
 
         :param metro: The metro of this IPReservation.  # noqa: E501
-        :type metro: Metro
+        :type metro: IPReservationMetro
         """
 
         self._metro = metro

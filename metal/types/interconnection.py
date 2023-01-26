@@ -49,7 +49,7 @@ class Interconnection(object):
         'ports': 'list[InterconnectionPort]',
         'facility': 'Href',
         'organization': 'Href',
-        'metro': 'Metro',
+        'metro': 'InterconnectionMetro',
         'mode': 'str'
     }
 
@@ -381,7 +381,7 @@ class Interconnection(object):
 
 
         :return: The metro of this Interconnection.  # noqa: E501
-        :rtype: Metro
+        :rtype: InterconnectionMetro
         """
         return self._metro
 
@@ -391,7 +391,7 @@ class Interconnection(object):
 
 
         :param metro: The metro of this Interconnection.  # noqa: E501
-        :type metro: Metro
+        :type metro: InterconnectionMetro
         """
 
         self._metro = metro

@@ -64,7 +64,7 @@ per_page = 10 # int | Items returned per page (optional) (default to 10)
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | [**str**](.md)| Project UUID | 
+ **project_id** | **str**| Project UUID | 
  **metal_gateway** | [**MetalGatewayInput**](MetalGatewayInput.md)| Metal Gateway to create | 
  **page** | **int**| Page to return | [optional] [default to 1]
  **per_page** | **int**| Items returned per page | [optional] [default to 10]
@@ -142,7 +142,7 @@ with metal.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**str**](.md)| Metal Gateway UUID | 
+ **id** | **str**| Metal Gateway UUID | 
 
 ### Return type
 
@@ -217,7 +217,7 @@ with metal.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**str**](.md)| Metal Gateway UUID | 
+ **id** | **str**| Metal Gateway UUID | 
 
 ### Return type
 
@@ -294,7 +294,7 @@ per_page = 10 # int | Items returned per page (optional) (default to 10)
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | [**str**](.md)| Project UUID | 
+ **project_id** | **str**| Project UUID | 
  **page** | **int**| Page to return | [optional] [default to 1]
  **per_page** | **int**| Items returned per page | [optional] [default to 10]
 

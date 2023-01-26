@@ -43,8 +43,8 @@ class AuthToken(object):
         'updated_at': 'datetime',
         'description': 'str',
         'read_only': 'bool',
-        'user': 'User',
-        'project': 'Project'
+        'user': 'AuthTokenUser',
+        'project': 'AuthTokenProject'
     }
 
     attribute_map = {
@@ -225,7 +225,7 @@ class AuthToken(object):
 
 
         :return: The user of this AuthToken.  # noqa: E501
-        :rtype: User
+        :rtype: AuthTokenUser
         """
         return self._user
 
@@ -235,7 +235,7 @@ class AuthToken(object):
 
 
         :param user: The user of this AuthToken.  # noqa: E501
-        :type user: User
+        :type user: AuthTokenUser
         """
 
         self._user = user
@@ -246,7 +246,7 @@ class AuthToken(object):
 
 
         :return: The project of this AuthToken.  # noqa: E501
-        :rtype: Project
+        :rtype: AuthTokenProject
         """
         return self._project
 
@@ -256,7 +256,7 @@ class AuthToken(object):
 
 
         :param project: The project of this AuthToken.  # noqa: E501
-        :type project: Project
+        :type project: AuthTokenProject
         """
 
         self._project = project

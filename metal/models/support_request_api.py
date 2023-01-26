@@ -96,6 +96,7 @@ class SupportRequestApi(object):
                               request; this effectively ignores the authentication
                               in the spec for a single request.
         :type _request_auth: dict, optional
+        :type _content_type: string, optional: force content-type for the request
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
@@ -113,7 +114,9 @@ class SupportRequestApi(object):
                 '_return_http_data_only',
                 '_preload_content',
                 '_request_timeout',
-                '_request_auth'
+                '_request_auth',
+                '_content_type',
+                '_headers'
             ]
         )
 
@@ -126,8 +129,7 @@ class SupportRequestApi(object):
             local_var_params[key] = val
         del local_var_params['kwargs']
         # verify the required parameter 'support_request' is set
-        if self.api_client.client_side_validation and ('support_request' not in local_var_params or  # noqa: E501
-                                                        local_var_params['support_request'] is None):  # noqa: E501
+        if self.api_client.client_side_validation and local_var_params.get('support_request') is None:  # noqa: E501
             raise ApiValueError("Missing the required parameter `support_request` when calling `request_suppert`")  # noqa: E501
 
         collection_formats = {}
@@ -136,7 +138,7 @@ class SupportRequestApi(object):
 
         query_params = []
 
-        header_params = {}
+        header_params = dict(local_var_params.get('_headers', {}))
 
         form_params = []
         local_var_files = {}
@@ -149,8 +151,12 @@ class SupportRequestApi(object):
             ['application/json'])  # noqa: E501
 
         # HTTP header `Content-Type`
-        header_params['Content-Type'] = self.api_client.select_header_content_type(  # noqa: E501
-            ['application/json'])  # noqa: E501
+        content_types_list = local_var_params.get('_content_type',
+            self.api_client.select_header_content_type(
+                ['application/json'],
+                'POST', body_params))  # noqa: E501
+        if content_types_list:
+                header_params['Content-Type'] = content_types_list
 
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501

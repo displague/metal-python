@@ -70,7 +70,7 @@ ip_assignment = metal.IPAssignmentInput() # IPAssignmentInput | IPAssignment to 
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**str**](.md)| Device UUID | 
+ **id** | **str**| Device UUID | 
  **ip_assignment** | [**IPAssignmentInput**](IPAssignmentInput.md)| IPAssignment to create | 
 
 ### Return type
@@ -148,7 +148,7 @@ reservation = metal.CreateSelfServiceReservationRequest() # CreateSelfServiceRes
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | [**str**](.md)| Project UUID | 
+ **project_id** | **str**| Project UUID | 
  **reservation** | [**CreateSelfServiceReservationRequest**](CreateSelfServiceReservationRequest.md)| reservation to create | 
 
 ### Return type
@@ -223,7 +223,7 @@ with metal.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**str**](.md)| IP Address UUID | 
+ **id** | **str**| IP Address UUID | 
 
 ### Return type
 
@@ -301,7 +301,7 @@ exclude = ['exclude_example'] # list[str] | Nested attributes to exclude. Exclud
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**str**](.md)| IP Address UUID | 
+ **id** | **str**| IP Address UUID | 
  **include** | [**list[str]**](str.md)| Nested attributes to include. Included objects will return their full attributes. Attribute names can be dotted (up to 3 levels) to included deeply nested objects. | [optional] 
  **exclude** | [**list[str]**](str.md)| Nested attributes to exclude. Excluded objects will return only the href attribute. Attribute names can be dotted (up to 3 levels) to exclude deeply nested objects. | [optional] 
 
@@ -378,7 +378,7 @@ with metal.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**str**](.md)| Ip Reservation UUID | 
+ **id** | **str**| Ip Reservation UUID | 
 
 ### Return type
 
@@ -456,7 +456,7 @@ exclude = ['exclude_example'] # list[str] | Nested attributes to exclude. Exclud
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**str**](.md)| Device UUID | 
+ **id** | **str**| Device UUID | 
  **include** | [**list[str]**](str.md)| Nested attributes to include. Included objects will return their full attributes. Attribute names can be dotted (up to 3 levels) to included deeply nested objects. | [optional] 
  **exclude** | [**list[str]**](str.md)| Nested attributes to exclude. Excluded objects will return only the href attribute. Attribute names can be dotted (up to 3 levels) to exclude deeply nested objects. | [optional] 
 
@@ -534,7 +534,7 @@ cidr = 'cidr_example' # str | Size of subnets in bits
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**str**](.md)| IP Reservation UUID | 
+ **id** | **str**| IP Reservation UUID | 
  **cidr** | **str**| Size of subnets in bits | 
 
 ### Return type
@@ -613,7 +613,7 @@ exclude = ['exclude_example'] # list[str] | Nested attributes to exclude. Exclud
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**str**](.md)| Project UUID | 
+ **id** | **str**| Project UUID | 
  **include** | [**list[str]**](str.md)| Nested attributes to include. Included objects will return their full attributes. Attribute names can be dotted (up to 3 levels) to included deeply nested objects. | [optional] 
  **exclude** | [**list[str]**](str.md)| Nested attributes to exclude. Excluded objects will return only the href attribute. Attribute names can be dotted (up to 3 levels) to exclude deeply nested objects. | [optional] 
 
@@ -692,8 +692,8 @@ project_id = 'project_id_example' # str | Project UUID
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**str**](.md)| Reservation short_id | 
- **project_id** | [**str**](.md)| Project UUID | 
+ **id** | **str**| Reservation short_id | 
+ **project_id** | **str**| Project UUID | 
 
 ### Return type
 
@@ -770,7 +770,7 @@ per_page = 10 # int | Items returned per page (optional) (default to 10)
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **project_id** | [**str**](.md)| Project UUID | 
+ **project_id** | **str**| Project UUID | 
  **page** | **int**| Page to return | [optional] [default to 1]
  **per_page** | **int**| Items returned per page | [optional] [default to 10]
 
@@ -847,7 +847,7 @@ ip_reservation_request = metal.IPReservationRequestInput() # IPReservationReques
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**str**](.md)| Project UUID | 
+ **id** | **str**| Project UUID | 
  **ip_reservation_request** | [**IPReservationRequestInput**](IPReservationRequestInput.md)| IP Reservation Request to create | 
 
 ### Return type
@@ -927,7 +927,7 @@ customdata = 'customdata_example' # str | Provides the custom metadata stored fo
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | [**str**](.md)| IP Address UUID | 
+ **id** | **str**| IP Address UUID | 
  **details** | **str**| Notes for this IP Assignment | 
  **customdata** | **str**| Provides the custom metadata stored for this IP Assignment in json format | 
 
