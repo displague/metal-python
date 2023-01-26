@@ -12,7 +12,7 @@ Method | HTTP request | Description
 
 
 # **create_license**
-> License create_license(id, license)
+> License create_license(id, license_create_input)
 
 Create a License
 
@@ -49,11 +49,11 @@ with metal.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = metal.LicensesApi(api_client)
     id = 'id_example' # str | Project UUID
-license = metal.LicenseCreateInput() # LicenseCreateInput | License to create
+license_create_input = metal.LicenseCreateInput() # LicenseCreateInput | License to create
 
     try:
         # Create a License
-        api_response = api_instance.create_license(id, license)
+        api_response = api_instance.create_license(id, license_create_input)
         pprint(api_response)
     except ApiException as e:
         print("Exception when calling LicensesApi->create_license: %s\n" % e)
@@ -64,7 +64,7 @@ license = metal.LicenseCreateInput() # LicenseCreateInput | License to create
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **str**| Project UUID | 
- **license** | [**LicenseCreateInput**](LicenseCreateInput.md)| License to create | 
+ **license_create_input** | [**LicenseCreateInput**](LicenseCreateInput.md)| License to create | 
 
 ### Return type
 
@@ -84,9 +84,9 @@ Name | Type | Description  | Notes
 |-------------|-------------|------------------|
 **201** | created |  -  |
 **401** | unauthorized |  -  |
-**422** | unprocessable entity |  -  |
 **403** | forbidden |  -  |
 **404** | not found |  -  |
+**422** | unprocessable entity |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -330,7 +330,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_license**
-> License update_license(id, license)
+> License update_license(id, license_update_input)
 
 Update the license
 
@@ -367,11 +367,11 @@ with metal.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = metal.LicensesApi(api_client)
     id = 'id_example' # str | License UUID
-license = metal.LicenseUpdateInput() # LicenseUpdateInput | License to update
+license_update_input = metal.LicenseUpdateInput() # LicenseUpdateInput | License to update
 
     try:
         # Update the license
-        api_response = api_instance.update_license(id, license)
+        api_response = api_instance.update_license(id, license_update_input)
         pprint(api_response)
     except ApiException as e:
         print("Exception when calling LicensesApi->update_license: %s\n" % e)
@@ -382,7 +382,7 @@ license = metal.LicenseUpdateInput() # LicenseUpdateInput | License to update
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **str**| License UUID | 
- **license** | [**LicenseUpdateInput**](LicenseUpdateInput.md)| License to update | 
+ **license_update_input** | [**LicenseUpdateInput**](LicenseUpdateInput.md)| License to update | 
 
 ### Return type
 

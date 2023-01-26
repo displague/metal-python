@@ -3,7 +3,7 @@
 """
     Metal API
 
-    This is the API for Equinix Metal. The API allows you to programmatically interact with all of your Equinix Metal resources, including devices, networks, addresses, organizations, projects, and your user account.  The official API docs are hosted at <https://metal.equinix.com/developers/api>.   # noqa: E501
+    # Introduction Equinix Metal provides a RESTful HTTP API which can be reached at <https://api.equinix.com/metal/v1>. This document describes the API and how to use it.  The API allows you to programmatically interact with all of your Equinix Metal resources, including devices, networks, addresses, organizations, projects, and your user account. Every feature of the Equinix Metal web interface is accessible through the API.  The API docs are generated from the Equinix Metal OpenAPI specification and are officially hosted at <https://metal.equinix.com/developers/api>.  # Common Parameters  The Equinix Metal API uses a few methods to minimize network traffic and improve throughput. These parameters are not used in all API calls, but are used often enough to warrant their own section. Look for these parameters in the documentation for the API calls that support them.  ## Pagination  Pagination is used to limit the number of results returned in a single request. The API will return a maximum of 100 results per page. To retrieve additional results, you can use the `page` and `per_page` query parameters.  The `page` parameter is used to specify the page number. The first page is `1`. The `per_page` parameter is used to specify the number of results per page. The maximum number of results differs by resource type.  ## Sorting  Where offered, the API allows you to sort results by a specific field. To sort results use the `sort_by` query parameter with the root level field name as the value. The `sort_direction` parameter is used to specify the sort direction, either either `asc` (ascending) or `desc` (descending).  ## Filtering  Filtering is used to limit the results returned in a single request. The API supports filtering by certain fields in the response. To filter results, you can use the field as a query parameter.  For example, to filter the IP list to only return public IPv4 addresses, you can filter by the `type` field, as in the following request:  ```sh curl -H 'X-Auth-Token: my_authentication_token' \\   https://api.equinix.com/metal/v1/projects/id/ips?type=public_ipv4 ```  Only IP addresses with the `type` field set to `public_ipv4` will be returned.  ## Searching  Searching is used to find matching resources using multiple field comparissons. The API supports searching in resources that define this behavior. The fields available for search differ by resource, as does the search strategy.  To search resources you can use the `search` query parameter.  ## Include and Exclude  For resources that contain references to other resources, sucha as a Device that refers to the Project it resides in, the Equinix Metal API will returns `href` values (API links) to the associated resource.  ```json {   ...   \"project\": {     \"href\": \"/metal/v1/projects/f3f131c8-f302-49ef-8c44-9405022dc6dd\"   } } ```  If you're going need the project details, you can avoid a second API request.  Specify the contained `href` resources and collections that you'd like to have included in the response using the `include` query parameter.  For example:  ```sh curl -H 'X-Auth-Token: my_authentication_token' \\   https://api.equinix.com/metal/v1/user?include=projects ```  The `include` parameter is generally accepted in `GET`, `POST`, `PUT`, and `PATCH` requests where `href` resources are presented.  To have multiple resources include, use a comma-separated list (e.g. `?include=emails,projects,memberships`).  ```sh curl -H 'X-Auth-Token: my_authentication_token' \\   https://api.equinix.com/metal/v1/user?include=emails,projects,memberships ```  You may also include nested associations up to three levels deep using dot notation (`?include=memberships.projects`):  ```sh curl -H 'X-Auth-Token: my_authentication_token' \\   https://api.equinix.com/metal/v1/user?include=memberships.projects ```  To exclude resources, and optimize response delivery, use the `exclude` query parameter. The `exclude` parameter is generally accepted in `GET`, `POST`, `PUT`, and `PATCH` requests for fields with nested object responses. When excluded, these fields will be replaced with an object that contains only an `href` field.   # noqa: E501
 
     The version of the OpenAPI document: 1.0.0
     Contact: support@equinixmetal.com
@@ -37,152 +37,114 @@ class Interconnection(object):
                             and the value is json key in definition.
     """
     openapi_types = {
-        'id': 'str',
-        'name': 'str',
-        'description': 'str',
         'contact_email': 'str',
-        'status': 'str',
-        'type': 'str',
-        'redundancy': 'str',
-        'speed': 'int',
-        'tags': 'list[str]',
-        'ports': 'list[InterconnectionPort]',
+        'description': 'str',
         'facility': 'Href',
-        'organization': 'Href',
+        'id': 'str',
         'metro': 'InterconnectionMetro',
-        'mode': 'str'
+        'mode': 'str',
+        'name': 'str',
+        'organization': 'Href',
+        'ports': 'list[InterconnectionPort]',
+        'redundancy': 'str',
+        'service_tokens': 'list[FabricServiceToken]',
+        'speed': 'int',
+        'status': 'str',
+        'tags': 'list[str]',
+        'token': 'str',
+        'type': 'str',
+        'created_at': 'datetime',
+        'updated_at': 'datetime',
+        'requested_by': 'Href'
     }
 
     attribute_map = {
-        'id': 'id',
-        'name': 'name',
-        'description': 'description',
         'contact_email': 'contact_email',
-        'status': 'status',
-        'type': 'type',
-        'redundancy': 'redundancy',
-        'speed': 'speed',
-        'tags': 'tags',
-        'ports': 'ports',
+        'description': 'description',
         'facility': 'facility',
-        'organization': 'organization',
+        'id': 'id',
         'metro': 'metro',
-        'mode': 'mode'
+        'mode': 'mode',
+        'name': 'name',
+        'organization': 'organization',
+        'ports': 'ports',
+        'redundancy': 'redundancy',
+        'service_tokens': 'service_tokens',
+        'speed': 'speed',
+        'status': 'status',
+        'tags': 'tags',
+        'token': 'token',
+        'type': 'type',
+        'created_at': 'created_at',
+        'updated_at': 'updated_at',
+        'requested_by': 'requested_by'
     }
 
-    def __init__(self, id=None, name=None, description=None, contact_email=None, status=None, type=None, redundancy=None, speed=None, tags=None, ports=None, facility=None, organization=None, metro=None, mode=None, local_vars_configuration=None):  # noqa: E501
+    def __init__(self, contact_email=None, description=None, facility=None, id=None, metro=None, mode=None, name=None, organization=None, ports=None, redundancy=None, service_tokens=None, speed=None, status=None, tags=None, token=None, type=None, created_at=None, updated_at=None, requested_by=None, local_vars_configuration=None):  # noqa: E501
         """Interconnection - a model defined in OpenAPI"""  # noqa: E501
         if local_vars_configuration is None:
             local_vars_configuration = Configuration.get_default_copy()
         self.local_vars_configuration = local_vars_configuration
 
-        self._id = None
-        self._name = None
-        self._description = None
         self._contact_email = None
-        self._status = None
-        self._type = None
-        self._redundancy = None
-        self._speed = None
-        self._tags = None
-        self._ports = None
+        self._description = None
         self._facility = None
-        self._organization = None
+        self._id = None
         self._metro = None
         self._mode = None
+        self._name = None
+        self._organization = None
+        self._ports = None
+        self._redundancy = None
+        self._service_tokens = None
+        self._speed = None
+        self._status = None
+        self._tags = None
+        self._token = None
+        self._type = None
+        self._created_at = None
+        self._updated_at = None
+        self._requested_by = None
         self.discriminator = None
 
-        if id is not None:
-            self.id = id
-        if name is not None:
-            self.name = name
-        if description is not None:
-            self.description = description
         if contact_email is not None:
             self.contact_email = contact_email
-        if status is not None:
-            self.status = status
-        if type is not None:
-            self.type = type
-        if redundancy is not None:
-            self.redundancy = redundancy
-        if speed is not None:
-            self.speed = speed
-        if tags is not None:
-            self.tags = tags
-        if ports is not None:
-            self.ports = ports
+        if description is not None:
+            self.description = description
         if facility is not None:
             self.facility = facility
-        if organization is not None:
-            self.organization = organization
+        if id is not None:
+            self.id = id
         if metro is not None:
             self.metro = metro
         if mode is not None:
             self.mode = mode
-
-    @property
-    def id(self):
-        """Gets the id of this Interconnection.  # noqa: E501
-
-
-        :return: The id of this Interconnection.  # noqa: E501
-        :rtype: str
-        """
-        return self._id
-
-    @id.setter
-    def id(self, id):
-        """Sets the id of this Interconnection.
-
-
-        :param id: The id of this Interconnection.  # noqa: E501
-        :type id: str
-        """
-
-        self._id = id
-
-    @property
-    def name(self):
-        """Gets the name of this Interconnection.  # noqa: E501
-
-
-        :return: The name of this Interconnection.  # noqa: E501
-        :rtype: str
-        """
-        return self._name
-
-    @name.setter
-    def name(self, name):
-        """Sets the name of this Interconnection.
-
-
-        :param name: The name of this Interconnection.  # noqa: E501
-        :type name: str
-        """
-
-        self._name = name
-
-    @property
-    def description(self):
-        """Gets the description of this Interconnection.  # noqa: E501
-
-
-        :return: The description of this Interconnection.  # noqa: E501
-        :rtype: str
-        """
-        return self._description
-
-    @description.setter
-    def description(self, description):
-        """Sets the description of this Interconnection.
-
-
-        :param description: The description of this Interconnection.  # noqa: E501
-        :type description: str
-        """
-
-        self._description = description
+        if name is not None:
+            self.name = name
+        if organization is not None:
+            self.organization = organization
+        if ports is not None:
+            self.ports = ports
+        if redundancy is not None:
+            self.redundancy = redundancy
+        if service_tokens is not None:
+            self.service_tokens = service_tokens
+        if speed is not None:
+            self.speed = speed
+        if status is not None:
+            self.status = status
+        if tags is not None:
+            self.tags = tags
+        if token is not None:
+            self.token = token
+        if type is not None:
+            self.type = type
+        if created_at is not None:
+            self.created_at = created_at
+        if updated_at is not None:
+            self.updated_at = updated_at
+        if requested_by is not None:
+            self.requested_by = requested_by
 
     @property
     def contact_email(self):
@@ -206,132 +168,25 @@ class Interconnection(object):
         self._contact_email = contact_email
 
     @property
-    def status(self):
-        """Gets the status of this Interconnection.  # noqa: E501
+    def description(self):
+        """Gets the description of this Interconnection.  # noqa: E501
 
 
-        :return: The status of this Interconnection.  # noqa: E501
+        :return: The description of this Interconnection.  # noqa: E501
         :rtype: str
         """
-        return self._status
+        return self._description
 
-    @status.setter
-    def status(self, status):
-        """Sets the status of this Interconnection.
+    @description.setter
+    def description(self, description):
+        """Sets the description of this Interconnection.
 
 
-        :param status: The status of this Interconnection.  # noqa: E501
-        :type status: str
+        :param description: The description of this Interconnection.  # noqa: E501
+        :type description: str
         """
 
-        self._status = status
-
-    @property
-    def type(self):
-        """Gets the type of this Interconnection.  # noqa: E501
-
-
-        :return: The type of this Interconnection.  # noqa: E501
-        :rtype: str
-        """
-        return self._type
-
-    @type.setter
-    def type(self, type):
-        """Sets the type of this Interconnection.
-
-
-        :param type: The type of this Interconnection.  # noqa: E501
-        :type type: str
-        """
-
-        self._type = type
-
-    @property
-    def redundancy(self):
-        """Gets the redundancy of this Interconnection.  # noqa: E501
-
-
-        :return: The redundancy of this Interconnection.  # noqa: E501
-        :rtype: str
-        """
-        return self._redundancy
-
-    @redundancy.setter
-    def redundancy(self, redundancy):
-        """Sets the redundancy of this Interconnection.
-
-
-        :param redundancy: The redundancy of this Interconnection.  # noqa: E501
-        :type redundancy: str
-        """
-
-        self._redundancy = redundancy
-
-    @property
-    def speed(self):
-        """Gets the speed of this Interconnection.  # noqa: E501
-
-        The connection's speed in bps.  # noqa: E501
-
-        :return: The speed of this Interconnection.  # noqa: E501
-        :rtype: int
-        """
-        return self._speed
-
-    @speed.setter
-    def speed(self, speed):
-        """Sets the speed of this Interconnection.
-
-        The connection's speed in bps.  # noqa: E501
-
-        :param speed: The speed of this Interconnection.  # noqa: E501
-        :type speed: int
-        """
-
-        self._speed = speed
-
-    @property
-    def tags(self):
-        """Gets the tags of this Interconnection.  # noqa: E501
-
-
-        :return: The tags of this Interconnection.  # noqa: E501
-        :rtype: list[str]
-        """
-        return self._tags
-
-    @tags.setter
-    def tags(self, tags):
-        """Sets the tags of this Interconnection.
-
-
-        :param tags: The tags of this Interconnection.  # noqa: E501
-        :type tags: list[str]
-        """
-
-        self._tags = tags
-
-    @property
-    def ports(self):
-        """Gets the ports of this Interconnection.  # noqa: E501
-
-
-        :return: The ports of this Interconnection.  # noqa: E501
-        :rtype: list[InterconnectionPort]
-        """
-        return self._ports
-
-    @ports.setter
-    def ports(self, ports):
-        """Sets the ports of this Interconnection.
-
-
-        :param ports: The ports of this Interconnection.  # noqa: E501
-        :type ports: list[InterconnectionPort]
-        """
-
-        self._ports = ports
+        self._description = description
 
     @property
     def facility(self):
@@ -355,25 +210,25 @@ class Interconnection(object):
         self._facility = facility
 
     @property
-    def organization(self):
-        """Gets the organization of this Interconnection.  # noqa: E501
+    def id(self):
+        """Gets the id of this Interconnection.  # noqa: E501
 
 
-        :return: The organization of this Interconnection.  # noqa: E501
-        :rtype: Href
+        :return: The id of this Interconnection.  # noqa: E501
+        :rtype: str
         """
-        return self._organization
+        return self._id
 
-    @organization.setter
-    def organization(self, organization):
-        """Sets the organization of this Interconnection.
+    @id.setter
+    def id(self, id):
+        """Sets the id of this Interconnection.
 
 
-        :param organization: The organization of this Interconnection.  # noqa: E501
-        :type organization: Href
+        :param id: The id of this Interconnection.  # noqa: E501
+        :type id: str
         """
 
-        self._organization = organization
+        self._id = id
 
     @property
     def metro(self):
@@ -400,7 +255,7 @@ class Interconnection(object):
     def mode(self):
         """Gets the mode of this Interconnection.  # noqa: E501
 
-        The mode of the connection (only relevant to dedicated connections). Shared connections won't have this field. Can be either 'standard' or 'tunnel'.   The default mode of a dedicated connection is 'standard'. The mode can only be changed when there are no associated virtual circuits on the connection.   In tunnel mode, an 802.1q tunnel is added to a port to send/receive double tagged packets from server instances.  # noqa: E501
+        The mode of the interconnection (only relevant to Dedicated Ports). Shared connections won't have this field. Can be either 'standard' or 'tunnel'.   The default mode of an interconnection on a Dedicated Port is 'standard'. The mode can only be changed when there are no associated virtual circuits on the interconnection.   In tunnel mode, an 802.1q tunnel is added to a port to send/receive double tagged packets from server instances.  # noqa: E501
 
         :return: The mode of this Interconnection.  # noqa: E501
         :rtype: str
@@ -411,7 +266,7 @@ class Interconnection(object):
     def mode(self, mode):
         """Sets the mode of this Interconnection.
 
-        The mode of the connection (only relevant to dedicated connections). Shared connections won't have this field. Can be either 'standard' or 'tunnel'.   The default mode of a dedicated connection is 'standard'. The mode can only be changed when there are no associated virtual circuits on the connection.   In tunnel mode, an 802.1q tunnel is added to a port to send/receive double tagged packets from server instances.  # noqa: E501
+        The mode of the interconnection (only relevant to Dedicated Ports). Shared connections won't have this field. Can be either 'standard' or 'tunnel'.   The default mode of an interconnection on a Dedicated Port is 'standard'. The mode can only be changed when there are no associated virtual circuits on the interconnection.   In tunnel mode, an 802.1q tunnel is added to a port to send/receive double tagged packets from server instances.  # noqa: E501
 
         :param mode: The mode of this Interconnection.  # noqa: E501
         :type mode: str
@@ -424,6 +279,303 @@ class Interconnection(object):
             )
 
         self._mode = mode
+
+    @property
+    def name(self):
+        """Gets the name of this Interconnection.  # noqa: E501
+
+
+        :return: The name of this Interconnection.  # noqa: E501
+        :rtype: str
+        """
+        return self._name
+
+    @name.setter
+    def name(self, name):
+        """Sets the name of this Interconnection.
+
+
+        :param name: The name of this Interconnection.  # noqa: E501
+        :type name: str
+        """
+
+        self._name = name
+
+    @property
+    def organization(self):
+        """Gets the organization of this Interconnection.  # noqa: E501
+
+
+        :return: The organization of this Interconnection.  # noqa: E501
+        :rtype: Href
+        """
+        return self._organization
+
+    @organization.setter
+    def organization(self, organization):
+        """Sets the organization of this Interconnection.
+
+
+        :param organization: The organization of this Interconnection.  # noqa: E501
+        :type organization: Href
+        """
+
+        self._organization = organization
+
+    @property
+    def ports(self):
+        """Gets the ports of this Interconnection.  # noqa: E501
+
+        For Fabric VCs, these represent Virtual Port(s) created for the interconnection. For dedicated interconnections, these represent the Dedicated Port(s).  # noqa: E501
+
+        :return: The ports of this Interconnection.  # noqa: E501
+        :rtype: list[InterconnectionPort]
+        """
+        return self._ports
+
+    @ports.setter
+    def ports(self, ports):
+        """Sets the ports of this Interconnection.
+
+        For Fabric VCs, these represent Virtual Port(s) created for the interconnection. For dedicated interconnections, these represent the Dedicated Port(s).  # noqa: E501
+
+        :param ports: The ports of this Interconnection.  # noqa: E501
+        :type ports: list[InterconnectionPort]
+        """
+
+        self._ports = ports
+
+    @property
+    def redundancy(self):
+        """Gets the redundancy of this Interconnection.  # noqa: E501
+
+        Either 'primary', meaning a single interconnection, or 'redundant', meaning a redundant interconnection.  # noqa: E501
+
+        :return: The redundancy of this Interconnection.  # noqa: E501
+        :rtype: str
+        """
+        return self._redundancy
+
+    @redundancy.setter
+    def redundancy(self, redundancy):
+        """Sets the redundancy of this Interconnection.
+
+        Either 'primary', meaning a single interconnection, or 'redundant', meaning a redundant interconnection.  # noqa: E501
+
+        :param redundancy: The redundancy of this Interconnection.  # noqa: E501
+        :type redundancy: str
+        """
+        allowed_values = ["primary", "redundant"]  # noqa: E501
+        if self.local_vars_configuration.client_side_validation and redundancy not in allowed_values:  # noqa: E501
+            raise ValueError(
+                "Invalid value for `redundancy` ({0}), must be one of {1}"  # noqa: E501
+                .format(redundancy, allowed_values)
+            )
+
+        self._redundancy = redundancy
+
+    @property
+    def service_tokens(self):
+        """Gets the service_tokens of this Interconnection.  # noqa: E501
+
+        For Fabric VCs (Metal Billed), this will show details of the A-Side service tokens issued for the interconnection. For Fabric VCs (Fabric Billed), this will show the details of the Z-Side service tokens issued for the interconnection. Dedicated interconnections will not have any service tokens issued. There will be one per interconnection, so for redundant interconnections, there should be two service tokens issued.  # noqa: E501
+
+        :return: The service_tokens of this Interconnection.  # noqa: E501
+        :rtype: list[FabricServiceToken]
+        """
+        return self._service_tokens
+
+    @service_tokens.setter
+    def service_tokens(self, service_tokens):
+        """Sets the service_tokens of this Interconnection.
+
+        For Fabric VCs (Metal Billed), this will show details of the A-Side service tokens issued for the interconnection. For Fabric VCs (Fabric Billed), this will show the details of the Z-Side service tokens issued for the interconnection. Dedicated interconnections will not have any service tokens issued. There will be one per interconnection, so for redundant interconnections, there should be two service tokens issued.  # noqa: E501
+
+        :param service_tokens: The service_tokens of this Interconnection.  # noqa: E501
+        :type service_tokens: list[FabricServiceToken]
+        """
+
+        self._service_tokens = service_tokens
+
+    @property
+    def speed(self):
+        """Gets the speed of this Interconnection.  # noqa: E501
+
+        For interconnections on Dedicated Ports and shared connections, this represents the interconnection's speed in bps. For Fabric VCs, this field refers to the maximum speed of the interconnection in bps. This value will default to 10Gbps for Fabric VCs (Fabric Billed).  # noqa: E501
+
+        :return: The speed of this Interconnection.  # noqa: E501
+        :rtype: int
+        """
+        return self._speed
+
+    @speed.setter
+    def speed(self, speed):
+        """Sets the speed of this Interconnection.
+
+        For interconnections on Dedicated Ports and shared connections, this represents the interconnection's speed in bps. For Fabric VCs, this field refers to the maximum speed of the interconnection in bps. This value will default to 10Gbps for Fabric VCs (Fabric Billed).  # noqa: E501
+
+        :param speed: The speed of this Interconnection.  # noqa: E501
+        :type speed: int
+        """
+
+        self._speed = speed
+
+    @property
+    def status(self):
+        """Gets the status of this Interconnection.  # noqa: E501
+
+
+        :return: The status of this Interconnection.  # noqa: E501
+        :rtype: str
+        """
+        return self._status
+
+    @status.setter
+    def status(self, status):
+        """Sets the status of this Interconnection.
+
+
+        :param status: The status of this Interconnection.  # noqa: E501
+        :type status: str
+        """
+
+        self._status = status
+
+    @property
+    def tags(self):
+        """Gets the tags of this Interconnection.  # noqa: E501
+
+
+        :return: The tags of this Interconnection.  # noqa: E501
+        :rtype: list[str]
+        """
+        return self._tags
+
+    @tags.setter
+    def tags(self, tags):
+        """Sets the tags of this Interconnection.
+
+
+        :param tags: The tags of this Interconnection.  # noqa: E501
+        :type tags: list[str]
+        """
+
+        self._tags = tags
+
+    @property
+    def token(self):
+        """Gets the token of this Interconnection.  # noqa: E501
+
+        This token is used for shared interconnections to be used as the Fabric Token. This field is entirely deprecated.  # noqa: E501
+
+        :return: The token of this Interconnection.  # noqa: E501
+        :rtype: str
+        """
+        return self._token
+
+    @token.setter
+    def token(self, token):
+        """Sets the token of this Interconnection.
+
+        This token is used for shared interconnections to be used as the Fabric Token. This field is entirely deprecated.  # noqa: E501
+
+        :param token: The token of this Interconnection.  # noqa: E501
+        :type token: str
+        """
+
+        self._token = token
+
+    @property
+    def type(self):
+        """Gets the type of this Interconnection.  # noqa: E501
+
+        The 'shared' type of interconnection refers to shared connections, or later also known as Fabric Virtual Connections (or Fabric VCs). The 'dedicated' type of interconnection refers to interconnections created with Dedicated Ports.  # noqa: E501
+
+        :return: The type of this Interconnection.  # noqa: E501
+        :rtype: str
+        """
+        return self._type
+
+    @type.setter
+    def type(self, type):
+        """Sets the type of this Interconnection.
+
+        The 'shared' type of interconnection refers to shared connections, or later also known as Fabric Virtual Connections (or Fabric VCs). The 'dedicated' type of interconnection refers to interconnections created with Dedicated Ports.  # noqa: E501
+
+        :param type: The type of this Interconnection.  # noqa: E501
+        :type type: str
+        """
+        allowed_values = ["shared", "dedicated"]  # noqa: E501
+        if self.local_vars_configuration.client_side_validation and type not in allowed_values:  # noqa: E501
+            raise ValueError(
+                "Invalid value for `type` ({0}), must be one of {1}"  # noqa: E501
+                .format(type, allowed_values)
+            )
+
+        self._type = type
+
+    @property
+    def created_at(self):
+        """Gets the created_at of this Interconnection.  # noqa: E501
+
+
+        :return: The created_at of this Interconnection.  # noqa: E501
+        :rtype: datetime
+        """
+        return self._created_at
+
+    @created_at.setter
+    def created_at(self, created_at):
+        """Sets the created_at of this Interconnection.
+
+
+        :param created_at: The created_at of this Interconnection.  # noqa: E501
+        :type created_at: datetime
+        """
+
+        self._created_at = created_at
+
+    @property
+    def updated_at(self):
+        """Gets the updated_at of this Interconnection.  # noqa: E501
+
+
+        :return: The updated_at of this Interconnection.  # noqa: E501
+        :rtype: datetime
+        """
+        return self._updated_at
+
+    @updated_at.setter
+    def updated_at(self, updated_at):
+        """Sets the updated_at of this Interconnection.
+
+
+        :param updated_at: The updated_at of this Interconnection.  # noqa: E501
+        :type updated_at: datetime
+        """
+
+        self._updated_at = updated_at
+
+    @property
+    def requested_by(self):
+        """Gets the requested_by of this Interconnection.  # noqa: E501
+
+
+        :return: The requested_by of this Interconnection.  # noqa: E501
+        :rtype: Href
+        """
+        return self._requested_by
+
+    @requested_by.setter
+    def requested_by(self, requested_by):
+        """Sets the requested_by of this Interconnection.
+
+
+        :param requested_by: The requested_by of this Interconnection.  # noqa: E501
+        :type requested_by: Href
+        """
+
+        self._requested_by = requested_by
 
     def to_dict(self, serialize=False):
         """Returns the model properties as a dict"""

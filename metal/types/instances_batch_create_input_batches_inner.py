@@ -3,7 +3,7 @@
 """
     Metal API
 
-    This is the API for Equinix Metal. The API allows you to programmatically interact with all of your Equinix Metal resources, including devices, networks, addresses, organizations, projects, and your user account.  The official API docs are hosted at <https://metal.equinix.com/developers/api>.   # noqa: E501
+    # Introduction Equinix Metal provides a RESTful HTTP API which can be reached at <https://api.equinix.com/metal/v1>. This document describes the API and how to use it.  The API allows you to programmatically interact with all of your Equinix Metal resources, including devices, networks, addresses, organizations, projects, and your user account. Every feature of the Equinix Metal web interface is accessible through the API.  The API docs are generated from the Equinix Metal OpenAPI specification and are officially hosted at <https://metal.equinix.com/developers/api>.  # Common Parameters  The Equinix Metal API uses a few methods to minimize network traffic and improve throughput. These parameters are not used in all API calls, but are used often enough to warrant their own section. Look for these parameters in the documentation for the API calls that support them.  ## Pagination  Pagination is used to limit the number of results returned in a single request. The API will return a maximum of 100 results per page. To retrieve additional results, you can use the `page` and `per_page` query parameters.  The `page` parameter is used to specify the page number. The first page is `1`. The `per_page` parameter is used to specify the number of results per page. The maximum number of results differs by resource type.  ## Sorting  Where offered, the API allows you to sort results by a specific field. To sort results use the `sort_by` query parameter with the root level field name as the value. The `sort_direction` parameter is used to specify the sort direction, either either `asc` (ascending) or `desc` (descending).  ## Filtering  Filtering is used to limit the results returned in a single request. The API supports filtering by certain fields in the response. To filter results, you can use the field as a query parameter.  For example, to filter the IP list to only return public IPv4 addresses, you can filter by the `type` field, as in the following request:  ```sh curl -H 'X-Auth-Token: my_authentication_token' \\   https://api.equinix.com/metal/v1/projects/id/ips?type=public_ipv4 ```  Only IP addresses with the `type` field set to `public_ipv4` will be returned.  ## Searching  Searching is used to find matching resources using multiple field comparissons. The API supports searching in resources that define this behavior. The fields available for search differ by resource, as does the search strategy.  To search resources you can use the `search` query parameter.  ## Include and Exclude  For resources that contain references to other resources, sucha as a Device that refers to the Project it resides in, the Equinix Metal API will returns `href` values (API links) to the associated resource.  ```json {   ...   \"project\": {     \"href\": \"/metal/v1/projects/f3f131c8-f302-49ef-8c44-9405022dc6dd\"   } } ```  If you're going need the project details, you can avoid a second API request.  Specify the contained `href` resources and collections that you'd like to have included in the response using the `include` query parameter.  For example:  ```sh curl -H 'X-Auth-Token: my_authentication_token' \\   https://api.equinix.com/metal/v1/user?include=projects ```  The `include` parameter is generally accepted in `GET`, `POST`, `PUT`, and `PATCH` requests where `href` resources are presented.  To have multiple resources include, use a comma-separated list (e.g. `?include=emails,projects,memberships`).  ```sh curl -H 'X-Auth-Token: my_authentication_token' \\   https://api.equinix.com/metal/v1/user?include=emails,projects,memberships ```  You may also include nested associations up to three levels deep using dot notation (`?include=memberships.projects`):  ```sh curl -H 'X-Auth-Token: my_authentication_token' \\   https://api.equinix.com/metal/v1/user?include=memberships.projects ```  To exclude resources, and optimize response delivery, use the `exclude` query parameter. The `exclude` parameter is generally accepted in `GET`, `POST`, `PUT`, and `PATCH` requests for fields with nested object responses. When excluded, these fields will be replaced with an object that contains only an `href` field.   # noqa: E501
 
     The version of the OpenAPI document: 1.0.0
     Contact: support@equinixmetal.com
@@ -37,156 +37,150 @@ class InstancesBatchCreateInputBatchesInner(object):
                             and the value is json key in definition.
     """
     openapi_types = {
-        'plan': 'str',
-        'hostname': 'str',
         'hostnames': 'list[str]',
-        'facility': 'list[str]',
+        'quantity': 'int',
         'metro': 'str',
-        'description': 'str',
-        'billing_cycle': 'str',
-        'operating_system': 'str',
         'always_pxe': 'bool',
-        'userdata': 'str',
-        'locked': 'bool',
-        'termination_time': 'datetime',
-        'tags': 'list[str]',
-        'project_ssh_keys': 'list[str]',
-        'user_ssh_keys': 'list[str]',
-        'no_ssh_keys': 'bool',
+        'billing_cycle': 'str',
+        'customdata': 'dict[str, object]',
+        'description': 'str',
         'features': 'list[str]',
-        'customdata': 'object',
-        'ip_addresses': 'list[InstancesBatchCreateInputBatchesInnerIpAddressesInner]'
+        'hardware_reservation_id': 'str',
+        'hostname': 'str',
+        'ip_addresses': 'list[DeviceCreateInputIpAddressesInner]',
+        'ipxe_script_url': 'str',
+        'locked': 'bool',
+        'no_ssh_keys': 'bool',
+        'operating_system': 'str',
+        'plan': 'str',
+        'private_ipv4_subnet_size': 'float',
+        'project_ssh_keys': 'list[str]',
+        'public_ipv4_subnet_size': 'float',
+        'spot_instance': 'bool',
+        'spot_price_max': 'float',
+        'ssh_keys': 'list[SSHKeyInput]',
+        'tags': 'list[str]',
+        'termination_time': 'datetime',
+        'user_ssh_keys': 'list[str]',
+        'userdata': 'str',
+        'facility': 'FacilityInputFacility'
     }
 
     attribute_map = {
-        'plan': 'plan',
-        'hostname': 'hostname',
         'hostnames': 'hostnames',
-        'facility': 'facility',
+        'quantity': 'quantity',
         'metro': 'metro',
-        'description': 'description',
-        'billing_cycle': 'billing_cycle',
-        'operating_system': 'operating_system',
         'always_pxe': 'always_pxe',
-        'userdata': 'userdata',
-        'locked': 'locked',
-        'termination_time': 'termination_time',
-        'tags': 'tags',
-        'project_ssh_keys': 'project_ssh_keys',
-        'user_ssh_keys': 'user_ssh_keys',
-        'no_ssh_keys': 'no_ssh_keys',
-        'features': 'features',
+        'billing_cycle': 'billing_cycle',
         'customdata': 'customdata',
-        'ip_addresses': 'ip_addresses'
+        'description': 'description',
+        'features': 'features',
+        'hardware_reservation_id': 'hardware_reservation_id',
+        'hostname': 'hostname',
+        'ip_addresses': 'ip_addresses',
+        'ipxe_script_url': 'ipxe_script_url',
+        'locked': 'locked',
+        'no_ssh_keys': 'no_ssh_keys',
+        'operating_system': 'operating_system',
+        'plan': 'plan',
+        'private_ipv4_subnet_size': 'private_ipv4_subnet_size',
+        'project_ssh_keys': 'project_ssh_keys',
+        'public_ipv4_subnet_size': 'public_ipv4_subnet_size',
+        'spot_instance': 'spot_instance',
+        'spot_price_max': 'spot_price_max',
+        'ssh_keys': 'ssh_keys',
+        'tags': 'tags',
+        'termination_time': 'termination_time',
+        'user_ssh_keys': 'user_ssh_keys',
+        'userdata': 'userdata',
+        'facility': 'facility'
     }
 
-    def __init__(self, plan=None, hostname=None, hostnames=None, facility=None, metro=None, description=None, billing_cycle=None, operating_system=None, always_pxe=None, userdata=None, locked=None, termination_time=None, tags=None, project_ssh_keys=None, user_ssh_keys=None, no_ssh_keys=None, features=None, customdata=None, ip_addresses=None, local_vars_configuration=None):  # noqa: E501
+    def __init__(self, hostnames=None, quantity=None, metro=None, always_pxe=False, billing_cycle=None, customdata=None, description=None, features=None, hardware_reservation_id='', hostname=None, ip_addresses=[{"address_family":4,"public":true},{"address_family":4,"public":false},{"address_family":6,"public":true}], ipxe_script_url=None, locked=False, no_ssh_keys=False, operating_system=None, plan=None, private_ipv4_subnet_size=28, project_ssh_keys=None, public_ipv4_subnet_size=31, spot_instance=None, spot_price_max=None, ssh_keys=None, tags=None, termination_time=None, user_ssh_keys=None, userdata=None, facility=None, local_vars_configuration=None):  # noqa: E501
         """InstancesBatchCreateInputBatchesInner - a model defined in OpenAPI"""  # noqa: E501
         if local_vars_configuration is None:
             local_vars_configuration = Configuration.get_default_copy()
         self.local_vars_configuration = local_vars_configuration
 
-        self._plan = None
-        self._hostname = None
         self._hostnames = None
-        self._facility = None
+        self._quantity = None
         self._metro = None
-        self._description = None
-        self._billing_cycle = None
-        self._operating_system = None
         self._always_pxe = None
-        self._userdata = None
-        self._locked = None
-        self._termination_time = None
-        self._tags = None
-        self._project_ssh_keys = None
-        self._user_ssh_keys = None
-        self._no_ssh_keys = None
-        self._features = None
+        self._billing_cycle = None
         self._customdata = None
+        self._description = None
+        self._features = None
+        self._hardware_reservation_id = None
+        self._hostname = None
         self._ip_addresses = None
+        self._ipxe_script_url = None
+        self._locked = None
+        self._no_ssh_keys = None
+        self._operating_system = None
+        self._plan = None
+        self._private_ipv4_subnet_size = None
+        self._project_ssh_keys = None
+        self._public_ipv4_subnet_size = None
+        self._spot_instance = None
+        self._spot_price_max = None
+        self._ssh_keys = None
+        self._tags = None
+        self._termination_time = None
+        self._user_ssh_keys = None
+        self._userdata = None
+        self._facility = None
         self.discriminator = None
 
-        if plan is not None:
-            self.plan = plan
-        if hostname is not None:
-            self.hostname = hostname
         if hostnames is not None:
             self.hostnames = hostnames
-        if facility is not None:
-            self.facility = facility
-        if metro is not None:
-            self.metro = metro
-        if description is not None:
-            self.description = description
-        if billing_cycle is not None:
-            self.billing_cycle = billing_cycle
-        if operating_system is not None:
-            self.operating_system = operating_system
+        if quantity is not None:
+            self.quantity = quantity
+        self.metro = metro
         if always_pxe is not None:
             self.always_pxe = always_pxe
-        if userdata is not None:
-            self.userdata = userdata
-        if locked is not None:
-            self.locked = locked
-        if termination_time is not None:
-            self.termination_time = termination_time
-        if tags is not None:
-            self.tags = tags
-        if project_ssh_keys is not None:
-            self.project_ssh_keys = project_ssh_keys
-        if user_ssh_keys is not None:
-            self.user_ssh_keys = user_ssh_keys
-        if no_ssh_keys is not None:
-            self.no_ssh_keys = no_ssh_keys
-        if features is not None:
-            self.features = features
+        if billing_cycle is not None:
+            self.billing_cycle = billing_cycle
         if customdata is not None:
             self.customdata = customdata
+        if description is not None:
+            self.description = description
+        if features is not None:
+            self.features = features
+        if hardware_reservation_id is not None:
+            self.hardware_reservation_id = hardware_reservation_id
+        if hostname is not None:
+            self.hostname = hostname
         if ip_addresses is not None:
             self.ip_addresses = ip_addresses
-
-    @property
-    def plan(self):
-        """Gets the plan of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
-
-
-        :return: The plan of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
-        :rtype: str
-        """
-        return self._plan
-
-    @plan.setter
-    def plan(self, plan):
-        """Sets the plan of this InstancesBatchCreateInputBatchesInner.
-
-
-        :param plan: The plan of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
-        :type plan: str
-        """
-
-        self._plan = plan
-
-    @property
-    def hostname(self):
-        """Gets the hostname of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
-
-
-        :return: The hostname of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
-        :rtype: str
-        """
-        return self._hostname
-
-    @hostname.setter
-    def hostname(self, hostname):
-        """Sets the hostname of this InstancesBatchCreateInputBatchesInner.
-
-
-        :param hostname: The hostname of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
-        :type hostname: str
-        """
-
-        self._hostname = hostname
+        if ipxe_script_url is not None:
+            self.ipxe_script_url = ipxe_script_url
+        if locked is not None:
+            self.locked = locked
+        if no_ssh_keys is not None:
+            self.no_ssh_keys = no_ssh_keys
+        self.operating_system = operating_system
+        self.plan = plan
+        if private_ipv4_subnet_size is not None:
+            self.private_ipv4_subnet_size = private_ipv4_subnet_size
+        if project_ssh_keys is not None:
+            self.project_ssh_keys = project_ssh_keys
+        if public_ipv4_subnet_size is not None:
+            self.public_ipv4_subnet_size = public_ipv4_subnet_size
+        if spot_instance is not None:
+            self.spot_instance = spot_instance
+        if spot_price_max is not None:
+            self.spot_price_max = spot_price_max
+        if ssh_keys is not None:
+            self.ssh_keys = ssh_keys
+        if tags is not None:
+            self.tags = tags
+        if termination_time is not None:
+            self.termination_time = termination_time
+        if user_ssh_keys is not None:
+            self.user_ssh_keys = user_ssh_keys
+        if userdata is not None:
+            self.userdata = userdata
+        self.facility = facility
 
     @property
     def hostnames(self):
@@ -210,33 +204,33 @@ class InstancesBatchCreateInputBatchesInner(object):
         self._hostnames = hostnames
 
     @property
-    def facility(self):
-        """Gets the facility of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
+    def quantity(self):
+        """Gets the quantity of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
 
-        Array of facility codes the batch can use for provisioning. This param also takes a string if you want the batch to be fulfilled in only one facility. Cannot be set if the metro is already set.  # noqa: E501
+        The number of devices to create in this batch. The hostname may contain an `{{index}}` placeholder, which will be replaced with the index of the device in the batch. For example, if the hostname is `device-{{index}}`, the first device in the batch will have the hostname `device-01`, the second device will have the hostname `device-02`, and so on.  # noqa: E501
 
-        :return: The facility of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
-        :rtype: list[str]
+        :return: The quantity of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
+        :rtype: int
         """
-        return self._facility
+        return self._quantity
 
-    @facility.setter
-    def facility(self, facility):
-        """Sets the facility of this InstancesBatchCreateInputBatchesInner.
+    @quantity.setter
+    def quantity(self, quantity):
+        """Sets the quantity of this InstancesBatchCreateInputBatchesInner.
 
-        Array of facility codes the batch can use for provisioning. This param also takes a string if you want the batch to be fulfilled in only one facility. Cannot be set if the metro is already set.  # noqa: E501
+        The number of devices to create in this batch. The hostname may contain an `{{index}}` placeholder, which will be replaced with the index of the device in the batch. For example, if the hostname is `device-{{index}}`, the first device in the batch will have the hostname `device-01`, the second device will have the hostname `device-02`, and so on.  # noqa: E501
 
-        :param facility: The facility of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
-        :type facility: list[str]
+        :param quantity: The quantity of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
+        :type quantity: int
         """
 
-        self._facility = facility
+        self._quantity = quantity
 
     @property
     def metro(self):
         """Gets the metro of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
 
-        The metro ID or code the batch can use for provisioning. Cannot be set if the facility is already set.  # noqa: E501
+        Metro code or ID of where the instance should be provisioned in. Either metro or facility must be provided.  # noqa: E501
 
         :return: The metro of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
         :rtype: str
@@ -247,81 +241,21 @@ class InstancesBatchCreateInputBatchesInner(object):
     def metro(self, metro):
         """Sets the metro of this InstancesBatchCreateInputBatchesInner.
 
-        The metro ID or code the batch can use for provisioning. Cannot be set if the facility is already set.  # noqa: E501
+        Metro code or ID of where the instance should be provisioned in. Either metro or facility must be provided.  # noqa: E501
 
         :param metro: The metro of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
         :type metro: str
         """
+        if self.local_vars_configuration.client_side_validation and metro is None:  # noqa: E501
+            raise ValueError("Invalid value for `metro`, must not be `None`")  # noqa: E501
 
         self._metro = metro
-
-    @property
-    def description(self):
-        """Gets the description of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
-
-
-        :return: The description of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
-        :rtype: str
-        """
-        return self._description
-
-    @description.setter
-    def description(self, description):
-        """Sets the description of this InstancesBatchCreateInputBatchesInner.
-
-
-        :param description: The description of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
-        :type description: str
-        """
-
-        self._description = description
-
-    @property
-    def billing_cycle(self):
-        """Gets the billing_cycle of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
-
-
-        :return: The billing_cycle of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
-        :rtype: str
-        """
-        return self._billing_cycle
-
-    @billing_cycle.setter
-    def billing_cycle(self, billing_cycle):
-        """Sets the billing_cycle of this InstancesBatchCreateInputBatchesInner.
-
-
-        :param billing_cycle: The billing_cycle of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
-        :type billing_cycle: str
-        """
-
-        self._billing_cycle = billing_cycle
-
-    @property
-    def operating_system(self):
-        """Gets the operating_system of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
-
-
-        :return: The operating_system of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
-        :rtype: str
-        """
-        return self._operating_system
-
-    @operating_system.setter
-    def operating_system(self, operating_system):
-        """Sets the operating_system of this InstancesBatchCreateInputBatchesInner.
-
-
-        :param operating_system: The operating_system of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
-        :type operating_system: str
-        """
-
-        self._operating_system = operating_system
 
     @property
     def always_pxe(self):
         """Gets the always_pxe of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
 
+        When true, devices with a `custom_ipxe` OS will always boot to iPXE. The default setting of false ensures that iPXE will be used on only the first boot.  # noqa: E501
 
         :return: The always_pxe of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
         :rtype: bool
@@ -332,6 +266,7 @@ class InstancesBatchCreateInputBatchesInner(object):
     def always_pxe(self, always_pxe):
         """Sets the always_pxe of this InstancesBatchCreateInputBatchesInner.
 
+        When true, devices with a `custom_ipxe` OS will always boot to iPXE. The default setting of false ensures that iPXE will be used on only the first boot.  # noqa: E501
 
         :param always_pxe: The always_pxe of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
         :type always_pxe: bool
@@ -340,30 +275,200 @@ class InstancesBatchCreateInputBatchesInner(object):
         self._always_pxe = always_pxe
 
     @property
-    def userdata(self):
-        """Gets the userdata of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
+    def billing_cycle(self):
+        """Gets the billing_cycle of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
 
+        The billing cycle of the device.  # noqa: E501
 
-        :return: The userdata of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
+        :return: The billing_cycle of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
         :rtype: str
         """
-        return self._userdata
+        return self._billing_cycle
 
-    @userdata.setter
-    def userdata(self, userdata):
-        """Sets the userdata of this InstancesBatchCreateInputBatchesInner.
+    @billing_cycle.setter
+    def billing_cycle(self, billing_cycle):
+        """Sets the billing_cycle of this InstancesBatchCreateInputBatchesInner.
 
+        The billing cycle of the device.  # noqa: E501
 
-        :param userdata: The userdata of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
-        :type userdata: str
+        :param billing_cycle: The billing_cycle of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
+        :type billing_cycle: str
+        """
+        allowed_values = ["hourly", "daily", "monthly", "yearly"]  # noqa: E501
+        if self.local_vars_configuration.client_side_validation and billing_cycle not in allowed_values:  # noqa: E501
+            raise ValueError(
+                "Invalid value for `billing_cycle` ({0}), must be one of {1}"  # noqa: E501
+                .format(billing_cycle, allowed_values)
+            )
+
+        self._billing_cycle = billing_cycle
+
+    @property
+    def customdata(self):
+        """Gets the customdata of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
+
+        Customdata is an arbitrary JSON value that can be accessed via the metadata service.  # noqa: E501
+
+        :return: The customdata of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
+        :rtype: dict[str, object]
+        """
+        return self._customdata
+
+    @customdata.setter
+    def customdata(self, customdata):
+        """Sets the customdata of this InstancesBatchCreateInputBatchesInner.
+
+        Customdata is an arbitrary JSON value that can be accessed via the metadata service.  # noqa: E501
+
+        :param customdata: The customdata of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
+        :type customdata: dict[str, object]
         """
 
-        self._userdata = userdata
+        self._customdata = customdata
+
+    @property
+    def description(self):
+        """Gets the description of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
+
+        Any description of the device or how it will be used. This may be used to inform other API consumers with project access.  # noqa: E501
+
+        :return: The description of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
+        :rtype: str
+        """
+        return self._description
+
+    @description.setter
+    def description(self, description):
+        """Sets the description of this InstancesBatchCreateInputBatchesInner.
+
+        Any description of the device or how it will be used. This may be used to inform other API consumers with project access.  # noqa: E501
+
+        :param description: The description of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
+        :type description: str
+        """
+
+        self._description = description
+
+    @property
+    def features(self):
+        """Gets the features of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
+
+        The features attribute allows you to optionally specify what features your server should have.  In the API shorthand syntax, all features listed are `required`:  ``` { \"features\": [\"tpm\"] } ```  Alternatively, if you do not require a certain feature, but would prefer to be assigned a server with that feature if there are any available, you may specify that feature with a `preferred` value. The request will not fail if we have no servers with that feature in our inventory. The API offers an alternative syntax for mixing preferred and required features:  ``` { \"features\": { \"tpm\": \"required\", \"raid\": \"preferred\" } } ```  The request will only fail if there are no available servers matching the required `tpm` criteria.  # noqa: E501
+
+        :return: The features of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
+        :rtype: list[str]
+        """
+        return self._features
+
+    @features.setter
+    def features(self, features):
+        """Sets the features of this InstancesBatchCreateInputBatchesInner.
+
+        The features attribute allows you to optionally specify what features your server should have.  In the API shorthand syntax, all features listed are `required`:  ``` { \"features\": [\"tpm\"] } ```  Alternatively, if you do not require a certain feature, but would prefer to be assigned a server with that feature if there are any available, you may specify that feature with a `preferred` value. The request will not fail if we have no servers with that feature in our inventory. The API offers an alternative syntax for mixing preferred and required features:  ``` { \"features\": { \"tpm\": \"required\", \"raid\": \"preferred\" } } ```  The request will only fail if there are no available servers matching the required `tpm` criteria.  # noqa: E501
+
+        :param features: The features of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
+        :type features: list[str]
+        """
+
+        self._features = features
+
+    @property
+    def hardware_reservation_id(self):
+        """Gets the hardware_reservation_id of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
+
+        The Hardware Reservation UUID to provision. Alternatively, `next-available` can be specified to select from any of the available hardware reservations. An error will be returned if the requested reservation option is not available.  See [Reserved Hardware](https://metal.equinix.com/developers/docs/deploy/reserved/) for more details.  # noqa: E501
+
+        :return: The hardware_reservation_id of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
+        :rtype: str
+        """
+        return self._hardware_reservation_id
+
+    @hardware_reservation_id.setter
+    def hardware_reservation_id(self, hardware_reservation_id):
+        """Sets the hardware_reservation_id of this InstancesBatchCreateInputBatchesInner.
+
+        The Hardware Reservation UUID to provision. Alternatively, `next-available` can be specified to select from any of the available hardware reservations. An error will be returned if the requested reservation option is not available.  See [Reserved Hardware](https://metal.equinix.com/developers/docs/deploy/reserved/) for more details.  # noqa: E501
+
+        :param hardware_reservation_id: The hardware_reservation_id of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
+        :type hardware_reservation_id: str
+        """
+
+        self._hardware_reservation_id = hardware_reservation_id
+
+    @property
+    def hostname(self):
+        """Gets the hostname of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
+
+        The hostname to use within the operating system. The same hostname may be used on multiple devices within a project.  # noqa: E501
+
+        :return: The hostname of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
+        :rtype: str
+        """
+        return self._hostname
+
+    @hostname.setter
+    def hostname(self, hostname):
+        """Sets the hostname of this InstancesBatchCreateInputBatchesInner.
+
+        The hostname to use within the operating system. The same hostname may be used on multiple devices within a project.  # noqa: E501
+
+        :param hostname: The hostname of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
+        :type hostname: str
+        """
+
+        self._hostname = hostname
+
+    @property
+    def ip_addresses(self):
+        """Gets the ip_addresses of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
+
+        The `ip_addresses attribute will allow you to specify the addresses you want created with your device.  The default value configures public IPv4, public IPv6, and private IPv4.  Private IPv4 address is required. When specifying `ip_addresses`, one of the array items must enable private IPv4.  Some operating systems require public IPv4 address. In those cases you will receive an error message if public IPv4 is not enabled.  For example, to only configure your server with a private IPv4 address, you can send `{ \"ip_addresses\": [{ \"address_family\": 4, \"public\": false }] }`.  It is possible to request a subnet size larger than a `/30` by assigning addresses using the UUID(s) of ip_reservations in your project.  For example, `{ \"ip_addresses\": [..., {\"address_family\": 4, \"public\": true, \"ip_reservations\": [\"uuid1\", \"uuid2\"]}] }`  To access a server without public IPs, you can use our Out-of-Band console access (SOS) or proxy through another server in the project with public IPs enabled.  # noqa: E501
+
+        :return: The ip_addresses of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
+        :rtype: list[DeviceCreateInputIpAddressesInner]
+        """
+        return self._ip_addresses
+
+    @ip_addresses.setter
+    def ip_addresses(self, ip_addresses):
+        """Sets the ip_addresses of this InstancesBatchCreateInputBatchesInner.
+
+        The `ip_addresses attribute will allow you to specify the addresses you want created with your device.  The default value configures public IPv4, public IPv6, and private IPv4.  Private IPv4 address is required. When specifying `ip_addresses`, one of the array items must enable private IPv4.  Some operating systems require public IPv4 address. In those cases you will receive an error message if public IPv4 is not enabled.  For example, to only configure your server with a private IPv4 address, you can send `{ \"ip_addresses\": [{ \"address_family\": 4, \"public\": false }] }`.  It is possible to request a subnet size larger than a `/30` by assigning addresses using the UUID(s) of ip_reservations in your project.  For example, `{ \"ip_addresses\": [..., {\"address_family\": 4, \"public\": true, \"ip_reservations\": [\"uuid1\", \"uuid2\"]}] }`  To access a server without public IPs, you can use our Out-of-Band console access (SOS) or proxy through another server in the project with public IPs enabled.  # noqa: E501
+
+        :param ip_addresses: The ip_addresses of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
+        :type ip_addresses: list[DeviceCreateInputIpAddressesInner]
+        """
+
+        self._ip_addresses = ip_addresses
+
+    @property
+    def ipxe_script_url(self):
+        """Gets the ipxe_script_url of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
+
+        When set, the device will chainload an iPXE Script at boot fetched from the supplied URL.  See [Custom iPXE](https://metal.equinix.com/developers/docs/operating-systems/custom-ipxe/) for more details.  # noqa: E501
+
+        :return: The ipxe_script_url of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
+        :rtype: str
+        """
+        return self._ipxe_script_url
+
+    @ipxe_script_url.setter
+    def ipxe_script_url(self, ipxe_script_url):
+        """Sets the ipxe_script_url of this InstancesBatchCreateInputBatchesInner.
+
+        When set, the device will chainload an iPXE Script at boot fetched from the supplied URL.  See [Custom iPXE](https://metal.equinix.com/developers/docs/operating-systems/custom-ipxe/) for more details.  # noqa: E501
+
+        :param ipxe_script_url: The ipxe_script_url of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
+        :type ipxe_script_url: str
+        """
+
+        self._ipxe_script_url = ipxe_script_url
 
     @property
     def locked(self):
         """Gets the locked of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
 
+        Whether the device should be locked, preventing accidental deletion.  # noqa: E501
 
         :return: The locked of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
         :rtype: bool
@@ -374,6 +479,7 @@ class InstancesBatchCreateInputBatchesInner(object):
     def locked(self, locked):
         """Sets the locked of this InstancesBatchCreateInputBatchesInner.
 
+        Whether the device should be locked, preventing accidental deletion.  # noqa: E501
 
         :param locked: The locked of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
         :type locked: bool
@@ -382,25 +488,215 @@ class InstancesBatchCreateInputBatchesInner(object):
         self._locked = locked
 
     @property
-    def termination_time(self):
-        """Gets the termination_time of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
+    def no_ssh_keys(self):
+        """Gets the no_ssh_keys of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
 
+        Overrides default behaviour of attaching all of the organization members ssh keys and project ssh keys to device if no specific keys specified  # noqa: E501
 
-        :return: The termination_time of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
-        :rtype: datetime
+        :return: The no_ssh_keys of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
+        :rtype: bool
         """
-        return self._termination_time
+        return self._no_ssh_keys
 
-    @termination_time.setter
-    def termination_time(self, termination_time):
-        """Sets the termination_time of this InstancesBatchCreateInputBatchesInner.
+    @no_ssh_keys.setter
+    def no_ssh_keys(self, no_ssh_keys):
+        """Sets the no_ssh_keys of this InstancesBatchCreateInputBatchesInner.
 
+        Overrides default behaviour of attaching all of the organization members ssh keys and project ssh keys to device if no specific keys specified  # noqa: E501
 
-        :param termination_time: The termination_time of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
-        :type termination_time: datetime
+        :param no_ssh_keys: The no_ssh_keys of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
+        :type no_ssh_keys: bool
         """
 
-        self._termination_time = termination_time
+        self._no_ssh_keys = no_ssh_keys
+
+    @property
+    def operating_system(self):
+        """Gets the operating_system of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
+
+        The slug of the operating system to provision. Check the Equinix Metal operating system documentation for rules that may be imposed per operating system, including restrictions on IP address options and device plans.  # noqa: E501
+
+        :return: The operating_system of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
+        :rtype: str
+        """
+        return self._operating_system
+
+    @operating_system.setter
+    def operating_system(self, operating_system):
+        """Sets the operating_system of this InstancesBatchCreateInputBatchesInner.
+
+        The slug of the operating system to provision. Check the Equinix Metal operating system documentation for rules that may be imposed per operating system, including restrictions on IP address options and device plans.  # noqa: E501
+
+        :param operating_system: The operating_system of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
+        :type operating_system: str
+        """
+        if self.local_vars_configuration.client_side_validation and operating_system is None:  # noqa: E501
+            raise ValueError("Invalid value for `operating_system`, must not be `None`")  # noqa: E501
+
+        self._operating_system = operating_system
+
+    @property
+    def plan(self):
+        """Gets the plan of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
+
+        The slug of the device plan to provision.  # noqa: E501
+
+        :return: The plan of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
+        :rtype: str
+        """
+        return self._plan
+
+    @plan.setter
+    def plan(self, plan):
+        """Sets the plan of this InstancesBatchCreateInputBatchesInner.
+
+        The slug of the device plan to provision.  # noqa: E501
+
+        :param plan: The plan of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
+        :type plan: str
+        """
+        if self.local_vars_configuration.client_side_validation and plan is None:  # noqa: E501
+            raise ValueError("Invalid value for `plan`, must not be `None`")  # noqa: E501
+
+        self._plan = plan
+
+    @property
+    def private_ipv4_subnet_size(self):
+        """Gets the private_ipv4_subnet_size of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
+
+        Deprecated. Use ip_addresses. Subnet range for addresses allocated to this device.  # noqa: E501
+
+        :return: The private_ipv4_subnet_size of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
+        :rtype: float
+        """
+        return self._private_ipv4_subnet_size
+
+    @private_ipv4_subnet_size.setter
+    def private_ipv4_subnet_size(self, private_ipv4_subnet_size):
+        """Sets the private_ipv4_subnet_size of this InstancesBatchCreateInputBatchesInner.
+
+        Deprecated. Use ip_addresses. Subnet range for addresses allocated to this device.  # noqa: E501
+
+        :param private_ipv4_subnet_size: The private_ipv4_subnet_size of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
+        :type private_ipv4_subnet_size: float
+        """
+
+        self._private_ipv4_subnet_size = private_ipv4_subnet_size
+
+    @property
+    def project_ssh_keys(self):
+        """Gets the project_ssh_keys of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
+
+        A list of UUIDs identifying the device parent project that should be authorized to access this device (typically via /root/.ssh/authorized_keys). These keys will also appear in the device metadata.  If no SSH keys are specified (`user_ssh_keys`, `project_ssh_keys`, and `ssh_keys` are all empty lists or omitted), all parent project keys, parent project members keys and organization members keys will be included. This behaviour can be changed with 'no_ssh_keys' option to omit any SSH key being added.   # noqa: E501
+
+        :return: The project_ssh_keys of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
+        :rtype: list[str]
+        """
+        return self._project_ssh_keys
+
+    @project_ssh_keys.setter
+    def project_ssh_keys(self, project_ssh_keys):
+        """Sets the project_ssh_keys of this InstancesBatchCreateInputBatchesInner.
+
+        A list of UUIDs identifying the device parent project that should be authorized to access this device (typically via /root/.ssh/authorized_keys). These keys will also appear in the device metadata.  If no SSH keys are specified (`user_ssh_keys`, `project_ssh_keys`, and `ssh_keys` are all empty lists or omitted), all parent project keys, parent project members keys and organization members keys will be included. This behaviour can be changed with 'no_ssh_keys' option to omit any SSH key being added.   # noqa: E501
+
+        :param project_ssh_keys: The project_ssh_keys of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
+        :type project_ssh_keys: list[str]
+        """
+
+        self._project_ssh_keys = project_ssh_keys
+
+    @property
+    def public_ipv4_subnet_size(self):
+        """Gets the public_ipv4_subnet_size of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
+
+        Deprecated. Use ip_addresses. Subnet range for addresses allocated to this device. Your project must have addresses available for a non-default request.  # noqa: E501
+
+        :return: The public_ipv4_subnet_size of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
+        :rtype: float
+        """
+        return self._public_ipv4_subnet_size
+
+    @public_ipv4_subnet_size.setter
+    def public_ipv4_subnet_size(self, public_ipv4_subnet_size):
+        """Sets the public_ipv4_subnet_size of this InstancesBatchCreateInputBatchesInner.
+
+        Deprecated. Use ip_addresses. Subnet range for addresses allocated to this device. Your project must have addresses available for a non-default request.  # noqa: E501
+
+        :param public_ipv4_subnet_size: The public_ipv4_subnet_size of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
+        :type public_ipv4_subnet_size: float
+        """
+
+        self._public_ipv4_subnet_size = public_ipv4_subnet_size
+
+    @property
+    def spot_instance(self):
+        """Gets the spot_instance of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
+
+        Create a spot instance. Spot instances are created with a maximum bid price. If the bid price is not met, the spot instance will be terminated as indicated by the `termination_time` field.  # noqa: E501
+
+        :return: The spot_instance of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
+        :rtype: bool
+        """
+        return self._spot_instance
+
+    @spot_instance.setter
+    def spot_instance(self, spot_instance):
+        """Sets the spot_instance of this InstancesBatchCreateInputBatchesInner.
+
+        Create a spot instance. Spot instances are created with a maximum bid price. If the bid price is not met, the spot instance will be terminated as indicated by the `termination_time` field.  # noqa: E501
+
+        :param spot_instance: The spot_instance of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
+        :type spot_instance: bool
+        """
+
+        self._spot_instance = spot_instance
+
+    @property
+    def spot_price_max(self):
+        """Gets the spot_price_max of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
+
+        The maximum amount to bid for a spot instance.  # noqa: E501
+
+        :return: The spot_price_max of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
+        :rtype: float
+        """
+        return self._spot_price_max
+
+    @spot_price_max.setter
+    def spot_price_max(self, spot_price_max):
+        """Sets the spot_price_max of this InstancesBatchCreateInputBatchesInner.
+
+        The maximum amount to bid for a spot instance.  # noqa: E501
+
+        :param spot_price_max: The spot_price_max of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
+        :type spot_price_max: float
+        """
+
+        self._spot_price_max = spot_price_max
+
+    @property
+    def ssh_keys(self):
+        """Gets the ssh_keys of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
+
+        A list of new or existing project ssh_keys that should be authorized to access this device (typically via /root/.ssh/authorized_keys). These keys will also appear in the device metadata.  These keys are added in addition to any keys defined by   `project_ssh_keys` and `user_ssh_keys`.   # noqa: E501
+
+        :return: The ssh_keys of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
+        :rtype: list[SSHKeyInput]
+        """
+        return self._ssh_keys
+
+    @ssh_keys.setter
+    def ssh_keys(self, ssh_keys):
+        """Sets the ssh_keys of this InstancesBatchCreateInputBatchesInner.
+
+        A list of new or existing project ssh_keys that should be authorized to access this device (typically via /root/.ssh/authorized_keys). These keys will also appear in the device metadata.  These keys are added in addition to any keys defined by   `project_ssh_keys` and `user_ssh_keys`.   # noqa: E501
+
+        :param ssh_keys: The ssh_keys of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
+        :type ssh_keys: list[SSHKeyInput]
+        """
+
+        self._ssh_keys = ssh_keys
 
     @property
     def tags(self):
@@ -424,31 +720,31 @@ class InstancesBatchCreateInputBatchesInner(object):
         self._tags = tags
 
     @property
-    def project_ssh_keys(self):
-        """Gets the project_ssh_keys of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
+    def termination_time(self):
+        """Gets the termination_time of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
 
 
-        :return: The project_ssh_keys of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
-        :rtype: list[str]
+        :return: The termination_time of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
+        :rtype: datetime
         """
-        return self._project_ssh_keys
+        return self._termination_time
 
-    @project_ssh_keys.setter
-    def project_ssh_keys(self, project_ssh_keys):
-        """Sets the project_ssh_keys of this InstancesBatchCreateInputBatchesInner.
+    @termination_time.setter
+    def termination_time(self, termination_time):
+        """Sets the termination_time of this InstancesBatchCreateInputBatchesInner.
 
 
-        :param project_ssh_keys: The project_ssh_keys of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
-        :type project_ssh_keys: list[str]
+        :param termination_time: The termination_time of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
+        :type termination_time: datetime
         """
 
-        self._project_ssh_keys = project_ssh_keys
+        self._termination_time = termination_time
 
     @property
     def user_ssh_keys(self):
         """Gets the user_ssh_keys of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
 
-        The UUIDs of users whose SSH keys should be included on the provisioned device.  # noqa: E501
+        A list of UUIDs identifying the users that should be authorized to access this device (typically via /root/.ssh/authorized_keys).  These keys will also appear in the device metadata.  The users must be members of the project or organization.  If no SSH keys are specified (`user_ssh_keys`, `project_ssh_keys`, and `ssh_keys` are all empty lists or omitted), all parent project keys, parent project members keys and organization members keys will be included. This behaviour can be changed with 'no_ssh_keys' option to omit any SSH key being added.   # noqa: E501
 
         :return: The user_ssh_keys of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
         :rtype: list[str]
@@ -459,7 +755,7 @@ class InstancesBatchCreateInputBatchesInner(object):
     def user_ssh_keys(self, user_ssh_keys):
         """Sets the user_ssh_keys of this InstancesBatchCreateInputBatchesInner.
 
-        The UUIDs of users whose SSH keys should be included on the provisioned device.  # noqa: E501
+        A list of UUIDs identifying the users that should be authorized to access this device (typically via /root/.ssh/authorized_keys).  These keys will also appear in the device metadata.  The users must be members of the project or organization.  If no SSH keys are specified (`user_ssh_keys`, `project_ssh_keys`, and `ssh_keys` are all empty lists or omitted), all parent project keys, parent project members keys and organization members keys will be included. This behaviour can be changed with 'no_ssh_keys' option to omit any SSH key being added.   # noqa: E501
 
         :param user_ssh_keys: The user_ssh_keys of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
         :type user_ssh_keys: list[str]
@@ -468,88 +764,50 @@ class InstancesBatchCreateInputBatchesInner(object):
         self._user_ssh_keys = user_ssh_keys
 
     @property
-    def no_ssh_keys(self):
-        """Gets the no_ssh_keys of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
+    def userdata(self):
+        """Gets the userdata of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
 
+        The userdata presented in the metadata service for this device.  Userdata is fetched and interpreted by the operating system installed on the device. Acceptable formats are determined by the operating system, with the exception of a special iPXE enabling syntax which is handled before the operating system starts.  See [Server User Data](https://metal.equinix.com/developers/docs/servers/user-data/) and [Provisioning with Custom iPXE](https://metal.equinix.com/developers/docs/operating-systems/custom-ipxe/#provisioning-with-custom-ipxe) for more details.  # noqa: E501
 
-        :return: The no_ssh_keys of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
-        :rtype: bool
+        :return: The userdata of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
+        :rtype: str
         """
-        return self._no_ssh_keys
+        return self._userdata
 
-    @no_ssh_keys.setter
-    def no_ssh_keys(self, no_ssh_keys):
-        """Sets the no_ssh_keys of this InstancesBatchCreateInputBatchesInner.
+    @userdata.setter
+    def userdata(self, userdata):
+        """Sets the userdata of this InstancesBatchCreateInputBatchesInner.
 
+        The userdata presented in the metadata service for this device.  Userdata is fetched and interpreted by the operating system installed on the device. Acceptable formats are determined by the operating system, with the exception of a special iPXE enabling syntax which is handled before the operating system starts.  See [Server User Data](https://metal.equinix.com/developers/docs/servers/user-data/) and [Provisioning with Custom iPXE](https://metal.equinix.com/developers/docs/operating-systems/custom-ipxe/#provisioning-with-custom-ipxe) for more details.  # noqa: E501
 
-        :param no_ssh_keys: The no_ssh_keys of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
-        :type no_ssh_keys: bool
+        :param userdata: The userdata of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
+        :type userdata: str
         """
 
-        self._no_ssh_keys = no_ssh_keys
+        self._userdata = userdata
 
     @property
-    def features(self):
-        """Gets the features of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
+    def facility(self):
+        """Gets the facility of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
 
 
-        :return: The features of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
-        :rtype: list[str]
+        :return: The facility of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
+        :rtype: FacilityInputFacility
         """
-        return self._features
+        return self._facility
 
-    @features.setter
-    def features(self, features):
-        """Sets the features of this InstancesBatchCreateInputBatchesInner.
+    @facility.setter
+    def facility(self, facility):
+        """Sets the facility of this InstancesBatchCreateInputBatchesInner.
 
 
-        :param features: The features of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
-        :type features: list[str]
+        :param facility: The facility of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
+        :type facility: FacilityInputFacility
         """
+        if self.local_vars_configuration.client_side_validation and facility is None:  # noqa: E501
+            raise ValueError("Invalid value for `facility`, must not be `None`")  # noqa: E501
 
-        self._features = features
-
-    @property
-    def customdata(self):
-        """Gets the customdata of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
-
-
-        :return: The customdata of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
-        :rtype: object
-        """
-        return self._customdata
-
-    @customdata.setter
-    def customdata(self, customdata):
-        """Sets the customdata of this InstancesBatchCreateInputBatchesInner.
-
-
-        :param customdata: The customdata of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
-        :type customdata: object
-        """
-
-        self._customdata = customdata
-
-    @property
-    def ip_addresses(self):
-        """Gets the ip_addresses of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
-
-
-        :return: The ip_addresses of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
-        :rtype: list[InstancesBatchCreateInputBatchesInnerIpAddressesInner]
-        """
-        return self._ip_addresses
-
-    @ip_addresses.setter
-    def ip_addresses(self, ip_addresses):
-        """Sets the ip_addresses of this InstancesBatchCreateInputBatchesInner.
-
-
-        :param ip_addresses: The ip_addresses of this InstancesBatchCreateInputBatchesInner.  # noqa: E501
-        :type ip_addresses: list[InstancesBatchCreateInputBatchesInnerIpAddressesInner]
-        """
-
-        self._ip_addresses = ip_addresses
+        self._facility = facility
 
     def to_dict(self, serialize=False):
         """Returns the model properties as a dict"""

@@ -15,7 +15,7 @@ Method | HTTP request | Description
 
 
 # **create_project_ssh_key**
-> SSHKey create_project_ssh_key(id, ssh_key)
+> SSHKey create_project_ssh_key(id, ssh_key_create_input)
 
 Create a ssh key for the given project
 
@@ -52,11 +52,11 @@ with metal.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = metal.SSHKeysApi(api_client)
     id = 'id_example' # str | Project UUID
-ssh_key = metal.SSHKeyCreateInput() # SSHKeyCreateInput | ssh key to create
+ssh_key_create_input = metal.SSHKeyCreateInput() # SSHKeyCreateInput | ssh key to create
 
     try:
         # Create a ssh key for the given project
-        api_response = api_instance.create_project_ssh_key(id, ssh_key)
+        api_response = api_instance.create_project_ssh_key(id, ssh_key_create_input)
         pprint(api_response)
     except ApiException as e:
         print("Exception when calling SSHKeysApi->create_project_ssh_key: %s\n" % e)
@@ -67,7 +67,7 @@ ssh_key = metal.SSHKeyCreateInput() # SSHKeyCreateInput | ssh key to create
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **str**| Project UUID | 
- **ssh_key** | [**SSHKeyCreateInput**](SSHKeyCreateInput.md)| ssh key to create | 
+ **ssh_key_create_input** | [**SSHKeyCreateInput**](SSHKeyCreateInput.md)| ssh key to create | 
 
 ### Return type
 
@@ -92,7 +92,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **create_ssh_key**
-> SSHKey create_ssh_key(ssh_key)
+> SSHKey create_ssh_key(ssh_key_create_input)
 
 Create a ssh key for the current user
 
@@ -128,11 +128,11 @@ configuration.api_key['x_auth_token'] = 'YOUR_API_KEY'
 with metal.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = metal.SSHKeysApi(api_client)
-    ssh_key = metal.SSHKeyCreateInput() # SSHKeyCreateInput | ssh key to create
+    ssh_key_create_input = metal.SSHKeyCreateInput() # SSHKeyCreateInput | ssh key to create
 
     try:
         # Create a ssh key for the current user
-        api_response = api_instance.create_ssh_key(ssh_key)
+        api_response = api_instance.create_ssh_key(ssh_key_create_input)
         pprint(api_response)
     except ApiException as e:
         print("Exception when calling SSHKeysApi->create_ssh_key: %s\n" % e)
@@ -142,7 +142,7 @@ with metal.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **ssh_key** | [**SSHKeyCreateInput**](SSHKeyCreateInput.md)| ssh key to create | 
+ **ssh_key_create_input** | [**SSHKeyCreateInput**](SSHKeyCreateInput.md)| ssh key to create | 
 
 ### Return type
 
@@ -322,7 +322,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **find_project_ssh_keys**
-> SSHKeyList find_project_ssh_keys(id, search_string=search_string, include=include, exclude=exclude)
+> SSHKeyList find_project_ssh_keys(id, query=query, include=include, exclude=exclude)
 
 Retrieve a project's ssh keys
 
@@ -359,13 +359,13 @@ with metal.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = metal.SSHKeysApi(api_client)
     id = 'id_example' # str | Project UUID
-search_string = 'search_string_example' # str | Search by key, label, or fingerprint (optional)
+query = 'query_example' # str | Search by key, label, or fingerprint (optional)
 include = ['include_example'] # list[str] | Nested attributes to include. Included objects will return their full attributes. Attribute names can be dotted (up to 3 levels) to included deeply nested objects. (optional)
 exclude = ['exclude_example'] # list[str] | Nested attributes to exclude. Excluded objects will return only the href attribute. Attribute names can be dotted (up to 3 levels) to exclude deeply nested objects. (optional)
 
     try:
         # Retrieve a project's ssh keys
-        api_response = api_instance.find_project_ssh_keys(id, search_string=search_string, include=include, exclude=exclude)
+        api_response = api_instance.find_project_ssh_keys(id, query=query, include=include, exclude=exclude)
         pprint(api_response)
     except ApiException as e:
         print("Exception when calling SSHKeysApi->find_project_ssh_keys: %s\n" % e)
@@ -376,7 +376,7 @@ exclude = ['exclude_example'] # list[str] | Nested attributes to exclude. Exclud
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **str**| Project UUID | 
- **search_string** | **str**| Search by key, label, or fingerprint | [optional] 
+ **query** | **str**| Search by key, label, or fingerprint | [optional] 
  **include** | [**list[str]**](str.md)| Nested attributes to include. Included objects will return their full attributes. Attribute names can be dotted (up to 3 levels) to included deeply nested objects. | [optional] 
  **exclude** | [**list[str]**](str.md)| Nested attributes to exclude. Excluded objects will return only the href attribute. Attribute names can be dotted (up to 3 levels) to exclude deeply nested objects. | [optional] 
 
@@ -560,7 +560,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_ssh_key**
-> SSHKey update_ssh_key(id, ssh_key)
+> SSHKey update_ssh_key(id, ssh_key_input)
 
 Update the ssh key
 
@@ -597,11 +597,11 @@ with metal.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = metal.SSHKeysApi(api_client)
     id = 'id_example' # str | SSH Key UUID
-ssh_key = metal.SSHKeyInput() # SSHKeyInput | ssh key to update
+ssh_key_input = metal.SSHKeyInput() # SSHKeyInput | ssh key to update
 
     try:
         # Update the ssh key
-        api_response = api_instance.update_ssh_key(id, ssh_key)
+        api_response = api_instance.update_ssh_key(id, ssh_key_input)
         pprint(api_response)
     except ApiException as e:
         print("Exception when calling SSHKeysApi->update_ssh_key: %s\n" % e)
@@ -612,7 +612,7 @@ ssh_key = metal.SSHKeyInput() # SSHKeyInput | ssh key to update
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **str**| SSH Key UUID | 
- **ssh_key** | [**SSHKeyInput**](SSHKeyInput.md)| ssh key to update | 
+ **ssh_key_input** | [**SSHKeyInput**](SSHKeyInput.md)| ssh key to update | 
 
 ### Return type
 

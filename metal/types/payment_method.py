@@ -3,7 +3,7 @@
 """
     Metal API
 
-    This is the API for Equinix Metal. The API allows you to programmatically interact with all of your Equinix Metal resources, including devices, networks, addresses, organizations, projects, and your user account.  The official API docs are hosted at <https://metal.equinix.com/developers/api>.   # noqa: E501
+    # Introduction Equinix Metal provides a RESTful HTTP API which can be reached at <https://api.equinix.com/metal/v1>. This document describes the API and how to use it.  The API allows you to programmatically interact with all of your Equinix Metal resources, including devices, networks, addresses, organizations, projects, and your user account. Every feature of the Equinix Metal web interface is accessible through the API.  The API docs are generated from the Equinix Metal OpenAPI specification and are officially hosted at <https://metal.equinix.com/developers/api>.  # Common Parameters  The Equinix Metal API uses a few methods to minimize network traffic and improve throughput. These parameters are not used in all API calls, but are used often enough to warrant their own section. Look for these parameters in the documentation for the API calls that support them.  ## Pagination  Pagination is used to limit the number of results returned in a single request. The API will return a maximum of 100 results per page. To retrieve additional results, you can use the `page` and `per_page` query parameters.  The `page` parameter is used to specify the page number. The first page is `1`. The `per_page` parameter is used to specify the number of results per page. The maximum number of results differs by resource type.  ## Sorting  Where offered, the API allows you to sort results by a specific field. To sort results use the `sort_by` query parameter with the root level field name as the value. The `sort_direction` parameter is used to specify the sort direction, either either `asc` (ascending) or `desc` (descending).  ## Filtering  Filtering is used to limit the results returned in a single request. The API supports filtering by certain fields in the response. To filter results, you can use the field as a query parameter.  For example, to filter the IP list to only return public IPv4 addresses, you can filter by the `type` field, as in the following request:  ```sh curl -H 'X-Auth-Token: my_authentication_token' \\   https://api.equinix.com/metal/v1/projects/id/ips?type=public_ipv4 ```  Only IP addresses with the `type` field set to `public_ipv4` will be returned.  ## Searching  Searching is used to find matching resources using multiple field comparissons. The API supports searching in resources that define this behavior. The fields available for search differ by resource, as does the search strategy.  To search resources you can use the `search` query parameter.  ## Include and Exclude  For resources that contain references to other resources, sucha as a Device that refers to the Project it resides in, the Equinix Metal API will returns `href` values (API links) to the associated resource.  ```json {   ...   \"project\": {     \"href\": \"/metal/v1/projects/f3f131c8-f302-49ef-8c44-9405022dc6dd\"   } } ```  If you're going need the project details, you can avoid a second API request.  Specify the contained `href` resources and collections that you'd like to have included in the response using the `include` query parameter.  For example:  ```sh curl -H 'X-Auth-Token: my_authentication_token' \\   https://api.equinix.com/metal/v1/user?include=projects ```  The `include` parameter is generally accepted in `GET`, `POST`, `PUT`, and `PATCH` requests where `href` resources are presented.  To have multiple resources include, use a comma-separated list (e.g. `?include=emails,projects,memberships`).  ```sh curl -H 'X-Auth-Token: my_authentication_token' \\   https://api.equinix.com/metal/v1/user?include=emails,projects,memberships ```  You may also include nested associations up to three levels deep using dot notation (`?include=memberships.projects`):  ```sh curl -H 'X-Auth-Token: my_authentication_token' \\   https://api.equinix.com/metal/v1/user?include=memberships.projects ```  To exclude resources, and optimize response delivery, use the `exclude` query parameter. The `exclude` parameter is generally accepted in `GET`, `POST`, `PUT`, and `PATCH` requests for fields with nested object responses. When excluded, these fields will be replaced with an object that contains only an `href` field.   # noqa: E501
 
     The version of the OpenAPI document: 1.0.0
     Contact: support@equinixmetal.com
@@ -37,178 +37,157 @@ class PaymentMethod(object):
                             and the value is json key in definition.
     """
     openapi_types = {
-        'id': 'str',
-        'name': 'str',
-        'type': 'str',
-        'default': 'bool',
-        'created_at': 'datetime',
-        'updated_at': 'datetime',
+        'billing_address': 'PaymentMethodBillingAddress',
         'card_type': 'str',
+        'cardholder_name': 'str',
+        'created_at': 'datetime',
+        'created_by_user': 'Href',
+        'default': 'bool',
+        'email': 'str',
         'expiration_month': 'str',
         'expiration_year': 'str',
-        'cardholder_name': 'str',
-        'billing_address': 'PaymentMethodBillingAddress',
-        'email': 'str',
-        'created_by_user': 'Href',
+        'id': 'str',
+        'name': 'str',
         'organization': 'Href',
-        'projects': 'list[Href]'
+        'projects': 'list[Href]',
+        'type': 'str',
+        'updated_at': 'datetime'
     }
 
     attribute_map = {
-        'id': 'id',
-        'name': 'name',
-        'type': 'type',
-        'default': 'default',
-        'created_at': 'created_at',
-        'updated_at': 'updated_at',
+        'billing_address': 'billing_address',
         'card_type': 'card_type',
+        'cardholder_name': 'cardholder_name',
+        'created_at': 'created_at',
+        'created_by_user': 'created_by_user',
+        'default': 'default',
+        'email': 'email',
         'expiration_month': 'expiration_month',
         'expiration_year': 'expiration_year',
-        'cardholder_name': 'cardholder_name',
-        'billing_address': 'billing_address',
-        'email': 'email',
-        'created_by_user': 'created_by_user',
+        'id': 'id',
+        'name': 'name',
         'organization': 'organization',
-        'projects': 'projects'
+        'projects': 'projects',
+        'type': 'type',
+        'updated_at': 'updated_at'
     }
 
-    def __init__(self, id=None, name=None, type=None, default=None, created_at=None, updated_at=None, card_type=None, expiration_month=None, expiration_year=None, cardholder_name=None, billing_address=None, email=None, created_by_user=None, organization=None, projects=None, local_vars_configuration=None):  # noqa: E501
+    def __init__(self, billing_address=None, card_type=None, cardholder_name=None, created_at=None, created_by_user=None, default=None, email=None, expiration_month=None, expiration_year=None, id=None, name=None, organization=None, projects=None, type=None, updated_at=None, local_vars_configuration=None):  # noqa: E501
         """PaymentMethod - a model defined in OpenAPI"""  # noqa: E501
         if local_vars_configuration is None:
             local_vars_configuration = Configuration.get_default_copy()
         self.local_vars_configuration = local_vars_configuration
 
-        self._id = None
-        self._name = None
-        self._type = None
-        self._default = None
-        self._created_at = None
-        self._updated_at = None
+        self._billing_address = None
         self._card_type = None
+        self._cardholder_name = None
+        self._created_at = None
+        self._created_by_user = None
+        self._default = None
+        self._email = None
         self._expiration_month = None
         self._expiration_year = None
-        self._cardholder_name = None
-        self._billing_address = None
-        self._email = None
-        self._created_by_user = None
+        self._id = None
+        self._name = None
         self._organization = None
         self._projects = None
+        self._type = None
+        self._updated_at = None
         self.discriminator = None
 
-        if id is not None:
-            self.id = id
-        if name is not None:
-            self.name = name
-        if type is not None:
-            self.type = type
-        if default is not None:
-            self.default = default
-        if created_at is not None:
-            self.created_at = created_at
-        if updated_at is not None:
-            self.updated_at = updated_at
+        if billing_address is not None:
+            self.billing_address = billing_address
         if card_type is not None:
             self.card_type = card_type
+        if cardholder_name is not None:
+            self.cardholder_name = cardholder_name
+        if created_at is not None:
+            self.created_at = created_at
+        if created_by_user is not None:
+            self.created_by_user = created_by_user
+        if default is not None:
+            self.default = default
+        if email is not None:
+            self.email = email
         if expiration_month is not None:
             self.expiration_month = expiration_month
         if expiration_year is not None:
             self.expiration_year = expiration_year
-        if cardholder_name is not None:
-            self.cardholder_name = cardholder_name
-        if billing_address is not None:
-            self.billing_address = billing_address
-        if email is not None:
-            self.email = email
-        if created_by_user is not None:
-            self.created_by_user = created_by_user
+        if id is not None:
+            self.id = id
+        if name is not None:
+            self.name = name
         if organization is not None:
             self.organization = organization
         if projects is not None:
             self.projects = projects
+        if type is not None:
+            self.type = type
+        if updated_at is not None:
+            self.updated_at = updated_at
 
     @property
-    def id(self):
-        """Gets the id of this PaymentMethod.  # noqa: E501
+    def billing_address(self):
+        """Gets the billing_address of this PaymentMethod.  # noqa: E501
 
 
-        :return: The id of this PaymentMethod.  # noqa: E501
+        :return: The billing_address of this PaymentMethod.  # noqa: E501
+        :rtype: PaymentMethodBillingAddress
+        """
+        return self._billing_address
+
+    @billing_address.setter
+    def billing_address(self, billing_address):
+        """Sets the billing_address of this PaymentMethod.
+
+
+        :param billing_address: The billing_address of this PaymentMethod.  # noqa: E501
+        :type billing_address: PaymentMethodBillingAddress
+        """
+
+        self._billing_address = billing_address
+
+    @property
+    def card_type(self):
+        """Gets the card_type of this PaymentMethod.  # noqa: E501
+
+
+        :return: The card_type of this PaymentMethod.  # noqa: E501
         :rtype: str
         """
-        return self._id
+        return self._card_type
 
-    @id.setter
-    def id(self, id):
-        """Sets the id of this PaymentMethod.
+    @card_type.setter
+    def card_type(self, card_type):
+        """Sets the card_type of this PaymentMethod.
 
 
-        :param id: The id of this PaymentMethod.  # noqa: E501
-        :type id: str
+        :param card_type: The card_type of this PaymentMethod.  # noqa: E501
+        :type card_type: str
         """
 
-        self._id = id
+        self._card_type = card_type
 
     @property
-    def name(self):
-        """Gets the name of this PaymentMethod.  # noqa: E501
+    def cardholder_name(self):
+        """Gets the cardholder_name of this PaymentMethod.  # noqa: E501
 
 
-        :return: The name of this PaymentMethod.  # noqa: E501
+        :return: The cardholder_name of this PaymentMethod.  # noqa: E501
         :rtype: str
         """
-        return self._name
+        return self._cardholder_name
 
-    @name.setter
-    def name(self, name):
-        """Sets the name of this PaymentMethod.
+    @cardholder_name.setter
+    def cardholder_name(self, cardholder_name):
+        """Sets the cardholder_name of this PaymentMethod.
 
 
-        :param name: The name of this PaymentMethod.  # noqa: E501
-        :type name: str
+        :param cardholder_name: The cardholder_name of this PaymentMethod.  # noqa: E501
+        :type cardholder_name: str
         """
 
-        self._name = name
-
-    @property
-    def type(self):
-        """Gets the type of this PaymentMethod.  # noqa: E501
-
-
-        :return: The type of this PaymentMethod.  # noqa: E501
-        :rtype: str
-        """
-        return self._type
-
-    @type.setter
-    def type(self, type):
-        """Sets the type of this PaymentMethod.
-
-
-        :param type: The type of this PaymentMethod.  # noqa: E501
-        :type type: str
-        """
-
-        self._type = type
-
-    @property
-    def default(self):
-        """Gets the default of this PaymentMethod.  # noqa: E501
-
-
-        :return: The default of this PaymentMethod.  # noqa: E501
-        :rtype: bool
-        """
-        return self._default
-
-    @default.setter
-    def default(self, default):
-        """Sets the default of this PaymentMethod.
-
-
-        :param default: The default of this PaymentMethod.  # noqa: E501
-        :type default: bool
-        """
-
-        self._default = default
+        self._cardholder_name = cardholder_name
 
     @property
     def created_at(self):
@@ -232,46 +211,67 @@ class PaymentMethod(object):
         self._created_at = created_at
 
     @property
-    def updated_at(self):
-        """Gets the updated_at of this PaymentMethod.  # noqa: E501
+    def created_by_user(self):
+        """Gets the created_by_user of this PaymentMethod.  # noqa: E501
 
 
-        :return: The updated_at of this PaymentMethod.  # noqa: E501
-        :rtype: datetime
+        :return: The created_by_user of this PaymentMethod.  # noqa: E501
+        :rtype: Href
         """
-        return self._updated_at
+        return self._created_by_user
 
-    @updated_at.setter
-    def updated_at(self, updated_at):
-        """Sets the updated_at of this PaymentMethod.
+    @created_by_user.setter
+    def created_by_user(self, created_by_user):
+        """Sets the created_by_user of this PaymentMethod.
 
 
-        :param updated_at: The updated_at of this PaymentMethod.  # noqa: E501
-        :type updated_at: datetime
+        :param created_by_user: The created_by_user of this PaymentMethod.  # noqa: E501
+        :type created_by_user: Href
         """
 
-        self._updated_at = updated_at
+        self._created_by_user = created_by_user
 
     @property
-    def card_type(self):
-        """Gets the card_type of this PaymentMethod.  # noqa: E501
+    def default(self):
+        """Gets the default of this PaymentMethod.  # noqa: E501
 
 
-        :return: The card_type of this PaymentMethod.  # noqa: E501
+        :return: The default of this PaymentMethod.  # noqa: E501
+        :rtype: bool
+        """
+        return self._default
+
+    @default.setter
+    def default(self, default):
+        """Sets the default of this PaymentMethod.
+
+
+        :param default: The default of this PaymentMethod.  # noqa: E501
+        :type default: bool
+        """
+
+        self._default = default
+
+    @property
+    def email(self):
+        """Gets the email of this PaymentMethod.  # noqa: E501
+
+
+        :return: The email of this PaymentMethod.  # noqa: E501
         :rtype: str
         """
-        return self._card_type
+        return self._email
 
-    @card_type.setter
-    def card_type(self, card_type):
-        """Sets the card_type of this PaymentMethod.
+    @email.setter
+    def email(self, email):
+        """Sets the email of this PaymentMethod.
 
 
-        :param card_type: The card_type of this PaymentMethod.  # noqa: E501
-        :type card_type: str
+        :param email: The email of this PaymentMethod.  # noqa: E501
+        :type email: str
         """
 
-        self._card_type = card_type
+        self._email = email
 
     @property
     def expiration_month(self):
@@ -316,88 +316,46 @@ class PaymentMethod(object):
         self._expiration_year = expiration_year
 
     @property
-    def cardholder_name(self):
-        """Gets the cardholder_name of this PaymentMethod.  # noqa: E501
+    def id(self):
+        """Gets the id of this PaymentMethod.  # noqa: E501
 
 
-        :return: The cardholder_name of this PaymentMethod.  # noqa: E501
+        :return: The id of this PaymentMethod.  # noqa: E501
         :rtype: str
         """
-        return self._cardholder_name
+        return self._id
 
-    @cardholder_name.setter
-    def cardholder_name(self, cardholder_name):
-        """Sets the cardholder_name of this PaymentMethod.
+    @id.setter
+    def id(self, id):
+        """Sets the id of this PaymentMethod.
 
 
-        :param cardholder_name: The cardholder_name of this PaymentMethod.  # noqa: E501
-        :type cardholder_name: str
+        :param id: The id of this PaymentMethod.  # noqa: E501
+        :type id: str
         """
 
-        self._cardholder_name = cardholder_name
+        self._id = id
 
     @property
-    def billing_address(self):
-        """Gets the billing_address of this PaymentMethod.  # noqa: E501
+    def name(self):
+        """Gets the name of this PaymentMethod.  # noqa: E501
 
 
-        :return: The billing_address of this PaymentMethod.  # noqa: E501
-        :rtype: PaymentMethodBillingAddress
-        """
-        return self._billing_address
-
-    @billing_address.setter
-    def billing_address(self, billing_address):
-        """Sets the billing_address of this PaymentMethod.
-
-
-        :param billing_address: The billing_address of this PaymentMethod.  # noqa: E501
-        :type billing_address: PaymentMethodBillingAddress
-        """
-
-        self._billing_address = billing_address
-
-    @property
-    def email(self):
-        """Gets the email of this PaymentMethod.  # noqa: E501
-
-
-        :return: The email of this PaymentMethod.  # noqa: E501
+        :return: The name of this PaymentMethod.  # noqa: E501
         :rtype: str
         """
-        return self._email
+        return self._name
 
-    @email.setter
-    def email(self, email):
-        """Sets the email of this PaymentMethod.
+    @name.setter
+    def name(self, name):
+        """Sets the name of this PaymentMethod.
 
 
-        :param email: The email of this PaymentMethod.  # noqa: E501
-        :type email: str
+        :param name: The name of this PaymentMethod.  # noqa: E501
+        :type name: str
         """
 
-        self._email = email
-
-    @property
-    def created_by_user(self):
-        """Gets the created_by_user of this PaymentMethod.  # noqa: E501
-
-
-        :return: The created_by_user of this PaymentMethod.  # noqa: E501
-        :rtype: Href
-        """
-        return self._created_by_user
-
-    @created_by_user.setter
-    def created_by_user(self, created_by_user):
-        """Sets the created_by_user of this PaymentMethod.
-
-
-        :param created_by_user: The created_by_user of this PaymentMethod.  # noqa: E501
-        :type created_by_user: Href
-        """
-
-        self._created_by_user = created_by_user
+        self._name = name
 
     @property
     def organization(self):
@@ -440,6 +398,48 @@ class PaymentMethod(object):
         """
 
         self._projects = projects
+
+    @property
+    def type(self):
+        """Gets the type of this PaymentMethod.  # noqa: E501
+
+
+        :return: The type of this PaymentMethod.  # noqa: E501
+        :rtype: str
+        """
+        return self._type
+
+    @type.setter
+    def type(self, type):
+        """Sets the type of this PaymentMethod.
+
+
+        :param type: The type of this PaymentMethod.  # noqa: E501
+        :type type: str
+        """
+
+        self._type = type
+
+    @property
+    def updated_at(self):
+        """Gets the updated_at of this PaymentMethod.  # noqa: E501
+
+
+        :return: The updated_at of this PaymentMethod.  # noqa: E501
+        :rtype: datetime
+        """
+        return self._updated_at
+
+    @updated_at.setter
+    def updated_at(self, updated_at):
+        """Sets the updated_at of this PaymentMethod.
+
+
+        :param updated_at: The updated_at of this PaymentMethod.  # noqa: E501
+        :type updated_at: datetime
+        """
+
+        self._updated_at = updated_at
 
     def to_dict(self, serialize=False):
         """Returns the model properties as a dict"""

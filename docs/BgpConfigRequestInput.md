@@ -4,8 +4,8 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**deployment_type** | **str** |  | 
 **asn** | **int** |  | 
+**deployment_type** | **str** |  | 
 **md5** | **str** |  | [optional] 
 **use_case** | **str** |  | [optional] 
 

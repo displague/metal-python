@@ -6,20 +6,18 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**create_bgp_session**](DevicesApi.md#create_bgp_session) | **POST** /devices/{id}/bgp/sessions | Create a BGP session
 [**create_device**](DevicesApi.md#create_device) | **POST** /projects/{id}/devices | Create a device
-[**create_device_batch**](DevicesApi.md#create_device_batch) | **POST** /projects/{id}/devices/batch | Create a devices batch
 [**create_ip_assignment**](DevicesApi.md#create_ip_assignment) | **POST** /devices/{id}/ips | Create an ip assignment
 [**delete_device**](DevicesApi.md#delete_device) | **DELETE** /devices/{id} | Delete the device
 [**find_bgp_sessions**](DevicesApi.md#find_bgp_sessions) | **GET** /devices/{id}/bgp/sessions | Retrieve all BGP sessions
 [**find_device_by_id**](DevicesApi.md#find_device_by_id) | **GET** /devices/{id} | Retrieve a device
 [**find_device_customdata**](DevicesApi.md#find_device_customdata) | **GET** /devices/{id}/customdata | Retrieve the custom metadata of an instance
-[**find_device_events**](DevicesApi.md#find_device_events) | **GET** /devices/{id}/events | Retrieve device&#39;s events
-[**find_device_usages**](DevicesApi.md#find_device_usages) | **GET** /devices/{id}/usages | Retrieve all usages for device
+[**find_device_metadata_by_id**](DevicesApi.md#find_device_metadata_by_id) | **GET** /devices/{id}/metadata | Retrieve metadata
+[**find_device_userdata_by_id**](DevicesApi.md#find_device_userdata_by_id) | **GET** /devices/{id}/userdata | Retrieve userdata
 [**find_instance_bandwidth**](DevicesApi.md#find_instance_bandwidth) | **GET** /devices/{id}/bandwidth | Retrieve an instance bandwidth
 [**find_ip_assignment_customdata**](DevicesApi.md#find_ip_assignment_customdata) | **GET** /devices/{instance_id}/ips/{id}/customdata | Retrieve the custom metadata of an IP Assignment
 [**find_ip_assignments**](DevicesApi.md#find_ip_assignments) | **GET** /devices/{id}/ips | Retrieve all ip assignments
 [**find_organization_devices**](DevicesApi.md#find_organization_devices) | **GET** /organizations/{id}/devices | Retrieve all devices of an organization
 [**find_project_devices**](DevicesApi.md#find_project_devices) | **GET** /projects/{id}/devices | Retrieve all devices of a project
-[**find_project_usage**](DevicesApi.md#find_project_usage) | **GET** /projects/{id}/usages | Retrieve all usages for project
 [**find_traffic**](DevicesApi.md#find_traffic) | **GET** /devices/{id}/traffic | Retrieve device traffic
 [**get_bgp_neighbor_data**](DevicesApi.md#get_bgp_neighbor_data) | **GET** /devices/{id}/bgp/neighbors | Retrieve BGP neighbor data for this device
 [**perform_action**](DevicesApi.md#perform_action) | **POST** /devices/{id}/actions | Perform an action
@@ -27,7 +25,7 @@ Method | HTTP request | Description
 
 
 # **create_bgp_session**
-> BgpSession create_bgp_session(id, bgp_session)
+> BgpSession create_bgp_session(id, bgp_session_input)
 
 Create a BGP session
 
@@ -64,11 +62,11 @@ with metal.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = metal.DevicesApi(api_client)
     id = 'id_example' # str | Device UUID
-bgp_session = metal.BGPSessionInput() # BGPSessionInput | BGP session to create
+bgp_session_input = metal.BGPSessionInput() # BGPSessionInput | BGP session to create
 
     try:
         # Create a BGP session
-        api_response = api_instance.create_bgp_session(id, bgp_session)
+        api_response = api_instance.create_bgp_session(id, bgp_session_input)
         pprint(api_response)
     except ApiException as e:
         print("Exception when calling DevicesApi->create_bgp_session: %s\n" % e)
@@ -79,7 +77,7 @@ bgp_session = metal.BGPSessionInput() # BGPSessionInput | BGP session to create
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **str**| Device UUID | 
- **bgp_session** | [**BGPSessionInput**](BGPSessionInput.md)| BGP session to create | 
+ **bgp_session_input** | [**BGPSessionInput**](BGPSessionInput.md)| BGP session to create | 
 
 ### Return type
 
@@ -105,11 +103,11 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **create_device**
-> Device create_device(id, device)
+> Device create_device(id, create_device_request)
 
 Create a device
 
-Creates a new device and provisions it in the specified location.        Device type-specific options are accepted.  For example, `baremetal` devices accept `operating_system`, `hostname`, and `plan`. These parameters may not be accepted for other device types. The default device type is `baremetal`.
+Creates a new device and provisions it in the specified location.  Device type-specific options are accepted.  For example, `baremetal` devices accept `operating_system`, `hostname`, and `plan`. These parameters may not be accepted for other device types. The default device type is `baremetal`.
 
 ### Example
 
@@ -142,11 +140,11 @@ with metal.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = metal.DevicesApi(api_client)
     id = 'id_example' # str | Project UUID
-device = metal.DeviceCreateInput() # DeviceCreateInput | Device to create
+create_device_request = metal.CreateDeviceRequest() # CreateDeviceRequest | Device to create
 
     try:
         # Create a device
-        api_response = api_instance.create_device(id, device)
+        api_response = api_instance.create_device(id, create_device_request)
         pprint(api_response)
     except ApiException as e:
         print("Exception when calling DevicesApi->create_device: %s\n" % e)
@@ -157,7 +155,7 @@ device = metal.DeviceCreateInput() # DeviceCreateInput | Device to create
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **str**| Project UUID | 
- **device** | [**DeviceCreateInput**](DeviceCreateInput.md)| Device to create | 
+ **create_device_request** | [**CreateDeviceRequest**](CreateDeviceRequest.md)| Device to create | 
 
 ### Return type
 
@@ -177,93 +175,14 @@ Name | Type | Description  | Notes
 |-------------|-------------|------------------|
 **201** | created |  -  |
 **401** | unauthorized |  -  |
-**422** | unprocessable entity |  -  |
 **403** | forbidden |  -  |
 **404** | not found |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **create_device_batch**
-> BatchesList create_device_batch(id, batch)
-
-Create a devices batch
-
-Creates new devices in batch and provisions them in our datacenter.  Type-specific options (such as operating_system for baremetal devices) should be included in the main data structure alongside hostname and plan.  The features attribute allows you to optionally specify what features your server should have.  For example, if you require a server with a TPM chip, you may specify `{ \"features\": { \"tpm\": \"required\" } }` (or `{ \"features\": [\"tpm\"] }` in shorthand).  The request will fail if there are no available servers matching your criteria. Alternatively, if you do not require a certain feature, but would prefer to be assigned a server with that feature if there are any available, you may specify that feature with a preferred value (see the example request below).  The request will not fail if we have no servers with that feature in our inventory.  The facilities attribute specifies in what datacenter you wish to create the device.  You can either specify a single facility `{ \"facility\": \"f1\" }` , or you can instruct to create the device in the best available datacenter `{ \"facility\": \"any\" }`. Additionally it is possible to set a prioritized location selection.  For example `{ \"facility\": [\"f3\", \"f2\", \"any\"] }` will try to assign to the facility f3, if there are no available f2, and so on. If \"any\" is not specified for \"facility\", the request will fail unless it can assign in the selected locations.  With `{ \"facility\": \"any\" }` you have the option to diversify to indicate how many facilities you are willing to be spread across. For this purpose use parameter: `facility_diversity_level = N`.  For example:  `{ \"facilities\": [\"sjc1\", \"ewr1\", \"any\"] ,  \"facility_diversity_level\" = 1, \"quantity\" = 10 }` will assign 10 devices into the same facility, trying first in \"sjc1\", and if there aren’t available, it will try in  \"ewr1\", otherwise any other.  The `ip_addresses` attribute will allow you to specify the addresses you want created with your device.  To maintain backwards compatibility, If the attribute is not sent in the request, it will be treated as if `{ \"ip_addresses\": [{ \"address_family\": 4, \"public\": true }, { \"address_family\": 4, \"public\": false }, { \"address_family\": 6, \"public\": true }] }` was sent.  The private IPv4 address is required and always need to be sent in the array. Not all operating systems support no public IPv4 address, so in those cases you will receive an error message.  For example, to only configure your server with a private IPv4 address, you can send `{ \"ip_addresses\": [{ \"address_family\": 4, \"public\": false }] }`.  Note: when specifying a subnet size larger than a /30, you will need to supply the UUID(s) of existing ip_reservations in your project to assign IPs from.  For example, `{ \"ip_addresses\": [..., {\"address_family\": 4, \"public\": true, \"ip_reservations\": [\"uuid1\", \"uuid2\"]}] }`  To access a server without public IPs, you can use our Out-of-Band console access (SOS) or use another server with public IPs as a proxy.
-
-### Example
-
-* Api Key Authentication (x_auth_token):
-```python
-from __future__ import print_function
-import time
-import metal
-from metal.rest import ApiException
-from pprint import pprint
-# Defining the host is optional and defaults to https://api.equinix.com/metal/v1
-# See configuration.py for a list of all supported configuration parameters.
-configuration = metal.Configuration(
-    host = "https://api.equinix.com/metal/v1"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure API key authorization: x_auth_token
-configuration.api_key['x_auth_token'] = 'YOUR_API_KEY'
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['x_auth_token'] = 'Bearer'
-
-# Enter a context with an instance of the API client
-with metal.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = metal.DevicesApi(api_client)
-    id = 'id_example' # str | Project UUID
-batch = metal.InstancesBatchCreateInput() # InstancesBatchCreateInput | Batches to create
-
-    try:
-        # Create a devices batch
-        api_response = api_instance.create_device_batch(id, batch)
-        pprint(api_response)
-    except ApiException as e:
-        print("Exception when calling DevicesApi->create_device_batch: %s\n" % e)
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **str**| Project UUID | 
- **batch** | [**InstancesBatchCreateInput**](InstancesBatchCreateInput.md)| Batches to create | 
-
-### Return type
-
-[**BatchesList**](BatchesList.md)
-
-### Authorization
-
-[x_auth_token](../README.md#x_auth_token)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**201** | created |  -  |
-**401** | unauthorized |  -  |
 **422** | unprocessable entity |  -  |
-**403** | forbidden |  -  |
-**404** | not found |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **create_ip_assignment**
-> IPAssignment create_ip_assignment(id, ip_assignment)
+> IPAssignment create_ip_assignment(id, ip_assignment_input)
 
 Create an ip assignment
 
@@ -300,11 +219,11 @@ with metal.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = metal.DevicesApi(api_client)
     id = 'id_example' # str | Device UUID
-ip_assignment = metal.IPAssignmentInput() # IPAssignmentInput | IPAssignment to create
+ip_assignment_input = metal.IPAssignmentInput() # IPAssignmentInput | IPAssignment to create
 
     try:
         # Create an ip assignment
-        api_response = api_instance.create_ip_assignment(id, ip_assignment)
+        api_response = api_instance.create_ip_assignment(id, ip_assignment_input)
         pprint(api_response)
     except ApiException as e:
         print("Exception when calling DevicesApi->create_ip_assignment: %s\n" % e)
@@ -315,7 +234,7 @@ ip_assignment = metal.IPAssignmentInput() # IPAssignmentInput | IPAssignment to 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **str**| Device UUID | 
- **ip_assignment** | [**IPAssignmentInput**](IPAssignmentInput.md)| IPAssignment to create | 
+ **ip_assignment_input** | [**IPAssignmentInput**](IPAssignmentInput.md)| IPAssignment to create | 
 
 ### Return type
 
@@ -648,12 +567,12 @@ void (empty response body)
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **find_device_events**
-> EventList find_device_events(id, include=include, exclude=exclude, page=page, per_page=per_page)
+# **find_device_metadata_by_id**
+> Metadata find_device_metadata_by_id(id)
 
-Retrieve device's events
+Retrieve metadata
 
-Returns a list of events pertaining to a specific device
+Retrieve device metadata
 
 ### Example
 
@@ -686,17 +605,13 @@ with metal.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = metal.DevicesApi(api_client)
     id = 'id_example' # str | Device UUID
-include = ['include_example'] # list[str] | Nested attributes to include. Included objects will return their full attributes. Attribute names can be dotted (up to 3 levels) to included deeply nested objects. (optional)
-exclude = ['exclude_example'] # list[str] | Nested attributes to exclude. Excluded objects will return only the href attribute. Attribute names can be dotted (up to 3 levels) to exclude deeply nested objects. (optional)
-page = 1 # int | Page to return (optional) (default to 1)
-per_page = 10 # int | Items returned per page (optional) (default to 10)
 
     try:
-        # Retrieve device's events
-        api_response = api_instance.find_device_events(id, include=include, exclude=exclude, page=page, per_page=per_page)
+        # Retrieve metadata
+        api_response = api_instance.find_device_metadata_by_id(id)
         pprint(api_response)
     except ApiException as e:
-        print("Exception when calling DevicesApi->find_device_events: %s\n" % e)
+        print("Exception when calling DevicesApi->find_device_metadata_by_id: %s\n" % e)
 ```
 
 ### Parameters
@@ -704,14 +619,10 @@ per_page = 10 # int | Items returned per page (optional) (default to 10)
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **str**| Device UUID | 
- **include** | [**list[str]**](str.md)| Nested attributes to include. Included objects will return their full attributes. Attribute names can be dotted (up to 3 levels) to included deeply nested objects. | [optional] 
- **exclude** | [**list[str]**](str.md)| Nested attributes to exclude. Excluded objects will return only the href attribute. Attribute names can be dotted (up to 3 levels) to exclude deeply nested objects. | [optional] 
- **page** | **int**| Page to return | [optional] [default to 1]
- **per_page** | **int**| Items returned per page | [optional] [default to 10]
 
 ### Return type
 
-[**EventList**](EventList.md)
+[**Metadata**](Metadata.md)
 
 ### Authorization
 
@@ -727,17 +638,17 @@ Name | Type | Description  | Notes
 |-------------|-------------|------------------|
 **200** | ok |  -  |
 **401** | unauthorized |  -  |
-**403** | forbidden |  -  |
 **404** | not found |  -  |
+**422** | unprocessable entity |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **find_device_usages**
-> DeviceUsageList find_device_usages(id, created_after=created_after, created_before=created_before)
+# **find_device_userdata_by_id**
+> Userdata find_device_userdata_by_id(id)
 
-Retrieve all usages for device
+Retrieve userdata
 
-Returns all usages for a device.
+Retrieve device userdata
 
 ### Example
 
@@ -770,15 +681,13 @@ with metal.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = metal.DevicesApi(api_client)
     id = 'id_example' # str | Device UUID
-created_after = 'created_after_example' # str | Filter usages created after this date (optional)
-created_before = 'created_before_example' # str | Filter usages created before this date (optional)
 
     try:
-        # Retrieve all usages for device
-        api_response = api_instance.find_device_usages(id, created_after=created_after, created_before=created_before)
+        # Retrieve userdata
+        api_response = api_instance.find_device_userdata_by_id(id)
         pprint(api_response)
     except ApiException as e:
-        print("Exception when calling DevicesApi->find_device_usages: %s\n" % e)
+        print("Exception when calling DevicesApi->find_device_userdata_by_id: %s\n" % e)
 ```
 
 ### Parameters
@@ -786,12 +695,10 @@ created_before = 'created_before_example' # str | Filter usages created before t
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **str**| Device UUID | 
- **created_after** | **str**| Filter usages created after this date | [optional] 
- **created_before** | **str**| Filter usages created before this date | [optional] 
 
 ### Return type
 
-[**DeviceUsageList**](DeviceUsageList.md)
+[**Userdata**](Userdata.md)
 
 ### Authorization
 
@@ -808,6 +715,7 @@ Name | Type | Description  | Notes
 **200** | ok |  -  |
 **401** | unauthorized |  -  |
 **404** | not found |  -  |
+**422** | unprocessable entity |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
@@ -1046,7 +954,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **find_organization_devices**
-> DeviceList find_organization_devices(id, include=include, exclude=exclude, page=page, per_page=per_page)
+> DeviceList find_organization_devices(id, facility=facility, hostname=hostname, reserved=reserved, tag=tag, type=type, include=include, exclude=exclude, page=page, per_page=per_page)
 
 Retrieve all devices of an organization
 
@@ -1083,6 +991,11 @@ with metal.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = metal.DevicesApi(api_client)
     id = 'id_example' # str | Organization UUID
+facility = 'facility_example' # str | Filter by device facility (optional)
+hostname = 'hostname_example' # str | Filter by partial hostname (optional)
+reserved = True # bool | Filter only reserved instances (optional)
+tag = 'tag_example' # str | Filter by device tag (optional)
+type = 'type_example' # str | Filter by instance type (ondemand,spot,reserved) (optional)
 include = ['include_example'] # list[str] | Nested attributes to include. Included objects will return their full attributes. Attribute names can be dotted (up to 3 levels) to included deeply nested objects. (optional)
 exclude = ['exclude_example'] # list[str] | Nested attributes to exclude. Excluded objects will return only the href attribute. Attribute names can be dotted (up to 3 levels) to exclude deeply nested objects. (optional)
 page = 1 # int | Page to return (optional) (default to 1)
@@ -1090,7 +1003,7 @@ per_page = 10 # int | Items returned per page (optional) (default to 10)
 
     try:
         # Retrieve all devices of an organization
-        api_response = api_instance.find_organization_devices(id, include=include, exclude=exclude, page=page, per_page=per_page)
+        api_response = api_instance.find_organization_devices(id, facility=facility, hostname=hostname, reserved=reserved, tag=tag, type=type, include=include, exclude=exclude, page=page, per_page=per_page)
         pprint(api_response)
     except ApiException as e:
         print("Exception when calling DevicesApi->find_organization_devices: %s\n" % e)
@@ -1101,6 +1014,11 @@ per_page = 10 # int | Items returned per page (optional) (default to 10)
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **str**| Organization UUID | 
+ **facility** | **str**| Filter by device facility | [optional] 
+ **hostname** | **str**| Filter by partial hostname | [optional] 
+ **reserved** | **bool**| Filter only reserved instances | [optional] 
+ **tag** | **str**| Filter by device tag | [optional] 
+ **type** | **str**| Filter by instance type (ondemand,spot,reserved) | [optional] 
  **include** | [**list[str]**](str.md)| Nested attributes to include. Included objects will return their full attributes. Attribute names can be dotted (up to 3 levels) to included deeply nested objects. | [optional] 
  **exclude** | [**list[str]**](str.md)| Nested attributes to exclude. Excluded objects will return only the href attribute. Attribute names can be dotted (up to 3 levels) to exclude deeply nested objects. | [optional] 
  **page** | **int**| Page to return | [optional] [default to 1]
@@ -1130,7 +1048,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **find_project_devices**
-> DeviceList find_project_devices(id, include=include, exclude=exclude, page=page, per_page=per_page)
+> DeviceList find_project_devices(id, facility=facility, hostname=hostname, reserved=reserved, tag=tag, type=type, include=include, exclude=exclude, page=page, per_page=per_page)
 
 Retrieve all devices of a project
 
@@ -1167,6 +1085,11 @@ with metal.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = metal.DevicesApi(api_client)
     id = 'id_example' # str | Project UUID
+facility = 'facility_example' # str | Filter by device facility (optional)
+hostname = 'hostname_example' # str | Filter by partial hostname (optional)
+reserved = True # bool | Filter only reserved instances (optional)
+tag = 'tag_example' # str | Filter by device tag (optional)
+type = 'type_example' # str | Filter by instance type (ondemand,spot,reserved) (optional)
 include = ['include_example'] # list[str] | Nested attributes to include. Included objects will return their full attributes. Attribute names can be dotted (up to 3 levels) to included deeply nested objects. (optional)
 exclude = ['exclude_example'] # list[str] | Nested attributes to exclude. Excluded objects will return only the href attribute. Attribute names can be dotted (up to 3 levels) to exclude deeply nested objects. (optional)
 page = 1 # int | Page to return (optional) (default to 1)
@@ -1174,7 +1097,7 @@ per_page = 10 # int | Items returned per page (optional) (default to 10)
 
     try:
         # Retrieve all devices of a project
-        api_response = api_instance.find_project_devices(id, include=include, exclude=exclude, page=page, per_page=per_page)
+        api_response = api_instance.find_project_devices(id, facility=facility, hostname=hostname, reserved=reserved, tag=tag, type=type, include=include, exclude=exclude, page=page, per_page=per_page)
         pprint(api_response)
     except ApiException as e:
         print("Exception when calling DevicesApi->find_project_devices: %s\n" % e)
@@ -1185,6 +1108,11 @@ per_page = 10 # int | Items returned per page (optional) (default to 10)
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **str**| Project UUID | 
+ **facility** | **str**| Filter by device facility | [optional] 
+ **hostname** | **str**| Filter by partial hostname | [optional] 
+ **reserved** | **bool**| Filter only reserved instances | [optional] 
+ **tag** | **str**| Filter by device tag | [optional] 
+ **type** | **str**| Filter by instance type (ondemand,spot,reserved) | [optional] 
  **include** | [**list[str]**](str.md)| Nested attributes to include. Included objects will return their full attributes. Attribute names can be dotted (up to 3 levels) to included deeply nested objects. | [optional] 
  **exclude** | [**list[str]**](str.md)| Nested attributes to exclude. Excluded objects will return only the href attribute. Attribute names can be dotted (up to 3 levels) to exclude deeply nested objects. | [optional] 
  **page** | **int**| Page to return | [optional] [default to 1]
@@ -1213,87 +1141,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **find_project_usage**
-> ProjectUsageList find_project_usage(id, created_after=created_after, created_before=created_before)
-
-Retrieve all usages for project
-
-Returns all usages for a project.
-
-### Example
-
-* Api Key Authentication (x_auth_token):
-```python
-from __future__ import print_function
-import time
-import metal
-from metal.rest import ApiException
-from pprint import pprint
-# Defining the host is optional and defaults to https://api.equinix.com/metal/v1
-# See configuration.py for a list of all supported configuration parameters.
-configuration = metal.Configuration(
-    host = "https://api.equinix.com/metal/v1"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure API key authorization: x_auth_token
-configuration.api_key['x_auth_token'] = 'YOUR_API_KEY'
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['x_auth_token'] = 'Bearer'
-
-# Enter a context with an instance of the API client
-with metal.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = metal.DevicesApi(api_client)
-    id = 'id_example' # str | Project UUID
-created_after = 'created_after_example' # str | Filter usages created after this date (optional)
-created_before = 'created_before_example' # str | Filter usages created before this date (optional)
-
-    try:
-        # Retrieve all usages for project
-        api_response = api_instance.find_project_usage(id, created_after=created_after, created_before=created_before)
-        pprint(api_response)
-    except ApiException as e:
-        print("Exception when calling DevicesApi->find_project_usage: %s\n" % e)
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **str**| Project UUID | 
- **created_after** | **str**| Filter usages created after this date | [optional] 
- **created_before** | **str**| Filter usages created before this date | [optional] 
-
-### Return type
-
-[**ProjectUsageList**](ProjectUsageList.md)
-
-### Authorization
-
-[x_auth_token](../README.md#x_auth_token)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | ok |  -  |
-**401** | unauthorized |  -  |
-**404** | not found |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
 # **find_traffic**
-> find_traffic(id, direction, timeframe, interval=interval, bucket=bucket)
+> find_traffic(id, direction, interval=interval, bucket=bucket, timeframe=timeframe)
 
 Retrieve device traffic
 
@@ -1331,13 +1180,13 @@ with metal.ApiClient(configuration) as api_client:
     api_instance = metal.DevicesApi(api_client)
     id = 'id_example' # str | Device UUID
 direction = 'direction_example' # str | Traffic direction
-timeframe = metal.Timeframe() # Timeframe | Traffic timeframe
 interval = 'interval_example' # str | Traffic interval (optional)
 bucket = 'bucket_example' # str | Traffic bucket (optional)
+timeframe = {'key': metal.FindTrafficTimeframeParameter()} # FindTrafficTimeframeParameter |  (optional)
 
     try:
         # Retrieve device traffic
-        api_instance.find_traffic(id, direction, timeframe, interval=interval, bucket=bucket)
+        api_instance.find_traffic(id, direction, interval=interval, bucket=bucket, timeframe=timeframe)
     except ApiException as e:
         print("Exception when calling DevicesApi->find_traffic: %s\n" % e)
 ```
@@ -1348,9 +1197,9 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **str**| Device UUID | 
  **direction** | **str**| Traffic direction | 
- **timeframe** | [**Timeframe**](Timeframe.md)| Traffic timeframe | 
  **interval** | **str**| Traffic interval | [optional] 
  **bucket** | **str**| Traffic bucket | [optional] 
+ **timeframe** | [**FindTrafficTimeframeParameter**](.md)|  | [optional] 
 
 ### Return type
 
@@ -1362,7 +1211,7 @@ void (empty response body)
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
+ - **Content-Type**: Not defined
  - **Accept**: application/json
 
 ### HTTP response details
@@ -1452,7 +1301,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **perform_action**
-> perform_action(id, type)
+> perform_action(id, device_action_input)
 
 Perform an action
 
@@ -1489,11 +1338,11 @@ with metal.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = metal.DevicesApi(api_client)
     id = 'id_example' # str | Device UUID
-type = 'type_example' # str | Action to perform
+device_action_input = metal.DeviceActionInput() # DeviceActionInput | Action to perform
 
     try:
         # Perform an action
-        api_instance.perform_action(id, type)
+        api_instance.perform_action(id, device_action_input)
     except ApiException as e:
         print("Exception when calling DevicesApi->perform_action: %s\n" % e)
 ```
@@ -1503,7 +1352,7 @@ type = 'type_example' # str | Action to perform
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **str**| Device UUID | 
- **type** | **str**| Action to perform | 
+ **device_action_input** | [**DeviceActionInput**](DeviceActionInput.md)| Action to perform | 
 
 ### Return type
 
@@ -1515,7 +1364,7 @@ void (empty response body)
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 ### HTTP response details
@@ -1529,7 +1378,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_device**
-> Device update_device(id, device)
+> Device update_device(id, device_update_input)
 
 Update the device
 
@@ -1566,11 +1415,11 @@ with metal.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = metal.DevicesApi(api_client)
     id = 'id_example' # str | Device UUID
-device = metal.DeviceUpdateInput() # DeviceUpdateInput | Facility to update
+device_update_input = metal.DeviceUpdateInput() # DeviceUpdateInput | Facility to update
 
     try:
         # Update the device
-        api_response = api_instance.update_device(id, device)
+        api_response = api_instance.update_device(id, device_update_input)
         pprint(api_response)
     except ApiException as e:
         print("Exception when calling DevicesApi->update_device: %s\n" % e)
@@ -1581,7 +1430,7 @@ device = metal.DeviceUpdateInput() # DeviceUpdateInput | Facility to update
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **str**| Device UUID | 
- **device** | [**DeviceUpdateInput**](DeviceUpdateInput.md)| Facility to update | 
+ **device_update_input** | [**DeviceUpdateInput**](DeviceUpdateInput.md)| Facility to update | 
 
 ### Return type
 

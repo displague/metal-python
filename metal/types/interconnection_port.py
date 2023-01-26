@@ -3,7 +3,7 @@
 """
     Metal API
 
-    This is the API for Equinix Metal. The API allows you to programmatically interact with all of your Equinix Metal resources, including devices, networks, addresses, organizations, projects, and your user account.  The official API docs are hosted at <https://metal.equinix.com/developers/api>.   # noqa: E501
+    # Introduction Equinix Metal provides a RESTful HTTP API which can be reached at <https://api.equinix.com/metal/v1>. This document describes the API and how to use it.  The API allows you to programmatically interact with all of your Equinix Metal resources, including devices, networks, addresses, organizations, projects, and your user account. Every feature of the Equinix Metal web interface is accessible through the API.  The API docs are generated from the Equinix Metal OpenAPI specification and are officially hosted at <https://metal.equinix.com/developers/api>.  # Common Parameters  The Equinix Metal API uses a few methods to minimize network traffic and improve throughput. These parameters are not used in all API calls, but are used often enough to warrant their own section. Look for these parameters in the documentation for the API calls that support them.  ## Pagination  Pagination is used to limit the number of results returned in a single request. The API will return a maximum of 100 results per page. To retrieve additional results, you can use the `page` and `per_page` query parameters.  The `page` parameter is used to specify the page number. The first page is `1`. The `per_page` parameter is used to specify the number of results per page. The maximum number of results differs by resource type.  ## Sorting  Where offered, the API allows you to sort results by a specific field. To sort results use the `sort_by` query parameter with the root level field name as the value. The `sort_direction` parameter is used to specify the sort direction, either either `asc` (ascending) or `desc` (descending).  ## Filtering  Filtering is used to limit the results returned in a single request. The API supports filtering by certain fields in the response. To filter results, you can use the field as a query parameter.  For example, to filter the IP list to only return public IPv4 addresses, you can filter by the `type` field, as in the following request:  ```sh curl -H 'X-Auth-Token: my_authentication_token' \\   https://api.equinix.com/metal/v1/projects/id/ips?type=public_ipv4 ```  Only IP addresses with the `type` field set to `public_ipv4` will be returned.  ## Searching  Searching is used to find matching resources using multiple field comparissons. The API supports searching in resources that define this behavior. The fields available for search differ by resource, as does the search strategy.  To search resources you can use the `search` query parameter.  ## Include and Exclude  For resources that contain references to other resources, sucha as a Device that refers to the Project it resides in, the Equinix Metal API will returns `href` values (API links) to the associated resource.  ```json {   ...   \"project\": {     \"href\": \"/metal/v1/projects/f3f131c8-f302-49ef-8c44-9405022dc6dd\"   } } ```  If you're going need the project details, you can avoid a second API request.  Specify the contained `href` resources and collections that you'd like to have included in the response using the `include` query parameter.  For example:  ```sh curl -H 'X-Auth-Token: my_authentication_token' \\   https://api.equinix.com/metal/v1/user?include=projects ```  The `include` parameter is generally accepted in `GET`, `POST`, `PUT`, and `PATCH` requests where `href` resources are presented.  To have multiple resources include, use a comma-separated list (e.g. `?include=emails,projects,memberships`).  ```sh curl -H 'X-Auth-Token: my_authentication_token' \\   https://api.equinix.com/metal/v1/user?include=emails,projects,memberships ```  You may also include nested associations up to three levels deep using dot notation (`?include=memberships.projects`):  ```sh curl -H 'X-Auth-Token: my_authentication_token' \\   https://api.equinix.com/metal/v1/user?include=memberships.projects ```  To exclude resources, and optimize response delivery, use the `exclude` query parameter. The `exclude` parameter is generally accepted in `GET`, `POST`, `PUT`, and `PATCH` requests for fields with nested object responses. When excluded, these fields will be replaced with an object that contains only an `href` field.   # noqa: E501
 
     The version of the OpenAPI document: 1.0.0
     Contact: support@equinixmetal.com
@@ -38,38 +38,52 @@ class InterconnectionPort(object):
     """
     openapi_types = {
         'id': 'str',
+        'organization': 'Href',
         'role': 'str',
         'status': 'str',
         'switch_id': 'str',
         'virtual_circuits': 'VirtualCircuitList',
-        'organization': 'Href'
+        'name': 'str',
+        'speed': 'int',
+        'link_status': 'str',
+        'href': 'str'
     }
 
     attribute_map = {
         'id': 'id',
+        'organization': 'organization',
         'role': 'role',
         'status': 'status',
         'switch_id': 'switch_id',
         'virtual_circuits': 'virtual_circuits',
-        'organization': 'organization'
+        'name': 'name',
+        'speed': 'speed',
+        'link_status': 'link_status',
+        'href': 'href'
     }
 
-    def __init__(self, id=None, role=None, status=None, switch_id=None, virtual_circuits=None, organization=None, local_vars_configuration=None):  # noqa: E501
+    def __init__(self, id=None, organization=None, role=None, status=None, switch_id=None, virtual_circuits=None, name=None, speed=None, link_status=None, href=None, local_vars_configuration=None):  # noqa: E501
         """InterconnectionPort - a model defined in OpenAPI"""  # noqa: E501
         if local_vars_configuration is None:
             local_vars_configuration = Configuration.get_default_copy()
         self.local_vars_configuration = local_vars_configuration
 
         self._id = None
+        self._organization = None
         self._role = None
         self._status = None
         self._switch_id = None
         self._virtual_circuits = None
-        self._organization = None
+        self._name = None
+        self._speed = None
+        self._link_status = None
+        self._href = None
         self.discriminator = None
 
         if id is not None:
             self.id = id
+        if organization is not None:
+            self.organization = organization
         if role is not None:
             self.role = role
         if status is not None:
@@ -78,8 +92,14 @@ class InterconnectionPort(object):
             self.switch_id = switch_id
         if virtual_circuits is not None:
             self.virtual_circuits = virtual_circuits
-        if organization is not None:
-            self.organization = organization
+        if name is not None:
+            self.name = name
+        if speed is not None:
+            self.speed = speed
+        if link_status is not None:
+            self.link_status = link_status
+        if href is not None:
+            self.href = href
 
     @property
     def id(self):
@@ -103,6 +123,27 @@ class InterconnectionPort(object):
         self._id = id
 
     @property
+    def organization(self):
+        """Gets the organization of this InterconnectionPort.  # noqa: E501
+
+
+        :return: The organization of this InterconnectionPort.  # noqa: E501
+        :rtype: Href
+        """
+        return self._organization
+
+    @organization.setter
+    def organization(self, organization):
+        """Sets the organization of this InterconnectionPort.
+
+
+        :param organization: The organization of this InterconnectionPort.  # noqa: E501
+        :type organization: Href
+        """
+
+        self._organization = organization
+
+    @property
     def role(self):
         """Gets the role of this InterconnectionPort.  # noqa: E501
 
@@ -122,6 +163,12 @@ class InterconnectionPort(object):
         :param role: The role of this InterconnectionPort.  # noqa: E501
         :type role: str
         """
+        allowed_values = ["primary", "secondary"]  # noqa: E501
+        if self.local_vars_configuration.client_side_validation and role not in allowed_values:  # noqa: E501
+            raise ValueError(
+                "Invalid value for `role` ({0}), must be one of {1}"  # noqa: E501
+                .format(role, allowed_values)
+            )
 
         self._role = role
 
@@ -129,6 +176,7 @@ class InterconnectionPort(object):
     def status(self):
         """Gets the status of this InterconnectionPort.  # noqa: E501
 
+        For both Fabric VCs and Dedicated Ports, this will be 'requested' on creation and 'deleting' on deletion. Once the Fabric VC has found its corresponding Fabric connection, this will turn to 'active'. For Dedicated Ports, once the dedicated port is associated, this will also turn to 'active'. For Fabric VCs, this can turn into an 'expired' state if the service token associated is expired.  # noqa: E501
 
         :return: The status of this InterconnectionPort.  # noqa: E501
         :rtype: str
@@ -139,10 +187,17 @@ class InterconnectionPort(object):
     def status(self, status):
         """Sets the status of this InterconnectionPort.
 
+        For both Fabric VCs and Dedicated Ports, this will be 'requested' on creation and 'deleting' on deletion. Once the Fabric VC has found its corresponding Fabric connection, this will turn to 'active'. For Dedicated Ports, once the dedicated port is associated, this will also turn to 'active'. For Fabric VCs, this can turn into an 'expired' state if the service token associated is expired.  # noqa: E501
 
         :param status: The status of this InterconnectionPort.  # noqa: E501
         :type status: str
         """
+        allowed_values = ["requested", "active", "deleting", "expired"]  # noqa: E501
+        if self.local_vars_configuration.client_side_validation and status not in allowed_values:  # noqa: E501
+            raise ValueError(
+                "Invalid value for `status` ({0}), must be one of {1}"  # noqa: E501
+                .format(status, allowed_values)
+            )
 
         self._status = status
 
@@ -191,25 +246,88 @@ class InterconnectionPort(object):
         self._virtual_circuits = virtual_circuits
 
     @property
-    def organization(self):
-        """Gets the organization of this InterconnectionPort.  # noqa: E501
+    def name(self):
+        """Gets the name of this InterconnectionPort.  # noqa: E501
 
 
-        :return: The organization of this InterconnectionPort.  # noqa: E501
-        :rtype: Href
+        :return: The name of this InterconnectionPort.  # noqa: E501
+        :rtype: str
         """
-        return self._organization
+        return self._name
 
-    @organization.setter
-    def organization(self, organization):
-        """Sets the organization of this InterconnectionPort.
+    @name.setter
+    def name(self, name):
+        """Sets the name of this InterconnectionPort.
 
 
-        :param organization: The organization of this InterconnectionPort.  # noqa: E501
-        :type organization: Href
+        :param name: The name of this InterconnectionPort.  # noqa: E501
+        :type name: str
         """
 
-        self._organization = organization
+        self._name = name
+
+    @property
+    def speed(self):
+        """Gets the speed of this InterconnectionPort.  # noqa: E501
+
+
+        :return: The speed of this InterconnectionPort.  # noqa: E501
+        :rtype: int
+        """
+        return self._speed
+
+    @speed.setter
+    def speed(self, speed):
+        """Sets the speed of this InterconnectionPort.
+
+
+        :param speed: The speed of this InterconnectionPort.  # noqa: E501
+        :type speed: int
+        """
+
+        self._speed = speed
+
+    @property
+    def link_status(self):
+        """Gets the link_status of this InterconnectionPort.  # noqa: E501
+
+
+        :return: The link_status of this InterconnectionPort.  # noqa: E501
+        :rtype: str
+        """
+        return self._link_status
+
+    @link_status.setter
+    def link_status(self, link_status):
+        """Sets the link_status of this InterconnectionPort.
+
+
+        :param link_status: The link_status of this InterconnectionPort.  # noqa: E501
+        :type link_status: str
+        """
+
+        self._link_status = link_status
+
+    @property
+    def href(self):
+        """Gets the href of this InterconnectionPort.  # noqa: E501
+
+
+        :return: The href of this InterconnectionPort.  # noqa: E501
+        :rtype: str
+        """
+        return self._href
+
+    @href.setter
+    def href(self, href):
+        """Sets the href of this InterconnectionPort.
+
+
+        :param href: The href of this InterconnectionPort.  # noqa: E501
+        :type href: str
+        """
+
+        self._href = href
 
     def to_dict(self, serialize=False):
         """Returns the model properties as a dict"""

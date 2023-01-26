@@ -1,13 +1,13 @@
-# metal.OtpsApi
+# metal.OTPsApi
 
 All URIs are relative to *https://api.equinix.com/metal/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**find_ensure_otp**](OtpsApi.md#find_ensure_otp) | **POST** /user/otp/verify/{otp} | Verify user by providing an OTP
-[**find_recovery_codes**](OtpsApi.md#find_recovery_codes) | **GET** /user/otp/recovery-codes | Retrieve my recovery codes
-[**receive_codes**](OtpsApi.md#receive_codes) | **POST** /user/otp/sms/receive | Receive an OTP per sms
-[**regenerate_codes**](OtpsApi.md#regenerate_codes) | **POST** /user/otp/recovery-codes | Generate new recovery codes
+[**find_ensure_otp**](OTPsApi.md#find_ensure_otp) | **POST** /user/otp/verify/{otp} | Verify user by providing an OTP
+[**find_recovery_codes**](OTPsApi.md#find_recovery_codes) | **GET** /user/otp/recovery-codes | Retrieve my recovery codes
+[**receive_codes**](OTPsApi.md#receive_codes) | **POST** /user/otp/sms/receive | Receive an OTP per sms
+[**regenerate_codes**](OTPsApi.md#regenerate_codes) | **POST** /user/otp/recovery-codes | Generate new recovery codes
 
 
 # **find_ensure_otp**
@@ -46,14 +46,14 @@ configuration.api_key['x_auth_token'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with metal.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = metal.OtpsApi(api_client)
+    api_instance = metal.OTPsApi(api_client)
     otp = 'otp_example' # str | OTP
 
     try:
         # Verify user by providing an OTP
         api_instance.find_ensure_otp(otp)
     except ApiException as e:
-        print("Exception when calling OtpsApi->find_ensure_otp: %s\n" % e)
+        print("Exception when calling OTPsApi->find_ensure_otp: %s\n" % e)
 ```
 
 ### Parameters
@@ -120,14 +120,14 @@ configuration.api_key['x_auth_token'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with metal.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = metal.OtpsApi(api_client)
+    api_instance = metal.OTPsApi(api_client)
     
     try:
         # Retrieve my recovery codes
         api_response = api_instance.find_recovery_codes()
         pprint(api_response)
     except ApiException as e:
-        print("Exception when calling OtpsApi->find_recovery_codes: %s\n" % e)
+        print("Exception when calling OTPsApi->find_recovery_codes: %s\n" % e)
 ```
 
 ### Parameters
@@ -192,13 +192,13 @@ configuration.api_key['x_auth_token'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with metal.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = metal.OtpsApi(api_client)
+    api_instance = metal.OTPsApi(api_client)
     
     try:
         # Receive an OTP per sms
         api_instance.receive_codes()
     except ApiException as e:
-        print("Exception when calling OtpsApi->receive_codes: %s\n" % e)
+        print("Exception when calling OTPsApi->receive_codes: %s\n" % e)
 ```
 
 ### Parameters
@@ -264,14 +264,14 @@ configuration.api_key['x_auth_token'] = 'YOUR_API_KEY'
 # Enter a context with an instance of the API client
 with metal.ApiClient(configuration) as api_client:
     # Create an instance of the API class
-    api_instance = metal.OtpsApi(api_client)
+    api_instance = metal.OTPsApi(api_client)
     
     try:
         # Generate new recovery codes
         api_response = api_instance.regenerate_codes()
         pprint(api_response)
     except ApiException as e:
-        print("Exception when calling OtpsApi->regenerate_codes: %s\n" % e)
+        print("Exception when calling OTPsApi->regenerate_codes: %s\n" % e)
 ```
 
 ### Parameters

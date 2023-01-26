@@ -3,7 +3,7 @@
 """
     Metal API
 
-    This is the API for Equinix Metal. The API allows you to programmatically interact with all of your Equinix Metal resources, including devices, networks, addresses, organizations, projects, and your user account.  The official API docs are hosted at <https://metal.equinix.com/developers/api>.   # noqa: E501
+    # Introduction Equinix Metal provides a RESTful HTTP API which can be reached at <https://api.equinix.com/metal/v1>. This document describes the API and how to use it.  The API allows you to programmatically interact with all of your Equinix Metal resources, including devices, networks, addresses, organizations, projects, and your user account. Every feature of the Equinix Metal web interface is accessible through the API.  The API docs are generated from the Equinix Metal OpenAPI specification and are officially hosted at <https://metal.equinix.com/developers/api>.  # Common Parameters  The Equinix Metal API uses a few methods to minimize network traffic and improve throughput. These parameters are not used in all API calls, but are used often enough to warrant their own section. Look for these parameters in the documentation for the API calls that support them.  ## Pagination  Pagination is used to limit the number of results returned in a single request. The API will return a maximum of 100 results per page. To retrieve additional results, you can use the `page` and `per_page` query parameters.  The `page` parameter is used to specify the page number. The first page is `1`. The `per_page` parameter is used to specify the number of results per page. The maximum number of results differs by resource type.  ## Sorting  Where offered, the API allows you to sort results by a specific field. To sort results use the `sort_by` query parameter with the root level field name as the value. The `sort_direction` parameter is used to specify the sort direction, either either `asc` (ascending) or `desc` (descending).  ## Filtering  Filtering is used to limit the results returned in a single request. The API supports filtering by certain fields in the response. To filter results, you can use the field as a query parameter.  For example, to filter the IP list to only return public IPv4 addresses, you can filter by the `type` field, as in the following request:  ```sh curl -H 'X-Auth-Token: my_authentication_token' \\   https://api.equinix.com/metal/v1/projects/id/ips?type=public_ipv4 ```  Only IP addresses with the `type` field set to `public_ipv4` will be returned.  ## Searching  Searching is used to find matching resources using multiple field comparissons. The API supports searching in resources that define this behavior. The fields available for search differ by resource, as does the search strategy.  To search resources you can use the `search` query parameter.  ## Include and Exclude  For resources that contain references to other resources, sucha as a Device that refers to the Project it resides in, the Equinix Metal API will returns `href` values (API links) to the associated resource.  ```json {   ...   \"project\": {     \"href\": \"/metal/v1/projects/f3f131c8-f302-49ef-8c44-9405022dc6dd\"   } } ```  If you're going need the project details, you can avoid a second API request.  Specify the contained `href` resources and collections that you'd like to have included in the response using the `include` query parameter.  For example:  ```sh curl -H 'X-Auth-Token: my_authentication_token' \\   https://api.equinix.com/metal/v1/user?include=projects ```  The `include` parameter is generally accepted in `GET`, `POST`, `PUT`, and `PATCH` requests where `href` resources are presented.  To have multiple resources include, use a comma-separated list (e.g. `?include=emails,projects,memberships`).  ```sh curl -H 'X-Auth-Token: my_authentication_token' \\   https://api.equinix.com/metal/v1/user?include=emails,projects,memberships ```  You may also include nested associations up to three levels deep using dot notation (`?include=memberships.projects`):  ```sh curl -H 'X-Auth-Token: my_authentication_token' \\   https://api.equinix.com/metal/v1/user?include=memberships.projects ```  To exclude resources, and optimize response delivery, use the `exclude` query parameter. The `exclude` parameter is generally accepted in `GET`, `POST`, `PUT`, and `PATCH` requests for fields with nested object responses. When excluded, these fields will be replaced with an object that contains only an `href` field.   # noqa: E501
 
     The version of the OpenAPI document: 1.0.0
     Contact: support@equinixmetal.com
@@ -37,65 +37,63 @@ class SupportRequestInput(object):
                             and the value is json key in definition.
     """
     openapi_types = {
-        'subject': 'str',
-        'message': 'str',
-        'project_id': 'str',
         'device_id': 'str',
-        'priority': 'str'
+        'message': 'str',
+        'priority': 'str',
+        'project_id': 'str',
+        'subject': 'str'
     }
 
     attribute_map = {
-        'subject': 'subject',
-        'message': 'message',
-        'project_id': 'project_id',
         'device_id': 'device_id',
-        'priority': 'priority'
+        'message': 'message',
+        'priority': 'priority',
+        'project_id': 'project_id',
+        'subject': 'subject'
     }
 
-    def __init__(self, subject=None, message=None, project_id=None, device_id=None, priority=None, local_vars_configuration=None):  # noqa: E501
+    def __init__(self, device_id=None, message=None, priority=None, project_id=None, subject=None, local_vars_configuration=None):  # noqa: E501
         """SupportRequestInput - a model defined in OpenAPI"""  # noqa: E501
         if local_vars_configuration is None:
             local_vars_configuration = Configuration.get_default_copy()
         self.local_vars_configuration = local_vars_configuration
 
-        self._subject = None
-        self._message = None
-        self._project_id = None
         self._device_id = None
+        self._message = None
         self._priority = None
+        self._project_id = None
+        self._subject = None
         self.discriminator = None
 
-        self.subject = subject
-        self.message = message
-        if project_id is not None:
-            self.project_id = project_id
         if device_id is not None:
             self.device_id = device_id
+        self.message = message
         if priority is not None:
             self.priority = priority
+        if project_id is not None:
+            self.project_id = project_id
+        self.subject = subject
 
     @property
-    def subject(self):
-        """Gets the subject of this SupportRequestInput.  # noqa: E501
+    def device_id(self):
+        """Gets the device_id of this SupportRequestInput.  # noqa: E501
 
 
-        :return: The subject of this SupportRequestInput.  # noqa: E501
+        :return: The device_id of this SupportRequestInput.  # noqa: E501
         :rtype: str
         """
-        return self._subject
+        return self._device_id
 
-    @subject.setter
-    def subject(self, subject):
-        """Sets the subject of this SupportRequestInput.
+    @device_id.setter
+    def device_id(self, device_id):
+        """Sets the device_id of this SupportRequestInput.
 
 
-        :param subject: The subject of this SupportRequestInput.  # noqa: E501
-        :type subject: str
+        :param device_id: The device_id of this SupportRequestInput.  # noqa: E501
+        :type device_id: str
         """
-        if self.local_vars_configuration.client_side_validation and subject is None:  # noqa: E501
-            raise ValueError("Invalid value for `subject`, must not be `None`")  # noqa: E501
 
-        self._subject = subject
+        self._device_id = device_id
 
     @property
     def message(self):
@@ -119,48 +117,6 @@ class SupportRequestInput(object):
             raise ValueError("Invalid value for `message`, must not be `None`")  # noqa: E501
 
         self._message = message
-
-    @property
-    def project_id(self):
-        """Gets the project_id of this SupportRequestInput.  # noqa: E501
-
-
-        :return: The project_id of this SupportRequestInput.  # noqa: E501
-        :rtype: str
-        """
-        return self._project_id
-
-    @project_id.setter
-    def project_id(self, project_id):
-        """Sets the project_id of this SupportRequestInput.
-
-
-        :param project_id: The project_id of this SupportRequestInput.  # noqa: E501
-        :type project_id: str
-        """
-
-        self._project_id = project_id
-
-    @property
-    def device_id(self):
-        """Gets the device_id of this SupportRequestInput.  # noqa: E501
-
-
-        :return: The device_id of this SupportRequestInput.  # noqa: E501
-        :rtype: str
-        """
-        return self._device_id
-
-    @device_id.setter
-    def device_id(self, device_id):
-        """Sets the device_id of this SupportRequestInput.
-
-
-        :param device_id: The device_id of this SupportRequestInput.  # noqa: E501
-        :type device_id: str
-        """
-
-        self._device_id = device_id
 
     @property
     def priority(self):
@@ -188,6 +144,50 @@ class SupportRequestInput(object):
             )
 
         self._priority = priority
+
+    @property
+    def project_id(self):
+        """Gets the project_id of this SupportRequestInput.  # noqa: E501
+
+
+        :return: The project_id of this SupportRequestInput.  # noqa: E501
+        :rtype: str
+        """
+        return self._project_id
+
+    @project_id.setter
+    def project_id(self, project_id):
+        """Sets the project_id of this SupportRequestInput.
+
+
+        :param project_id: The project_id of this SupportRequestInput.  # noqa: E501
+        :type project_id: str
+        """
+
+        self._project_id = project_id
+
+    @property
+    def subject(self):
+        """Gets the subject of this SupportRequestInput.  # noqa: E501
+
+
+        :return: The subject of this SupportRequestInput.  # noqa: E501
+        :rtype: str
+        """
+        return self._subject
+
+    @subject.setter
+    def subject(self, subject):
+        """Sets the subject of this SupportRequestInput.
+
+
+        :param subject: The subject of this SupportRequestInput.  # noqa: E501
+        :type subject: str
+        """
+        if self.local_vars_configuration.client_side_validation and subject is None:  # noqa: E501
+            raise ValueError("Invalid value for `subject`, must not be `None`")  # noqa: E501
+
+        self._subject = subject
 
     def to_dict(self, serialize=False):
         """Returns the model properties as a dict"""

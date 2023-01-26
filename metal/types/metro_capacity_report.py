@@ -3,7 +3,7 @@
 """
     Metal API
 
-    This is the API for Equinix Metal. The API allows you to programmatically interact with all of your Equinix Metal resources, including devices, networks, addresses, organizations, projects, and your user account.  The official API docs are hosted at <https://metal.equinix.com/developers/api>.   # noqa: E501
+    # Introduction Equinix Metal provides a RESTful HTTP API which can be reached at <https://api.equinix.com/metal/v1>. This document describes the API and how to use it.  The API allows you to programmatically interact with all of your Equinix Metal resources, including devices, networks, addresses, organizations, projects, and your user account. Every feature of the Equinix Metal web interface is accessible through the API.  The API docs are generated from the Equinix Metal OpenAPI specification and are officially hosted at <https://metal.equinix.com/developers/api>.  # Common Parameters  The Equinix Metal API uses a few methods to minimize network traffic and improve throughput. These parameters are not used in all API calls, but are used often enough to warrant their own section. Look for these parameters in the documentation for the API calls that support them.  ## Pagination  Pagination is used to limit the number of results returned in a single request. The API will return a maximum of 100 results per page. To retrieve additional results, you can use the `page` and `per_page` query parameters.  The `page` parameter is used to specify the page number. The first page is `1`. The `per_page` parameter is used to specify the number of results per page. The maximum number of results differs by resource type.  ## Sorting  Where offered, the API allows you to sort results by a specific field. To sort results use the `sort_by` query parameter with the root level field name as the value. The `sort_direction` parameter is used to specify the sort direction, either either `asc` (ascending) or `desc` (descending).  ## Filtering  Filtering is used to limit the results returned in a single request. The API supports filtering by certain fields in the response. To filter results, you can use the field as a query parameter.  For example, to filter the IP list to only return public IPv4 addresses, you can filter by the `type` field, as in the following request:  ```sh curl -H 'X-Auth-Token: my_authentication_token' \\   https://api.equinix.com/metal/v1/projects/id/ips?type=public_ipv4 ```  Only IP addresses with the `type` field set to `public_ipv4` will be returned.  ## Searching  Searching is used to find matching resources using multiple field comparissons. The API supports searching in resources that define this behavior. The fields available for search differ by resource, as does the search strategy.  To search resources you can use the `search` query parameter.  ## Include and Exclude  For resources that contain references to other resources, sucha as a Device that refers to the Project it resides in, the Equinix Metal API will returns `href` values (API links) to the associated resource.  ```json {   ...   \"project\": {     \"href\": \"/metal/v1/projects/f3f131c8-f302-49ef-8c44-9405022dc6dd\"   } } ```  If you're going need the project details, you can avoid a second API request.  Specify the contained `href` resources and collections that you'd like to have included in the response using the `include` query parameter.  For example:  ```sh curl -H 'X-Auth-Token: my_authentication_token' \\   https://api.equinix.com/metal/v1/user?include=projects ```  The `include` parameter is generally accepted in `GET`, `POST`, `PUT`, and `PATCH` requests where `href` resources are presented.  To have multiple resources include, use a comma-separated list (e.g. `?include=emails,projects,memberships`).  ```sh curl -H 'X-Auth-Token: my_authentication_token' \\   https://api.equinix.com/metal/v1/user?include=emails,projects,memberships ```  You may also include nested associations up to three levels deep using dot notation (`?include=memberships.projects`):  ```sh curl -H 'X-Auth-Token: my_authentication_token' \\   https://api.equinix.com/metal/v1/user?include=memberships.projects ```  To exclude resources, and optimize response delivery, use the `exclude` query parameter. The `exclude` parameter is generally accepted in `GET`, `POST`, `PUT`, and `PATCH` requests for fields with nested object responses. When excluded, these fields will be replaced with an object that contains only an `href` field.   # noqa: E501
 
     The version of the OpenAPI document: 1.0.0
     Contact: support@equinixmetal.com
@@ -37,96 +37,119 @@ class MetroCapacityReport(object):
                             and the value is json key in definition.
     """
     openapi_types = {
-        'ny': 'CapacityPerFacility',
-        'sv': 'CapacityPerFacility',
         'am': 'CapacityPerFacility',
+        'at': 'CapacityPerFacility',
         'ch': 'CapacityPerFacility',
+        'da': 'CapacityPerFacility',
+        'dc': 'CapacityPerFacility',
+        'fr': 'CapacityPerFacility',
+        'hk': 'CapacityPerFacility',
         'la': 'CapacityPerFacility',
+        'ld': 'CapacityPerFacility',
+        'md': 'CapacityPerFacility',
+        'ny': 'CapacityPerFacility',
+        'pa': 'CapacityPerFacility',
+        'se': 'CapacityPerFacility',
         'sg': 'CapacityPerFacility',
-        'da': 'CapacityPerFacility'
+        'sl': 'CapacityPerFacility',
+        'sp': 'CapacityPerFacility',
+        'sv': 'CapacityPerFacility',
+        'sy': 'CapacityPerFacility',
+        'tr': 'CapacityPerFacility',
+        'ty': 'CapacityPerFacility'
     }
 
     attribute_map = {
-        'ny': 'ny',
-        'sv': 'sv',
         'am': 'am',
+        'at': 'at',
         'ch': 'ch',
+        'da': 'da',
+        'dc': 'dc',
+        'fr': 'fr',
+        'hk': 'hk',
         'la': 'la',
+        'ld': 'ld',
+        'md': 'md',
+        'ny': 'ny',
+        'pa': 'pa',
+        'se': 'se',
         'sg': 'sg',
-        'da': 'da'
+        'sl': 'sl',
+        'sp': 'sp',
+        'sv': 'sv',
+        'sy': 'sy',
+        'tr': 'tr',
+        'ty': 'ty'
     }
 
-    def __init__(self, ny=None, sv=None, am=None, ch=None, la=None, sg=None, da=None, local_vars_configuration=None):  # noqa: E501
+    def __init__(self, am=None, at=None, ch=None, da=None, dc=None, fr=None, hk=None, la=None, ld=None, md=None, ny=None, pa=None, se=None, sg=None, sl=None, sp=None, sv=None, sy=None, tr=None, ty=None, local_vars_configuration=None):  # noqa: E501
         """MetroCapacityReport - a model defined in OpenAPI"""  # noqa: E501
         if local_vars_configuration is None:
             local_vars_configuration = Configuration.get_default_copy()
         self.local_vars_configuration = local_vars_configuration
 
-        self._ny = None
-        self._sv = None
         self._am = None
+        self._at = None
         self._ch = None
-        self._la = None
-        self._sg = None
         self._da = None
+        self._dc = None
+        self._fr = None
+        self._hk = None
+        self._la = None
+        self._ld = None
+        self._md = None
+        self._ny = None
+        self._pa = None
+        self._se = None
+        self._sg = None
+        self._sl = None
+        self._sp = None
+        self._sv = None
+        self._sy = None
+        self._tr = None
+        self._ty = None
         self.discriminator = None
 
-        if ny is not None:
-            self.ny = ny
-        if sv is not None:
-            self.sv = sv
         if am is not None:
             self.am = am
+        if at is not None:
+            self.at = at
         if ch is not None:
             self.ch = ch
-        if la is not None:
-            self.la = la
-        if sg is not None:
-            self.sg = sg
         if da is not None:
             self.da = da
-
-    @property
-    def ny(self):
-        """Gets the ny of this MetroCapacityReport.  # noqa: E501
-
-
-        :return: The ny of this MetroCapacityReport.  # noqa: E501
-        :rtype: CapacityPerFacility
-        """
-        return self._ny
-
-    @ny.setter
-    def ny(self, ny):
-        """Sets the ny of this MetroCapacityReport.
-
-
-        :param ny: The ny of this MetroCapacityReport.  # noqa: E501
-        :type ny: CapacityPerFacility
-        """
-
-        self._ny = ny
-
-    @property
-    def sv(self):
-        """Gets the sv of this MetroCapacityReport.  # noqa: E501
-
-
-        :return: The sv of this MetroCapacityReport.  # noqa: E501
-        :rtype: CapacityPerFacility
-        """
-        return self._sv
-
-    @sv.setter
-    def sv(self, sv):
-        """Sets the sv of this MetroCapacityReport.
-
-
-        :param sv: The sv of this MetroCapacityReport.  # noqa: E501
-        :type sv: CapacityPerFacility
-        """
-
-        self._sv = sv
+        if dc is not None:
+            self.dc = dc
+        if fr is not None:
+            self.fr = fr
+        if hk is not None:
+            self.hk = hk
+        if la is not None:
+            self.la = la
+        if ld is not None:
+            self.ld = ld
+        if md is not None:
+            self.md = md
+        if ny is not None:
+            self.ny = ny
+        if pa is not None:
+            self.pa = pa
+        if se is not None:
+            self.se = se
+        if sg is not None:
+            self.sg = sg
+        if sl is not None:
+            self.sl = sl
+        if sp is not None:
+            self.sp = sp
+        if sv is not None:
+            self.sv = sv
+        if sy is not None:
+            self.sy = sy
+        if tr is not None:
+            self.tr = tr
+        if ty is not None:
+            self.ty = ty
 
     @property
     def am(self):
@@ -150,6 +173,27 @@ class MetroCapacityReport(object):
         self._am = am
 
     @property
+    def at(self):
+        """Gets the at of this MetroCapacityReport.  # noqa: E501
+
+
+        :return: The at of this MetroCapacityReport.  # noqa: E501
+        :rtype: CapacityPerFacility
+        """
+        return self._at
+
+    @at.setter
+    def at(self, at):
+        """Sets the at of this MetroCapacityReport.
+
+
+        :param at: The at of this MetroCapacityReport.  # noqa: E501
+        :type at: CapacityPerFacility
+        """
+
+        self._at = at
+
+    @property
     def ch(self):
         """Gets the ch of this MetroCapacityReport.  # noqa: E501
 
@@ -169,6 +213,90 @@ class MetroCapacityReport(object):
         """
 
         self._ch = ch
+
+    @property
+    def da(self):
+        """Gets the da of this MetroCapacityReport.  # noqa: E501
+
+
+        :return: The da of this MetroCapacityReport.  # noqa: E501
+        :rtype: CapacityPerFacility
+        """
+        return self._da
+
+    @da.setter
+    def da(self, da):
+        """Sets the da of this MetroCapacityReport.
+
+
+        :param da: The da of this MetroCapacityReport.  # noqa: E501
+        :type da: CapacityPerFacility
+        """
+
+        self._da = da
+
+    @property
+    def dc(self):
+        """Gets the dc of this MetroCapacityReport.  # noqa: E501
+
+
+        :return: The dc of this MetroCapacityReport.  # noqa: E501
+        :rtype: CapacityPerFacility
+        """
+        return self._dc
+
+    @dc.setter
+    def dc(self, dc):
+        """Sets the dc of this MetroCapacityReport.
+
+
+        :param dc: The dc of this MetroCapacityReport.  # noqa: E501
+        :type dc: CapacityPerFacility
+        """
+
+        self._dc = dc
+
+    @property
+    def fr(self):
+        """Gets the fr of this MetroCapacityReport.  # noqa: E501
+
+
+        :return: The fr of this MetroCapacityReport.  # noqa: E501
+        :rtype: CapacityPerFacility
+        """
+        return self._fr
+
+    @fr.setter
+    def fr(self, fr):
+        """Sets the fr of this MetroCapacityReport.
+
+
+        :param fr: The fr of this MetroCapacityReport.  # noqa: E501
+        :type fr: CapacityPerFacility
+        """
+
+        self._fr = fr
+
+    @property
+    def hk(self):
+        """Gets the hk of this MetroCapacityReport.  # noqa: E501
+
+
+        :return: The hk of this MetroCapacityReport.  # noqa: E501
+        :rtype: CapacityPerFacility
+        """
+        return self._hk
+
+    @hk.setter
+    def hk(self, hk):
+        """Sets the hk of this MetroCapacityReport.
+
+
+        :param hk: The hk of this MetroCapacityReport.  # noqa: E501
+        :type hk: CapacityPerFacility
+        """
+
+        self._hk = hk
 
     @property
     def la(self):
@@ -192,6 +320,111 @@ class MetroCapacityReport(object):
         self._la = la
 
     @property
+    def ld(self):
+        """Gets the ld of this MetroCapacityReport.  # noqa: E501
+
+
+        :return: The ld of this MetroCapacityReport.  # noqa: E501
+        :rtype: CapacityPerFacility
+        """
+        return self._ld
+
+    @ld.setter
+    def ld(self, ld):
+        """Sets the ld of this MetroCapacityReport.
+
+
+        :param ld: The ld of this MetroCapacityReport.  # noqa: E501
+        :type ld: CapacityPerFacility
+        """
+
+        self._ld = ld
+
+    @property
+    def md(self):
+        """Gets the md of this MetroCapacityReport.  # noqa: E501
+
+
+        :return: The md of this MetroCapacityReport.  # noqa: E501
+        :rtype: CapacityPerFacility
+        """
+        return self._md
+
+    @md.setter
+    def md(self, md):
+        """Sets the md of this MetroCapacityReport.
+
+
+        :param md: The md of this MetroCapacityReport.  # noqa: E501
+        :type md: CapacityPerFacility
+        """
+
+        self._md = md
+
+    @property
+    def ny(self):
+        """Gets the ny of this MetroCapacityReport.  # noqa: E501
+
+
+        :return: The ny of this MetroCapacityReport.  # noqa: E501
+        :rtype: CapacityPerFacility
+        """
+        return self._ny
+
+    @ny.setter
+    def ny(self, ny):
+        """Sets the ny of this MetroCapacityReport.
+
+
+        :param ny: The ny of this MetroCapacityReport.  # noqa: E501
+        :type ny: CapacityPerFacility
+        """
+
+        self._ny = ny
+
+    @property
+    def pa(self):
+        """Gets the pa of this MetroCapacityReport.  # noqa: E501
+
+
+        :return: The pa of this MetroCapacityReport.  # noqa: E501
+        :rtype: CapacityPerFacility
+        """
+        return self._pa
+
+    @pa.setter
+    def pa(self, pa):
+        """Sets the pa of this MetroCapacityReport.
+
+
+        :param pa: The pa of this MetroCapacityReport.  # noqa: E501
+        :type pa: CapacityPerFacility
+        """
+
+        self._pa = pa
+
+    @property
+    def se(self):
+        """Gets the se of this MetroCapacityReport.  # noqa: E501
+
+
+        :return: The se of this MetroCapacityReport.  # noqa: E501
+        :rtype: CapacityPerFacility
+        """
+        return self._se
+
+    @se.setter
+    def se(self, se):
+        """Sets the se of this MetroCapacityReport.
+
+
+        :param se: The se of this MetroCapacityReport.  # noqa: E501
+        :type se: CapacityPerFacility
+        """
+
+        self._se = se
+
+    @property
     def sg(self):
         """Gets the sg of this MetroCapacityReport.  # noqa: E501
 
@@ -213,25 +446,130 @@ class MetroCapacityReport(object):
         self._sg = sg
 
     @property
-    def da(self):
-        """Gets the da of this MetroCapacityReport.  # noqa: E501
+    def sl(self):
+        """Gets the sl of this MetroCapacityReport.  # noqa: E501
 
 
-        :return: The da of this MetroCapacityReport.  # noqa: E501
+        :return: The sl of this MetroCapacityReport.  # noqa: E501
         :rtype: CapacityPerFacility
         """
-        return self._da
+        return self._sl
 
-    @da.setter
-    def da(self, da):
-        """Sets the da of this MetroCapacityReport.
+    @sl.setter
+    def sl(self, sl):
+        """Sets the sl of this MetroCapacityReport.
 
 
-        :param da: The da of this MetroCapacityReport.  # noqa: E501
-        :type da: CapacityPerFacility
+        :param sl: The sl of this MetroCapacityReport.  # noqa: E501
+        :type sl: CapacityPerFacility
         """
 
-        self._da = da
+        self._sl = sl
+
+    @property
+    def sp(self):
+        """Gets the sp of this MetroCapacityReport.  # noqa: E501
+
+
+        :return: The sp of this MetroCapacityReport.  # noqa: E501
+        :rtype: CapacityPerFacility
+        """
+        return self._sp
+
+    @sp.setter
+    def sp(self, sp):
+        """Sets the sp of this MetroCapacityReport.
+
+
+        :param sp: The sp of this MetroCapacityReport.  # noqa: E501
+        :type sp: CapacityPerFacility
+        """
+
+        self._sp = sp
+
+    @property
+    def sv(self):
+        """Gets the sv of this MetroCapacityReport.  # noqa: E501
+
+
+        :return: The sv of this MetroCapacityReport.  # noqa: E501
+        :rtype: CapacityPerFacility
+        """
+        return self._sv
+
+    @sv.setter
+    def sv(self, sv):
+        """Sets the sv of this MetroCapacityReport.
+
+
+        :param sv: The sv of this MetroCapacityReport.  # noqa: E501
+        :type sv: CapacityPerFacility
+        """
+
+        self._sv = sv
+
+    @property
+    def sy(self):
+        """Gets the sy of this MetroCapacityReport.  # noqa: E501
+
+
+        :return: The sy of this MetroCapacityReport.  # noqa: E501
+        :rtype: CapacityPerFacility
+        """
+        return self._sy
+
+    @sy.setter
+    def sy(self, sy):
+        """Sets the sy of this MetroCapacityReport.
+
+
+        :param sy: The sy of this MetroCapacityReport.  # noqa: E501
+        :type sy: CapacityPerFacility
+        """
+
+        self._sy = sy
+
+    @property
+    def tr(self):
+        """Gets the tr of this MetroCapacityReport.  # noqa: E501
+
+
+        :return: The tr of this MetroCapacityReport.  # noqa: E501
+        :rtype: CapacityPerFacility
+        """
+        return self._tr
+
+    @tr.setter
+    def tr(self, tr):
+        """Sets the tr of this MetroCapacityReport.
+
+
+        :param tr: The tr of this MetroCapacityReport.  # noqa: E501
+        :type tr: CapacityPerFacility
+        """
+
+        self._tr = tr
+
+    @property
+    def ty(self):
+        """Gets the ty of this MetroCapacityReport.  # noqa: E501
+
+
+        :return: The ty of this MetroCapacityReport.  # noqa: E501
+        :rtype: CapacityPerFacility
+        """
+        return self._ty
+
+    @ty.setter
+    def ty(self, ty):
+        """Sets the ty of this MetroCapacityReport.
+
+
+        :param ty: The ty of this MetroCapacityReport.  # noqa: E501
+        :type ty: CapacityPerFacility
+        """
+
+        self._ty = ty
 
     def to_dict(self, serialize=False):
         """Returns the model properties as a dict"""

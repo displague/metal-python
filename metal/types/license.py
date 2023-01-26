@@ -3,7 +3,7 @@
 """
     Metal API
 
-    This is the API for Equinix Metal. The API allows you to programmatically interact with all of your Equinix Metal resources, including devices, networks, addresses, organizations, projects, and your user account.  The official API docs are hosted at <https://metal.equinix.com/developers/api>.   # noqa: E501
+    # Introduction Equinix Metal provides a RESTful HTTP API which can be reached at <https://api.equinix.com/metal/v1>. This document describes the API and how to use it.  The API allows you to programmatically interact with all of your Equinix Metal resources, including devices, networks, addresses, organizations, projects, and your user account. Every feature of the Equinix Metal web interface is accessible through the API.  The API docs are generated from the Equinix Metal OpenAPI specification and are officially hosted at <https://metal.equinix.com/developers/api>.  # Common Parameters  The Equinix Metal API uses a few methods to minimize network traffic and improve throughput. These parameters are not used in all API calls, but are used often enough to warrant their own section. Look for these parameters in the documentation for the API calls that support them.  ## Pagination  Pagination is used to limit the number of results returned in a single request. The API will return a maximum of 100 results per page. To retrieve additional results, you can use the `page` and `per_page` query parameters.  The `page` parameter is used to specify the page number. The first page is `1`. The `per_page` parameter is used to specify the number of results per page. The maximum number of results differs by resource type.  ## Sorting  Where offered, the API allows you to sort results by a specific field. To sort results use the `sort_by` query parameter with the root level field name as the value. The `sort_direction` parameter is used to specify the sort direction, either either `asc` (ascending) or `desc` (descending).  ## Filtering  Filtering is used to limit the results returned in a single request. The API supports filtering by certain fields in the response. To filter results, you can use the field as a query parameter.  For example, to filter the IP list to only return public IPv4 addresses, you can filter by the `type` field, as in the following request:  ```sh curl -H 'X-Auth-Token: my_authentication_token' \\   https://api.equinix.com/metal/v1/projects/id/ips?type=public_ipv4 ```  Only IP addresses with the `type` field set to `public_ipv4` will be returned.  ## Searching  Searching is used to find matching resources using multiple field comparissons. The API supports searching in resources that define this behavior. The fields available for search differ by resource, as does the search strategy.  To search resources you can use the `search` query parameter.  ## Include and Exclude  For resources that contain references to other resources, sucha as a Device that refers to the Project it resides in, the Equinix Metal API will returns `href` values (API links) to the associated resource.  ```json {   ...   \"project\": {     \"href\": \"/metal/v1/projects/f3f131c8-f302-49ef-8c44-9405022dc6dd\"   } } ```  If you're going need the project details, you can avoid a second API request.  Specify the contained `href` resources and collections that you'd like to have included in the response using the `include` query parameter.  For example:  ```sh curl -H 'X-Auth-Token: my_authentication_token' \\   https://api.equinix.com/metal/v1/user?include=projects ```  The `include` parameter is generally accepted in `GET`, `POST`, `PUT`, and `PATCH` requests where `href` resources are presented.  To have multiple resources include, use a comma-separated list (e.g. `?include=emails,projects,memberships`).  ```sh curl -H 'X-Auth-Token: my_authentication_token' \\   https://api.equinix.com/metal/v1/user?include=emails,projects,memberships ```  You may also include nested associations up to three levels deep using dot notation (`?include=memberships.projects`):  ```sh curl -H 'X-Auth-Token: my_authentication_token' \\   https://api.equinix.com/metal/v1/user?include=memberships.projects ```  To exclude resources, and optimize response delivery, use the `exclude` query parameter. The `exclude` parameter is generally accepted in `GET`, `POST`, `PUT`, and `PATCH` requests for fields with nested object responses. When excluded, these fields will be replaced with an object that contains only an `href` field.   # noqa: E501
 
     The version of the OpenAPI document: 1.0.0
     Contact: support@equinixmetal.com
@@ -37,70 +37,49 @@ class License(object):
                             and the value is json key in definition.
     """
     openapi_types = {
-        'id': 'str',
         'description': 'str',
+        'id': 'str',
         'license_key': 'str',
         'licensee_product': 'Href',
-        'size': 'float',
-        'project': 'Href'
+        'project': 'Href',
+        'size': 'float'
     }
 
     attribute_map = {
-        'id': 'id',
         'description': 'description',
+        'id': 'id',
         'license_key': 'license_key',
         'licensee_product': 'licensee_product',
-        'size': 'size',
-        'project': 'project'
+        'project': 'project',
+        'size': 'size'
     }
 
-    def __init__(self, id=None, description=None, license_key=None, licensee_product=None, size=None, project=None, local_vars_configuration=None):  # noqa: E501
+    def __init__(self, description=None, id=None, license_key=None, licensee_product=None, project=None, size=None, local_vars_configuration=None):  # noqa: E501
         """License - a model defined in OpenAPI"""  # noqa: E501
         if local_vars_configuration is None:
             local_vars_configuration = Configuration.get_default_copy()
         self.local_vars_configuration = local_vars_configuration
 
-        self._id = None
         self._description = None
+        self._id = None
         self._license_key = None
         self._licensee_product = None
-        self._size = None
         self._project = None
+        self._size = None
         self.discriminator = None
 
-        if id is not None:
-            self.id = id
         if description is not None:
             self.description = description
+        if id is not None:
+            self.id = id
         if license_key is not None:
             self.license_key = license_key
         if licensee_product is not None:
             self.licensee_product = licensee_product
-        if size is not None:
-            self.size = size
         if project is not None:
             self.project = project
-
-    @property
-    def id(self):
-        """Gets the id of this License.  # noqa: E501
-
-
-        :return: The id of this License.  # noqa: E501
-        :rtype: str
-        """
-        return self._id
-
-    @id.setter
-    def id(self, id):
-        """Sets the id of this License.
-
-
-        :param id: The id of this License.  # noqa: E501
-        :type id: str
-        """
-
-        self._id = id
+        if size is not None:
+            self.size = size
 
     @property
     def description(self):
@@ -122,6 +101,27 @@ class License(object):
         """
 
         self._description = description
+
+    @property
+    def id(self):
+        """Gets the id of this License.  # noqa: E501
+
+
+        :return: The id of this License.  # noqa: E501
+        :rtype: str
+        """
+        return self._id
+
+    @id.setter
+    def id(self, id):
+        """Sets the id of this License.
+
+
+        :param id: The id of this License.  # noqa: E501
+        :type id: str
+        """
+
+        self._id = id
 
     @property
     def license_key(self):
@@ -166,27 +166,6 @@ class License(object):
         self._licensee_product = licensee_product
 
     @property
-    def size(self):
-        """Gets the size of this License.  # noqa: E501
-
-
-        :return: The size of this License.  # noqa: E501
-        :rtype: float
-        """
-        return self._size
-
-    @size.setter
-    def size(self, size):
-        """Sets the size of this License.
-
-
-        :param size: The size of this License.  # noqa: E501
-        :type size: float
-        """
-
-        self._size = size
-
-    @property
     def project(self):
         """Gets the project of this License.  # noqa: E501
 
@@ -206,6 +185,27 @@ class License(object):
         """
 
         self._project = project
+
+    @property
+    def size(self):
+        """Gets the size of this License.  # noqa: E501
+
+
+        :return: The size of this License.  # noqa: E501
+        :rtype: float
+        """
+        return self._size
+
+    @size.setter
+    def size(self, size):
+        """Sets the size of this License.
+
+
+        :param size: The size of this License.  # noqa: E501
+        :type size: float
+        """
+
+        self._size = size
 
     def to_dict(self, serialize=False):
         """Returns the model properties as a dict"""

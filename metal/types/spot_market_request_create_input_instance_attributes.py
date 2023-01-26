@@ -3,7 +3,7 @@
 """
     Metal API
 
-    This is the API for Equinix Metal. The API allows you to programmatically interact with all of your Equinix Metal resources, including devices, networks, addresses, organizations, projects, and your user account.  The official API docs are hosted at <https://metal.equinix.com/developers/api>.   # noqa: E501
+    # Introduction Equinix Metal provides a RESTful HTTP API which can be reached at <https://api.equinix.com/metal/v1>. This document describes the API and how to use it.  The API allows you to programmatically interact with all of your Equinix Metal resources, including devices, networks, addresses, organizations, projects, and your user account. Every feature of the Equinix Metal web interface is accessible through the API.  The API docs are generated from the Equinix Metal OpenAPI specification and are officially hosted at <https://metal.equinix.com/developers/api>.  # Common Parameters  The Equinix Metal API uses a few methods to minimize network traffic and improve throughput. These parameters are not used in all API calls, but are used often enough to warrant their own section. Look for these parameters in the documentation for the API calls that support them.  ## Pagination  Pagination is used to limit the number of results returned in a single request. The API will return a maximum of 100 results per page. To retrieve additional results, you can use the `page` and `per_page` query parameters.  The `page` parameter is used to specify the page number. The first page is `1`. The `per_page` parameter is used to specify the number of results per page. The maximum number of results differs by resource type.  ## Sorting  Where offered, the API allows you to sort results by a specific field. To sort results use the `sort_by` query parameter with the root level field name as the value. The `sort_direction` parameter is used to specify the sort direction, either either `asc` (ascending) or `desc` (descending).  ## Filtering  Filtering is used to limit the results returned in a single request. The API supports filtering by certain fields in the response. To filter results, you can use the field as a query parameter.  For example, to filter the IP list to only return public IPv4 addresses, you can filter by the `type` field, as in the following request:  ```sh curl -H 'X-Auth-Token: my_authentication_token' \\   https://api.equinix.com/metal/v1/projects/id/ips?type=public_ipv4 ```  Only IP addresses with the `type` field set to `public_ipv4` will be returned.  ## Searching  Searching is used to find matching resources using multiple field comparissons. The API supports searching in resources that define this behavior. The fields available for search differ by resource, as does the search strategy.  To search resources you can use the `search` query parameter.  ## Include and Exclude  For resources that contain references to other resources, sucha as a Device that refers to the Project it resides in, the Equinix Metal API will returns `href` values (API links) to the associated resource.  ```json {   ...   \"project\": {     \"href\": \"/metal/v1/projects/f3f131c8-f302-49ef-8c44-9405022dc6dd\"   } } ```  If you're going need the project details, you can avoid a second API request.  Specify the contained `href` resources and collections that you'd like to have included in the response using the `include` query parameter.  For example:  ```sh curl -H 'X-Auth-Token: my_authentication_token' \\   https://api.equinix.com/metal/v1/user?include=projects ```  The `include` parameter is generally accepted in `GET`, `POST`, `PUT`, and `PATCH` requests where `href` resources are presented.  To have multiple resources include, use a comma-separated list (e.g. `?include=emails,projects,memberships`).  ```sh curl -H 'X-Auth-Token: my_authentication_token' \\   https://api.equinix.com/metal/v1/user?include=emails,projects,memberships ```  You may also include nested associations up to three levels deep using dot notation (`?include=memberships.projects`):  ```sh curl -H 'X-Auth-Token: my_authentication_token' \\   https://api.equinix.com/metal/v1/user?include=memberships.projects ```  To exclude resources, and optimize response delivery, use the `exclude` query parameter. The `exclude` parameter is generally accepted in `GET`, `POST`, `PUT`, and `PATCH` requests for fields with nested object responses. When excluded, these fields will be replaced with an object that contains only an `href` field.   # noqa: E501
 
     The version of the OpenAPI document: 1.0.0
     Contact: support@equinixmetal.com
@@ -37,130 +37,214 @@ class SpotMarketRequestCreateInputInstanceAttributes(object):
                             and the value is json key in definition.
     """
     openapi_types = {
-        'plan': 'str',
+        'always_pxe': 'bool',
+        'billing_cycle': 'str',
+        'customdata': 'object',
+        'description': 'str',
+        'features': 'list[str]',
         'hostname': 'str',
         'hostnames': 'list[str]',
-        'description': 'str',
-        'billing_cycle': 'str',
-        'operating_system': 'str',
-        'always_pxe': 'bool',
-        'userdata': 'str',
         'locked': 'bool',
-        'termination_time': 'datetime',
-        'tags': 'list[str]',
-        'project_ssh_keys': 'list[str]',
-        'user_ssh_keys': 'list[str]',
         'no_ssh_keys': 'bool',
-        'features': 'list[str]',
-        'customdata': 'object',
+        'operating_system': 'str',
+        'plan': 'str',
+        'private_ipv4_subnet_size': 'int',
+        'project_ssh_keys': 'list[str]',
         'public_ipv4_subnet_size': 'int',
-        'private_ipv4_subnet_size': 'int'
+        'tags': 'list[str]',
+        'termination_time': 'datetime',
+        'user_ssh_keys': 'list[str]',
+        'userdata': 'str'
     }
 
     attribute_map = {
-        'plan': 'plan',
+        'always_pxe': 'always_pxe',
+        'billing_cycle': 'billing_cycle',
+        'customdata': 'customdata',
+        'description': 'description',
+        'features': 'features',
         'hostname': 'hostname',
         'hostnames': 'hostnames',
-        'description': 'description',
-        'billing_cycle': 'billing_cycle',
-        'operating_system': 'operating_system',
-        'always_pxe': 'always_pxe',
-        'userdata': 'userdata',
         'locked': 'locked',
-        'termination_time': 'termination_time',
-        'tags': 'tags',
-        'project_ssh_keys': 'project_ssh_keys',
-        'user_ssh_keys': 'user_ssh_keys',
         'no_ssh_keys': 'no_ssh_keys',
-        'features': 'features',
-        'customdata': 'customdata',
+        'operating_system': 'operating_system',
+        'plan': 'plan',
+        'private_ipv4_subnet_size': 'private_ipv4_subnet_size',
+        'project_ssh_keys': 'project_ssh_keys',
         'public_ipv4_subnet_size': 'public_ipv4_subnet_size',
-        'private_ipv4_subnet_size': 'private_ipv4_subnet_size'
+        'tags': 'tags',
+        'termination_time': 'termination_time',
+        'user_ssh_keys': 'user_ssh_keys',
+        'userdata': 'userdata'
     }
 
-    def __init__(self, plan=None, hostname=None, hostnames=None, description=None, billing_cycle=None, operating_system=None, always_pxe=None, userdata=None, locked=None, termination_time=None, tags=None, project_ssh_keys=None, user_ssh_keys=None, no_ssh_keys=None, features=None, customdata=None, public_ipv4_subnet_size=None, private_ipv4_subnet_size=None, local_vars_configuration=None):  # noqa: E501
+    def __init__(self, always_pxe=None, billing_cycle=None, customdata=None, description=None, features=None, hostname=None, hostnames=None, locked=None, no_ssh_keys=None, operating_system=None, plan=None, private_ipv4_subnet_size=None, project_ssh_keys=None, public_ipv4_subnet_size=None, tags=None, termination_time=None, user_ssh_keys=None, userdata=None, local_vars_configuration=None):  # noqa: E501
         """SpotMarketRequestCreateInputInstanceAttributes - a model defined in OpenAPI"""  # noqa: E501
         if local_vars_configuration is None:
             local_vars_configuration = Configuration.get_default_copy()
         self.local_vars_configuration = local_vars_configuration
 
-        self._plan = None
+        self._always_pxe = None
+        self._billing_cycle = None
+        self._customdata = None
+        self._description = None
+        self._features = None
         self._hostname = None
         self._hostnames = None
-        self._description = None
-        self._billing_cycle = None
-        self._operating_system = None
-        self._always_pxe = None
-        self._userdata = None
         self._locked = None
-        self._termination_time = None
-        self._tags = None
-        self._project_ssh_keys = None
-        self._user_ssh_keys = None
         self._no_ssh_keys = None
-        self._features = None
-        self._customdata = None
-        self._public_ipv4_subnet_size = None
+        self._operating_system = None
+        self._plan = None
         self._private_ipv4_subnet_size = None
+        self._project_ssh_keys = None
+        self._public_ipv4_subnet_size = None
+        self._tags = None
+        self._termination_time = None
+        self._user_ssh_keys = None
+        self._userdata = None
         self.discriminator = None
 
-        if plan is not None:
-            self.plan = plan
+        if always_pxe is not None:
+            self.always_pxe = always_pxe
+        if billing_cycle is not None:
+            self.billing_cycle = billing_cycle
+        if customdata is not None:
+            self.customdata = customdata
+        if description is not None:
+            self.description = description
+        if features is not None:
+            self.features = features
         if hostname is not None:
             self.hostname = hostname
         if hostnames is not None:
             self.hostnames = hostnames
-        if description is not None:
-            self.description = description
-        if billing_cycle is not None:
-            self.billing_cycle = billing_cycle
-        if operating_system is not None:
-            self.operating_system = operating_system
-        if always_pxe is not None:
-            self.always_pxe = always_pxe
-        if userdata is not None:
-            self.userdata = userdata
         if locked is not None:
             self.locked = locked
-        if termination_time is not None:
-            self.termination_time = termination_time
-        if tags is not None:
-            self.tags = tags
-        if project_ssh_keys is not None:
-            self.project_ssh_keys = project_ssh_keys
-        if user_ssh_keys is not None:
-            self.user_ssh_keys = user_ssh_keys
         if no_ssh_keys is not None:
             self.no_ssh_keys = no_ssh_keys
-        if features is not None:
-            self.features = features
-        if customdata is not None:
-            self.customdata = customdata
-        if public_ipv4_subnet_size is not None:
-            self.public_ipv4_subnet_size = public_ipv4_subnet_size
+        if operating_system is not None:
+            self.operating_system = operating_system
+        if plan is not None:
+            self.plan = plan
         if private_ipv4_subnet_size is not None:
             self.private_ipv4_subnet_size = private_ipv4_subnet_size
+        if project_ssh_keys is not None:
+            self.project_ssh_keys = project_ssh_keys
+        if public_ipv4_subnet_size is not None:
+            self.public_ipv4_subnet_size = public_ipv4_subnet_size
+        if tags is not None:
+            self.tags = tags
+        if termination_time is not None:
+            self.termination_time = termination_time
+        if user_ssh_keys is not None:
+            self.user_ssh_keys = user_ssh_keys
+        if userdata is not None:
+            self.userdata = userdata
 
     @property
-    def plan(self):
-        """Gets the plan of this SpotMarketRequestCreateInputInstanceAttributes.  # noqa: E501
+    def always_pxe(self):
+        """Gets the always_pxe of this SpotMarketRequestCreateInputInstanceAttributes.  # noqa: E501
 
 
-        :return: The plan of this SpotMarketRequestCreateInputInstanceAttributes.  # noqa: E501
+        :return: The always_pxe of this SpotMarketRequestCreateInputInstanceAttributes.  # noqa: E501
+        :rtype: bool
+        """
+        return self._always_pxe
+
+    @always_pxe.setter
+    def always_pxe(self, always_pxe):
+        """Sets the always_pxe of this SpotMarketRequestCreateInputInstanceAttributes.
+
+
+        :param always_pxe: The always_pxe of this SpotMarketRequestCreateInputInstanceAttributes.  # noqa: E501
+        :type always_pxe: bool
+        """
+
+        self._always_pxe = always_pxe
+
+    @property
+    def billing_cycle(self):
+        """Gets the billing_cycle of this SpotMarketRequestCreateInputInstanceAttributes.  # noqa: E501
+
+
+        :return: The billing_cycle of this SpotMarketRequestCreateInputInstanceAttributes.  # noqa: E501
         :rtype: str
         """
-        return self._plan
+        return self._billing_cycle
 
-    @plan.setter
-    def plan(self, plan):
-        """Sets the plan of this SpotMarketRequestCreateInputInstanceAttributes.
+    @billing_cycle.setter
+    def billing_cycle(self, billing_cycle):
+        """Sets the billing_cycle of this SpotMarketRequestCreateInputInstanceAttributes.
 
 
-        :param plan: The plan of this SpotMarketRequestCreateInputInstanceAttributes.  # noqa: E501
-        :type plan: str
+        :param billing_cycle: The billing_cycle of this SpotMarketRequestCreateInputInstanceAttributes.  # noqa: E501
+        :type billing_cycle: str
         """
 
-        self._plan = plan
+        self._billing_cycle = billing_cycle
+
+    @property
+    def customdata(self):
+        """Gets the customdata of this SpotMarketRequestCreateInputInstanceAttributes.  # noqa: E501
+
+
+        :return: The customdata of this SpotMarketRequestCreateInputInstanceAttributes.  # noqa: E501
+        :rtype: object
+        """
+        return self._customdata
+
+    @customdata.setter
+    def customdata(self, customdata):
+        """Sets the customdata of this SpotMarketRequestCreateInputInstanceAttributes.
+
+
+        :param customdata: The customdata of this SpotMarketRequestCreateInputInstanceAttributes.  # noqa: E501
+        :type customdata: object
+        """
+
+        self._customdata = customdata
+
+    @property
+    def description(self):
+        """Gets the description of this SpotMarketRequestCreateInputInstanceAttributes.  # noqa: E501
+
+
+        :return: The description of this SpotMarketRequestCreateInputInstanceAttributes.  # noqa: E501
+        :rtype: str
+        """
+        return self._description
+
+    @description.setter
+    def description(self, description):
+        """Sets the description of this SpotMarketRequestCreateInputInstanceAttributes.
+
+
+        :param description: The description of this SpotMarketRequestCreateInputInstanceAttributes.  # noqa: E501
+        :type description: str
+        """
+
+        self._description = description
+
+    @property
+    def features(self):
+        """Gets the features of this SpotMarketRequestCreateInputInstanceAttributes.  # noqa: E501
+
+
+        :return: The features of this SpotMarketRequestCreateInputInstanceAttributes.  # noqa: E501
+        :rtype: list[str]
+        """
+        return self._features
+
+    @features.setter
+    def features(self, features):
+        """Sets the features of this SpotMarketRequestCreateInputInstanceAttributes.
+
+
+        :param features: The features of this SpotMarketRequestCreateInputInstanceAttributes.  # noqa: E501
+        :type features: list[str]
+        """
+
+        self._features = features
 
     @property
     def hostname(self):
@@ -205,46 +289,46 @@ class SpotMarketRequestCreateInputInstanceAttributes(object):
         self._hostnames = hostnames
 
     @property
-    def description(self):
-        """Gets the description of this SpotMarketRequestCreateInputInstanceAttributes.  # noqa: E501
+    def locked(self):
+        """Gets the locked of this SpotMarketRequestCreateInputInstanceAttributes.  # noqa: E501
 
 
-        :return: The description of this SpotMarketRequestCreateInputInstanceAttributes.  # noqa: E501
-        :rtype: str
+        :return: The locked of this SpotMarketRequestCreateInputInstanceAttributes.  # noqa: E501
+        :rtype: bool
         """
-        return self._description
+        return self._locked
 
-    @description.setter
-    def description(self, description):
-        """Sets the description of this SpotMarketRequestCreateInputInstanceAttributes.
+    @locked.setter
+    def locked(self, locked):
+        """Sets the locked of this SpotMarketRequestCreateInputInstanceAttributes.
 
 
-        :param description: The description of this SpotMarketRequestCreateInputInstanceAttributes.  # noqa: E501
-        :type description: str
+        :param locked: The locked of this SpotMarketRequestCreateInputInstanceAttributes.  # noqa: E501
+        :type locked: bool
         """
 
-        self._description = description
+        self._locked = locked
 
     @property
-    def billing_cycle(self):
-        """Gets the billing_cycle of this SpotMarketRequestCreateInputInstanceAttributes.  # noqa: E501
+    def no_ssh_keys(self):
+        """Gets the no_ssh_keys of this SpotMarketRequestCreateInputInstanceAttributes.  # noqa: E501
 
 
-        :return: The billing_cycle of this SpotMarketRequestCreateInputInstanceAttributes.  # noqa: E501
-        :rtype: str
+        :return: The no_ssh_keys of this SpotMarketRequestCreateInputInstanceAttributes.  # noqa: E501
+        :rtype: bool
         """
-        return self._billing_cycle
+        return self._no_ssh_keys
 
-    @billing_cycle.setter
-    def billing_cycle(self, billing_cycle):
-        """Sets the billing_cycle of this SpotMarketRequestCreateInputInstanceAttributes.
+    @no_ssh_keys.setter
+    def no_ssh_keys(self, no_ssh_keys):
+        """Sets the no_ssh_keys of this SpotMarketRequestCreateInputInstanceAttributes.
 
 
-        :param billing_cycle: The billing_cycle of this SpotMarketRequestCreateInputInstanceAttributes.  # noqa: E501
-        :type billing_cycle: str
+        :param no_ssh_keys: The no_ssh_keys of this SpotMarketRequestCreateInputInstanceAttributes.  # noqa: E501
+        :type no_ssh_keys: bool
         """
 
-        self._billing_cycle = billing_cycle
+        self._no_ssh_keys = no_ssh_keys
 
     @property
     def operating_system(self):
@@ -268,88 +352,88 @@ class SpotMarketRequestCreateInputInstanceAttributes(object):
         self._operating_system = operating_system
 
     @property
-    def always_pxe(self):
-        """Gets the always_pxe of this SpotMarketRequestCreateInputInstanceAttributes.  # noqa: E501
+    def plan(self):
+        """Gets the plan of this SpotMarketRequestCreateInputInstanceAttributes.  # noqa: E501
 
 
-        :return: The always_pxe of this SpotMarketRequestCreateInputInstanceAttributes.  # noqa: E501
-        :rtype: bool
-        """
-        return self._always_pxe
-
-    @always_pxe.setter
-    def always_pxe(self, always_pxe):
-        """Sets the always_pxe of this SpotMarketRequestCreateInputInstanceAttributes.
-
-
-        :param always_pxe: The always_pxe of this SpotMarketRequestCreateInputInstanceAttributes.  # noqa: E501
-        :type always_pxe: bool
-        """
-
-        self._always_pxe = always_pxe
-
-    @property
-    def userdata(self):
-        """Gets the userdata of this SpotMarketRequestCreateInputInstanceAttributes.  # noqa: E501
-
-
-        :return: The userdata of this SpotMarketRequestCreateInputInstanceAttributes.  # noqa: E501
+        :return: The plan of this SpotMarketRequestCreateInputInstanceAttributes.  # noqa: E501
         :rtype: str
         """
-        return self._userdata
+        return self._plan
 
-    @userdata.setter
-    def userdata(self, userdata):
-        """Sets the userdata of this SpotMarketRequestCreateInputInstanceAttributes.
+    @plan.setter
+    def plan(self, plan):
+        """Sets the plan of this SpotMarketRequestCreateInputInstanceAttributes.
 
 
-        :param userdata: The userdata of this SpotMarketRequestCreateInputInstanceAttributes.  # noqa: E501
-        :type userdata: str
+        :param plan: The plan of this SpotMarketRequestCreateInputInstanceAttributes.  # noqa: E501
+        :type plan: str
         """
 
-        self._userdata = userdata
+        self._plan = plan
 
     @property
-    def locked(self):
-        """Gets the locked of this SpotMarketRequestCreateInputInstanceAttributes.  # noqa: E501
+    def private_ipv4_subnet_size(self):
+        """Gets the private_ipv4_subnet_size of this SpotMarketRequestCreateInputInstanceAttributes.  # noqa: E501
 
 
-        :return: The locked of this SpotMarketRequestCreateInputInstanceAttributes.  # noqa: E501
-        :rtype: bool
+        :return: The private_ipv4_subnet_size of this SpotMarketRequestCreateInputInstanceAttributes.  # noqa: E501
+        :rtype: int
         """
-        return self._locked
+        return self._private_ipv4_subnet_size
 
-    @locked.setter
-    def locked(self, locked):
-        """Sets the locked of this SpotMarketRequestCreateInputInstanceAttributes.
+    @private_ipv4_subnet_size.setter
+    def private_ipv4_subnet_size(self, private_ipv4_subnet_size):
+        """Sets the private_ipv4_subnet_size of this SpotMarketRequestCreateInputInstanceAttributes.
 
 
-        :param locked: The locked of this SpotMarketRequestCreateInputInstanceAttributes.  # noqa: E501
-        :type locked: bool
+        :param private_ipv4_subnet_size: The private_ipv4_subnet_size of this SpotMarketRequestCreateInputInstanceAttributes.  # noqa: E501
+        :type private_ipv4_subnet_size: int
         """
 
-        self._locked = locked
+        self._private_ipv4_subnet_size = private_ipv4_subnet_size
 
     @property
-    def termination_time(self):
-        """Gets the termination_time of this SpotMarketRequestCreateInputInstanceAttributes.  # noqa: E501
+    def project_ssh_keys(self):
+        """Gets the project_ssh_keys of this SpotMarketRequestCreateInputInstanceAttributes.  # noqa: E501
 
 
-        :return: The termination_time of this SpotMarketRequestCreateInputInstanceAttributes.  # noqa: E501
-        :rtype: datetime
+        :return: The project_ssh_keys of this SpotMarketRequestCreateInputInstanceAttributes.  # noqa: E501
+        :rtype: list[str]
         """
-        return self._termination_time
+        return self._project_ssh_keys
 
-    @termination_time.setter
-    def termination_time(self, termination_time):
-        """Sets the termination_time of this SpotMarketRequestCreateInputInstanceAttributes.
+    @project_ssh_keys.setter
+    def project_ssh_keys(self, project_ssh_keys):
+        """Sets the project_ssh_keys of this SpotMarketRequestCreateInputInstanceAttributes.
 
 
-        :param termination_time: The termination_time of this SpotMarketRequestCreateInputInstanceAttributes.  # noqa: E501
-        :type termination_time: datetime
+        :param project_ssh_keys: The project_ssh_keys of this SpotMarketRequestCreateInputInstanceAttributes.  # noqa: E501
+        :type project_ssh_keys: list[str]
         """
 
-        self._termination_time = termination_time
+        self._project_ssh_keys = project_ssh_keys
+
+    @property
+    def public_ipv4_subnet_size(self):
+        """Gets the public_ipv4_subnet_size of this SpotMarketRequestCreateInputInstanceAttributes.  # noqa: E501
+
+
+        :return: The public_ipv4_subnet_size of this SpotMarketRequestCreateInputInstanceAttributes.  # noqa: E501
+        :rtype: int
+        """
+        return self._public_ipv4_subnet_size
+
+    @public_ipv4_subnet_size.setter
+    def public_ipv4_subnet_size(self, public_ipv4_subnet_size):
+        """Sets the public_ipv4_subnet_size of this SpotMarketRequestCreateInputInstanceAttributes.
+
+
+        :param public_ipv4_subnet_size: The public_ipv4_subnet_size of this SpotMarketRequestCreateInputInstanceAttributes.  # noqa: E501
+        :type public_ipv4_subnet_size: int
+        """
+
+        self._public_ipv4_subnet_size = public_ipv4_subnet_size
 
     @property
     def tags(self):
@@ -373,25 +457,25 @@ class SpotMarketRequestCreateInputInstanceAttributes(object):
         self._tags = tags
 
     @property
-    def project_ssh_keys(self):
-        """Gets the project_ssh_keys of this SpotMarketRequestCreateInputInstanceAttributes.  # noqa: E501
+    def termination_time(self):
+        """Gets the termination_time of this SpotMarketRequestCreateInputInstanceAttributes.  # noqa: E501
 
 
-        :return: The project_ssh_keys of this SpotMarketRequestCreateInputInstanceAttributes.  # noqa: E501
-        :rtype: list[str]
+        :return: The termination_time of this SpotMarketRequestCreateInputInstanceAttributes.  # noqa: E501
+        :rtype: datetime
         """
-        return self._project_ssh_keys
+        return self._termination_time
 
-    @project_ssh_keys.setter
-    def project_ssh_keys(self, project_ssh_keys):
-        """Sets the project_ssh_keys of this SpotMarketRequestCreateInputInstanceAttributes.
+    @termination_time.setter
+    def termination_time(self, termination_time):
+        """Sets the termination_time of this SpotMarketRequestCreateInputInstanceAttributes.
 
 
-        :param project_ssh_keys: The project_ssh_keys of this SpotMarketRequestCreateInputInstanceAttributes.  # noqa: E501
-        :type project_ssh_keys: list[str]
+        :param termination_time: The termination_time of this SpotMarketRequestCreateInputInstanceAttributes.  # noqa: E501
+        :type termination_time: datetime
         """
 
-        self._project_ssh_keys = project_ssh_keys
+        self._termination_time = termination_time
 
     @property
     def user_ssh_keys(self):
@@ -417,109 +501,25 @@ class SpotMarketRequestCreateInputInstanceAttributes(object):
         self._user_ssh_keys = user_ssh_keys
 
     @property
-    def no_ssh_keys(self):
-        """Gets the no_ssh_keys of this SpotMarketRequestCreateInputInstanceAttributes.  # noqa: E501
+    def userdata(self):
+        """Gets the userdata of this SpotMarketRequestCreateInputInstanceAttributes.  # noqa: E501
 
 
-        :return: The no_ssh_keys of this SpotMarketRequestCreateInputInstanceAttributes.  # noqa: E501
-        :rtype: bool
+        :return: The userdata of this SpotMarketRequestCreateInputInstanceAttributes.  # noqa: E501
+        :rtype: str
         """
-        return self._no_ssh_keys
+        return self._userdata
 
-    @no_ssh_keys.setter
-    def no_ssh_keys(self, no_ssh_keys):
-        """Sets the no_ssh_keys of this SpotMarketRequestCreateInputInstanceAttributes.
-
-
-        :param no_ssh_keys: The no_ssh_keys of this SpotMarketRequestCreateInputInstanceAttributes.  # noqa: E501
-        :type no_ssh_keys: bool
-        """
-
-        self._no_ssh_keys = no_ssh_keys
-
-    @property
-    def features(self):
-        """Gets the features of this SpotMarketRequestCreateInputInstanceAttributes.  # noqa: E501
+    @userdata.setter
+    def userdata(self, userdata):
+        """Sets the userdata of this SpotMarketRequestCreateInputInstanceAttributes.
 
 
-        :return: The features of this SpotMarketRequestCreateInputInstanceAttributes.  # noqa: E501
-        :rtype: list[str]
-        """
-        return self._features
-
-    @features.setter
-    def features(self, features):
-        """Sets the features of this SpotMarketRequestCreateInputInstanceAttributes.
-
-
-        :param features: The features of this SpotMarketRequestCreateInputInstanceAttributes.  # noqa: E501
-        :type features: list[str]
+        :param userdata: The userdata of this SpotMarketRequestCreateInputInstanceAttributes.  # noqa: E501
+        :type userdata: str
         """
 
-        self._features = features
-
-    @property
-    def customdata(self):
-        """Gets the customdata of this SpotMarketRequestCreateInputInstanceAttributes.  # noqa: E501
-
-
-        :return: The customdata of this SpotMarketRequestCreateInputInstanceAttributes.  # noqa: E501
-        :rtype: object
-        """
-        return self._customdata
-
-    @customdata.setter
-    def customdata(self, customdata):
-        """Sets the customdata of this SpotMarketRequestCreateInputInstanceAttributes.
-
-
-        :param customdata: The customdata of this SpotMarketRequestCreateInputInstanceAttributes.  # noqa: E501
-        :type customdata: object
-        """
-
-        self._customdata = customdata
-
-    @property
-    def public_ipv4_subnet_size(self):
-        """Gets the public_ipv4_subnet_size of this SpotMarketRequestCreateInputInstanceAttributes.  # noqa: E501
-
-
-        :return: The public_ipv4_subnet_size of this SpotMarketRequestCreateInputInstanceAttributes.  # noqa: E501
-        :rtype: int
-        """
-        return self._public_ipv4_subnet_size
-
-    @public_ipv4_subnet_size.setter
-    def public_ipv4_subnet_size(self, public_ipv4_subnet_size):
-        """Sets the public_ipv4_subnet_size of this SpotMarketRequestCreateInputInstanceAttributes.
-
-
-        :param public_ipv4_subnet_size: The public_ipv4_subnet_size of this SpotMarketRequestCreateInputInstanceAttributes.  # noqa: E501
-        :type public_ipv4_subnet_size: int
-        """
-
-        self._public_ipv4_subnet_size = public_ipv4_subnet_size
-
-    @property
-    def private_ipv4_subnet_size(self):
-        """Gets the private_ipv4_subnet_size of this SpotMarketRequestCreateInputInstanceAttributes.  # noqa: E501
-
-
-        :return: The private_ipv4_subnet_size of this SpotMarketRequestCreateInputInstanceAttributes.  # noqa: E501
-        :rtype: int
-        """
-        return self._private_ipv4_subnet_size
-
-    @private_ipv4_subnet_size.setter
-    def private_ipv4_subnet_size(self, private_ipv4_subnet_size):
-        """Sets the private_ipv4_subnet_size of this SpotMarketRequestCreateInputInstanceAttributes.
-
-
-        :param private_ipv4_subnet_size: The private_ipv4_subnet_size of this SpotMarketRequestCreateInputInstanceAttributes.  # noqa: E501
-        :type private_ipv4_subnet_size: int
-        """
-
-        self._private_ipv4_subnet_size = private_ipv4_subnet_size
+        self._userdata = userdata
 
     def to_dict(self, serialize=False):
         """Returns the model properties as a dict"""

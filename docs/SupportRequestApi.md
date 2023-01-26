@@ -8,7 +8,7 @@ Method | HTTP request | Description
 
 
 # **request_suppert**
-> request_suppert(support_request)
+> request_suppert(support_request_input)
 
 Create a support ticket
 
@@ -44,11 +44,11 @@ configuration.api_key['x_auth_token'] = 'YOUR_API_KEY'
 with metal.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = metal.SupportRequestApi(api_client)
-    support_request = metal.SupportRequestInput() # SupportRequestInput | Support Request to create
+    support_request_input = metal.SupportRequestInput() # SupportRequestInput | Support Request to create
 
     try:
         # Create a support ticket
-        api_instance.request_suppert(support_request)
+        api_instance.request_suppert(support_request_input)
     except ApiException as e:
         print("Exception when calling SupportRequestApi->request_suppert: %s\n" % e)
 ```
@@ -57,7 +57,7 @@ with metal.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **support_request** | [**SupportRequestInput**](SupportRequestInput.md)| Support Request to create | 
+ **support_request_input** | [**SupportRequestInput**](SupportRequestInput.md)| Support Request to create | 
 
 ### Return type
 

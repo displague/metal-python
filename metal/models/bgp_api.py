@@ -3,7 +3,7 @@
 """
     Metal API
 
-    This is the API for Equinix Metal. The API allows you to programmatically interact with all of your Equinix Metal resources, including devices, networks, addresses, organizations, projects, and your user account.  The official API docs are hosted at <https://metal.equinix.com/developers/api>.   # noqa: E501
+    # Introduction Equinix Metal provides a RESTful HTTP API which can be reached at <https://api.equinix.com/metal/v1>. This document describes the API and how to use it.  The API allows you to programmatically interact with all of your Equinix Metal resources, including devices, networks, addresses, organizations, projects, and your user account. Every feature of the Equinix Metal web interface is accessible through the API.  The API docs are generated from the Equinix Metal OpenAPI specification and are officially hosted at <https://metal.equinix.com/developers/api>.  # Common Parameters  The Equinix Metal API uses a few methods to minimize network traffic and improve throughput. These parameters are not used in all API calls, but are used often enough to warrant their own section. Look for these parameters in the documentation for the API calls that support them.  ## Pagination  Pagination is used to limit the number of results returned in a single request. The API will return a maximum of 100 results per page. To retrieve additional results, you can use the `page` and `per_page` query parameters.  The `page` parameter is used to specify the page number. The first page is `1`. The `per_page` parameter is used to specify the number of results per page. The maximum number of results differs by resource type.  ## Sorting  Where offered, the API allows you to sort results by a specific field. To sort results use the `sort_by` query parameter with the root level field name as the value. The `sort_direction` parameter is used to specify the sort direction, either either `asc` (ascending) or `desc` (descending).  ## Filtering  Filtering is used to limit the results returned in a single request. The API supports filtering by certain fields in the response. To filter results, you can use the field as a query parameter.  For example, to filter the IP list to only return public IPv4 addresses, you can filter by the `type` field, as in the following request:  ```sh curl -H 'X-Auth-Token: my_authentication_token' \\   https://api.equinix.com/metal/v1/projects/id/ips?type=public_ipv4 ```  Only IP addresses with the `type` field set to `public_ipv4` will be returned.  ## Searching  Searching is used to find matching resources using multiple field comparissons. The API supports searching in resources that define this behavior. The fields available for search differ by resource, as does the search strategy.  To search resources you can use the `search` query parameter.  ## Include and Exclude  For resources that contain references to other resources, sucha as a Device that refers to the Project it resides in, the Equinix Metal API will returns `href` values (API links) to the associated resource.  ```json {   ...   \"project\": {     \"href\": \"/metal/v1/projects/f3f131c8-f302-49ef-8c44-9405022dc6dd\"   } } ```  If you're going need the project details, you can avoid a second API request.  Specify the contained `href` resources and collections that you'd like to have included in the response using the `include` query parameter.  For example:  ```sh curl -H 'X-Auth-Token: my_authentication_token' \\   https://api.equinix.com/metal/v1/user?include=projects ```  The `include` parameter is generally accepted in `GET`, `POST`, `PUT`, and `PATCH` requests where `href` resources are presented.  To have multiple resources include, use a comma-separated list (e.g. `?include=emails,projects,memberships`).  ```sh curl -H 'X-Auth-Token: my_authentication_token' \\   https://api.equinix.com/metal/v1/user?include=emails,projects,memberships ```  You may also include nested associations up to three levels deep using dot notation (`?include=memberships.projects`):  ```sh curl -H 'X-Auth-Token: my_authentication_token' \\   https://api.equinix.com/metal/v1/user?include=memberships.projects ```  To exclude resources, and optimize response delivery, use the `exclude` query parameter. The `exclude` parameter is generally accepted in `GET`, `POST`, `PUT`, and `PATCH` requests for fields with nested object responses. When excluded, these fields will be replaced with an object that contains only an `href` field.   # noqa: E501
 
     The version of the OpenAPI document: 1.0.0
     Contact: support@equinixmetal.com
@@ -36,164 +36,6 @@ class BGPApi(object):
         if api_client is None:
             api_client = ApiClient()
         self.api_client = api_client
-
-    def create_bgp_session(self, id, bgp_session, **kwargs):  # noqa: E501
-        """Create a BGP session  # noqa: E501
-
-        Creates a BGP session.  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-
-        >>> thread = api.create_bgp_session(id, bgp_session, async_req=True)
-        >>> result = thread.get()
-
-        :param id: Device UUID (required)
-        :type id: str
-        :param bgp_session: BGP session to create (required)
-        :type bgp_session: BGPSessionInput
-        :param async_req: Whether to execute the request asynchronously.
-        :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: Returns the result object.
-                 If the method is called asynchronously,
-                 returns the request thread.
-        :rtype: BgpSession
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.create_bgp_session_with_http_info(id, bgp_session, **kwargs)  # noqa: E501
-
-    def create_bgp_session_with_http_info(self, id, bgp_session, **kwargs):  # noqa: E501
-        """Create a BGP session  # noqa: E501
-
-        Creates a BGP session.  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-
-        >>> thread = api.create_bgp_session_with_http_info(id, bgp_session, async_req=True)
-        >>> result = thread.get()
-
-        :param id: Device UUID (required)
-        :type id: str
-        :param bgp_session: BGP session to create (required)
-        :type bgp_session: BGPSessionInput
-        :param async_req: Whether to execute the request asynchronously.
-        :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the authentication
-                              in the spec for a single request.
-        :type _request_auth: dict, optional
-        :type _content_type: string, optional: force content-type for the request
-        :return: Returns the result object.
-                 If the method is called asynchronously,
-                 returns the request thread.
-        :rtype: tuple(BgpSession, status_code(int), headers(HTTPHeaderDict))
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'id',
-            'bgp_session'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
-        )
-
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method create_bgp_session" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'id' is set
-        if self.api_client.client_side_validation and local_var_params.get('id') is None:  # noqa: E501
-            raise ApiValueError("Missing the required parameter `id` when calling `create_bgp_session`")  # noqa: E501
-        # verify the required parameter 'bgp_session' is set
-        if self.api_client.client_side_validation and local_var_params.get('bgp_session') is None:  # noqa: E501
-            raise ApiValueError("Missing the required parameter `bgp_session` when calling `create_bgp_session`")  # noqa: E501
-
-        collection_formats = {}
-
-        path_params = {}
-        if 'id' in local_var_params:
-            path_params['id'] = local_var_params['id']  # noqa: E501
-
-        query_params = []
-
-        header_params = dict(local_var_params.get('_headers', {}))
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        if 'bgp_session' in local_var_params:
-            body_params = local_var_params['bgp_session']
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # HTTP header `Content-Type`
-        content_types_list = local_var_params.get('_content_type',
-            self.api_client.select_header_content_type(
-                ['application/json'],
-                'POST', body_params))  # noqa: E501
-        if content_types_list:
-                header_params['Content-Type'] = content_types_list
-
-        # Authentication setting
-        auth_settings = ['x_auth_token']  # noqa: E501
-
-        response_types_map = {
-            201: "BgpSession",
-            401: "Error",
-            403: "Error",
-            422: "Error",
-        }
-
-        return self.api_client.call_api(
-            '/devices/{id}/bgp/sessions', 'POST',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_types_map=response_types_map,
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats,
-            _request_auth=local_var_params.get('_request_auth'))
 
     def delete_bgp_session(self, id, **kwargs):  # noqa: E501
         """Delete the BGP session  # noqa: E501
@@ -642,17 +484,17 @@ class BGPApi(object):
             collection_formats=collection_formats,
             _request_auth=local_var_params.get('_request_auth'))
 
-    def find_bgp_sessions(self, id, **kwargs):  # noqa: E501
-        """Retrieve all BGP sessions  # noqa: E501
+    def find_global_bgp_ranges(self, id, **kwargs):  # noqa: E501
+        """Retrieve all global bgp ranges  # noqa: E501
 
-        Provides a listing of available BGP sessions for the device.  # noqa: E501
+        Returns all global bgp ranges for a project  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.find_bgp_sessions(id, async_req=True)
+        >>> thread = api.find_global_bgp_ranges(id, async_req=True)
         >>> result = thread.get()
 
-        :param id: Device UUID (required)
+        :param id: Project UUID (required)
         :type id: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
@@ -667,22 +509,22 @@ class BGPApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: BgpSessionList
+        :rtype: GlobalBgpRangeList
         """
         kwargs['_return_http_data_only'] = True
-        return self.find_bgp_sessions_with_http_info(id, **kwargs)  # noqa: E501
+        return self.find_global_bgp_ranges_with_http_info(id, **kwargs)  # noqa: E501
 
-    def find_bgp_sessions_with_http_info(self, id, **kwargs):  # noqa: E501
-        """Retrieve all BGP sessions  # noqa: E501
+    def find_global_bgp_ranges_with_http_info(self, id, **kwargs):  # noqa: E501
+        """Retrieve all global bgp ranges  # noqa: E501
 
-        Provides a listing of available BGP sessions for the device.  # noqa: E501
+        Returns all global bgp ranges for a project  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.find_bgp_sessions_with_http_info(id, async_req=True)
+        >>> thread = api.find_global_bgp_ranges_with_http_info(id, async_req=True)
         >>> result = thread.get()
 
-        :param id: Device UUID (required)
+        :param id: Project UUID (required)
         :type id: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
@@ -705,7 +547,7 @@ class BGPApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: tuple(BgpSessionList, status_code(int), headers(HTTPHeaderDict))
+        :rtype: tuple(GlobalBgpRangeList, status_code(int), headers(HTTPHeaderDict))
         """
 
         local_var_params = locals()
@@ -729,13 +571,13 @@ class BGPApi(object):
             if key not in all_params:
                 raise ApiTypeError(
                     "Got an unexpected keyword argument '%s'"
-                    " to method find_bgp_sessions" % key
+                    " to method find_global_bgp_ranges" % key
                 )
             local_var_params[key] = val
         del local_var_params['kwargs']
         # verify the required parameter 'id' is set
         if self.api_client.client_side_validation and local_var_params.get('id') is None:  # noqa: E501
-            raise ApiValueError("Missing the required parameter `id` when calling `find_bgp_sessions`")  # noqa: E501
+            raise ApiValueError("Missing the required parameter `id` when calling `find_global_bgp_ranges`")  # noqa: E501
 
         collection_formats = {}
 
@@ -759,13 +601,14 @@ class BGPApi(object):
         auth_settings = ['x_auth_token']  # noqa: E501
 
         response_types_map = {
-            200: "BgpSessionList",
+            200: "GlobalBgpRangeList",
             401: "Error",
             403: "Error",
+            404: "Error",
         }
 
         return self.api_client.call_api(
-            '/devices/{id}/bgp/sessions', 'GET',
+            '/projects/{id}/global-bgp-ranges', 'GET',
             path_params,
             query_params,
             header_params,
@@ -920,160 +763,20 @@ class BGPApi(object):
             collection_formats=collection_formats,
             _request_auth=local_var_params.get('_request_auth'))
 
-    def get_bgp_neighbor_data(self, id, **kwargs):  # noqa: E501
-        """Retrieve BGP neighbor data for this device  # noqa: E501
-
-        Provides a summary of the BGP neighbor data associated to the BGP sessions for this device.  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-
-        >>> thread = api.get_bgp_neighbor_data(id, async_req=True)
-        >>> result = thread.get()
-
-        :param id: Device UUID (required)
-        :type id: str
-        :param async_req: Whether to execute the request asynchronously.
-        :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: Returns the result object.
-                 If the method is called asynchronously,
-                 returns the request thread.
-        :rtype: BgpSessionNeighbors
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.get_bgp_neighbor_data_with_http_info(id, **kwargs)  # noqa: E501
-
-    def get_bgp_neighbor_data_with_http_info(self, id, **kwargs):  # noqa: E501
-        """Retrieve BGP neighbor data for this device  # noqa: E501
-
-        Provides a summary of the BGP neighbor data associated to the BGP sessions for this device.  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-
-        >>> thread = api.get_bgp_neighbor_data_with_http_info(id, async_req=True)
-        >>> result = thread.get()
-
-        :param id: Device UUID (required)
-        :type id: str
-        :param async_req: Whether to execute the request asynchronously.
-        :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the authentication
-                              in the spec for a single request.
-        :type _request_auth: dict, optional
-        :type _content_type: string, optional: force content-type for the request
-        :return: Returns the result object.
-                 If the method is called asynchronously,
-                 returns the request thread.
-        :rtype: tuple(BgpSessionNeighbors, status_code(int), headers(HTTPHeaderDict))
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'id'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
-        )
-
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method get_bgp_neighbor_data" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'id' is set
-        if self.api_client.client_side_validation and local_var_params.get('id') is None:  # noqa: E501
-            raise ApiValueError("Missing the required parameter `id` when calling `get_bgp_neighbor_data`")  # noqa: E501
-
-        collection_formats = {}
-
-        path_params = {}
-        if 'id' in local_var_params:
-            path_params['id'] = local_var_params['id']  # noqa: E501
-
-        query_params = []
-
-        header_params = dict(local_var_params.get('_headers', {}))
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['x_auth_token']  # noqa: E501
-
-        response_types_map = {
-            200: "BgpSessionNeighbors",
-            401: "Error",
-            403: "Error",
-            404: "Error",
-        }
-
-        return self.api_client.call_api(
-            '/devices/{id}/bgp/neighbors', 'GET',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_types_map=response_types_map,
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats,
-            _request_auth=local_var_params.get('_request_auth'))
-
-    def request_bgp_config(self, id, bgp_config_request, **kwargs):  # noqa: E501
+    def request_bgp_config(self, id, bgp_config_request_input, **kwargs):  # noqa: E501
         """Requesting bgp config  # noqa: E501
 
         Requests to enable bgp configuration for a project.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.request_bgp_config(id, bgp_config_request, async_req=True)
+        >>> thread = api.request_bgp_config(id, bgp_config_request_input, async_req=True)
         >>> result = thread.get()
 
         :param id: Project UUID (required)
         :type id: str
-        :param bgp_config_request: BGP config Request to create (required)
-        :type bgp_config_request: BgpConfigRequestInput
+        :param bgp_config_request_input: BGP config Request to create (required)
+        :type bgp_config_request_input: BgpConfigRequestInput
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _preload_content: if False, the urllib3.HTTPResponse object will
@@ -1090,22 +793,22 @@ class BGPApi(object):
         :rtype: None
         """
         kwargs['_return_http_data_only'] = True
-        return self.request_bgp_config_with_http_info(id, bgp_config_request, **kwargs)  # noqa: E501
+        return self.request_bgp_config_with_http_info(id, bgp_config_request_input, **kwargs)  # noqa: E501
 
-    def request_bgp_config_with_http_info(self, id, bgp_config_request, **kwargs):  # noqa: E501
+    def request_bgp_config_with_http_info(self, id, bgp_config_request_input, **kwargs):  # noqa: E501
         """Requesting bgp config  # noqa: E501
 
         Requests to enable bgp configuration for a project.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.request_bgp_config_with_http_info(id, bgp_config_request, async_req=True)
+        >>> thread = api.request_bgp_config_with_http_info(id, bgp_config_request_input, async_req=True)
         >>> result = thread.get()
 
         :param id: Project UUID (required)
         :type id: str
-        :param bgp_config_request: BGP config Request to create (required)
-        :type bgp_config_request: BgpConfigRequestInput
+        :param bgp_config_request_input: BGP config Request to create (required)
+        :type bgp_config_request_input: BgpConfigRequestInput
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _return_http_data_only: response data without head status code
@@ -1134,7 +837,7 @@ class BGPApi(object):
 
         all_params = [
             'id',
-            'bgp_config_request'
+            'bgp_config_request_input'
         ]
         all_params.extend(
             [
@@ -1159,9 +862,9 @@ class BGPApi(object):
         # verify the required parameter 'id' is set
         if self.api_client.client_side_validation and local_var_params.get('id') is None:  # noqa: E501
             raise ApiValueError("Missing the required parameter `id` when calling `request_bgp_config`")  # noqa: E501
-        # verify the required parameter 'bgp_config_request' is set
-        if self.api_client.client_side_validation and local_var_params.get('bgp_config_request') is None:  # noqa: E501
-            raise ApiValueError("Missing the required parameter `bgp_config_request` when calling `request_bgp_config`")  # noqa: E501
+        # verify the required parameter 'bgp_config_request_input' is set
+        if self.api_client.client_side_validation and local_var_params.get('bgp_config_request_input') is None:  # noqa: E501
+            raise ApiValueError("Missing the required parameter `bgp_config_request_input` when calling `request_bgp_config`")  # noqa: E501
 
         collection_formats = {}
 
@@ -1177,8 +880,8 @@ class BGPApi(object):
         local_var_files = {}
 
         body_params = None
-        if 'bgp_config_request' in local_var_params:
-            body_params = local_var_params['bgp_config_request']
+        if 'bgp_config_request_input' in local_var_params:
+            body_params = local_var_params['bgp_config_request_input']
         # HTTP header `Accept`
         header_params['Accept'] = self.api_client.select_header_accept(
             ['application/json'])  # noqa: E501
@@ -1213,20 +916,20 @@ class BGPApi(object):
             collection_formats=collection_formats,
             _request_auth=local_var_params.get('_request_auth'))
 
-    def update_bgp_session(self, id, default_route, **kwargs):  # noqa: E501
+    def update_bgp_session(self, id, body, **kwargs):  # noqa: E501
         """Update the BGP session  # noqa: E501
 
         Updates the BGP session by either enabling or disabling the default route functionality.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.update_bgp_session(id, default_route, async_req=True)
+        >>> thread = api.update_bgp_session(id, body, async_req=True)
         >>> result = thread.get()
 
         :param id: BGP session UUID (required)
         :type id: str
-        :param default_route: Default route (required)
-        :type default_route: bool
+        :param body: Default route (required)
+        :type body: bool
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _preload_content: if False, the urllib3.HTTPResponse object will
@@ -1243,22 +946,22 @@ class BGPApi(object):
         :rtype: None
         """
         kwargs['_return_http_data_only'] = True
-        return self.update_bgp_session_with_http_info(id, default_route, **kwargs)  # noqa: E501
+        return self.update_bgp_session_with_http_info(id, body, **kwargs)  # noqa: E501
 
-    def update_bgp_session_with_http_info(self, id, default_route, **kwargs):  # noqa: E501
+    def update_bgp_session_with_http_info(self, id, body, **kwargs):  # noqa: E501
         """Update the BGP session  # noqa: E501
 
         Updates the BGP session by either enabling or disabling the default route functionality.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.update_bgp_session_with_http_info(id, default_route, async_req=True)
+        >>> thread = api.update_bgp_session_with_http_info(id, body, async_req=True)
         >>> result = thread.get()
 
         :param id: BGP session UUID (required)
         :type id: str
-        :param default_route: Default route (required)
-        :type default_route: bool
+        :param body: Default route (required)
+        :type body: bool
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _return_http_data_only: response data without head status code
@@ -1287,7 +990,7 @@ class BGPApi(object):
 
         all_params = [
             'id',
-            'default_route'
+            'body'
         ]
         all_params.extend(
             [
@@ -1312,9 +1015,9 @@ class BGPApi(object):
         # verify the required parameter 'id' is set
         if self.api_client.client_side_validation and local_var_params.get('id') is None:  # noqa: E501
             raise ApiValueError("Missing the required parameter `id` when calling `update_bgp_session`")  # noqa: E501
-        # verify the required parameter 'default_route' is set
-        if self.api_client.client_side_validation and local_var_params.get('default_route') is None:  # noqa: E501
-            raise ApiValueError("Missing the required parameter `default_route` when calling `update_bgp_session`")  # noqa: E501
+        # verify the required parameter 'body' is set
+        if self.api_client.client_side_validation and local_var_params.get('body') is None:  # noqa: E501
+            raise ApiValueError("Missing the required parameter `body` when calling `update_bgp_session`")  # noqa: E501
 
         collection_formats = {}
 
@@ -1330,8 +1033,8 @@ class BGPApi(object):
         local_var_files = {}
 
         body_params = None
-        if 'default_route' in local_var_params:
-            body_params = local_var_params['default_route']
+        if 'body' in local_var_params:
+            body_params = local_var_params['body']
         # HTTP header `Accept`
         header_params['Accept'] = self.api_client.select_header_accept(
             ['application/json'])  # noqa: E501

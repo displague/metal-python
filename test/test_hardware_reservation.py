@@ -3,7 +3,7 @@
 """
     Metal API
 
-    This is the API for Equinix Metal. The API allows you to programmatically interact with all of your Equinix Metal resources, including devices, networks, addresses, organizations, projects, and your user account.  The official API docs are hosted at <https://metal.equinix.com/developers/api>.   # noqa: E501
+    # Introduction Equinix Metal provides a RESTful HTTP API which can be reached at <https://api.equinix.com/metal/v1>. This document describes the API and how to use it.  The API allows you to programmatically interact with all of your Equinix Metal resources, including devices, networks, addresses, organizations, projects, and your user account. Every feature of the Equinix Metal web interface is accessible through the API.  The API docs are generated from the Equinix Metal OpenAPI specification and are officially hosted at <https://metal.equinix.com/developers/api>.  # Common Parameters  The Equinix Metal API uses a few methods to minimize network traffic and improve throughput. These parameters are not used in all API calls, but are used often enough to warrant their own section. Look for these parameters in the documentation for the API calls that support them.  ## Pagination  Pagination is used to limit the number of results returned in a single request. The API will return a maximum of 100 results per page. To retrieve additional results, you can use the `page` and `per_page` query parameters.  The `page` parameter is used to specify the page number. The first page is `1`. The `per_page` parameter is used to specify the number of results per page. The maximum number of results differs by resource type.  ## Sorting  Where offered, the API allows you to sort results by a specific field. To sort results use the `sort_by` query parameter with the root level field name as the value. The `sort_direction` parameter is used to specify the sort direction, either either `asc` (ascending) or `desc` (descending).  ## Filtering  Filtering is used to limit the results returned in a single request. The API supports filtering by certain fields in the response. To filter results, you can use the field as a query parameter.  For example, to filter the IP list to only return public IPv4 addresses, you can filter by the `type` field, as in the following request:  ```sh curl -H 'X-Auth-Token: my_authentication_token' \\   https://api.equinix.com/metal/v1/projects/id/ips?type=public_ipv4 ```  Only IP addresses with the `type` field set to `public_ipv4` will be returned.  ## Searching  Searching is used to find matching resources using multiple field comparissons. The API supports searching in resources that define this behavior. The fields available for search differ by resource, as does the search strategy.  To search resources you can use the `search` query parameter.  ## Include and Exclude  For resources that contain references to other resources, sucha as a Device that refers to the Project it resides in, the Equinix Metal API will returns `href` values (API links) to the associated resource.  ```json {   ...   \"project\": {     \"href\": \"/metal/v1/projects/f3f131c8-f302-49ef-8c44-9405022dc6dd\"   } } ```  If you're going need the project details, you can avoid a second API request.  Specify the contained `href` resources and collections that you'd like to have included in the response using the `include` query parameter.  For example:  ```sh curl -H 'X-Auth-Token: my_authentication_token' \\   https://api.equinix.com/metal/v1/user?include=projects ```  The `include` parameter is generally accepted in `GET`, `POST`, `PUT`, and `PATCH` requests where `href` resources are presented.  To have multiple resources include, use a comma-separated list (e.g. `?include=emails,projects,memberships`).  ```sh curl -H 'X-Auth-Token: my_authentication_token' \\   https://api.equinix.com/metal/v1/user?include=emails,projects,memberships ```  You may also include nested associations up to three levels deep using dot notation (`?include=memberships.projects`):  ```sh curl -H 'X-Auth-Token: my_authentication_token' \\   https://api.equinix.com/metal/v1/user?include=memberships.projects ```  To exclude resources, and optimize response delivery, use the `exclude` query parameter. The `exclude` parameter is generally accepted in `GET`, `POST`, `PUT`, and `PATCH` requests for fields with nested object responses. When excluded, these fields will be replaced with an object that contains only an `href` field.   # noqa: E501
 
     The version of the OpenAPI document: 1.0.0
     Contact: support@equinixmetal.com
@@ -37,193 +37,302 @@ class TestHardwareReservation(unittest.TestCase):
         # model = metal.models.hardware_reservation.HardwareReservation()  # noqa: E501
         if include_optional :
             return HardwareReservation(
-                id = '', 
-                short_id = '', 
-                facility = metal.models.facility.Facility(
-                    id = '', 
-                    name = '', 
-                    code = '', 
-                    features = [baremetal, backend_transfer, global_ipv4], 
-                    ip_ranges = [2604:1380::/36, 147.75.192.0/21], 
-                    address = metal.models.address.Address(
-                        address = '', 
-                        address2 = '', 
-                        city = '', 
-                        state = '', 
-                        zip_code = '', 
-                        country = '', 
-                        coordinates = metal.models.coordinates.Coordinates(
-                            latitude = '', 
-                            longitude = '', ), ), 
-                    metro = metal.models.facility_metro.Facility_metro(), ), 
-                plan = metal.models.plan.Plan(
-                    id = '', 
-                    slug = '', 
-                    name = '', 
-                    description = '', 
-                    line = '', 
-                    specs = metal.models.specs.specs(), 
-                    pricing = metal.models.pricing.pricing(), 
-                    legacy = True, 
-                    class = '', 
-                    available_in = [
-                        metal.models.href.Href(
-                            href = '', )
-                        ], ), 
-                href = '', 
-                project = metal.models.project.Project(
-                    id = '', 
-                    name = '', 
-                    created_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
-                    updated_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
-                    max_devices = metal.models.max_devices.max_devices(), 
-                    members = [
-                        metal.models.href.Href(
-                            href = '', )
-                        ], 
-                    memberships = [
-                        metal.models.href.Href(
-                            href = '', )
-                        ], 
-                    network_status = metal.models.network_status.network_status(), 
-                    invitations = [
-                        
-                        ], 
-                    payment_method = , 
-                    devices = [
-                        
-                        ], 
-                    ssh_keys = [
-                        
-                        ], 
-                    volumes = [
-                        
-                        ], 
-                    bgp_config = , 
-                    customdata = metal.models.customdata.customdata(), ), 
+                created_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
+                custom_rate = 1050.5, 
                 device = metal.models.device.Device(
-                    id = '', 
-                    short_id = '', 
-                    hostname = '', 
-                    description = '', 
-                    state = '', 
-                    tags = [
-                        ''
-                        ], 
-                    image_url = '', 
+                    always_pxe = True, 
                     billing_cycle = '', 
-                    user = '', 
-                    iqn = '', 
-                    locked = True, 
                     bonding_mode = 56, 
                     created_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
-                    updated_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
-                    spot_instance = True, 
-                    spot_price_max = 1.337, 
-                    termination_time = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
-                    customdata = metal.models.customdata.customdata(), 
-                    provisioning_percentage = 1.337, 
-                    operating_system = metal.models.operating_system.OperatingSystem(
-                        id = '', 
-                        slug = '', 
-                        name = '', 
-                        distro = '', 
-                        version = '', 
-                        preinstallable = True, 
-                        provisionable_on = [
-                            ''
-                            ], 
-                        pricing = metal.models.pricing.pricing(), 
-                        licensed = True, ), 
-                    always_pxe = True, 
-                    ipxe_script_url = '', 
+                    created_by = null, 
+                    customdata = { }, 
+                    description = '', 
                     facility = metal.models.facility.Facility(
-                        id = '', 
-                        name = '', 
-                        code = '', 
-                        features = [baremetal, backend_transfer, global_ipv4], 
-                        ip_ranges = [2604:1380::/36, 147.75.192.0/21], 
                         address = metal.models.address.Address(
                             address = '', 
                             address2 = '', 
                             city = '', 
-                            state = '', 
-                            zip_code = '', 
-                            country = '', 
                             coordinates = metal.models.coordinates.Coordinates(
                                 latitude = '', 
-                                longitude = '', ), ), 
-                        metro = metal.models.facility_metro.Facility_metro(), ), 
-                    metro = metal.models.facility_metro.Facility_metro(), 
-                    plan = metal.models.plan.Plan(
+                                longitude = '', ), 
+                            country = '', 
+                            state = '', 
+                            zip_code = '', ), 
+                        code = '', 
+                        features = ["baremetal","backend_transfer","global_ipv4"], 
                         id = '', 
-                        slug = '', 
-                        name = '', 
-                        description = '', 
-                        line = '', 
-                        specs = metal.models.specs.specs(), 
-                        pricing = metal.models.pricing.pricing(), 
-                        legacy = True, 
-                        class = '', 
-                        available_in = [
-                            metal.models.href.Href(
-                                href = '', )
-                            ], ), 
-                    userdata = '', 
-                    root_password = '', 
-                    switch_uuid = '', 
-                    network_ports = metal.models.device_network_ports.Device_network_ports(), 
+                        ip_ranges = ["2604:1380::/36","147.75.192.0/21"], 
+                        metro = null, 
+                        name = '', ), 
+                    hardware_reservation = metal.models.href.Href(
+                        href = '', ), 
+                    hostname = '', 
                     href = '', 
-                    project = metal.models.device_project.Device_project(), 
-                    project_lite = metal.models.device_project_lite.Device_project_lite(), 
-                    volumes = [
-                        metal.models.href.Href(
-                            href = '', )
-                        ], 
-                    hardware_reservation = , 
-                    ssh_keys = [
-                        
-                        ], 
+                    id = '', 
+                    image_url = '', 
                     ip_addresses = [
                         metal.models.ip_assignment.IPAssignment(
-                            id = '', 
                             address_family = 56, 
-                            netmask = '', 
-                            public = True, 
-                            enabled = True, 
+                            assigned_to = metal.models.href.Href(
+                                href = '', ), 
                             cidr = 56, 
-                            management = True, 
-                            manageable = True, 
-                            global_ip = True, 
-                            assigned_to = , 
-                            network = '', 
-                            gateway = '', 
-                            href = '', 
                             created_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
+                            enabled = True, 
+                            gateway = '', 
+                            global_ip = True, 
+                            href = '', 
+                            id = '', 
+                            manageable = True, 
+                            management = True, 
+                            netmask = '', 
+                            network = '', 
                             parent_block = metal.models.parent_block.ParentBlock(
-                                network = '', 
-                                netmask = '', 
                                 cidr = 56, 
-                                href = '', ), )
+                                href = '', 
+                                netmask = '', 
+                                network = '', ), 
+                            public = True, )
                         ], 
+                    ipxe_script_url = '', 
+                    iqn = '', 
+                    locked = True, 
+                    metro = null, 
+                    network_ports = [
+                        metal.models.port.Port(
+                            bond = metal.models.bond_port_data.BondPortData(
+                                id = '', 
+                                name = '', ), 
+                            data = metal.models.port_data.PortData(
+                                mac = '', 
+                                bonded = True, ), 
+                            disbond_operation_supported = True, 
+                            href = '', 
+                            id = '', 
+                            name = 'bond0', 
+                            type = 'NetworkPort', 
+                            network_type = 'layer2-bonded', 
+                            native_virtual_network = metal.models.virtual_network.VirtualNetwork(
+                                assigned_to_virtual_circuit = True, 
+                                description = '', 
+                                href = '', 
+                                id = '', 
+                                instances = [
+                                    
+                                    ], 
+                                metal_gateways = [
+                                    metal.models.metal_gateway_lite.MetalGatewayLite(
+                                        created_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
+                                        gateway_address = '10.1.2.1/27', 
+                                        href = '', 
+                                        id = '', 
+                                        state = 'ready', 
+                                        updated_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
+                                        vlan = 1001, )
+                                    ], 
+                                metro_code = '', 
+                                vxlan = 56, ), 
+                            virtual_networks = [
+                                
+                                ], )
+                        ], 
+                    operating_system = metal.models.operating_system.OperatingSystem(
+                        distro = '', 
+                        distro_label = '', 
+                        id = '', 
+                        licensed = True, 
+                        name = '', 
+                        preinstallable = True, 
+                        pricing = metal.models.pricing.pricing(), 
+                        provisionable_on = [
+                            ''
+                            ], 
+                        slug = '', 
+                        version = '', ), 
+                    actions = [
+                        metal.models.device_actions_inner.Device_actions_inner(
+                            type = '', 
+                            name = '', )
+                        ], 
+                    plan = metal.models.plan.Plan(
+                        available_in = [
+                            metal.models.plan_available_in_inner.Plan_available_in_inner(
+                                href = '', 
+                                price = metal.models.plan_available_in_inner_price.Plan_available_in_inner_price(
+                                    hour = 1.23, ), )
+                            ], 
+                        available_in_metros = [
+                            metal.models.plan_available_in_metros_inner.Plan_available_in_metros_inner(
+                                href = '', )
+                            ], 
+                        class = 'm3.large.x86', 
+                        description = '', 
+                        deployment_types = [
+                            'on_demand'
+                            ], 
+                        id = '', 
+                        legacy = True, 
+                        line = 'baremetal', 
+                        name = '', 
+                        pricing = metal.models.pricing.pricing(), 
+                        slug = 'm3.large.x86', 
+                        specs = metal.models.plan_specs.Plan_specs(
+                            cpus = [
+                                metal.models.plan_specs_cpus_inner.Plan_specs_cpus_inner(
+                                    count = 56, 
+                                    type = '', )
+                                ], 
+                            drives = [
+                                metal.models.plan_specs_drives_inner.Plan_specs_drives_inner(
+                                    count = 56, 
+                                    type = 'HDD', 
+                                    size = '3.84TB', 
+                                    category = 'boot', )
+                                ], 
+                            nics = [
+                                metal.models.plan_specs_nics_inner.Plan_specs_nics_inner(
+                                    count = 2, 
+                                    type = '1Gbps', )
+                                ], 
+                            features = metal.models.plan_specs_features.Plan_specs_features(
+                                raid = True, 
+                                txt = True, 
+                                uefi = True, ), ), 
+                        type = 'standard', ), 
+                    project = null, 
+                    project_lite = null, 
                     provisioning_events = [
                         metal.models.event.Event(
-                            id = '', 
-                            state = '', 
-                            type = '', 
                             body = '', 
+                            created_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
+                            href = '', 
+                            id = '', 
+                            interpolated = '', 
                             relationships = [
                                 
                                 ], 
-                            interpolated = '', 
-                            created_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
-                            href = '', )
+                            state = '', 
+                            type = '', 
+                            modified_by = metal.models.modified_by.modified_by(), 
+                            ip = '', )
+                        ], 
+                    provisioning_percentage = 1.337, 
+                    root_password = '', 
+                    short_id = '', 
+                    spot_instance = True, 
+                    spot_price_max = 1.337, 
+                    ssh_keys = [
+                        
+                        ], 
+                    state = 'active', 
+                    switch_uuid = '', 
+                    tags = [
+                        ''
+                        ], 
+                    termination_time = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
+                    updated_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
+                    user = '', 
+                    userdata = '', 
+                    volumes = [
+                        
                         ], ), 
-                created_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
-                spare = True, 
+                facility = metal.models.facility.Facility(
+                    address = metal.models.address.Address(
+                        address = '', 
+                        address2 = '', 
+                        city = '', 
+                        coordinates = metal.models.coordinates.Coordinates(
+                            latitude = '', 
+                            longitude = '', ), 
+                        country = '', 
+                        state = '', 
+                        zip_code = '', ), 
+                    code = '', 
+                    features = ["baremetal","backend_transfer","global_ipv4"], 
+                    id = '', 
+                    ip_ranges = ["2604:1380::/36","147.75.192.0/21"], 
+                    metro = null, 
+                    name = '', ), 
+                href = '', 
+                id = '', 
                 need_of_service = True, 
+                plan = metal.models.plan.Plan(
+                    available_in = [
+                        metal.models.plan_available_in_inner.Plan_available_in_inner(
+                            href = '', 
+                            price = metal.models.plan_available_in_inner_price.Plan_available_in_inner_price(
+                                hour = 1.23, ), )
+                        ], 
+                    available_in_metros = [
+                        metal.models.plan_available_in_metros_inner.Plan_available_in_metros_inner(
+                            href = '', )
+                        ], 
+                    class = 'm3.large.x86', 
+                    description = '', 
+                    deployment_types = [
+                        'on_demand'
+                        ], 
+                    id = '', 
+                    legacy = True, 
+                    line = 'baremetal', 
+                    name = '', 
+                    pricing = metal.models.pricing.pricing(), 
+                    slug = 'm3.large.x86', 
+                    specs = metal.models.plan_specs.Plan_specs(
+                        cpus = [
+                            metal.models.plan_specs_cpus_inner.Plan_specs_cpus_inner(
+                                count = 56, 
+                                type = '', )
+                            ], 
+                        drives = [
+                            metal.models.plan_specs_drives_inner.Plan_specs_drives_inner(
+                                count = 56, 
+                                type = 'HDD', 
+                                size = '3.84TB', 
+                                category = 'boot', )
+                            ], 
+                        nics = [
+                            metal.models.plan_specs_nics_inner.Plan_specs_nics_inner(
+                                count = 2, 
+                                type = '1Gbps', )
+                            ], 
+                        features = metal.models.plan_specs_features.Plan_specs_features(
+                            raid = True, 
+                            txt = True, 
+                            uefi = True, ), ), 
+                    type = 'standard', ), 
+                project = metal.models.project.Project(
+                    bgp_config = metal.models.href.Href(
+                        href = '', ), 
+                    created_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
+                    customdata = metal.models.customdata.customdata(), 
+                    devices = [
+                        metal.models.href.Href(
+                            href = '', )
+                        ], 
+                    id = '', 
+                    invitations = [
+                        
+                        ], 
+                    max_devices = metal.models.max_devices.max_devices(), 
+                    members = [
+                        
+                        ], 
+                    memberships = [
+                        
+                        ], 
+                    name = '', 
+                    network_status = metal.models.network_status.network_status(), 
+                    payment_method = , 
+                    ssh_keys = [
+                        
+                        ], 
+                    updated_at = datetime.datetime.strptime('2013-10-20 19:20:30.00', '%Y-%m-%d %H:%M:%S.%f'), 
+                    volumes = [
+                        
+                        ], ), 
                 provisionable = True, 
-                custom_rate = 1050.5, 
+                short_id = '', 
+                spare = True, 
                 switch_uuid = ''
             )
         else :

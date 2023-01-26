@@ -3,7 +3,7 @@
 """
     Metal API
 
-    This is the API for Equinix Metal. The API allows you to programmatically interact with all of your Equinix Metal resources, including devices, networks, addresses, organizations, projects, and your user account.  The official API docs are hosted at <https://metal.equinix.com/developers/api>.   # noqa: E501
+    # Introduction Equinix Metal provides a RESTful HTTP API which can be reached at <https://api.equinix.com/metal/v1>. This document describes the API and how to use it.  The API allows you to programmatically interact with all of your Equinix Metal resources, including devices, networks, addresses, organizations, projects, and your user account. Every feature of the Equinix Metal web interface is accessible through the API.  The API docs are generated from the Equinix Metal OpenAPI specification and are officially hosted at <https://metal.equinix.com/developers/api>.  # Common Parameters  The Equinix Metal API uses a few methods to minimize network traffic and improve throughput. These parameters are not used in all API calls, but are used often enough to warrant their own section. Look for these parameters in the documentation for the API calls that support them.  ## Pagination  Pagination is used to limit the number of results returned in a single request. The API will return a maximum of 100 results per page. To retrieve additional results, you can use the `page` and `per_page` query parameters.  The `page` parameter is used to specify the page number. The first page is `1`. The `per_page` parameter is used to specify the number of results per page. The maximum number of results differs by resource type.  ## Sorting  Where offered, the API allows you to sort results by a specific field. To sort results use the `sort_by` query parameter with the root level field name as the value. The `sort_direction` parameter is used to specify the sort direction, either either `asc` (ascending) or `desc` (descending).  ## Filtering  Filtering is used to limit the results returned in a single request. The API supports filtering by certain fields in the response. To filter results, you can use the field as a query parameter.  For example, to filter the IP list to only return public IPv4 addresses, you can filter by the `type` field, as in the following request:  ```sh curl -H 'X-Auth-Token: my_authentication_token' \\   https://api.equinix.com/metal/v1/projects/id/ips?type=public_ipv4 ```  Only IP addresses with the `type` field set to `public_ipv4` will be returned.  ## Searching  Searching is used to find matching resources using multiple field comparissons. The API supports searching in resources that define this behavior. The fields available for search differ by resource, as does the search strategy.  To search resources you can use the `search` query parameter.  ## Include and Exclude  For resources that contain references to other resources, sucha as a Device that refers to the Project it resides in, the Equinix Metal API will returns `href` values (API links) to the associated resource.  ```json {   ...   \"project\": {     \"href\": \"/metal/v1/projects/f3f131c8-f302-49ef-8c44-9405022dc6dd\"   } } ```  If you're going need the project details, you can avoid a second API request.  Specify the contained `href` resources and collections that you'd like to have included in the response using the `include` query parameter.  For example:  ```sh curl -H 'X-Auth-Token: my_authentication_token' \\   https://api.equinix.com/metal/v1/user?include=projects ```  The `include` parameter is generally accepted in `GET`, `POST`, `PUT`, and `PATCH` requests where `href` resources are presented.  To have multiple resources include, use a comma-separated list (e.g. `?include=emails,projects,memberships`).  ```sh curl -H 'X-Auth-Token: my_authentication_token' \\   https://api.equinix.com/metal/v1/user?include=emails,projects,memberships ```  You may also include nested associations up to three levels deep using dot notation (`?include=memberships.projects`):  ```sh curl -H 'X-Auth-Token: my_authentication_token' \\   https://api.equinix.com/metal/v1/user?include=memberships.projects ```  To exclude resources, and optimize response delivery, use the `exclude` query parameter. The `exclude` parameter is generally accepted in `GET`, `POST`, `PUT`, and `PATCH` requests for fields with nested object responses. When excluded, these fields will be replaced with an object that contains only an `href` field.   # noqa: E501
 
     The version of the OpenAPI document: 1.0.0
     Contact: support@equinixmetal.com
@@ -37,59 +37,106 @@ class PortVlanAssignmentBatch(object):
                             and the value is json key in definition.
     """
     openapi_types = {
-        'id': 'str',
+        'created_at': 'datetime',
         'error_messages': 'list[str]',
+        'id': 'str',
+        'port': 'Port',
         'quantity': 'int',
         'state': 'str',
-        'created_at': 'datetime',
         'updated_at': 'datetime',
-        'port': 'Port',
-        'vlan_assignments': 'list[PortVlanAssignmentBatchVlanAssignmentsInner]'
+        'vlan_assignments': 'list[PortVlanAssignmentBatchVlanAssignmentsInner]',
+        'project': 'Href'
     }
 
     attribute_map = {
-        'id': 'id',
+        'created_at': 'created_at',
         'error_messages': 'error_messages',
+        'id': 'id',
+        'port': 'port',
         'quantity': 'quantity',
         'state': 'state',
-        'created_at': 'created_at',
         'updated_at': 'updated_at',
-        'port': 'port',
-        'vlan_assignments': 'vlan_assignments'
+        'vlan_assignments': 'vlan_assignments',
+        'project': 'project'
     }
 
-    def __init__(self, id=None, error_messages=None, quantity=None, state=None, created_at=None, updated_at=None, port=None, vlan_assignments=None, local_vars_configuration=None):  # noqa: E501
+    def __init__(self, created_at=None, error_messages=None, id=None, port=None, quantity=None, state=None, updated_at=None, vlan_assignments=None, project=None, local_vars_configuration=None):  # noqa: E501
         """PortVlanAssignmentBatch - a model defined in OpenAPI"""  # noqa: E501
         if local_vars_configuration is None:
             local_vars_configuration = Configuration.get_default_copy()
         self.local_vars_configuration = local_vars_configuration
 
-        self._id = None
+        self._created_at = None
         self._error_messages = None
+        self._id = None
+        self._port = None
         self._quantity = None
         self._state = None
-        self._created_at = None
         self._updated_at = None
-        self._port = None
         self._vlan_assignments = None
+        self._project = None
         self.discriminator = None
 
-        if id is not None:
-            self.id = id
+        if created_at is not None:
+            self.created_at = created_at
         if error_messages is not None:
             self.error_messages = error_messages
+        if id is not None:
+            self.id = id
+        if port is not None:
+            self.port = port
         if quantity is not None:
             self.quantity = quantity
         if state is not None:
             self.state = state
-        if created_at is not None:
-            self.created_at = created_at
         if updated_at is not None:
             self.updated_at = updated_at
-        if port is not None:
-            self.port = port
         if vlan_assignments is not None:
             self.vlan_assignments = vlan_assignments
+        if project is not None:
+            self.project = project
+
+    @property
+    def created_at(self):
+        """Gets the created_at of this PortVlanAssignmentBatch.  # noqa: E501
+
+
+        :return: The created_at of this PortVlanAssignmentBatch.  # noqa: E501
+        :rtype: datetime
+        """
+        return self._created_at
+
+    @created_at.setter
+    def created_at(self, created_at):
+        """Sets the created_at of this PortVlanAssignmentBatch.
+
+
+        :param created_at: The created_at of this PortVlanAssignmentBatch.  # noqa: E501
+        :type created_at: datetime
+        """
+
+        self._created_at = created_at
+
+    @property
+    def error_messages(self):
+        """Gets the error_messages of this PortVlanAssignmentBatch.  # noqa: E501
+
+
+        :return: The error_messages of this PortVlanAssignmentBatch.  # noqa: E501
+        :rtype: list[str]
+        """
+        return self._error_messages
+
+    @error_messages.setter
+    def error_messages(self, error_messages):
+        """Sets the error_messages of this PortVlanAssignmentBatch.
+
+
+        :param error_messages: The error_messages of this PortVlanAssignmentBatch.  # noqa: E501
+        :type error_messages: list[str]
+        """
+
+        self._error_messages = error_messages
 
     @property
     def id(self):
@@ -113,25 +160,25 @@ class PortVlanAssignmentBatch(object):
         self._id = id
 
     @property
-    def error_messages(self):
-        """Gets the error_messages of this PortVlanAssignmentBatch.  # noqa: E501
+    def port(self):
+        """Gets the port of this PortVlanAssignmentBatch.  # noqa: E501
 
 
-        :return: The error_messages of this PortVlanAssignmentBatch.  # noqa: E501
-        :rtype: list[str]
+        :return: The port of this PortVlanAssignmentBatch.  # noqa: E501
+        :rtype: Port
         """
-        return self._error_messages
+        return self._port
 
-    @error_messages.setter
-    def error_messages(self, error_messages):
-        """Sets the error_messages of this PortVlanAssignmentBatch.
+    @port.setter
+    def port(self, port):
+        """Sets the port of this PortVlanAssignmentBatch.
 
 
-        :param error_messages: The error_messages of this PortVlanAssignmentBatch.  # noqa: E501
-        :type error_messages: list[str]
+        :param port: The port of this PortVlanAssignmentBatch.  # noqa: E501
+        :type port: Port
         """
 
-        self._error_messages = error_messages
+        self._port = port
 
     @property
     def quantity(self):
@@ -182,27 +229,6 @@ class PortVlanAssignmentBatch(object):
         self._state = state
 
     @property
-    def created_at(self):
-        """Gets the created_at of this PortVlanAssignmentBatch.  # noqa: E501
-
-
-        :return: The created_at of this PortVlanAssignmentBatch.  # noqa: E501
-        :rtype: datetime
-        """
-        return self._created_at
-
-    @created_at.setter
-    def created_at(self, created_at):
-        """Sets the created_at of this PortVlanAssignmentBatch.
-
-
-        :param created_at: The created_at of this PortVlanAssignmentBatch.  # noqa: E501
-        :type created_at: datetime
-        """
-
-        self._created_at = created_at
-
-    @property
     def updated_at(self):
         """Gets the updated_at of this PortVlanAssignmentBatch.  # noqa: E501
 
@@ -224,27 +250,6 @@ class PortVlanAssignmentBatch(object):
         self._updated_at = updated_at
 
     @property
-    def port(self):
-        """Gets the port of this PortVlanAssignmentBatch.  # noqa: E501
-
-
-        :return: The port of this PortVlanAssignmentBatch.  # noqa: E501
-        :rtype: Port
-        """
-        return self._port
-
-    @port.setter
-    def port(self, port):
-        """Sets the port of this PortVlanAssignmentBatch.
-
-
-        :param port: The port of this PortVlanAssignmentBatch.  # noqa: E501
-        :type port: Port
-        """
-
-        self._port = port
-
-    @property
     def vlan_assignments(self):
         """Gets the vlan_assignments of this PortVlanAssignmentBatch.  # noqa: E501
 
@@ -264,6 +269,27 @@ class PortVlanAssignmentBatch(object):
         """
 
         self._vlan_assignments = vlan_assignments
+
+    @property
+    def project(self):
+        """Gets the project of this PortVlanAssignmentBatch.  # noqa: E501
+
+
+        :return: The project of this PortVlanAssignmentBatch.  # noqa: E501
+        :rtype: Href
+        """
+        return self._project
+
+    @project.setter
+    def project(self, project):
+        """Sets the project of this PortVlanAssignmentBatch.
+
+
+        :param project: The project of this PortVlanAssignmentBatch.  # noqa: E501
+        :type project: Href
+        """
+
+        self._project = project
 
     def to_dict(self, serialize=False):
         """Returns the model properties as a dict"""

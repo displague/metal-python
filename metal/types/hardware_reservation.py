@@ -3,7 +3,7 @@
 """
     Metal API
 
-    This is the API for Equinix Metal. The API allows you to programmatically interact with all of your Equinix Metal resources, including devices, networks, addresses, organizations, projects, and your user account.  The official API docs are hosted at <https://metal.equinix.com/developers/api>.   # noqa: E501
+    # Introduction Equinix Metal provides a RESTful HTTP API which can be reached at <https://api.equinix.com/metal/v1>. This document describes the API and how to use it.  The API allows you to programmatically interact with all of your Equinix Metal resources, including devices, networks, addresses, organizations, projects, and your user account. Every feature of the Equinix Metal web interface is accessible through the API.  The API docs are generated from the Equinix Metal OpenAPI specification and are officially hosted at <https://metal.equinix.com/developers/api>.  # Common Parameters  The Equinix Metal API uses a few methods to minimize network traffic and improve throughput. These parameters are not used in all API calls, but are used often enough to warrant their own section. Look for these parameters in the documentation for the API calls that support them.  ## Pagination  Pagination is used to limit the number of results returned in a single request. The API will return a maximum of 100 results per page. To retrieve additional results, you can use the `page` and `per_page` query parameters.  The `page` parameter is used to specify the page number. The first page is `1`. The `per_page` parameter is used to specify the number of results per page. The maximum number of results differs by resource type.  ## Sorting  Where offered, the API allows you to sort results by a specific field. To sort results use the `sort_by` query parameter with the root level field name as the value. The `sort_direction` parameter is used to specify the sort direction, either either `asc` (ascending) or `desc` (descending).  ## Filtering  Filtering is used to limit the results returned in a single request. The API supports filtering by certain fields in the response. To filter results, you can use the field as a query parameter.  For example, to filter the IP list to only return public IPv4 addresses, you can filter by the `type` field, as in the following request:  ```sh curl -H 'X-Auth-Token: my_authentication_token' \\   https://api.equinix.com/metal/v1/projects/id/ips?type=public_ipv4 ```  Only IP addresses with the `type` field set to `public_ipv4` will be returned.  ## Searching  Searching is used to find matching resources using multiple field comparissons. The API supports searching in resources that define this behavior. The fields available for search differ by resource, as does the search strategy.  To search resources you can use the `search` query parameter.  ## Include and Exclude  For resources that contain references to other resources, sucha as a Device that refers to the Project it resides in, the Equinix Metal API will returns `href` values (API links) to the associated resource.  ```json {   ...   \"project\": {     \"href\": \"/metal/v1/projects/f3f131c8-f302-49ef-8c44-9405022dc6dd\"   } } ```  If you're going need the project details, you can avoid a second API request.  Specify the contained `href` resources and collections that you'd like to have included in the response using the `include` query parameter.  For example:  ```sh curl -H 'X-Auth-Token: my_authentication_token' \\   https://api.equinix.com/metal/v1/user?include=projects ```  The `include` parameter is generally accepted in `GET`, `POST`, `PUT`, and `PATCH` requests where `href` resources are presented.  To have multiple resources include, use a comma-separated list (e.g. `?include=emails,projects,memberships`).  ```sh curl -H 'X-Auth-Token: my_authentication_token' \\   https://api.equinix.com/metal/v1/user?include=emails,projects,memberships ```  You may also include nested associations up to three levels deep using dot notation (`?include=memberships.projects`):  ```sh curl -H 'X-Auth-Token: my_authentication_token' \\   https://api.equinix.com/metal/v1/user?include=memberships.projects ```  To exclude resources, and optimize response delivery, use the `exclude` query parameter. The `exclude` parameter is generally accepted in `GET`, `POST`, `PUT`, and `PATCH` requests for fields with nested object responses. When excluded, these fields will be replaced with an object that contains only an `href` field.   # noqa: E501
 
     The version of the OpenAPI document: 1.0.0
     Contact: support@equinixmetal.com
@@ -37,233 +37,84 @@ class HardwareReservation(object):
                             and the value is json key in definition.
     """
     openapi_types = {
-        'id': 'str',
-        'short_id': 'str',
-        'facility': 'Facility',
-        'plan': 'Plan',
-        'href': 'str',
-        'project': 'Project',
-        'device': 'Device',
         'created_at': 'datetime',
-        'spare': 'bool',
-        'need_of_service': 'bool',
-        'provisionable': 'bool',
         'custom_rate': 'float',
+        'device': 'Device',
+        'facility': 'Facility',
+        'href': 'str',
+        'id': 'str',
+        'need_of_service': 'bool',
+        'plan': 'Plan',
+        'project': 'Project',
+        'provisionable': 'bool',
+        'short_id': 'str',
+        'spare': 'bool',
         'switch_uuid': 'str'
     }
 
     attribute_map = {
-        'id': 'id',
-        'short_id': 'short_id',
-        'facility': 'facility',
-        'plan': 'plan',
-        'href': 'href',
-        'project': 'project',
-        'device': 'device',
         'created_at': 'created_at',
-        'spare': 'spare',
-        'need_of_service': 'need_of_service',
-        'provisionable': 'provisionable',
         'custom_rate': 'custom_rate',
+        'device': 'device',
+        'facility': 'facility',
+        'href': 'href',
+        'id': 'id',
+        'need_of_service': 'need_of_service',
+        'plan': 'plan',
+        'project': 'project',
+        'provisionable': 'provisionable',
+        'short_id': 'short_id',
+        'spare': 'spare',
         'switch_uuid': 'switch_uuid'
     }
 
-    def __init__(self, id=None, short_id=None, facility=None, plan=None, href=None, project=None, device=None, created_at=None, spare=None, need_of_service=None, provisionable=None, custom_rate=None, switch_uuid=None, local_vars_configuration=None):  # noqa: E501
+    def __init__(self, created_at=None, custom_rate=None, device=None, facility=None, href=None, id=None, need_of_service=None, plan=None, project=None, provisionable=None, short_id=None, spare=None, switch_uuid=None, local_vars_configuration=None):  # noqa: E501
         """HardwareReservation - a model defined in OpenAPI"""  # noqa: E501
         if local_vars_configuration is None:
             local_vars_configuration = Configuration.get_default_copy()
         self.local_vars_configuration = local_vars_configuration
 
-        self._id = None
-        self._short_id = None
-        self._facility = None
-        self._plan = None
-        self._href = None
-        self._project = None
-        self._device = None
         self._created_at = None
-        self._spare = None
-        self._need_of_service = None
-        self._provisionable = None
         self._custom_rate = None
+        self._device = None
+        self._facility = None
+        self._href = None
+        self._id = None
+        self._need_of_service = None
+        self._plan = None
+        self._project = None
+        self._provisionable = None
+        self._short_id = None
+        self._spare = None
         self._switch_uuid = None
         self.discriminator = None
 
-        if id is not None:
-            self.id = id
-        if short_id is not None:
-            self.short_id = short_id
-        if facility is not None:
-            self.facility = facility
-        if plan is not None:
-            self.plan = plan
-        if href is not None:
-            self.href = href
-        if project is not None:
-            self.project = project
-        if device is not None:
-            self.device = device
         if created_at is not None:
             self.created_at = created_at
-        if spare is not None:
-            self.spare = spare
-        if need_of_service is not None:
-            self.need_of_service = need_of_service
-        if provisionable is not None:
-            self.provisionable = provisionable
         if custom_rate is not None:
             self.custom_rate = custom_rate
+        if device is not None:
+            self.device = device
+        if facility is not None:
+            self.facility = facility
+        if href is not None:
+            self.href = href
+        if id is not None:
+            self.id = id
+        if need_of_service is not None:
+            self.need_of_service = need_of_service
+        if plan is not None:
+            self.plan = plan
+        if project is not None:
+            self.project = project
+        if provisionable is not None:
+            self.provisionable = provisionable
+        if short_id is not None:
+            self.short_id = short_id
+        if spare is not None:
+            self.spare = spare
         if switch_uuid is not None:
             self.switch_uuid = switch_uuid
-
-    @property
-    def id(self):
-        """Gets the id of this HardwareReservation.  # noqa: E501
-
-
-        :return: The id of this HardwareReservation.  # noqa: E501
-        :rtype: str
-        """
-        return self._id
-
-    @id.setter
-    def id(self, id):
-        """Sets the id of this HardwareReservation.
-
-
-        :param id: The id of this HardwareReservation.  # noqa: E501
-        :type id: str
-        """
-
-        self._id = id
-
-    @property
-    def short_id(self):
-        """Gets the short_id of this HardwareReservation.  # noqa: E501
-
-        Short version of the ID.  # noqa: E501
-
-        :return: The short_id of this HardwareReservation.  # noqa: E501
-        :rtype: str
-        """
-        return self._short_id
-
-    @short_id.setter
-    def short_id(self, short_id):
-        """Sets the short_id of this HardwareReservation.
-
-        Short version of the ID.  # noqa: E501
-
-        :param short_id: The short_id of this HardwareReservation.  # noqa: E501
-        :type short_id: str
-        """
-
-        self._short_id = short_id
-
-    @property
-    def facility(self):
-        """Gets the facility of this HardwareReservation.  # noqa: E501
-
-
-        :return: The facility of this HardwareReservation.  # noqa: E501
-        :rtype: Facility
-        """
-        return self._facility
-
-    @facility.setter
-    def facility(self, facility):
-        """Sets the facility of this HardwareReservation.
-
-
-        :param facility: The facility of this HardwareReservation.  # noqa: E501
-        :type facility: Facility
-        """
-
-        self._facility = facility
-
-    @property
-    def plan(self):
-        """Gets the plan of this HardwareReservation.  # noqa: E501
-
-
-        :return: The plan of this HardwareReservation.  # noqa: E501
-        :rtype: Plan
-        """
-        return self._plan
-
-    @plan.setter
-    def plan(self, plan):
-        """Sets the plan of this HardwareReservation.
-
-
-        :param plan: The plan of this HardwareReservation.  # noqa: E501
-        :type plan: Plan
-        """
-
-        self._plan = plan
-
-    @property
-    def href(self):
-        """Gets the href of this HardwareReservation.  # noqa: E501
-
-
-        :return: The href of this HardwareReservation.  # noqa: E501
-        :rtype: str
-        """
-        return self._href
-
-    @href.setter
-    def href(self, href):
-        """Sets the href of this HardwareReservation.
-
-
-        :param href: The href of this HardwareReservation.  # noqa: E501
-        :type href: str
-        """
-
-        self._href = href
-
-    @property
-    def project(self):
-        """Gets the project of this HardwareReservation.  # noqa: E501
-
-
-        :return: The project of this HardwareReservation.  # noqa: E501
-        :rtype: Project
-        """
-        return self._project
-
-    @project.setter
-    def project(self, project):
-        """Sets the project of this HardwareReservation.
-
-
-        :param project: The project of this HardwareReservation.  # noqa: E501
-        :type project: Project
-        """
-
-        self._project = project
-
-    @property
-    def device(self):
-        """Gets the device of this HardwareReservation.  # noqa: E501
-
-
-        :return: The device of this HardwareReservation.  # noqa: E501
-        :rtype: Device
-        """
-        return self._device
-
-    @device.setter
-    def device(self, device):
-        """Sets the device of this HardwareReservation.
-
-
-        :param device: The device of this HardwareReservation.  # noqa: E501
-        :type device: Device
-        """
-
-        self._device = device
 
     @property
     def created_at(self):
@@ -287,33 +138,117 @@ class HardwareReservation(object):
         self._created_at = created_at
 
     @property
-    def spare(self):
-        """Gets the spare of this HardwareReservation.  # noqa: E501
+    def custom_rate(self):
+        """Gets the custom_rate of this HardwareReservation.  # noqa: E501
 
-        Whether the Hardware Reservation is a spare. Spare Hardware Reservations are used when a Hardware Reservations requires service from Metal Equinix  # noqa: E501
+        Amount that will be charged for every billing_cycle.  # noqa: E501
 
-        :return: The spare of this HardwareReservation.  # noqa: E501
-        :rtype: bool
+        :return: The custom_rate of this HardwareReservation.  # noqa: E501
+        :rtype: float
         """
-        return self._spare
+        return self._custom_rate
 
-    @spare.setter
-    def spare(self, spare):
-        """Sets the spare of this HardwareReservation.
+    @custom_rate.setter
+    def custom_rate(self, custom_rate):
+        """Sets the custom_rate of this HardwareReservation.
 
-        Whether the Hardware Reservation is a spare. Spare Hardware Reservations are used when a Hardware Reservations requires service from Metal Equinix  # noqa: E501
+        Amount that will be charged for every billing_cycle.  # noqa: E501
 
-        :param spare: The spare of this HardwareReservation.  # noqa: E501
-        :type spare: bool
+        :param custom_rate: The custom_rate of this HardwareReservation.  # noqa: E501
+        :type custom_rate: float
         """
 
-        self._spare = spare
+        self._custom_rate = custom_rate
+
+    @property
+    def device(self):
+        """Gets the device of this HardwareReservation.  # noqa: E501
+
+
+        :return: The device of this HardwareReservation.  # noqa: E501
+        :rtype: Device
+        """
+        return self._device
+
+    @device.setter
+    def device(self, device):
+        """Sets the device of this HardwareReservation.
+
+
+        :param device: The device of this HardwareReservation.  # noqa: E501
+        :type device: Device
+        """
+
+        self._device = device
+
+    @property
+    def facility(self):
+        """Gets the facility of this HardwareReservation.  # noqa: E501
+
+
+        :return: The facility of this HardwareReservation.  # noqa: E501
+        :rtype: Facility
+        """
+        return self._facility
+
+    @facility.setter
+    def facility(self, facility):
+        """Sets the facility of this HardwareReservation.
+
+
+        :param facility: The facility of this HardwareReservation.  # noqa: E501
+        :type facility: Facility
+        """
+
+        self._facility = facility
+
+    @property
+    def href(self):
+        """Gets the href of this HardwareReservation.  # noqa: E501
+
+
+        :return: The href of this HardwareReservation.  # noqa: E501
+        :rtype: str
+        """
+        return self._href
+
+    @href.setter
+    def href(self, href):
+        """Sets the href of this HardwareReservation.
+
+
+        :param href: The href of this HardwareReservation.  # noqa: E501
+        :type href: str
+        """
+
+        self._href = href
+
+    @property
+    def id(self):
+        """Gets the id of this HardwareReservation.  # noqa: E501
+
+
+        :return: The id of this HardwareReservation.  # noqa: E501
+        :rtype: str
+        """
+        return self._id
+
+    @id.setter
+    def id(self, id):
+        """Sets the id of this HardwareReservation.
+
+
+        :param id: The id of this HardwareReservation.  # noqa: E501
+        :type id: str
+        """
+
+        self._id = id
 
     @property
     def need_of_service(self):
         """Gets the need_of_service of this HardwareReservation.  # noqa: E501
 
-        Whether this Device requires assistance from Metal Equinix.  # noqa: E501
+        Whether this Device requires assistance from Equinix Metal.  # noqa: E501
 
         :return: The need_of_service of this HardwareReservation.  # noqa: E501
         :rtype: bool
@@ -324,13 +259,55 @@ class HardwareReservation(object):
     def need_of_service(self, need_of_service):
         """Sets the need_of_service of this HardwareReservation.
 
-        Whether this Device requires assistance from Metal Equinix.  # noqa: E501
+        Whether this Device requires assistance from Equinix Metal.  # noqa: E501
 
         :param need_of_service: The need_of_service of this HardwareReservation.  # noqa: E501
         :type need_of_service: bool
         """
 
         self._need_of_service = need_of_service
+
+    @property
+    def plan(self):
+        """Gets the plan of this HardwareReservation.  # noqa: E501
+
+
+        :return: The plan of this HardwareReservation.  # noqa: E501
+        :rtype: Plan
+        """
+        return self._plan
+
+    @plan.setter
+    def plan(self, plan):
+        """Sets the plan of this HardwareReservation.
+
+
+        :param plan: The plan of this HardwareReservation.  # noqa: E501
+        :type plan: Plan
+        """
+
+        self._plan = plan
+
+    @property
+    def project(self):
+        """Gets the project of this HardwareReservation.  # noqa: E501
+
+
+        :return: The project of this HardwareReservation.  # noqa: E501
+        :rtype: Project
+        """
+        return self._project
+
+    @project.setter
+    def project(self, project):
+        """Sets the project of this HardwareReservation.
+
+
+        :param project: The project of this HardwareReservation.  # noqa: E501
+        :type project: Project
+        """
+
+        self._project = project
 
     @property
     def provisionable(self):
@@ -356,27 +333,50 @@ class HardwareReservation(object):
         self._provisionable = provisionable
 
     @property
-    def custom_rate(self):
-        """Gets the custom_rate of this HardwareReservation.  # noqa: E501
+    def short_id(self):
+        """Gets the short_id of this HardwareReservation.  # noqa: E501
 
-        Amount that will be charged for every billing_cycle.  # noqa: E501
+        Short version of the ID.  # noqa: E501
 
-        :return: The custom_rate of this HardwareReservation.  # noqa: E501
-        :rtype: float
+        :return: The short_id of this HardwareReservation.  # noqa: E501
+        :rtype: str
         """
-        return self._custom_rate
+        return self._short_id
 
-    @custom_rate.setter
-    def custom_rate(self, custom_rate):
-        """Sets the custom_rate of this HardwareReservation.
+    @short_id.setter
+    def short_id(self, short_id):
+        """Sets the short_id of this HardwareReservation.
 
-        Amount that will be charged for every billing_cycle.  # noqa: E501
+        Short version of the ID.  # noqa: E501
 
-        :param custom_rate: The custom_rate of this HardwareReservation.  # noqa: E501
-        :type custom_rate: float
+        :param short_id: The short_id of this HardwareReservation.  # noqa: E501
+        :type short_id: str
         """
 
-        self._custom_rate = custom_rate
+        self._short_id = short_id
+
+    @property
+    def spare(self):
+        """Gets the spare of this HardwareReservation.  # noqa: E501
+
+        Whether the Hardware Reservation is a spare. Spare Hardware Reservations are used when a Hardware Reservations requires service from Equinix Metal  # noqa: E501
+
+        :return: The spare of this HardwareReservation.  # noqa: E501
+        :rtype: bool
+        """
+        return self._spare
+
+    @spare.setter
+    def spare(self, spare):
+        """Sets the spare of this HardwareReservation.
+
+        Whether the Hardware Reservation is a spare. Spare Hardware Reservations are used when a Hardware Reservations requires service from Equinix Metal  # noqa: E501
+
+        :param spare: The spare of this HardwareReservation.  # noqa: E501
+        :type spare: bool
+        """
+
+        self._spare = spare
 
     @property
     def switch_uuid(self):

@@ -3,7 +3,7 @@
 """
     Metal API
 
-    This is the API for Equinix Metal. The API allows you to programmatically interact with all of your Equinix Metal resources, including devices, networks, addresses, organizations, projects, and your user account.  The official API docs are hosted at <https://metal.equinix.com/developers/api>.   # noqa: E501
+    # Introduction Equinix Metal provides a RESTful HTTP API which can be reached at <https://api.equinix.com/metal/v1>. This document describes the API and how to use it.  The API allows you to programmatically interact with all of your Equinix Metal resources, including devices, networks, addresses, organizations, projects, and your user account. Every feature of the Equinix Metal web interface is accessible through the API.  The API docs are generated from the Equinix Metal OpenAPI specification and are officially hosted at <https://metal.equinix.com/developers/api>.  # Common Parameters  The Equinix Metal API uses a few methods to minimize network traffic and improve throughput. These parameters are not used in all API calls, but are used often enough to warrant their own section. Look for these parameters in the documentation for the API calls that support them.  ## Pagination  Pagination is used to limit the number of results returned in a single request. The API will return a maximum of 100 results per page. To retrieve additional results, you can use the `page` and `per_page` query parameters.  The `page` parameter is used to specify the page number. The first page is `1`. The `per_page` parameter is used to specify the number of results per page. The maximum number of results differs by resource type.  ## Sorting  Where offered, the API allows you to sort results by a specific field. To sort results use the `sort_by` query parameter with the root level field name as the value. The `sort_direction` parameter is used to specify the sort direction, either either `asc` (ascending) or `desc` (descending).  ## Filtering  Filtering is used to limit the results returned in a single request. The API supports filtering by certain fields in the response. To filter results, you can use the field as a query parameter.  For example, to filter the IP list to only return public IPv4 addresses, you can filter by the `type` field, as in the following request:  ```sh curl -H 'X-Auth-Token: my_authentication_token' \\   https://api.equinix.com/metal/v1/projects/id/ips?type=public_ipv4 ```  Only IP addresses with the `type` field set to `public_ipv4` will be returned.  ## Searching  Searching is used to find matching resources using multiple field comparissons. The API supports searching in resources that define this behavior. The fields available for search differ by resource, as does the search strategy.  To search resources you can use the `search` query parameter.  ## Include and Exclude  For resources that contain references to other resources, sucha as a Device that refers to the Project it resides in, the Equinix Metal API will returns `href` values (API links) to the associated resource.  ```json {   ...   \"project\": {     \"href\": \"/metal/v1/projects/f3f131c8-f302-49ef-8c44-9405022dc6dd\"   } } ```  If you're going need the project details, you can avoid a second API request.  Specify the contained `href` resources and collections that you'd like to have included in the response using the `include` query parameter.  For example:  ```sh curl -H 'X-Auth-Token: my_authentication_token' \\   https://api.equinix.com/metal/v1/user?include=projects ```  The `include` parameter is generally accepted in `GET`, `POST`, `PUT`, and `PATCH` requests where `href` resources are presented.  To have multiple resources include, use a comma-separated list (e.g. `?include=emails,projects,memberships`).  ```sh curl -H 'X-Auth-Token: my_authentication_token' \\   https://api.equinix.com/metal/v1/user?include=emails,projects,memberships ```  You may also include nested associations up to three levels deep using dot notation (`?include=memberships.projects`):  ```sh curl -H 'X-Auth-Token: my_authentication_token' \\   https://api.equinix.com/metal/v1/user?include=memberships.projects ```  To exclude resources, and optimize response delivery, use the `exclude` query parameter. The `exclude` parameter is generally accepted in `GET`, `POST`, `PUT`, and `PATCH` requests for fields with nested object responses. When excluded, these fields will be replaced with an object that contains only an `href` field.   # noqa: E501
 
     The version of the OpenAPI document: 1.0.0
     Contact: support@equinixmetal.com
@@ -37,18 +37,18 @@ class OrganizationsApi(object):
             api_client = ApiClient()
         self.api_client = api_client
 
-    def create_organization(self, organization, **kwargs):  # noqa: E501
+    def create_organization(self, organization_input, **kwargs):  # noqa: E501
         """Create an organization  # noqa: E501
 
         Creates an organization.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.create_organization(organization, async_req=True)
+        >>> thread = api.create_organization(organization_input, async_req=True)
         >>> result = thread.get()
 
-        :param organization: Organization to create (required)
-        :type organization: OrganizationInput
+        :param organization_input: Organization to create (required)
+        :type organization_input: OrganizationInput
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _preload_content: if False, the urllib3.HTTPResponse object will
@@ -65,20 +65,20 @@ class OrganizationsApi(object):
         :rtype: Organization
         """
         kwargs['_return_http_data_only'] = True
-        return self.create_organization_with_http_info(organization, **kwargs)  # noqa: E501
+        return self.create_organization_with_http_info(organization_input, **kwargs)  # noqa: E501
 
-    def create_organization_with_http_info(self, organization, **kwargs):  # noqa: E501
+    def create_organization_with_http_info(self, organization_input, **kwargs):  # noqa: E501
         """Create an organization  # noqa: E501
 
         Creates an organization.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.create_organization_with_http_info(organization, async_req=True)
+        >>> thread = api.create_organization_with_http_info(organization_input, async_req=True)
         >>> result = thread.get()
 
-        :param organization: Organization to create (required)
-        :type organization: OrganizationInput
+        :param organization_input: Organization to create (required)
+        :type organization_input: OrganizationInput
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _return_http_data_only: response data without head status code
@@ -106,7 +106,7 @@ class OrganizationsApi(object):
         local_var_params = locals()
 
         all_params = [
-            'organization'
+            'organization_input'
         ]
         all_params.extend(
             [
@@ -128,9 +128,9 @@ class OrganizationsApi(object):
                 )
             local_var_params[key] = val
         del local_var_params['kwargs']
-        # verify the required parameter 'organization' is set
-        if self.api_client.client_side_validation and local_var_params.get('organization') is None:  # noqa: E501
-            raise ApiValueError("Missing the required parameter `organization` when calling `create_organization`")  # noqa: E501
+        # verify the required parameter 'organization_input' is set
+        if self.api_client.client_side_validation and local_var_params.get('organization_input') is None:  # noqa: E501
+            raise ApiValueError("Missing the required parameter `organization_input` when calling `create_organization`")  # noqa: E501
 
         collection_formats = {}
 
@@ -144,8 +144,8 @@ class OrganizationsApi(object):
         local_var_files = {}
 
         body_params = None
-        if 'organization' in local_var_params:
-            body_params = local_var_params['organization']
+        if 'organization_input' in local_var_params:
+            body_params = local_var_params['organization_input']
         # HTTP header `Accept`
         header_params['Accept'] = self.api_client.select_header_accept(
             ['application/json'])  # noqa: E501
@@ -185,20 +185,20 @@ class OrganizationsApi(object):
             collection_formats=collection_formats,
             _request_auth=local_var_params.get('_request_auth'))
 
-    def create_organization_invitation(self, id, invitation, **kwargs):  # noqa: E501
+    def create_organization_invitation(self, id, invitation_input, **kwargs):  # noqa: E501
         """Create an invitation for an organization  # noqa: E501
 
         In order to add a user to an organization, they must first be invited. To invite to several projects the parameter `projects_ids:[a,b,c]` can be used  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.create_organization_invitation(id, invitation, async_req=True)
+        >>> thread = api.create_organization_invitation(id, invitation_input, async_req=True)
         >>> result = thread.get()
 
         :param id: Organization UUID (required)
         :type id: str
-        :param invitation: Invitation to create (required)
-        :type invitation: InvitationInput
+        :param invitation_input: Invitation to create (required)
+        :type invitation_input: InvitationInput
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _preload_content: if False, the urllib3.HTTPResponse object will
@@ -215,22 +215,22 @@ class OrganizationsApi(object):
         :rtype: Invitation
         """
         kwargs['_return_http_data_only'] = True
-        return self.create_organization_invitation_with_http_info(id, invitation, **kwargs)  # noqa: E501
+        return self.create_organization_invitation_with_http_info(id, invitation_input, **kwargs)  # noqa: E501
 
-    def create_organization_invitation_with_http_info(self, id, invitation, **kwargs):  # noqa: E501
+    def create_organization_invitation_with_http_info(self, id, invitation_input, **kwargs):  # noqa: E501
         """Create an invitation for an organization  # noqa: E501
 
         In order to add a user to an organization, they must first be invited. To invite to several projects the parameter `projects_ids:[a,b,c]` can be used  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.create_organization_invitation_with_http_info(id, invitation, async_req=True)
+        >>> thread = api.create_organization_invitation_with_http_info(id, invitation_input, async_req=True)
         >>> result = thread.get()
 
         :param id: Organization UUID (required)
         :type id: str
-        :param invitation: Invitation to create (required)
-        :type invitation: InvitationInput
+        :param invitation_input: Invitation to create (required)
+        :type invitation_input: InvitationInput
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _return_http_data_only: response data without head status code
@@ -259,7 +259,7 @@ class OrganizationsApi(object):
 
         all_params = [
             'id',
-            'invitation'
+            'invitation_input'
         ]
         all_params.extend(
             [
@@ -284,9 +284,9 @@ class OrganizationsApi(object):
         # verify the required parameter 'id' is set
         if self.api_client.client_side_validation and local_var_params.get('id') is None:  # noqa: E501
             raise ApiValueError("Missing the required parameter `id` when calling `create_organization_invitation`")  # noqa: E501
-        # verify the required parameter 'invitation' is set
-        if self.api_client.client_side_validation and local_var_params.get('invitation') is None:  # noqa: E501
-            raise ApiValueError("Missing the required parameter `invitation` when calling `create_organization_invitation`")  # noqa: E501
+        # verify the required parameter 'invitation_input' is set
+        if self.api_client.client_side_validation and local_var_params.get('invitation_input') is None:  # noqa: E501
+            raise ApiValueError("Missing the required parameter `invitation_input` when calling `create_organization_invitation`")  # noqa: E501
 
         collection_formats = {}
 
@@ -302,8 +302,8 @@ class OrganizationsApi(object):
         local_var_files = {}
 
         body_params = None
-        if 'invitation' in local_var_params:
-            body_params = local_var_params['invitation']
+        if 'invitation_input' in local_var_params:
+            body_params = local_var_params['invitation_input']
         # HTTP header `Accept`
         header_params['Accept'] = self.api_client.select_header_accept(
             ['application/json'])  # noqa: E501
@@ -344,20 +344,20 @@ class OrganizationsApi(object):
             collection_formats=collection_formats,
             _request_auth=local_var_params.get('_request_auth'))
 
-    def create_organization_project(self, id, project, **kwargs):  # noqa: E501
+    def create_organization_project(self, id, project_create_input, **kwargs):  # noqa: E501
         """Create a project for the organization  # noqa: E501
 
         Creates a new project for the organization  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.create_organization_project(id, project, async_req=True)
+        >>> thread = api.create_organization_project(id, project_create_input, async_req=True)
         >>> result = thread.get()
 
         :param id: Organization UUID (required)
         :type id: str
-        :param project: Project to create (required)
-        :type project: ProjectCreateInput
+        :param project_create_input: Project to create (required)
+        :type project_create_input: ProjectCreateInput
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _preload_content: if False, the urllib3.HTTPResponse object will
@@ -374,22 +374,22 @@ class OrganizationsApi(object):
         :rtype: Project
         """
         kwargs['_return_http_data_only'] = True
-        return self.create_organization_project_with_http_info(id, project, **kwargs)  # noqa: E501
+        return self.create_organization_project_with_http_info(id, project_create_input, **kwargs)  # noqa: E501
 
-    def create_organization_project_with_http_info(self, id, project, **kwargs):  # noqa: E501
+    def create_organization_project_with_http_info(self, id, project_create_input, **kwargs):  # noqa: E501
         """Create a project for the organization  # noqa: E501
 
         Creates a new project for the organization  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.create_organization_project_with_http_info(id, project, async_req=True)
+        >>> thread = api.create_organization_project_with_http_info(id, project_create_input, async_req=True)
         >>> result = thread.get()
 
         :param id: Organization UUID (required)
         :type id: str
-        :param project: Project to create (required)
-        :type project: ProjectCreateInput
+        :param project_create_input: Project to create (required)
+        :type project_create_input: ProjectCreateInput
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _return_http_data_only: response data without head status code
@@ -418,7 +418,7 @@ class OrganizationsApi(object):
 
         all_params = [
             'id',
-            'project'
+            'project_create_input'
         ]
         all_params.extend(
             [
@@ -443,9 +443,9 @@ class OrganizationsApi(object):
         # verify the required parameter 'id' is set
         if self.api_client.client_side_validation and local_var_params.get('id') is None:  # noqa: E501
             raise ApiValueError("Missing the required parameter `id` when calling `create_organization_project`")  # noqa: E501
-        # verify the required parameter 'project' is set
-        if self.api_client.client_side_validation and local_var_params.get('project') is None:  # noqa: E501
-            raise ApiValueError("Missing the required parameter `project` when calling `create_organization_project`")  # noqa: E501
+        # verify the required parameter 'project_create_input' is set
+        if self.api_client.client_side_validation and local_var_params.get('project_create_input') is None:  # noqa: E501
+            raise ApiValueError("Missing the required parameter `project_create_input` when calling `create_organization_project`")  # noqa: E501
 
         collection_formats = {}
 
@@ -461,8 +461,8 @@ class OrganizationsApi(object):
         local_var_files = {}
 
         body_params = None
-        if 'project' in local_var_params:
-            body_params = local_var_params['project']
+        if 'project_create_input' in local_var_params:
+            body_params = local_var_params['project_create_input']
         # HTTP header `Accept`
         header_params['Accept'] = self.api_client.select_header_accept(
             ['application/json'])  # noqa: E501
@@ -501,20 +501,20 @@ class OrganizationsApi(object):
             collection_formats=collection_formats,
             _request_auth=local_var_params.get('_request_auth'))
 
-    def create_payment_method(self, id, payment_method, **kwargs):  # noqa: E501
+    def create_payment_method(self, id, payment_method_create_input, **kwargs):  # noqa: E501
         """Create a payment method for the given organization  # noqa: E501
 
         Creates a payment method.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.create_payment_method(id, payment_method, async_req=True)
+        >>> thread = api.create_payment_method(id, payment_method_create_input, async_req=True)
         >>> result = thread.get()
 
         :param id: Organization UUID (required)
         :type id: str
-        :param payment_method: Payment Method to create (required)
-        :type payment_method: PaymentMethodCreateInput
+        :param payment_method_create_input: Payment Method to create (required)
+        :type payment_method_create_input: PaymentMethodCreateInput
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _preload_content: if False, the urllib3.HTTPResponse object will
@@ -531,22 +531,22 @@ class OrganizationsApi(object):
         :rtype: PaymentMethod
         """
         kwargs['_return_http_data_only'] = True
-        return self.create_payment_method_with_http_info(id, payment_method, **kwargs)  # noqa: E501
+        return self.create_payment_method_with_http_info(id, payment_method_create_input, **kwargs)  # noqa: E501
 
-    def create_payment_method_with_http_info(self, id, payment_method, **kwargs):  # noqa: E501
+    def create_payment_method_with_http_info(self, id, payment_method_create_input, **kwargs):  # noqa: E501
         """Create a payment method for the given organization  # noqa: E501
 
         Creates a payment method.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.create_payment_method_with_http_info(id, payment_method, async_req=True)
+        >>> thread = api.create_payment_method_with_http_info(id, payment_method_create_input, async_req=True)
         >>> result = thread.get()
 
         :param id: Organization UUID (required)
         :type id: str
-        :param payment_method: Payment Method to create (required)
-        :type payment_method: PaymentMethodCreateInput
+        :param payment_method_create_input: Payment Method to create (required)
+        :type payment_method_create_input: PaymentMethodCreateInput
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _return_http_data_only: response data without head status code
@@ -575,7 +575,7 @@ class OrganizationsApi(object):
 
         all_params = [
             'id',
-            'payment_method'
+            'payment_method_create_input'
         ]
         all_params.extend(
             [
@@ -600,9 +600,9 @@ class OrganizationsApi(object):
         # verify the required parameter 'id' is set
         if self.api_client.client_side_validation and local_var_params.get('id') is None:  # noqa: E501
             raise ApiValueError("Missing the required parameter `id` when calling `create_payment_method`")  # noqa: E501
-        # verify the required parameter 'payment_method' is set
-        if self.api_client.client_side_validation and local_var_params.get('payment_method') is None:  # noqa: E501
-            raise ApiValueError("Missing the required parameter `payment_method` when calling `create_payment_method`")  # noqa: E501
+        # verify the required parameter 'payment_method_create_input' is set
+        if self.api_client.client_side_validation and local_var_params.get('payment_method_create_input') is None:  # noqa: E501
+            raise ApiValueError("Missing the required parameter `payment_method_create_input` when calling `create_payment_method`")  # noqa: E501
 
         collection_formats = {}
 
@@ -618,8 +618,8 @@ class OrganizationsApi(object):
         local_var_files = {}
 
         body_params = None
-        if 'payment_method' in local_var_params:
-            body_params = local_var_params['payment_method']
+        if 'payment_method_create_input' in local_var_params:
+            body_params = local_var_params['payment_method_create_input']
         # HTTP header `Accept`
         header_params['Accept'] = self.api_client.select_header_accept(
             ['application/json'])  # noqa: E501
@@ -779,162 +779,6 @@ class OrganizationsApi(object):
 
         return self.api_client.call_api(
             '/organizations/{id}', 'DELETE',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_types_map=response_types_map,
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats,
-            _request_auth=local_var_params.get('_request_auth'))
-
-    def find_facilities_by_organization(self, id, **kwargs):  # noqa: E501
-        """Retrieve all facilities visible by the organization  # noqa: E501
-
-        Returns a listing of available datacenters for the given organization  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-
-        >>> thread = api.find_facilities_by_organization(id, async_req=True)
-        >>> result = thread.get()
-
-        :param id: Organization UUID (required)
-        :type id: str
-        :param include: Nested attributes to include. Included objects will return their full attributes. Attribute names can be dotted (up to 3 levels) to included deeply nested objects.
-        :type include: list[str]
-        :param exclude: Nested attributes to exclude. Excluded objects will return only the href attribute. Attribute names can be dotted (up to 3 levels) to exclude deeply nested objects.
-        :type exclude: list[str]
-        :param async_req: Whether to execute the request asynchronously.
-        :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: Returns the result object.
-                 If the method is called asynchronously,
-                 returns the request thread.
-        :rtype: FacilityList
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.find_facilities_by_organization_with_http_info(id, **kwargs)  # noqa: E501
-
-    def find_facilities_by_organization_with_http_info(self, id, **kwargs):  # noqa: E501
-        """Retrieve all facilities visible by the organization  # noqa: E501
-
-        Returns a listing of available datacenters for the given organization  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-
-        >>> thread = api.find_facilities_by_organization_with_http_info(id, async_req=True)
-        >>> result = thread.get()
-
-        :param id: Organization UUID (required)
-        :type id: str
-        :param include: Nested attributes to include. Included objects will return their full attributes. Attribute names can be dotted (up to 3 levels) to included deeply nested objects.
-        :type include: list[str]
-        :param exclude: Nested attributes to exclude. Excluded objects will return only the href attribute. Attribute names can be dotted (up to 3 levels) to exclude deeply nested objects.
-        :type exclude: list[str]
-        :param async_req: Whether to execute the request asynchronously.
-        :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the authentication
-                              in the spec for a single request.
-        :type _request_auth: dict, optional
-        :type _content_type: string, optional: force content-type for the request
-        :return: Returns the result object.
-                 If the method is called asynchronously,
-                 returns the request thread.
-        :rtype: tuple(FacilityList, status_code(int), headers(HTTPHeaderDict))
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'id',
-            'include',
-            'exclude'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
-        )
-
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method find_facilities_by_organization" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'id' is set
-        if self.api_client.client_side_validation and local_var_params.get('id') is None:  # noqa: E501
-            raise ApiValueError("Missing the required parameter `id` when calling `find_facilities_by_organization`")  # noqa: E501
-
-        collection_formats = {}
-
-        path_params = {}
-        if 'id' in local_var_params:
-            path_params['id'] = local_var_params['id']  # noqa: E501
-
-        query_params = []
-        if local_var_params.get('include') is not None:  # noqa: E501
-            query_params.append(('include', local_var_params['include']))  # noqa: E501
-            collection_formats['include'] = 'csv'  # noqa: E501
-        if local_var_params.get('exclude') is not None:  # noqa: E501
-            query_params.append(('exclude', local_var_params['exclude']))  # noqa: E501
-            collection_formats['exclude'] = 'csv'  # noqa: E501
-
-        header_params = dict(local_var_params.get('_headers', {}))
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['x_auth_token']  # noqa: E501
-
-        response_types_map = {
-            200: "FacilityList",
-            401: "Error",
-            403: "Error",
-            404: "Error",
-        }
-
-        return self.api_client.call_api(
-            '/organizations/{id}/facilities', 'GET',
             path_params,
             query_params,
             header_params,
@@ -1262,284 +1106,6 @@ class OrganizationsApi(object):
             collection_formats=collection_formats,
             _request_auth=local_var_params.get('_request_auth'))
 
-    def find_organization_capacity_per_facility(self, id, **kwargs):  # noqa: E501
-        """View available hardware plans per Facility for given organization  # noqa: E501
-
-        Returns a list of facilities and plans with their current capacity.  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-
-        >>> thread = api.find_organization_capacity_per_facility(id, async_req=True)
-        >>> result = thread.get()
-
-        :param id: Organization UUID (required)
-        :type id: str
-        :param async_req: Whether to execute the request asynchronously.
-        :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: Returns the result object.
-                 If the method is called asynchronously,
-                 returns the request thread.
-        :rtype: CapacityList
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.find_organization_capacity_per_facility_with_http_info(id, **kwargs)  # noqa: E501
-
-    def find_organization_capacity_per_facility_with_http_info(self, id, **kwargs):  # noqa: E501
-        """View available hardware plans per Facility for given organization  # noqa: E501
-
-        Returns a list of facilities and plans with their current capacity.  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-
-        >>> thread = api.find_organization_capacity_per_facility_with_http_info(id, async_req=True)
-        >>> result = thread.get()
-
-        :param id: Organization UUID (required)
-        :type id: str
-        :param async_req: Whether to execute the request asynchronously.
-        :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the authentication
-                              in the spec for a single request.
-        :type _request_auth: dict, optional
-        :type _content_type: string, optional: force content-type for the request
-        :return: Returns the result object.
-                 If the method is called asynchronously,
-                 returns the request thread.
-        :rtype: tuple(CapacityList, status_code(int), headers(HTTPHeaderDict))
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'id'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
-        )
-
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method find_organization_capacity_per_facility" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'id' is set
-        if self.api_client.client_side_validation and local_var_params.get('id') is None:  # noqa: E501
-            raise ApiValueError("Missing the required parameter `id` when calling `find_organization_capacity_per_facility`")  # noqa: E501
-
-        collection_formats = {}
-
-        path_params = {}
-        if 'id' in local_var_params:
-            path_params['id'] = local_var_params['id']  # noqa: E501
-
-        query_params = []
-
-        header_params = dict(local_var_params.get('_headers', {}))
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['x_auth_token']  # noqa: E501
-
-        response_types_map = {
-            200: "CapacityList",
-            401: "Error",
-            403: "Error",
-        }
-
-        return self.api_client.call_api(
-            '/organizations/{id}/capacity', 'GET',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_types_map=response_types_map,
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats,
-            _request_auth=local_var_params.get('_request_auth'))
-
-    def find_organization_capacity_per_metro(self, id, **kwargs):  # noqa: E501
-        """View available hardware plans per Metro for given organization  # noqa: E501
-
-        Returns a list of metros and plans with their current capacity.  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-
-        >>> thread = api.find_organization_capacity_per_metro(id, async_req=True)
-        >>> result = thread.get()
-
-        :param id: Organization UUID (required)
-        :type id: str
-        :param async_req: Whether to execute the request asynchronously.
-        :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: Returns the result object.
-                 If the method is called asynchronously,
-                 returns the request thread.
-        :rtype: MetroCapacityList
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.find_organization_capacity_per_metro_with_http_info(id, **kwargs)  # noqa: E501
-
-    def find_organization_capacity_per_metro_with_http_info(self, id, **kwargs):  # noqa: E501
-        """View available hardware plans per Metro for given organization  # noqa: E501
-
-        Returns a list of metros and plans with their current capacity.  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-
-        >>> thread = api.find_organization_capacity_per_metro_with_http_info(id, async_req=True)
-        >>> result = thread.get()
-
-        :param id: Organization UUID (required)
-        :type id: str
-        :param async_req: Whether to execute the request asynchronously.
-        :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the authentication
-                              in the spec for a single request.
-        :type _request_auth: dict, optional
-        :type _content_type: string, optional: force content-type for the request
-        :return: Returns the result object.
-                 If the method is called asynchronously,
-                 returns the request thread.
-        :rtype: tuple(MetroCapacityList, status_code(int), headers(HTTPHeaderDict))
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'id'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
-        )
-
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method find_organization_capacity_per_metro" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'id' is set
-        if self.api_client.client_side_validation and local_var_params.get('id') is None:  # noqa: E501
-            raise ApiValueError("Missing the required parameter `id` when calling `find_organization_capacity_per_metro`")  # noqa: E501
-
-        collection_formats = {}
-
-        path_params = {}
-        if 'id' in local_var_params:
-            path_params['id'] = local_var_params['id']  # noqa: E501
-
-        query_params = []
-
-        header_params = dict(local_var_params.get('_headers', {}))
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['x_auth_token']  # noqa: E501
-
-        response_types_map = {
-            200: "MetroCapacityList",
-            401: "Error",
-            403: "Error",
-        }
-
-        return self.api_client.call_api(
-            '/organizations/{id}/capacity/metros', 'GET',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_types_map=response_types_map,
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats,
-            _request_auth=local_var_params.get('_request_auth'))
-
     def find_organization_customdata(self, id, **kwargs):  # noqa: E501
         """Retrieve the custom metadata of an organization  # noqa: E501
 
@@ -1660,362 +1226,6 @@ class OrganizationsApi(object):
 
         return self.api_client.call_api(
             '/organizations/{id}/customdata', 'GET',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_types_map=response_types_map,
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats,
-            _request_auth=local_var_params.get('_request_auth'))
-
-    def find_organization_devices(self, id, **kwargs):  # noqa: E501
-        """Retrieve all devices of an organization  # noqa: E501
-
-        Provides a collection of devices for a given organization.  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-
-        >>> thread = api.find_organization_devices(id, async_req=True)
-        >>> result = thread.get()
-
-        :param id: Organization UUID (required)
-        :type id: str
-        :param include: Nested attributes to include. Included objects will return their full attributes. Attribute names can be dotted (up to 3 levels) to included deeply nested objects.
-        :type include: list[str]
-        :param exclude: Nested attributes to exclude. Excluded objects will return only the href attribute. Attribute names can be dotted (up to 3 levels) to exclude deeply nested objects.
-        :type exclude: list[str]
-        :param page: Page to return
-        :type page: int
-        :param per_page: Items returned per page
-        :type per_page: int
-        :param async_req: Whether to execute the request asynchronously.
-        :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: Returns the result object.
-                 If the method is called asynchronously,
-                 returns the request thread.
-        :rtype: DeviceList
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.find_organization_devices_with_http_info(id, **kwargs)  # noqa: E501
-
-    def find_organization_devices_with_http_info(self, id, **kwargs):  # noqa: E501
-        """Retrieve all devices of an organization  # noqa: E501
-
-        Provides a collection of devices for a given organization.  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-
-        >>> thread = api.find_organization_devices_with_http_info(id, async_req=True)
-        >>> result = thread.get()
-
-        :param id: Organization UUID (required)
-        :type id: str
-        :param include: Nested attributes to include. Included objects will return their full attributes. Attribute names can be dotted (up to 3 levels) to included deeply nested objects.
-        :type include: list[str]
-        :param exclude: Nested attributes to exclude. Excluded objects will return only the href attribute. Attribute names can be dotted (up to 3 levels) to exclude deeply nested objects.
-        :type exclude: list[str]
-        :param page: Page to return
-        :type page: int
-        :param per_page: Items returned per page
-        :type per_page: int
-        :param async_req: Whether to execute the request asynchronously.
-        :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the authentication
-                              in the spec for a single request.
-        :type _request_auth: dict, optional
-        :type _content_type: string, optional: force content-type for the request
-        :return: Returns the result object.
-                 If the method is called asynchronously,
-                 returns the request thread.
-        :rtype: tuple(DeviceList, status_code(int), headers(HTTPHeaderDict))
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'id',
-            'include',
-            'exclude',
-            'page',
-            'per_page'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
-        )
-
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method find_organization_devices" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'id' is set
-        if self.api_client.client_side_validation and local_var_params.get('id') is None:  # noqa: E501
-            raise ApiValueError("Missing the required parameter `id` when calling `find_organization_devices`")  # noqa: E501
-
-        if self.api_client.client_side_validation and 'page' in local_var_params and local_var_params['page'] > 100000:  # noqa: E501
-            raise ApiValueError("Invalid value for parameter `page` when calling `find_organization_devices`, must be a value less than or equal to `100000`")  # noqa: E501
-        if self.api_client.client_side_validation and 'page' in local_var_params and local_var_params['page'] < 1:  # noqa: E501
-            raise ApiValueError("Invalid value for parameter `page` when calling `find_organization_devices`, must be a value greater than or equal to `1`")  # noqa: E501
-        if self.api_client.client_side_validation and 'per_page' in local_var_params and local_var_params['per_page'] > 1000:  # noqa: E501
-            raise ApiValueError("Invalid value for parameter `per_page` when calling `find_organization_devices`, must be a value less than or equal to `1000`")  # noqa: E501
-        if self.api_client.client_side_validation and 'per_page' in local_var_params and local_var_params['per_page'] < 1:  # noqa: E501
-            raise ApiValueError("Invalid value for parameter `per_page` when calling `find_organization_devices`, must be a value greater than or equal to `1`")  # noqa: E501
-        collection_formats = {}
-
-        path_params = {}
-        if 'id' in local_var_params:
-            path_params['id'] = local_var_params['id']  # noqa: E501
-
-        query_params = []
-        if local_var_params.get('include') is not None:  # noqa: E501
-            query_params.append(('include', local_var_params['include']))  # noqa: E501
-            collection_formats['include'] = 'csv'  # noqa: E501
-        if local_var_params.get('exclude') is not None:  # noqa: E501
-            query_params.append(('exclude', local_var_params['exclude']))  # noqa: E501
-            collection_formats['exclude'] = 'csv'  # noqa: E501
-        if local_var_params.get('page') is not None:  # noqa: E501
-            query_params.append(('page', local_var_params['page']))  # noqa: E501
-        if local_var_params.get('per_page') is not None:  # noqa: E501
-            query_params.append(('per_page', local_var_params['per_page']))  # noqa: E501
-
-        header_params = dict(local_var_params.get('_headers', {}))
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['x_auth_token']  # noqa: E501
-
-        response_types_map = {
-            200: "DeviceList",
-            401: "Error",
-            403: "Error",
-            404: "Error",
-        }
-
-        return self.api_client.call_api(
-            '/organizations/{id}/devices', 'GET',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_types_map=response_types_map,
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats,
-            _request_auth=local_var_params.get('_request_auth'))
-
-    def find_organization_events(self, id, **kwargs):  # noqa: E501
-        """Retrieve organization's events  # noqa: E501
-
-        Returns a list of events for a single organization  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-
-        >>> thread = api.find_organization_events(id, async_req=True)
-        >>> result = thread.get()
-
-        :param id: Organization UUID (required)
-        :type id: str
-        :param include: Nested attributes to include. Included objects will return their full attributes. Attribute names can be dotted (up to 3 levels) to included deeply nested objects.
-        :type include: list[str]
-        :param exclude: Nested attributes to exclude. Excluded objects will return only the href attribute. Attribute names can be dotted (up to 3 levels) to exclude deeply nested objects.
-        :type exclude: list[str]
-        :param page: Page to return
-        :type page: int
-        :param per_page: Items returned per page
-        :type per_page: int
-        :param async_req: Whether to execute the request asynchronously.
-        :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: Returns the result object.
-                 If the method is called asynchronously,
-                 returns the request thread.
-        :rtype: EventList
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.find_organization_events_with_http_info(id, **kwargs)  # noqa: E501
-
-    def find_organization_events_with_http_info(self, id, **kwargs):  # noqa: E501
-        """Retrieve organization's events  # noqa: E501
-
-        Returns a list of events for a single organization  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-
-        >>> thread = api.find_organization_events_with_http_info(id, async_req=True)
-        >>> result = thread.get()
-
-        :param id: Organization UUID (required)
-        :type id: str
-        :param include: Nested attributes to include. Included objects will return their full attributes. Attribute names can be dotted (up to 3 levels) to included deeply nested objects.
-        :type include: list[str]
-        :param exclude: Nested attributes to exclude. Excluded objects will return only the href attribute. Attribute names can be dotted (up to 3 levels) to exclude deeply nested objects.
-        :type exclude: list[str]
-        :param page: Page to return
-        :type page: int
-        :param per_page: Items returned per page
-        :type per_page: int
-        :param async_req: Whether to execute the request asynchronously.
-        :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the authentication
-                              in the spec for a single request.
-        :type _request_auth: dict, optional
-        :type _content_type: string, optional: force content-type for the request
-        :return: Returns the result object.
-                 If the method is called asynchronously,
-                 returns the request thread.
-        :rtype: tuple(EventList, status_code(int), headers(HTTPHeaderDict))
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'id',
-            'include',
-            'exclude',
-            'page',
-            'per_page'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
-        )
-
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method find_organization_events" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'id' is set
-        if self.api_client.client_side_validation and local_var_params.get('id') is None:  # noqa: E501
-            raise ApiValueError("Missing the required parameter `id` when calling `find_organization_events`")  # noqa: E501
-
-        if self.api_client.client_side_validation and 'page' in local_var_params and local_var_params['page'] > 100000:  # noqa: E501
-            raise ApiValueError("Invalid value for parameter `page` when calling `find_organization_events`, must be a value less than or equal to `100000`")  # noqa: E501
-        if self.api_client.client_side_validation and 'page' in local_var_params and local_var_params['page'] < 1:  # noqa: E501
-            raise ApiValueError("Invalid value for parameter `page` when calling `find_organization_events`, must be a value greater than or equal to `1`")  # noqa: E501
-        if self.api_client.client_side_validation and 'per_page' in local_var_params and local_var_params['per_page'] > 1000:  # noqa: E501
-            raise ApiValueError("Invalid value for parameter `per_page` when calling `find_organization_events`, must be a value less than or equal to `1000`")  # noqa: E501
-        if self.api_client.client_side_validation and 'per_page' in local_var_params and local_var_params['per_page'] < 1:  # noqa: E501
-            raise ApiValueError("Invalid value for parameter `per_page` when calling `find_organization_events`, must be a value greater than or equal to `1`")  # noqa: E501
-        collection_formats = {}
-
-        path_params = {}
-        if 'id' in local_var_params:
-            path_params['id'] = local_var_params['id']  # noqa: E501
-
-        query_params = []
-        if local_var_params.get('include') is not None:  # noqa: E501
-            query_params.append(('include', local_var_params['include']))  # noqa: E501
-            collection_formats['include'] = 'csv'  # noqa: E501
-        if local_var_params.get('exclude') is not None:  # noqa: E501
-            query_params.append(('exclude', local_var_params['exclude']))  # noqa: E501
-            collection_formats['exclude'] = 'csv'  # noqa: E501
-        if local_var_params.get('page') is not None:  # noqa: E501
-            query_params.append(('page', local_var_params['page']))  # noqa: E501
-        if local_var_params.get('per_page') is not None:  # noqa: E501
-            query_params.append(('per_page', local_var_params['per_page']))  # noqa: E501
-
-        header_params = dict(local_var_params.get('_headers', {}))
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['x_auth_token']  # noqa: E501
-
-        response_types_map = {
-            200: "EventList",
-            401: "Error",
-            403: "Error",
-            404: "Error",
-        }
-
-        return self.api_client.call_api(
-            '/organizations/{id}/events', 'GET',
             path_params,
             query_params,
             header_params,
@@ -3053,20 +2263,20 @@ class OrganizationsApi(object):
             collection_formats=collection_formats,
             _request_auth=local_var_params.get('_request_auth'))
 
-    def update_organization(self, id, organization, **kwargs):  # noqa: E501
+    def update_organization(self, id, organization_input, **kwargs):  # noqa: E501
         """Update the organization  # noqa: E501
 
         Updates the organization.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.update_organization(id, organization, async_req=True)
+        >>> thread = api.update_organization(id, organization_input, async_req=True)
         >>> result = thread.get()
 
         :param id: Organization UUID (required)
         :type id: str
-        :param organization: Organization to update (required)
-        :type organization: OrganizationInput
+        :param organization_input: Organization to update (required)
+        :type organization_input: OrganizationInput
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _preload_content: if False, the urllib3.HTTPResponse object will
@@ -3083,22 +2293,22 @@ class OrganizationsApi(object):
         :rtype: Organization
         """
         kwargs['_return_http_data_only'] = True
-        return self.update_organization_with_http_info(id, organization, **kwargs)  # noqa: E501
+        return self.update_organization_with_http_info(id, organization_input, **kwargs)  # noqa: E501
 
-    def update_organization_with_http_info(self, id, organization, **kwargs):  # noqa: E501
+    def update_organization_with_http_info(self, id, organization_input, **kwargs):  # noqa: E501
         """Update the organization  # noqa: E501
 
         Updates the organization.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.update_organization_with_http_info(id, organization, async_req=True)
+        >>> thread = api.update_organization_with_http_info(id, organization_input, async_req=True)
         >>> result = thread.get()
 
         :param id: Organization UUID (required)
         :type id: str
-        :param organization: Organization to update (required)
-        :type organization: OrganizationInput
+        :param organization_input: Organization to update (required)
+        :type organization_input: OrganizationInput
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _return_http_data_only: response data without head status code
@@ -3127,7 +2337,7 @@ class OrganizationsApi(object):
 
         all_params = [
             'id',
-            'organization'
+            'organization_input'
         ]
         all_params.extend(
             [
@@ -3152,9 +2362,9 @@ class OrganizationsApi(object):
         # verify the required parameter 'id' is set
         if self.api_client.client_side_validation and local_var_params.get('id') is None:  # noqa: E501
             raise ApiValueError("Missing the required parameter `id` when calling `update_organization`")  # noqa: E501
-        # verify the required parameter 'organization' is set
-        if self.api_client.client_side_validation and local_var_params.get('organization') is None:  # noqa: E501
-            raise ApiValueError("Missing the required parameter `organization` when calling `update_organization`")  # noqa: E501
+        # verify the required parameter 'organization_input' is set
+        if self.api_client.client_side_validation and local_var_params.get('organization_input') is None:  # noqa: E501
+            raise ApiValueError("Missing the required parameter `organization_input` when calling `update_organization`")  # noqa: E501
 
         collection_formats = {}
 
@@ -3170,8 +2380,8 @@ class OrganizationsApi(object):
         local_var_files = {}
 
         body_params = None
-        if 'organization' in local_var_params:
-            body_params = local_var_params['organization']
+        if 'organization_input' in local_var_params:
+            body_params = local_var_params['organization_input']
         # HTTP header `Accept`
         header_params['Accept'] = self.api_client.select_header_accept(
             ['application/json'])  # noqa: E501

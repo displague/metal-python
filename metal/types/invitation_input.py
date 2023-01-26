@@ -3,7 +3,7 @@
 """
     Metal API
 
-    This is the API for Equinix Metal. The API allows you to programmatically interact with all of your Equinix Metal resources, including devices, networks, addresses, organizations, projects, and your user account.  The official API docs are hosted at <https://metal.equinix.com/developers/api>.   # noqa: E501
+    # Introduction Equinix Metal provides a RESTful HTTP API which can be reached at <https://api.equinix.com/metal/v1>. This document describes the API and how to use it.  The API allows you to programmatically interact with all of your Equinix Metal resources, including devices, networks, addresses, organizations, projects, and your user account. Every feature of the Equinix Metal web interface is accessible through the API.  The API docs are generated from the Equinix Metal OpenAPI specification and are officially hosted at <https://metal.equinix.com/developers/api>.  # Common Parameters  The Equinix Metal API uses a few methods to minimize network traffic and improve throughput. These parameters are not used in all API calls, but are used often enough to warrant their own section. Look for these parameters in the documentation for the API calls that support them.  ## Pagination  Pagination is used to limit the number of results returned in a single request. The API will return a maximum of 100 results per page. To retrieve additional results, you can use the `page` and `per_page` query parameters.  The `page` parameter is used to specify the page number. The first page is `1`. The `per_page` parameter is used to specify the number of results per page. The maximum number of results differs by resource type.  ## Sorting  Where offered, the API allows you to sort results by a specific field. To sort results use the `sort_by` query parameter with the root level field name as the value. The `sort_direction` parameter is used to specify the sort direction, either either `asc` (ascending) or `desc` (descending).  ## Filtering  Filtering is used to limit the results returned in a single request. The API supports filtering by certain fields in the response. To filter results, you can use the field as a query parameter.  For example, to filter the IP list to only return public IPv4 addresses, you can filter by the `type` field, as in the following request:  ```sh curl -H 'X-Auth-Token: my_authentication_token' \\   https://api.equinix.com/metal/v1/projects/id/ips?type=public_ipv4 ```  Only IP addresses with the `type` field set to `public_ipv4` will be returned.  ## Searching  Searching is used to find matching resources using multiple field comparissons. The API supports searching in resources that define this behavior. The fields available for search differ by resource, as does the search strategy.  To search resources you can use the `search` query parameter.  ## Include and Exclude  For resources that contain references to other resources, sucha as a Device that refers to the Project it resides in, the Equinix Metal API will returns `href` values (API links) to the associated resource.  ```json {   ...   \"project\": {     \"href\": \"/metal/v1/projects/f3f131c8-f302-49ef-8c44-9405022dc6dd\"   } } ```  If you're going need the project details, you can avoid a second API request.  Specify the contained `href` resources and collections that you'd like to have included in the response using the `include` query parameter.  For example:  ```sh curl -H 'X-Auth-Token: my_authentication_token' \\   https://api.equinix.com/metal/v1/user?include=projects ```  The `include` parameter is generally accepted in `GET`, `POST`, `PUT`, and `PATCH` requests where `href` resources are presented.  To have multiple resources include, use a comma-separated list (e.g. `?include=emails,projects,memberships`).  ```sh curl -H 'X-Auth-Token: my_authentication_token' \\   https://api.equinix.com/metal/v1/user?include=emails,projects,memberships ```  You may also include nested associations up to three levels deep using dot notation (`?include=memberships.projects`):  ```sh curl -H 'X-Auth-Token: my_authentication_token' \\   https://api.equinix.com/metal/v1/user?include=memberships.projects ```  To exclude resources, and optimize response delivery, use the `exclude` query parameter. The `exclude` parameter is generally accepted in `GET`, `POST`, `PUT`, and `PATCH` requests for fields with nested object responses. When excluded, these fields will be replaced with an object that contains only an `href` field.   # noqa: E501
 
     The version of the OpenAPI document: 1.0.0
     Contact: support@equinixmetal.com
@@ -39,18 +39,20 @@ class InvitationInput(object):
     openapi_types = {
         'invitee': 'str',
         'message': 'str',
-        'roles': 'list[str]',
-        'projects_ids': 'list[str]'
+        'organization_id': 'str',
+        'projects_ids': 'list[str]',
+        'roles': 'list[str]'
     }
 
     attribute_map = {
         'invitee': 'invitee',
         'message': 'message',
-        'roles': 'roles',
-        'projects_ids': 'projects_ids'
+        'organization_id': 'organization_id',
+        'projects_ids': 'projects_ids',
+        'roles': 'roles'
     }
 
-    def __init__(self, invitee=None, message=None, roles=None, projects_ids=None, local_vars_configuration=None):  # noqa: E501
+    def __init__(self, invitee=None, message=None, organization_id=None, projects_ids=None, roles=None, local_vars_configuration=None):  # noqa: E501
         """InvitationInput - a model defined in OpenAPI"""  # noqa: E501
         if local_vars_configuration is None:
             local_vars_configuration = Configuration.get_default_copy()
@@ -58,17 +60,20 @@ class InvitationInput(object):
 
         self._invitee = None
         self._message = None
-        self._roles = None
+        self._organization_id = None
         self._projects_ids = None
+        self._roles = None
         self.discriminator = None
 
         self.invitee = invitee
         if message is not None:
             self.message = message
-        if roles is not None:
-            self.roles = roles
+        if organization_id is not None:
+            self.organization_id = organization_id
         if projects_ids is not None:
             self.projects_ids = projects_ids
+        if roles is not None:
+            self.roles = roles
 
     @property
     def invitee(self):
@@ -115,25 +120,25 @@ class InvitationInput(object):
         self._message = message
 
     @property
-    def roles(self):
-        """Gets the roles of this InvitationInput.  # noqa: E501
+    def organization_id(self):
+        """Gets the organization_id of this InvitationInput.  # noqa: E501
 
 
-        :return: The roles of this InvitationInput.  # noqa: E501
-        :rtype: list[str]
+        :return: The organization_id of this InvitationInput.  # noqa: E501
+        :rtype: str
         """
-        return self._roles
+        return self._organization_id
 
-    @roles.setter
-    def roles(self, roles):
-        """Sets the roles of this InvitationInput.
+    @organization_id.setter
+    def organization_id(self, organization_id):
+        """Sets the organization_id of this InvitationInput.
 
 
-        :param roles: The roles of this InvitationInput.  # noqa: E501
-        :type roles: list[str]
+        :param organization_id: The organization_id of this InvitationInput.  # noqa: E501
+        :type organization_id: str
         """
 
-        self._roles = roles
+        self._organization_id = organization_id
 
     @property
     def projects_ids(self):
@@ -155,6 +160,35 @@ class InvitationInput(object):
         """
 
         self._projects_ids = projects_ids
+
+    @property
+    def roles(self):
+        """Gets the roles of this InvitationInput.  # noqa: E501
+
+
+        :return: The roles of this InvitationInput.  # noqa: E501
+        :rtype: list[str]
+        """
+        return self._roles
+
+    @roles.setter
+    def roles(self, roles):
+        """Sets the roles of this InvitationInput.
+
+
+        :param roles: The roles of this InvitationInput.  # noqa: E501
+        :type roles: list[str]
+        """
+        allowed_values = ["admin", "billing", "collaborator", "limited_collaborator"]  # noqa: E501
+        if (self.local_vars_configuration.client_side_validation and
+                not set(roles).issubset(set(allowed_values))):  # noqa: E501
+            raise ValueError(
+                "Invalid values for `roles` [{0}], must be a subset of [{1}]"  # noqa: E501
+                .format(", ".join(map(str, set(roles) - set(allowed_values))),  # noqa: E501
+                        ", ".join(map(str, allowed_values)))
+            )
+
+        self._roles = roles
 
     def to_dict(self, serialize=False):
         """Returns the model properties as a dict"""

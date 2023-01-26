@@ -13,7 +13,7 @@ Method | HTTP request | Description
 
 
 # **check_capacity_for_facility**
-> CapacityCheckPerFacilityList check_capacity_for_facility(facility)
+> CapacityCheckPerFacilityList check_capacity_for_facility(capacity_input)
 
 Check capacity
 
@@ -49,11 +49,11 @@ configuration.api_key['x_auth_token'] = 'YOUR_API_KEY'
 with metal.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = metal.CapacityApi(api_client)
-    facility = metal.CapacityInput() # CapacityInput | Facility to check capacity in
+    capacity_input = metal.CapacityInput() # CapacityInput | Facility to check capacity in
 
     try:
         # Check capacity
-        api_response = api_instance.check_capacity_for_facility(facility)
+        api_response = api_instance.check_capacity_for_facility(capacity_input)
         pprint(api_response)
     except ApiException as e:
         print("Exception when calling CapacityApi->check_capacity_for_facility: %s\n" % e)
@@ -63,7 +63,7 @@ with metal.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **facility** | [**CapacityInput**](CapacityInput.md)| Facility to check capacity in | 
+ **capacity_input** | [**CapacityInput**](CapacityInput.md)| Facility to check capacity in | 
 
 ### Return type
 
@@ -88,7 +88,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **check_capacity_for_metro**
-> CapacityCheckPerMetroList check_capacity_for_metro(servers)
+> CapacityCheckPerMetroList check_capacity_for_metro(capacity_per_metro_input)
 
 Check capacity for a metro
 
@@ -124,11 +124,11 @@ configuration.api_key['x_auth_token'] = 'YOUR_API_KEY'
 with metal.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = metal.CapacityApi(api_client)
-    servers = metal.CapacityPerMetroInput() # CapacityPerMetroInput | Metro to check capacity in
+    capacity_per_metro_input = metal.CapacityPerMetroInput() # CapacityPerMetroInput | Metro to check capacity in
 
     try:
         # Check capacity for a metro
-        api_response = api_instance.check_capacity_for_metro(servers)
+        api_response = api_instance.check_capacity_for_metro(capacity_per_metro_input)
         pprint(api_response)
     except ApiException as e:
         print("Exception when calling CapacityApi->check_capacity_for_metro: %s\n" % e)
@@ -138,7 +138,7 @@ with metal.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **servers** | [**CapacityPerMetroInput**](CapacityPerMetroInput.md)| Metro to check capacity in | 
+ **capacity_per_metro_input** | [**CapacityPerMetroInput**](CapacityPerMetroInput.md)| Metro to check capacity in | 
 
 ### Return type
 

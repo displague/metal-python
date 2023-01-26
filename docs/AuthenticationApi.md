@@ -4,7 +4,7 @@ All URIs are relative to *https://api.equinix.com/metal/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**create_api_key**](AuthenticationApi.md#create_api_key) | **POST** /user/api-keys | Create a API key
+[**create_api_key**](AuthenticationApi.md#create_api_key) | **POST** /user/api-keys | Create an API key
 [**create_project_api_key**](AuthenticationApi.md#create_project_api_key) | **POST** /projects/{id}/api-keys | Create an API key for a project.
 [**delete_api_key**](AuthenticationApi.md#delete_api_key) | **DELETE** /api-keys/{id} | Delete the API key
 [**delete_user_api_key**](AuthenticationApi.md#delete_user_api_key) | **DELETE** /user/api-keys/{id} | Delete the API key
@@ -13,9 +13,9 @@ Method | HTTP request | Description
 
 
 # **create_api_key**
-> AuthToken create_api_key(auth_token)
+> AuthToken create_api_key(auth_token_input)
 
-Create a API key
+Create an API key
 
 Creates a API key for the current user.
 
@@ -49,11 +49,11 @@ configuration.api_key['x_auth_token'] = 'YOUR_API_KEY'
 with metal.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = metal.AuthenticationApi(api_client)
-    auth_token = metal.AuthTokenInput() # AuthTokenInput | API key to create
+    auth_token_input = metal.AuthTokenInput() # AuthTokenInput | API key to create
 
     try:
-        # Create a API key
-        api_response = api_instance.create_api_key(auth_token)
+        # Create an API key
+        api_response = api_instance.create_api_key(auth_token_input)
         pprint(api_response)
     except ApiException as e:
         print("Exception when calling AuthenticationApi->create_api_key: %s\n" % e)
@@ -63,7 +63,7 @@ with metal.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **auth_token** | [**AuthTokenInput**](AuthTokenInput.md)| API key to create | 
+ **auth_token_input** | [**AuthTokenInput**](AuthTokenInput.md)| API key to create | 
 
 ### Return type
 
@@ -89,7 +89,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **create_project_api_key**
-> AuthToken create_project_api_key(id, auth_token)
+> AuthToken create_project_api_key(id, auth_token_input)
 
 Create an API key for a project.
 
@@ -126,11 +126,11 @@ with metal.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = metal.AuthenticationApi(api_client)
     id = 'id_example' # str | Project UUID
-auth_token = metal.AuthTokenInput() # AuthTokenInput | API Key to create
+auth_token_input = metal.AuthTokenInput() # AuthTokenInput | API Key to create
 
     try:
         # Create an API key for a project.
-        api_response = api_instance.create_project_api_key(id, auth_token)
+        api_response = api_instance.create_project_api_key(id, auth_token_input)
         pprint(api_response)
     except ApiException as e:
         print("Exception when calling AuthenticationApi->create_project_api_key: %s\n" % e)
@@ -141,7 +141,7 @@ auth_token = metal.AuthTokenInput() # AuthTokenInput | API Key to create
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **str**| Project UUID | 
- **auth_token** | [**AuthTokenInput**](AuthTokenInput.md)| API Key to create | 
+ **auth_token_input** | [**AuthTokenInput**](AuthTokenInput.md)| API Key to create | 
 
 ### Return type
 

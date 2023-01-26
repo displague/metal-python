@@ -3,7 +3,7 @@
 """
     Metal API
 
-    This is the API for Equinix Metal. The API allows you to programmatically interact with all of your Equinix Metal resources, including devices, networks, addresses, organizations, projects, and your user account.  The official API docs are hosted at <https://metal.equinix.com/developers/api>.   # noqa: E501
+    # Introduction Equinix Metal provides a RESTful HTTP API which can be reached at <https://api.equinix.com/metal/v1>. This document describes the API and how to use it.  The API allows you to programmatically interact with all of your Equinix Metal resources, including devices, networks, addresses, organizations, projects, and your user account. Every feature of the Equinix Metal web interface is accessible through the API.  The API docs are generated from the Equinix Metal OpenAPI specification and are officially hosted at <https://metal.equinix.com/developers/api>.  # Common Parameters  The Equinix Metal API uses a few methods to minimize network traffic and improve throughput. These parameters are not used in all API calls, but are used often enough to warrant their own section. Look for these parameters in the documentation for the API calls that support them.  ## Pagination  Pagination is used to limit the number of results returned in a single request. The API will return a maximum of 100 results per page. To retrieve additional results, you can use the `page` and `per_page` query parameters.  The `page` parameter is used to specify the page number. The first page is `1`. The `per_page` parameter is used to specify the number of results per page. The maximum number of results differs by resource type.  ## Sorting  Where offered, the API allows you to sort results by a specific field. To sort results use the `sort_by` query parameter with the root level field name as the value. The `sort_direction` parameter is used to specify the sort direction, either either `asc` (ascending) or `desc` (descending).  ## Filtering  Filtering is used to limit the results returned in a single request. The API supports filtering by certain fields in the response. To filter results, you can use the field as a query parameter.  For example, to filter the IP list to only return public IPv4 addresses, you can filter by the `type` field, as in the following request:  ```sh curl -H 'X-Auth-Token: my_authentication_token' \\   https://api.equinix.com/metal/v1/projects/id/ips?type=public_ipv4 ```  Only IP addresses with the `type` field set to `public_ipv4` will be returned.  ## Searching  Searching is used to find matching resources using multiple field comparissons. The API supports searching in resources that define this behavior. The fields available for search differ by resource, as does the search strategy.  To search resources you can use the `search` query parameter.  ## Include and Exclude  For resources that contain references to other resources, sucha as a Device that refers to the Project it resides in, the Equinix Metal API will returns `href` values (API links) to the associated resource.  ```json {   ...   \"project\": {     \"href\": \"/metal/v1/projects/f3f131c8-f302-49ef-8c44-9405022dc6dd\"   } } ```  If you're going need the project details, you can avoid a second API request.  Specify the contained `href` resources and collections that you'd like to have included in the response using the `include` query parameter.  For example:  ```sh curl -H 'X-Auth-Token: my_authentication_token' \\   https://api.equinix.com/metal/v1/user?include=projects ```  The `include` parameter is generally accepted in `GET`, `POST`, `PUT`, and `PATCH` requests where `href` resources are presented.  To have multiple resources include, use a comma-separated list (e.g. `?include=emails,projects,memberships`).  ```sh curl -H 'X-Auth-Token: my_authentication_token' \\   https://api.equinix.com/metal/v1/user?include=emails,projects,memberships ```  You may also include nested associations up to three levels deep using dot notation (`?include=memberships.projects`):  ```sh curl -H 'X-Auth-Token: my_authentication_token' \\   https://api.equinix.com/metal/v1/user?include=memberships.projects ```  To exclude resources, and optimize response delivery, use the `exclude` query parameter. The `exclude` parameter is generally accepted in `GET`, `POST`, `PUT`, and `PATCH` requests for fields with nested object responses. When excluded, these fields will be replaced with an object that contains only an `href` field.   # noqa: E501
 
     The version of the OpenAPI document: 1.0.0
     Contact: support@equinixmetal.com
@@ -37,237 +37,130 @@ class Plan(object):
                             and the value is json key in definition.
     """
     openapi_types = {
-        'id': 'str',
-        'slug': 'str',
-        'name': 'str',
-        'description': 'str',
-        'line': 'str',
-        'specs': 'object',
-        'pricing': 'object',
-        'legacy': 'bool',
+        'available_in': 'list[PlanAvailableInInner]',
+        'available_in_metros': 'list[PlanAvailableInMetrosInner]',
         '_class': 'str',
-        'available_in': 'list[Href]'
+        'description': 'str',
+        'deployment_types': 'list[str]',
+        'id': 'str',
+        'legacy': 'bool',
+        'line': 'str',
+        'name': 'str',
+        'pricing': 'object',
+        'slug': 'str',
+        'specs': 'PlanSpecs',
+        'type': 'str'
     }
 
     attribute_map = {
-        'id': 'id',
-        'slug': 'slug',
-        'name': 'name',
-        'description': 'description',
-        'line': 'line',
-        'specs': 'specs',
-        'pricing': 'pricing',
-        'legacy': 'legacy',
+        'available_in': 'available_in',
+        'available_in_metros': 'available_in_metros',
         '_class': 'class',
-        'available_in': 'available_in'
+        'description': 'description',
+        'deployment_types': 'deployment_types',
+        'id': 'id',
+        'legacy': 'legacy',
+        'line': 'line',
+        'name': 'name',
+        'pricing': 'pricing',
+        'slug': 'slug',
+        'specs': 'specs',
+        'type': 'type'
     }
 
-    def __init__(self, id=None, slug=None, name=None, description=None, line=None, specs=None, pricing=None, legacy=None, _class=None, available_in=None, local_vars_configuration=None):  # noqa: E501
+    def __init__(self, available_in=None, available_in_metros=None, _class=None, description=None, deployment_types=None, id=None, legacy=None, line=None, name=None, pricing=None, slug=None, specs=None, type=None, local_vars_configuration=None):  # noqa: E501
         """Plan - a model defined in OpenAPI"""  # noqa: E501
         if local_vars_configuration is None:
             local_vars_configuration = Configuration.get_default_copy()
         self.local_vars_configuration = local_vars_configuration
 
-        self._id = None
-        self._slug = None
-        self._name = None
-        self._description = None
-        self._line = None
-        self._specs = None
-        self._pricing = None
-        self._legacy = None
-        self.__class = None
         self._available_in = None
+        self._available_in_metros = None
+        self.__class = None
+        self._description = None
+        self._deployment_types = None
+        self._id = None
+        self._legacy = None
+        self._line = None
+        self._name = None
+        self._pricing = None
+        self._slug = None
+        self._specs = None
+        self._type = None
         self.discriminator = None
 
-        if id is not None:
-            self.id = id
-        if slug is not None:
-            self.slug = slug
-        if name is not None:
-            self.name = name
-        if description is not None:
-            self.description = description
-        if line is not None:
-            self.line = line
-        if specs is not None:
-            self.specs = specs
-        if pricing is not None:
-            self.pricing = pricing
-        if legacy is not None:
-            self.legacy = legacy
-        if _class is not None:
-            self._class = _class
         if available_in is not None:
             self.available_in = available_in
+        if available_in_metros is not None:
+            self.available_in_metros = available_in_metros
+        if _class is not None:
+            self._class = _class
+        if description is not None:
+            self.description = description
+        if deployment_types is not None:
+            self.deployment_types = deployment_types
+        if id is not None:
+            self.id = id
+        if legacy is not None:
+            self.legacy = legacy
+        if line is not None:
+            self.line = line
+        if name is not None:
+            self.name = name
+        if pricing is not None:
+            self.pricing = pricing
+        if slug is not None:
+            self.slug = slug
+        if specs is not None:
+            self.specs = specs
+        if type is not None:
+            self.type = type
 
     @property
-    def id(self):
-        """Gets the id of this Plan.  # noqa: E501
+    def available_in(self):
+        """Gets the available_in of this Plan.  # noqa: E501
 
+        Shows which facilities the plan is available in, and the facility-based price if it is different from the default price.  # noqa: E501
 
-        :return: The id of this Plan.  # noqa: E501
-        :rtype: str
+        :return: The available_in of this Plan.  # noqa: E501
+        :rtype: list[PlanAvailableInInner]
         """
-        return self._id
+        return self._available_in
 
-    @id.setter
-    def id(self, id):
-        """Sets the id of this Plan.
+    @available_in.setter
+    def available_in(self, available_in):
+        """Sets the available_in of this Plan.
 
+        Shows which facilities the plan is available in, and the facility-based price if it is different from the default price.  # noqa: E501
 
-        :param id: The id of this Plan.  # noqa: E501
-        :type id: str
+        :param available_in: The available_in of this Plan.  # noqa: E501
+        :type available_in: list[PlanAvailableInInner]
         """
 
-        self._id = id
+        self._available_in = available_in
 
     @property
-    def slug(self):
-        """Gets the slug of this Plan.  # noqa: E501
+    def available_in_metros(self):
+        """Gets the available_in_metros of this Plan.  # noqa: E501
 
+        Shows which metros the plan is available in, and the metro-based price if it is different from the default price.  # noqa: E501
 
-        :return: The slug of this Plan.  # noqa: E501
-        :rtype: str
+        :return: The available_in_metros of this Plan.  # noqa: E501
+        :rtype: list[PlanAvailableInMetrosInner]
         """
-        return self._slug
+        return self._available_in_metros
 
-    @slug.setter
-    def slug(self, slug):
-        """Sets the slug of this Plan.
+    @available_in_metros.setter
+    def available_in_metros(self, available_in_metros):
+        """Sets the available_in_metros of this Plan.
 
+        Shows which metros the plan is available in, and the metro-based price if it is different from the default price.  # noqa: E501
 
-        :param slug: The slug of this Plan.  # noqa: E501
-        :type slug: str
-        """
-
-        self._slug = slug
-
-    @property
-    def name(self):
-        """Gets the name of this Plan.  # noqa: E501
-
-
-        :return: The name of this Plan.  # noqa: E501
-        :rtype: str
-        """
-        return self._name
-
-    @name.setter
-    def name(self, name):
-        """Sets the name of this Plan.
-
-
-        :param name: The name of this Plan.  # noqa: E501
-        :type name: str
+        :param available_in_metros: The available_in_metros of this Plan.  # noqa: E501
+        :type available_in_metros: list[PlanAvailableInMetrosInner]
         """
 
-        self._name = name
-
-    @property
-    def description(self):
-        """Gets the description of this Plan.  # noqa: E501
-
-
-        :return: The description of this Plan.  # noqa: E501
-        :rtype: str
-        """
-        return self._description
-
-    @description.setter
-    def description(self, description):
-        """Sets the description of this Plan.
-
-
-        :param description: The description of this Plan.  # noqa: E501
-        :type description: str
-        """
-
-        self._description = description
-
-    @property
-    def line(self):
-        """Gets the line of this Plan.  # noqa: E501
-
-
-        :return: The line of this Plan.  # noqa: E501
-        :rtype: str
-        """
-        return self._line
-
-    @line.setter
-    def line(self, line):
-        """Sets the line of this Plan.
-
-
-        :param line: The line of this Plan.  # noqa: E501
-        :type line: str
-        """
-
-        self._line = line
-
-    @property
-    def specs(self):
-        """Gets the specs of this Plan.  # noqa: E501
-
-
-        :return: The specs of this Plan.  # noqa: E501
-        :rtype: object
-        """
-        return self._specs
-
-    @specs.setter
-    def specs(self, specs):
-        """Sets the specs of this Plan.
-
-
-        :param specs: The specs of this Plan.  # noqa: E501
-        :type specs: object
-        """
-
-        self._specs = specs
-
-    @property
-    def pricing(self):
-        """Gets the pricing of this Plan.  # noqa: E501
-
-
-        :return: The pricing of this Plan.  # noqa: E501
-        :rtype: object
-        """
-        return self._pricing
-
-    @pricing.setter
-    def pricing(self, pricing):
-        """Sets the pricing of this Plan.
-
-
-        :param pricing: The pricing of this Plan.  # noqa: E501
-        :type pricing: object
-        """
-
-        self._pricing = pricing
-
-    @property
-    def legacy(self):
-        """Gets the legacy of this Plan.  # noqa: E501
-
-
-        :return: The legacy of this Plan.  # noqa: E501
-        :rtype: bool
-        """
-        return self._legacy
-
-    @legacy.setter
-    def legacy(self, legacy):
-        """Sets the legacy of this Plan.
-
-
-        :param legacy: The legacy of this Plan.  # noqa: E501
-        :type legacy: bool
-        """
-
-        self._legacy = legacy
+        self._available_in_metros = available_in_metros
 
     @property
     def _class(self):
@@ -291,27 +184,236 @@ class Plan(object):
         self.__class = _class
 
     @property
-    def available_in(self):
-        """Gets the available_in of this Plan.  # noqa: E501
+    def description(self):
+        """Gets the description of this Plan.  # noqa: E501
 
-        Shows which facilities the plan is available in, and the facility-based price if it is different from the default price.  # noqa: E501
 
-        :return: The available_in of this Plan.  # noqa: E501
-        :rtype: list[Href]
+        :return: The description of this Plan.  # noqa: E501
+        :rtype: str
         """
-        return self._available_in
+        return self._description
 
-    @available_in.setter
-    def available_in(self, available_in):
-        """Sets the available_in of this Plan.
+    @description.setter
+    def description(self, description):
+        """Sets the description of this Plan.
 
-        Shows which facilities the plan is available in, and the facility-based price if it is different from the default price.  # noqa: E501
 
-        :param available_in: The available_in of this Plan.  # noqa: E501
-        :type available_in: list[Href]
+        :param description: The description of this Plan.  # noqa: E501
+        :type description: str
         """
 
-        self._available_in = available_in
+        self._description = description
+
+    @property
+    def deployment_types(self):
+        """Gets the deployment_types of this Plan.  # noqa: E501
+
+
+        :return: The deployment_types of this Plan.  # noqa: E501
+        :rtype: list[str]
+        """
+        return self._deployment_types
+
+    @deployment_types.setter
+    def deployment_types(self, deployment_types):
+        """Sets the deployment_types of this Plan.
+
+
+        :param deployment_types: The deployment_types of this Plan.  # noqa: E501
+        :type deployment_types: list[str]
+        """
+        allowed_values = ["on_demand", "spot_market"]  # noqa: E501
+        if (self.local_vars_configuration.client_side_validation and
+                not set(deployment_types).issubset(set(allowed_values))):  # noqa: E501
+            raise ValueError(
+                "Invalid values for `deployment_types` [{0}], must be a subset of [{1}]"  # noqa: E501
+                .format(", ".join(map(str, set(deployment_types) - set(allowed_values))),  # noqa: E501
+                        ", ".join(map(str, allowed_values)))
+            )
+
+        self._deployment_types = deployment_types
+
+    @property
+    def id(self):
+        """Gets the id of this Plan.  # noqa: E501
+
+
+        :return: The id of this Plan.  # noqa: E501
+        :rtype: str
+        """
+        return self._id
+
+    @id.setter
+    def id(self, id):
+        """Sets the id of this Plan.
+
+
+        :param id: The id of this Plan.  # noqa: E501
+        :type id: str
+        """
+
+        self._id = id
+
+    @property
+    def legacy(self):
+        """Gets the legacy of this Plan.  # noqa: E501
+
+
+        :return: The legacy of this Plan.  # noqa: E501
+        :rtype: bool
+        """
+        return self._legacy
+
+    @legacy.setter
+    def legacy(self, legacy):
+        """Sets the legacy of this Plan.
+
+
+        :param legacy: The legacy of this Plan.  # noqa: E501
+        :type legacy: bool
+        """
+
+        self._legacy = legacy
+
+    @property
+    def line(self):
+        """Gets the line of this Plan.  # noqa: E501
+
+
+        :return: The line of this Plan.  # noqa: E501
+        :rtype: str
+        """
+        return self._line
+
+    @line.setter
+    def line(self, line):
+        """Sets the line of this Plan.
+
+
+        :param line: The line of this Plan.  # noqa: E501
+        :type line: str
+        """
+        allowed_values = ["baremetal"]  # noqa: E501
+        if self.local_vars_configuration.client_side_validation and line not in allowed_values:  # noqa: E501
+            raise ValueError(
+                "Invalid value for `line` ({0}), must be one of {1}"  # noqa: E501
+                .format(line, allowed_values)
+            )
+
+        self._line = line
+
+    @property
+    def name(self):
+        """Gets the name of this Plan.  # noqa: E501
+
+
+        :return: The name of this Plan.  # noqa: E501
+        :rtype: str
+        """
+        return self._name
+
+    @name.setter
+    def name(self, name):
+        """Sets the name of this Plan.
+
+
+        :param name: The name of this Plan.  # noqa: E501
+        :type name: str
+        """
+
+        self._name = name
+
+    @property
+    def pricing(self):
+        """Gets the pricing of this Plan.  # noqa: E501
+
+
+        :return: The pricing of this Plan.  # noqa: E501
+        :rtype: object
+        """
+        return self._pricing
+
+    @pricing.setter
+    def pricing(self, pricing):
+        """Sets the pricing of this Plan.
+
+
+        :param pricing: The pricing of this Plan.  # noqa: E501
+        :type pricing: object
+        """
+
+        self._pricing = pricing
+
+    @property
+    def slug(self):
+        """Gets the slug of this Plan.  # noqa: E501
+
+
+        :return: The slug of this Plan.  # noqa: E501
+        :rtype: str
+        """
+        return self._slug
+
+    @slug.setter
+    def slug(self, slug):
+        """Sets the slug of this Plan.
+
+
+        :param slug: The slug of this Plan.  # noqa: E501
+        :type slug: str
+        """
+
+        self._slug = slug
+
+    @property
+    def specs(self):
+        """Gets the specs of this Plan.  # noqa: E501
+
+
+        :return: The specs of this Plan.  # noqa: E501
+        :rtype: PlanSpecs
+        """
+        return self._specs
+
+    @specs.setter
+    def specs(self, specs):
+        """Sets the specs of this Plan.
+
+
+        :param specs: The specs of this Plan.  # noqa: E501
+        :type specs: PlanSpecs
+        """
+
+        self._specs = specs
+
+    @property
+    def type(self):
+        """Gets the type of this Plan.  # noqa: E501
+
+        The plan type  # noqa: E501
+
+        :return: The type of this Plan.  # noqa: E501
+        :rtype: str
+        """
+        return self._type
+
+    @type.setter
+    def type(self, type):
+        """Sets the type of this Plan.
+
+        The plan type  # noqa: E501
+
+        :param type: The type of this Plan.  # noqa: E501
+        :type type: str
+        """
+        allowed_values = ["standard", "workload_optimized", "custom"]  # noqa: E501
+        if self.local_vars_configuration.client_side_validation and type not in allowed_values:  # noqa: E501
+            raise ValueError(
+                "Invalid value for `type` ({0}), must be one of {1}"  # noqa: E501
+                .format(type, allowed_values)
+            )
+
+        self._type = type
 
     def to_dict(self, serialize=False):
         """Returns the model properties as a dict"""

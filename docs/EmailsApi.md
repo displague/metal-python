@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 
 # **create_email**
-> Email create_email(email)
+> Email create_email(create_email_input)
 
 Create an email
 
@@ -47,11 +47,11 @@ configuration.api_key['x_auth_token'] = 'YOUR_API_KEY'
 with metal.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = metal.EmailsApi(api_client)
-    email = metal.CreateEmailInput() # CreateEmailInput | Email to create
+    create_email_input = metal.CreateEmailInput() # CreateEmailInput | Email to create
 
     try:
         # Create an email
-        api_response = api_instance.create_email(email)
+        api_response = api_instance.create_email(create_email_input)
         pprint(api_response)
     except ApiException as e:
         print("Exception when calling EmailsApi->create_email: %s\n" % e)
@@ -61,7 +61,7 @@ with metal.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **email** | [**CreateEmailInput**](CreateEmailInput.md)| Email to create | 
+ **create_email_input** | [**CreateEmailInput**](CreateEmailInput.md)| Email to create | 
 
 ### Return type
 
@@ -241,7 +241,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_email**
-> Email update_email(id, email)
+> Email update_email(id, update_email_input)
 
 Update the email
 
@@ -278,11 +278,11 @@ with metal.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = metal.EmailsApi(api_client)
     id = 'id_example' # str | Email UUID
-email = metal.UpdateEmailInput() # UpdateEmailInput | email to update
+update_email_input = metal.UpdateEmailInput() # UpdateEmailInput | email to update
 
     try:
         # Update the email
-        api_response = api_instance.update_email(id, email)
+        api_response = api_instance.update_email(id, update_email_input)
         pprint(api_response)
     except ApiException as e:
         print("Exception when calling EmailsApi->update_email: %s\n" % e)
@@ -293,7 +293,7 @@ email = metal.UpdateEmailInput() # UpdateEmailInput | email to update
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **str**| Email UUID | 
- **email** | [**UpdateEmailInput**](UpdateEmailInput.md)| email to update | 
+ **update_email_input** | [**UpdateEmailInput**](UpdateEmailInput.md)| email to update | 
 
 ### Return type
 

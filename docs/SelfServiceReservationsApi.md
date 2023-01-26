@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 
 # **create_self_service_reservation**
-> SelfServiceReservationResponse create_self_service_reservation(project_id, reservation)
+> SelfServiceReservationResponse create_self_service_reservation(project_id, create_self_service_reservation_request)
 
 Create a reservation
 
@@ -47,11 +47,11 @@ with metal.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = metal.SelfServiceReservationsApi(api_client)
     project_id = 'project_id_example' # str | Project UUID
-reservation = metal.CreateSelfServiceReservationRequest() # CreateSelfServiceReservationRequest | reservation to create
+create_self_service_reservation_request = metal.CreateSelfServiceReservationRequest() # CreateSelfServiceReservationRequest | reservation to create
 
     try:
         # Create a reservation
-        api_response = api_instance.create_self_service_reservation(project_id, reservation)
+        api_response = api_instance.create_self_service_reservation(project_id, create_self_service_reservation_request)
         pprint(api_response)
     except ApiException as e:
         print("Exception when calling SelfServiceReservationsApi->create_self_service_reservation: %s\n" % e)
@@ -62,7 +62,7 @@ reservation = metal.CreateSelfServiceReservationRequest() # CreateSelfServiceRes
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **project_id** | **str**| Project UUID | 
- **reservation** | [**CreateSelfServiceReservationRequest**](CreateSelfServiceReservationRequest.md)| reservation to create | 
+ **create_self_service_reservation_request** | [**CreateSelfServiceReservationRequest**](CreateSelfServiceReservationRequest.md)| reservation to create | 
 
 ### Return type
 

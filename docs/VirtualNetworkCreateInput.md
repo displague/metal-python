@@ -4,7 +4,6 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**project_id** | **str** |  | 
 **description** | **str** |  | [optional] 
 **facility** | **str** | The UUID (or facility code) for the Facility in which to create this Virtual network. | [optional] 
 **metro** | **str** | The UUID (or metro code) for the Metro in which to create this Virtual Network. | [optional] 

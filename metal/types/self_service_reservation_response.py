@@ -3,7 +3,7 @@
 """
     Metal API
 
-    This is the API for Equinix Metal. The API allows you to programmatically interact with all of your Equinix Metal resources, including devices, networks, addresses, organizations, projects, and your user account.  The official API docs are hosted at <https://metal.equinix.com/developers/api>.   # noqa: E501
+    # Introduction Equinix Metal provides a RESTful HTTP API which can be reached at <https://api.equinix.com/metal/v1>. This document describes the API and how to use it.  The API allows you to programmatically interact with all of your Equinix Metal resources, including devices, networks, addresses, organizations, projects, and your user account. Every feature of the Equinix Metal web interface is accessible through the API.  The API docs are generated from the Equinix Metal OpenAPI specification and are officially hosted at <https://metal.equinix.com/developers/api>.  # Common Parameters  The Equinix Metal API uses a few methods to minimize network traffic and improve throughput. These parameters are not used in all API calls, but are used often enough to warrant their own section. Look for these parameters in the documentation for the API calls that support them.  ## Pagination  Pagination is used to limit the number of results returned in a single request. The API will return a maximum of 100 results per page. To retrieve additional results, you can use the `page` and `per_page` query parameters.  The `page` parameter is used to specify the page number. The first page is `1`. The `per_page` parameter is used to specify the number of results per page. The maximum number of results differs by resource type.  ## Sorting  Where offered, the API allows you to sort results by a specific field. To sort results use the `sort_by` query parameter with the root level field name as the value. The `sort_direction` parameter is used to specify the sort direction, either either `asc` (ascending) or `desc` (descending).  ## Filtering  Filtering is used to limit the results returned in a single request. The API supports filtering by certain fields in the response. To filter results, you can use the field as a query parameter.  For example, to filter the IP list to only return public IPv4 addresses, you can filter by the `type` field, as in the following request:  ```sh curl -H 'X-Auth-Token: my_authentication_token' \\   https://api.equinix.com/metal/v1/projects/id/ips?type=public_ipv4 ```  Only IP addresses with the `type` field set to `public_ipv4` will be returned.  ## Searching  Searching is used to find matching resources using multiple field comparissons. The API supports searching in resources that define this behavior. The fields available for search differ by resource, as does the search strategy.  To search resources you can use the `search` query parameter.  ## Include and Exclude  For resources that contain references to other resources, sucha as a Device that refers to the Project it resides in, the Equinix Metal API will returns `href` values (API links) to the associated resource.  ```json {   ...   \"project\": {     \"href\": \"/metal/v1/projects/f3f131c8-f302-49ef-8c44-9405022dc6dd\"   } } ```  If you're going need the project details, you can avoid a second API request.  Specify the contained `href` resources and collections that you'd like to have included in the response using the `include` query parameter.  For example:  ```sh curl -H 'X-Auth-Token: my_authentication_token' \\   https://api.equinix.com/metal/v1/user?include=projects ```  The `include` parameter is generally accepted in `GET`, `POST`, `PUT`, and `PATCH` requests where `href` resources are presented.  To have multiple resources include, use a comma-separated list (e.g. `?include=emails,projects,memberships`).  ```sh curl -H 'X-Auth-Token: my_authentication_token' \\   https://api.equinix.com/metal/v1/user?include=emails,projects,memberships ```  You may also include nested associations up to three levels deep using dot notation (`?include=memberships.projects`):  ```sh curl -H 'X-Auth-Token: my_authentication_token' \\   https://api.equinix.com/metal/v1/user?include=memberships.projects ```  To exclude resources, and optimize response delivery, use the `exclude` query parameter. The `exclude` parameter is generally accepted in `GET`, `POST`, `PUT`, and `PATCH` requests for fields with nested object responses. When excluded, these fields will be replaced with an object that contains only an `href` field.   # noqa: E501
 
     The version of the OpenAPI document: 1.0.0
     Contact: support@equinixmetal.com
@@ -37,158 +37,74 @@ class SelfServiceReservationResponse(object):
                             and the value is json key in definition.
     """
     openapi_types = {
-        'status': 'str',
-        'start_date': 'datetime',
-        'period': 'CreateSelfServiceReservationRequestPeriod',
-        'total_cost': 'int',
         'created_at': 'datetime',
+        'item': 'list[SelfServiceReservationItemResponse]',
         'notes': 'str',
         'organization': 'str',
         'organization_id': 'str',
+        'period': 'CreateSelfServiceReservationRequestPeriod',
         'project': 'str',
         'project_id': 'str',
-        'item': 'list[SelfServiceReservationItemResponse]'
+        'start_date': 'datetime',
+        'status': 'str',
+        'total_cost': 'int'
     }
 
     attribute_map = {
-        'status': 'status',
-        'start_date': 'start_date',
-        'period': 'period',
-        'total_cost': 'total_cost',
         'created_at': 'created_at',
+        'item': 'item',
         'notes': 'notes',
         'organization': 'organization',
         'organization_id': 'organization_id',
+        'period': 'period',
         'project': 'project',
         'project_id': 'project_id',
-        'item': 'item'
+        'start_date': 'start_date',
+        'status': 'status',
+        'total_cost': 'total_cost'
     }
 
-    def __init__(self, status=None, start_date=None, period=None, total_cost=None, created_at=None, notes=None, organization=None, organization_id=None, project=None, project_id=None, item=None, local_vars_configuration=None):  # noqa: E501
+    def __init__(self, created_at=None, item=None, notes=None, organization=None, organization_id=None, period=None, project=None, project_id=None, start_date=None, status=None, total_cost=None, local_vars_configuration=None):  # noqa: E501
         """SelfServiceReservationResponse - a model defined in OpenAPI"""  # noqa: E501
         if local_vars_configuration is None:
             local_vars_configuration = Configuration.get_default_copy()
         self.local_vars_configuration = local_vars_configuration
 
-        self._status = None
-        self._start_date = None
-        self._period = None
-        self._total_cost = None
         self._created_at = None
+        self._item = None
         self._notes = None
         self._organization = None
         self._organization_id = None
+        self._period = None
         self._project = None
         self._project_id = None
-        self._item = None
+        self._start_date = None
+        self._status = None
+        self._total_cost = None
         self.discriminator = None
 
-        if status is not None:
-            self.status = status
-        if start_date is not None:
-            self.start_date = start_date
-        if period is not None:
-            self.period = period
-        if total_cost is not None:
-            self.total_cost = total_cost
         if created_at is not None:
             self.created_at = created_at
+        if item is not None:
+            self.item = item
         if notes is not None:
             self.notes = notes
         if organization is not None:
             self.organization = organization
         if organization_id is not None:
             self.organization_id = organization_id
+        if period is not None:
+            self.period = period
         if project is not None:
             self.project = project
         if project_id is not None:
             self.project_id = project_id
-        if item is not None:
-            self.item = item
-
-    @property
-    def status(self):
-        """Gets the status of this SelfServiceReservationResponse.  # noqa: E501
-
-
-        :return: The status of this SelfServiceReservationResponse.  # noqa: E501
-        :rtype: str
-        """
-        return self._status
-
-    @status.setter
-    def status(self, status):
-        """Sets the status of this SelfServiceReservationResponse.
-
-
-        :param status: The status of this SelfServiceReservationResponse.  # noqa: E501
-        :type status: str
-        """
-
-        self._status = status
-
-    @property
-    def start_date(self):
-        """Gets the start_date of this SelfServiceReservationResponse.  # noqa: E501
-
-
-        :return: The start_date of this SelfServiceReservationResponse.  # noqa: E501
-        :rtype: datetime
-        """
-        return self._start_date
-
-    @start_date.setter
-    def start_date(self, start_date):
-        """Sets the start_date of this SelfServiceReservationResponse.
-
-
-        :param start_date: The start_date of this SelfServiceReservationResponse.  # noqa: E501
-        :type start_date: datetime
-        """
-
-        self._start_date = start_date
-
-    @property
-    def period(self):
-        """Gets the period of this SelfServiceReservationResponse.  # noqa: E501
-
-
-        :return: The period of this SelfServiceReservationResponse.  # noqa: E501
-        :rtype: CreateSelfServiceReservationRequestPeriod
-        """
-        return self._period
-
-    @period.setter
-    def period(self, period):
-        """Sets the period of this SelfServiceReservationResponse.
-
-
-        :param period: The period of this SelfServiceReservationResponse.  # noqa: E501
-        :type period: CreateSelfServiceReservationRequestPeriod
-        """
-
-        self._period = period
-
-    @property
-    def total_cost(self):
-        """Gets the total_cost of this SelfServiceReservationResponse.  # noqa: E501
-
-
-        :return: The total_cost of this SelfServiceReservationResponse.  # noqa: E501
-        :rtype: int
-        """
-        return self._total_cost
-
-    @total_cost.setter
-    def total_cost(self, total_cost):
-        """Sets the total_cost of this SelfServiceReservationResponse.
-
-
-        :param total_cost: The total_cost of this SelfServiceReservationResponse.  # noqa: E501
-        :type total_cost: int
-        """
-
-        self._total_cost = total_cost
+        if start_date is not None:
+            self.start_date = start_date
+        if status is not None:
+            self.status = status
+        if total_cost is not None:
+            self.total_cost = total_cost
 
     @property
     def created_at(self):
@@ -210,6 +126,27 @@ class SelfServiceReservationResponse(object):
         """
 
         self._created_at = created_at
+
+    @property
+    def item(self):
+        """Gets the item of this SelfServiceReservationResponse.  # noqa: E501
+
+
+        :return: The item of this SelfServiceReservationResponse.  # noqa: E501
+        :rtype: list[SelfServiceReservationItemResponse]
+        """
+        return self._item
+
+    @item.setter
+    def item(self, item):
+        """Sets the item of this SelfServiceReservationResponse.
+
+
+        :param item: The item of this SelfServiceReservationResponse.  # noqa: E501
+        :type item: list[SelfServiceReservationItemResponse]
+        """
+
+        self._item = item
 
     @property
     def notes(self):
@@ -275,6 +212,27 @@ class SelfServiceReservationResponse(object):
         self._organization_id = organization_id
 
     @property
+    def period(self):
+        """Gets the period of this SelfServiceReservationResponse.  # noqa: E501
+
+
+        :return: The period of this SelfServiceReservationResponse.  # noqa: E501
+        :rtype: CreateSelfServiceReservationRequestPeriod
+        """
+        return self._period
+
+    @period.setter
+    def period(self, period):
+        """Sets the period of this SelfServiceReservationResponse.
+
+
+        :param period: The period of this SelfServiceReservationResponse.  # noqa: E501
+        :type period: CreateSelfServiceReservationRequestPeriod
+        """
+
+        self._period = period
+
+    @property
     def project(self):
         """Gets the project of this SelfServiceReservationResponse.  # noqa: E501
 
@@ -317,25 +275,67 @@ class SelfServiceReservationResponse(object):
         self._project_id = project_id
 
     @property
-    def item(self):
-        """Gets the item of this SelfServiceReservationResponse.  # noqa: E501
+    def start_date(self):
+        """Gets the start_date of this SelfServiceReservationResponse.  # noqa: E501
 
 
-        :return: The item of this SelfServiceReservationResponse.  # noqa: E501
-        :rtype: list[SelfServiceReservationItemResponse]
+        :return: The start_date of this SelfServiceReservationResponse.  # noqa: E501
+        :rtype: datetime
         """
-        return self._item
+        return self._start_date
 
-    @item.setter
-    def item(self, item):
-        """Sets the item of this SelfServiceReservationResponse.
+    @start_date.setter
+    def start_date(self, start_date):
+        """Sets the start_date of this SelfServiceReservationResponse.
 
 
-        :param item: The item of this SelfServiceReservationResponse.  # noqa: E501
-        :type item: list[SelfServiceReservationItemResponse]
+        :param start_date: The start_date of this SelfServiceReservationResponse.  # noqa: E501
+        :type start_date: datetime
         """
 
-        self._item = item
+        self._start_date = start_date
+
+    @property
+    def status(self):
+        """Gets the status of this SelfServiceReservationResponse.  # noqa: E501
+
+
+        :return: The status of this SelfServiceReservationResponse.  # noqa: E501
+        :rtype: str
+        """
+        return self._status
+
+    @status.setter
+    def status(self, status):
+        """Sets the status of this SelfServiceReservationResponse.
+
+
+        :param status: The status of this SelfServiceReservationResponse.  # noqa: E501
+        :type status: str
+        """
+
+        self._status = status
+
+    @property
+    def total_cost(self):
+        """Gets the total_cost of this SelfServiceReservationResponse.  # noqa: E501
+
+
+        :return: The total_cost of this SelfServiceReservationResponse.  # noqa: E501
+        :rtype: int
+        """
+        return self._total_cost
+
+    @total_cost.setter
+    def total_cost(self, total_cost):
+        """Sets the total_cost of this SelfServiceReservationResponse.
+
+
+        :param total_cost: The total_cost of this SelfServiceReservationResponse.  # noqa: E501
+        :type total_cost: int
+        """
+
+        self._total_cost = total_cost
 
     def to_dict(self, serialize=False):
         """Returns the model properties as a dict"""

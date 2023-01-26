@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 
 # **create_user**
-> User create_user(user)
+> User create_user(user_create_input)
 
 Create a user
 
@@ -50,11 +50,11 @@ configuration.api_key['x_auth_token'] = 'YOUR_API_KEY'
 with metal.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = metal.UsersApi(api_client)
-    user = metal.UserCreateInput() # UserCreateInput | User to create
+    user_create_input = metal.UserCreateInput() # UserCreateInput | User to create
 
     try:
         # Create a user
-        api_response = api_instance.create_user(user)
+        api_response = api_instance.create_user(user_create_input)
         pprint(api_response)
     except ApiException as e:
         print("Exception when calling UsersApi->create_user: %s\n" % e)
@@ -64,7 +64,7 @@ with metal.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **user** | [**UserCreateInput**](UserCreateInput.md)| User to create | 
+ **user_create_input** | [**UserCreateInput**](UserCreateInput.md)| User to create | 
 
 ### Return type
 
@@ -482,7 +482,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_current_user**
-> User update_current_user(user)
+> User update_current_user(user_update_input)
 
 Update the current user
 
@@ -518,11 +518,11 @@ configuration.api_key['x_auth_token'] = 'YOUR_API_KEY'
 with metal.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = metal.UsersApi(api_client)
-    user = metal.UserUpdateInput() # UserUpdateInput | User to update
+    user_update_input = metal.UserUpdateInput() # UserUpdateInput | User to update
 
     try:
         # Update the current user
-        api_response = api_instance.update_current_user(user)
+        api_response = api_instance.update_current_user(user_update_input)
         pprint(api_response)
     except ApiException as e:
         print("Exception when calling UsersApi->update_current_user: %s\n" % e)
@@ -532,7 +532,7 @@ with metal.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **user** | [**UserUpdateInput**](UserUpdateInput.md)| User to update | 
+ **user_update_input** | [**UserUpdateInput**](UserUpdateInput.md)| User to update | 
 
 ### Return type
 

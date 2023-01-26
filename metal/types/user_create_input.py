@@ -3,7 +3,7 @@
 """
     Metal API
 
-    This is the API for Equinix Metal. The API allows you to programmatically interact with all of your Equinix Metal resources, including devices, networks, addresses, organizations, projects, and your user account.  The official API docs are hosted at <https://metal.equinix.com/developers/api>.   # noqa: E501
+    # Introduction Equinix Metal provides a RESTful HTTP API which can be reached at <https://api.equinix.com/metal/v1>. This document describes the API and how to use it.  The API allows you to programmatically interact with all of your Equinix Metal resources, including devices, networks, addresses, organizations, projects, and your user account. Every feature of the Equinix Metal web interface is accessible through the API.  The API docs are generated from the Equinix Metal OpenAPI specification and are officially hosted at <https://metal.equinix.com/developers/api>.  # Common Parameters  The Equinix Metal API uses a few methods to minimize network traffic and improve throughput. These parameters are not used in all API calls, but are used often enough to warrant their own section. Look for these parameters in the documentation for the API calls that support them.  ## Pagination  Pagination is used to limit the number of results returned in a single request. The API will return a maximum of 100 results per page. To retrieve additional results, you can use the `page` and `per_page` query parameters.  The `page` parameter is used to specify the page number. The first page is `1`. The `per_page` parameter is used to specify the number of results per page. The maximum number of results differs by resource type.  ## Sorting  Where offered, the API allows you to sort results by a specific field. To sort results use the `sort_by` query parameter with the root level field name as the value. The `sort_direction` parameter is used to specify the sort direction, either either `asc` (ascending) or `desc` (descending).  ## Filtering  Filtering is used to limit the results returned in a single request. The API supports filtering by certain fields in the response. To filter results, you can use the field as a query parameter.  For example, to filter the IP list to only return public IPv4 addresses, you can filter by the `type` field, as in the following request:  ```sh curl -H 'X-Auth-Token: my_authentication_token' \\   https://api.equinix.com/metal/v1/projects/id/ips?type=public_ipv4 ```  Only IP addresses with the `type` field set to `public_ipv4` will be returned.  ## Searching  Searching is used to find matching resources using multiple field comparissons. The API supports searching in resources that define this behavior. The fields available for search differ by resource, as does the search strategy.  To search resources you can use the `search` query parameter.  ## Include and Exclude  For resources that contain references to other resources, sucha as a Device that refers to the Project it resides in, the Equinix Metal API will returns `href` values (API links) to the associated resource.  ```json {   ...   \"project\": {     \"href\": \"/metal/v1/projects/f3f131c8-f302-49ef-8c44-9405022dc6dd\"   } } ```  If you're going need the project details, you can avoid a second API request.  Specify the contained `href` resources and collections that you'd like to have included in the response using the `include` query parameter.  For example:  ```sh curl -H 'X-Auth-Token: my_authentication_token' \\   https://api.equinix.com/metal/v1/user?include=projects ```  The `include` parameter is generally accepted in `GET`, `POST`, `PUT`, and `PATCH` requests where `href` resources are presented.  To have multiple resources include, use a comma-separated list (e.g. `?include=emails,projects,memberships`).  ```sh curl -H 'X-Auth-Token: my_authentication_token' \\   https://api.equinix.com/metal/v1/user?include=emails,projects,memberships ```  You may also include nested associations up to three levels deep using dot notation (`?include=memberships.projects`):  ```sh curl -H 'X-Auth-Token: my_authentication_token' \\   https://api.equinix.com/metal/v1/user?include=memberships.projects ```  To exclude resources, and optimize response delivery, use the `exclude` query parameter. The `exclude` parameter is generally accepted in `GET`, `POST`, `PUT`, and `PATCH` requests for fields with nested object responses. When excluded, these fields will be replaced with an object that contains only an `href` field.   # noqa: E501
 
     The version of the OpenAPI document: 1.0.0
     Contact: support@equinixmetal.com
@@ -37,96 +37,213 @@ class UserCreateInput(object):
                             and the value is json key in definition.
     """
     openapi_types = {
-        'first_name': 'str',
-        'last_name': 'str',
-        'phone_number': 'str',
-        'timezone': 'str',
-        'password': 'str',
-        'level': 'str',
-        'title': 'str',
+        'avatar': 'file',
         'company_name': 'str',
         'company_url': 'str',
-        'verified_at': 'datetime',
-        'social_accounts': 'object',
-        'two_factor_auth': 'str',
-        'avatar': 'file',
+        'customdata': 'object',
         'emails': 'list[EmailInput]',
+        'first_name': 'str',
+        'last_name': 'str',
+        'level': 'str',
         'locked': 'bool',
-        'customdata': 'object'
+        'password': 'str',
+        'phone_number': 'str',
+        'social_accounts': 'object',
+        'timezone': 'str',
+        'title': 'str',
+        'two_factor_auth': 'str',
+        'verified_at': 'datetime',
+        'invitation_id': 'str',
+        'nonce': 'str'
     }
 
     attribute_map = {
-        'first_name': 'first_name',
-        'last_name': 'last_name',
-        'phone_number': 'phone_number',
-        'timezone': 'timezone',
-        'password': 'password',
-        'level': 'level',
-        'title': 'title',
+        'avatar': 'avatar',
         'company_name': 'company_name',
         'company_url': 'company_url',
-        'verified_at': 'verified_at',
-        'social_accounts': 'social_accounts',
-        'two_factor_auth': 'two_factor_auth',
-        'avatar': 'avatar',
+        'customdata': 'customdata',
         'emails': 'emails',
+        'first_name': 'first_name',
+        'last_name': 'last_name',
+        'level': 'level',
         'locked': 'locked',
-        'customdata': 'customdata'
+        'password': 'password',
+        'phone_number': 'phone_number',
+        'social_accounts': 'social_accounts',
+        'timezone': 'timezone',
+        'title': 'title',
+        'two_factor_auth': 'two_factor_auth',
+        'verified_at': 'verified_at',
+        'invitation_id': 'invitation_id',
+        'nonce': 'nonce'
     }
 
-    def __init__(self, first_name=None, last_name=None, phone_number=None, timezone=None, password=None, level=None, title=None, company_name=None, company_url=None, verified_at=None, social_accounts=None, two_factor_auth=None, avatar=None, emails=None, locked=None, customdata=None, local_vars_configuration=None):  # noqa: E501
+    def __init__(self, avatar=None, company_name=None, company_url=None, customdata=None, emails=None, first_name=None, last_name=None, level=None, locked=None, password=None, phone_number=None, social_accounts=None, timezone=None, title=None, two_factor_auth=None, verified_at=None, invitation_id=None, nonce=None, local_vars_configuration=None):  # noqa: E501
         """UserCreateInput - a model defined in OpenAPI"""  # noqa: E501
         if local_vars_configuration is None:
             local_vars_configuration = Configuration.get_default_copy()
         self.local_vars_configuration = local_vars_configuration
 
-        self._first_name = None
-        self._last_name = None
-        self._phone_number = None
-        self._timezone = None
-        self._password = None
-        self._level = None
-        self._title = None
+        self._avatar = None
         self._company_name = None
         self._company_url = None
-        self._verified_at = None
-        self._social_accounts = None
-        self._two_factor_auth = None
-        self._avatar = None
-        self._emails = None
-        self._locked = None
         self._customdata = None
+        self._emails = None
+        self._first_name = None
+        self._last_name = None
+        self._level = None
+        self._locked = None
+        self._password = None
+        self._phone_number = None
+        self._social_accounts = None
+        self._timezone = None
+        self._title = None
+        self._two_factor_auth = None
+        self._verified_at = None
+        self._invitation_id = None
+        self._nonce = None
         self.discriminator = None
 
-        self.first_name = first_name
-        self.last_name = last_name
-        if phone_number is not None:
-            self.phone_number = phone_number
-        if timezone is not None:
-            self.timezone = timezone
-        if password is not None:
-            self.password = password
-        if level is not None:
-            self.level = level
-        if title is not None:
-            self.title = title
+        if avatar is not None:
+            self.avatar = avatar
         if company_name is not None:
             self.company_name = company_name
         if company_url is not None:
             self.company_url = company_url
-        if verified_at is not None:
-            self.verified_at = verified_at
-        if social_accounts is not None:
-            self.social_accounts = social_accounts
-        if two_factor_auth is not None:
-            self.two_factor_auth = two_factor_auth
-        if avatar is not None:
-            self.avatar = avatar
-        self.emails = emails
-        if locked is not None:
-            self.locked = locked
         if customdata is not None:
             self.customdata = customdata
+        self.emails = emails
+        self.first_name = first_name
+        self.last_name = last_name
+        if level is not None:
+            self.level = level
+        if locked is not None:
+            self.locked = locked
+        if password is not None:
+            self.password = password
+        if phone_number is not None:
+            self.phone_number = phone_number
+        if social_accounts is not None:
+            self.social_accounts = social_accounts
+        if timezone is not None:
+            self.timezone = timezone
+        if title is not None:
+            self.title = title
+        if two_factor_auth is not None:
+            self.two_factor_auth = two_factor_auth
+        if verified_at is not None:
+            self.verified_at = verified_at
+        if invitation_id is not None:
+            self.invitation_id = invitation_id
+        if nonce is not None:
+            self.nonce = nonce
+
+    @property
+    def avatar(self):
+        """Gets the avatar of this UserCreateInput.  # noqa: E501
+
+
+        :return: The avatar of this UserCreateInput.  # noqa: E501
+        :rtype: file
+        """
+        return self._avatar
+
+    @avatar.setter
+    def avatar(self, avatar):
+        """Sets the avatar of this UserCreateInput.
+
+
+        :param avatar: The avatar of this UserCreateInput.  # noqa: E501
+        :type avatar: file
+        """
+
+        self._avatar = avatar
+
+    @property
+    def company_name(self):
+        """Gets the company_name of this UserCreateInput.  # noqa: E501
+
+
+        :return: The company_name of this UserCreateInput.  # noqa: E501
+        :rtype: str
+        """
+        return self._company_name
+
+    @company_name.setter
+    def company_name(self, company_name):
+        """Sets the company_name of this UserCreateInput.
+
+
+        :param company_name: The company_name of this UserCreateInput.  # noqa: E501
+        :type company_name: str
+        """
+
+        self._company_name = company_name
+
+    @property
+    def company_url(self):
+        """Gets the company_url of this UserCreateInput.  # noqa: E501
+
+
+        :return: The company_url of this UserCreateInput.  # noqa: E501
+        :rtype: str
+        """
+        return self._company_url
+
+    @company_url.setter
+    def company_url(self, company_url):
+        """Sets the company_url of this UserCreateInput.
+
+
+        :param company_url: The company_url of this UserCreateInput.  # noqa: E501
+        :type company_url: str
+        """
+
+        self._company_url = company_url
+
+    @property
+    def customdata(self):
+        """Gets the customdata of this UserCreateInput.  # noqa: E501
+
+
+        :return: The customdata of this UserCreateInput.  # noqa: E501
+        :rtype: object
+        """
+        return self._customdata
+
+    @customdata.setter
+    def customdata(self, customdata):
+        """Sets the customdata of this UserCreateInput.
+
+
+        :param customdata: The customdata of this UserCreateInput.  # noqa: E501
+        :type customdata: object
+        """
+
+        self._customdata = customdata
+
+    @property
+    def emails(self):
+        """Gets the emails of this UserCreateInput.  # noqa: E501
+
+
+        :return: The emails of this UserCreateInput.  # noqa: E501
+        :rtype: list[EmailInput]
+        """
+        return self._emails
+
+    @emails.setter
+    def emails(self, emails):
+        """Sets the emails of this UserCreateInput.
+
+
+        :param emails: The emails of this UserCreateInput.  # noqa: E501
+        :type emails: list[EmailInput]
+        """
+        if self.local_vars_configuration.client_side_validation and emails is None:  # noqa: E501
+            raise ValueError("Invalid value for `emails`, must not be `None`")  # noqa: E501
+
+        self._emails = emails
 
     @property
     def first_name(self):
@@ -175,69 +292,6 @@ class UserCreateInput(object):
         self._last_name = last_name
 
     @property
-    def phone_number(self):
-        """Gets the phone_number of this UserCreateInput.  # noqa: E501
-
-
-        :return: The phone_number of this UserCreateInput.  # noqa: E501
-        :rtype: str
-        """
-        return self._phone_number
-
-    @phone_number.setter
-    def phone_number(self, phone_number):
-        """Sets the phone_number of this UserCreateInput.
-
-
-        :param phone_number: The phone_number of this UserCreateInput.  # noqa: E501
-        :type phone_number: str
-        """
-
-        self._phone_number = phone_number
-
-    @property
-    def timezone(self):
-        """Gets the timezone of this UserCreateInput.  # noqa: E501
-
-
-        :return: The timezone of this UserCreateInput.  # noqa: E501
-        :rtype: str
-        """
-        return self._timezone
-
-    @timezone.setter
-    def timezone(self, timezone):
-        """Sets the timezone of this UserCreateInput.
-
-
-        :param timezone: The timezone of this UserCreateInput.  # noqa: E501
-        :type timezone: str
-        """
-
-        self._timezone = timezone
-
-    @property
-    def password(self):
-        """Gets the password of this UserCreateInput.  # noqa: E501
-
-
-        :return: The password of this UserCreateInput.  # noqa: E501
-        :rtype: str
-        """
-        return self._password
-
-    @password.setter
-    def password(self, password):
-        """Sets the password of this UserCreateInput.
-
-
-        :param password: The password of this UserCreateInput.  # noqa: E501
-        :type password: str
-        """
-
-        self._password = password
-
-    @property
     def level(self):
         """Gets the level of this UserCreateInput.  # noqa: E501
 
@@ -257,176 +311,6 @@ class UserCreateInput(object):
         """
 
         self._level = level
-
-    @property
-    def title(self):
-        """Gets the title of this UserCreateInput.  # noqa: E501
-
-
-        :return: The title of this UserCreateInput.  # noqa: E501
-        :rtype: str
-        """
-        return self._title
-
-    @title.setter
-    def title(self, title):
-        """Sets the title of this UserCreateInput.
-
-
-        :param title: The title of this UserCreateInput.  # noqa: E501
-        :type title: str
-        """
-
-        self._title = title
-
-    @property
-    def company_name(self):
-        """Gets the company_name of this UserCreateInput.  # noqa: E501
-
-
-        :return: The company_name of this UserCreateInput.  # noqa: E501
-        :rtype: str
-        """
-        return self._company_name
-
-    @company_name.setter
-    def company_name(self, company_name):
-        """Sets the company_name of this UserCreateInput.
-
-
-        :param company_name: The company_name of this UserCreateInput.  # noqa: E501
-        :type company_name: str
-        """
-
-        self._company_name = company_name
-
-    @property
-    def company_url(self):
-        """Gets the company_url of this UserCreateInput.  # noqa: E501
-
-
-        :return: The company_url of this UserCreateInput.  # noqa: E501
-        :rtype: str
-        """
-        return self._company_url
-
-    @company_url.setter
-    def company_url(self, company_url):
-        """Sets the company_url of this UserCreateInput.
-
-
-        :param company_url: The company_url of this UserCreateInput.  # noqa: E501
-        :type company_url: str
-        """
-
-        self._company_url = company_url
-
-    @property
-    def verified_at(self):
-        """Gets the verified_at of this UserCreateInput.  # noqa: E501
-
-
-        :return: The verified_at of this UserCreateInput.  # noqa: E501
-        :rtype: datetime
-        """
-        return self._verified_at
-
-    @verified_at.setter
-    def verified_at(self, verified_at):
-        """Sets the verified_at of this UserCreateInput.
-
-
-        :param verified_at: The verified_at of this UserCreateInput.  # noqa: E501
-        :type verified_at: datetime
-        """
-
-        self._verified_at = verified_at
-
-    @property
-    def social_accounts(self):
-        """Gets the social_accounts of this UserCreateInput.  # noqa: E501
-
-
-        :return: The social_accounts of this UserCreateInput.  # noqa: E501
-        :rtype: object
-        """
-        return self._social_accounts
-
-    @social_accounts.setter
-    def social_accounts(self, social_accounts):
-        """Sets the social_accounts of this UserCreateInput.
-
-
-        :param social_accounts: The social_accounts of this UserCreateInput.  # noqa: E501
-        :type social_accounts: object
-        """
-
-        self._social_accounts = social_accounts
-
-    @property
-    def two_factor_auth(self):
-        """Gets the two_factor_auth of this UserCreateInput.  # noqa: E501
-
-
-        :return: The two_factor_auth of this UserCreateInput.  # noqa: E501
-        :rtype: str
-        """
-        return self._two_factor_auth
-
-    @two_factor_auth.setter
-    def two_factor_auth(self, two_factor_auth):
-        """Sets the two_factor_auth of this UserCreateInput.
-
-
-        :param two_factor_auth: The two_factor_auth of this UserCreateInput.  # noqa: E501
-        :type two_factor_auth: str
-        """
-
-        self._two_factor_auth = two_factor_auth
-
-    @property
-    def avatar(self):
-        """Gets the avatar of this UserCreateInput.  # noqa: E501
-
-
-        :return: The avatar of this UserCreateInput.  # noqa: E501
-        :rtype: file
-        """
-        return self._avatar
-
-    @avatar.setter
-    def avatar(self, avatar):
-        """Sets the avatar of this UserCreateInput.
-
-
-        :param avatar: The avatar of this UserCreateInput.  # noqa: E501
-        :type avatar: file
-        """
-
-        self._avatar = avatar
-
-    @property
-    def emails(self):
-        """Gets the emails of this UserCreateInput.  # noqa: E501
-
-
-        :return: The emails of this UserCreateInput.  # noqa: E501
-        :rtype: list[EmailInput]
-        """
-        return self._emails
-
-    @emails.setter
-    def emails(self, emails):
-        """Sets the emails of this UserCreateInput.
-
-
-        :param emails: The emails of this UserCreateInput.  # noqa: E501
-        :type emails: list[EmailInput]
-        """
-        if self.local_vars_configuration.client_side_validation and emails is None:  # noqa: E501
-            raise ValueError("Invalid value for `emails`, must not be `None`")  # noqa: E501
-
-        self._emails = emails
 
     @property
     def locked(self):
@@ -450,25 +334,193 @@ class UserCreateInput(object):
         self._locked = locked
 
     @property
-    def customdata(self):
-        """Gets the customdata of this UserCreateInput.  # noqa: E501
+    def password(self):
+        """Gets the password of this UserCreateInput.  # noqa: E501
 
 
-        :return: The customdata of this UserCreateInput.  # noqa: E501
+        :return: The password of this UserCreateInput.  # noqa: E501
+        :rtype: str
+        """
+        return self._password
+
+    @password.setter
+    def password(self, password):
+        """Sets the password of this UserCreateInput.
+
+
+        :param password: The password of this UserCreateInput.  # noqa: E501
+        :type password: str
+        """
+
+        self._password = password
+
+    @property
+    def phone_number(self):
+        """Gets the phone_number of this UserCreateInput.  # noqa: E501
+
+
+        :return: The phone_number of this UserCreateInput.  # noqa: E501
+        :rtype: str
+        """
+        return self._phone_number
+
+    @phone_number.setter
+    def phone_number(self, phone_number):
+        """Sets the phone_number of this UserCreateInput.
+
+
+        :param phone_number: The phone_number of this UserCreateInput.  # noqa: E501
+        :type phone_number: str
+        """
+
+        self._phone_number = phone_number
+
+    @property
+    def social_accounts(self):
+        """Gets the social_accounts of this UserCreateInput.  # noqa: E501
+
+
+        :return: The social_accounts of this UserCreateInput.  # noqa: E501
         :rtype: object
         """
-        return self._customdata
+        return self._social_accounts
 
-    @customdata.setter
-    def customdata(self, customdata):
-        """Sets the customdata of this UserCreateInput.
+    @social_accounts.setter
+    def social_accounts(self, social_accounts):
+        """Sets the social_accounts of this UserCreateInput.
 
 
-        :param customdata: The customdata of this UserCreateInput.  # noqa: E501
-        :type customdata: object
+        :param social_accounts: The social_accounts of this UserCreateInput.  # noqa: E501
+        :type social_accounts: object
         """
 
-        self._customdata = customdata
+        self._social_accounts = social_accounts
+
+    @property
+    def timezone(self):
+        """Gets the timezone of this UserCreateInput.  # noqa: E501
+
+
+        :return: The timezone of this UserCreateInput.  # noqa: E501
+        :rtype: str
+        """
+        return self._timezone
+
+    @timezone.setter
+    def timezone(self, timezone):
+        """Sets the timezone of this UserCreateInput.
+
+
+        :param timezone: The timezone of this UserCreateInput.  # noqa: E501
+        :type timezone: str
+        """
+
+        self._timezone = timezone
+
+    @property
+    def title(self):
+        """Gets the title of this UserCreateInput.  # noqa: E501
+
+
+        :return: The title of this UserCreateInput.  # noqa: E501
+        :rtype: str
+        """
+        return self._title
+
+    @title.setter
+    def title(self, title):
+        """Sets the title of this UserCreateInput.
+
+
+        :param title: The title of this UserCreateInput.  # noqa: E501
+        :type title: str
+        """
+
+        self._title = title
+
+    @property
+    def two_factor_auth(self):
+        """Gets the two_factor_auth of this UserCreateInput.  # noqa: E501
+
+
+        :return: The two_factor_auth of this UserCreateInput.  # noqa: E501
+        :rtype: str
+        """
+        return self._two_factor_auth
+
+    @two_factor_auth.setter
+    def two_factor_auth(self, two_factor_auth):
+        """Sets the two_factor_auth of this UserCreateInput.
+
+
+        :param two_factor_auth: The two_factor_auth of this UserCreateInput.  # noqa: E501
+        :type two_factor_auth: str
+        """
+
+        self._two_factor_auth = two_factor_auth
+
+    @property
+    def verified_at(self):
+        """Gets the verified_at of this UserCreateInput.  # noqa: E501
+
+
+        :return: The verified_at of this UserCreateInput.  # noqa: E501
+        :rtype: datetime
+        """
+        return self._verified_at
+
+    @verified_at.setter
+    def verified_at(self, verified_at):
+        """Sets the verified_at of this UserCreateInput.
+
+
+        :param verified_at: The verified_at of this UserCreateInput.  # noqa: E501
+        :type verified_at: datetime
+        """
+
+        self._verified_at = verified_at
+
+    @property
+    def invitation_id(self):
+        """Gets the invitation_id of this UserCreateInput.  # noqa: E501
+
+
+        :return: The invitation_id of this UserCreateInput.  # noqa: E501
+        :rtype: str
+        """
+        return self._invitation_id
+
+    @invitation_id.setter
+    def invitation_id(self, invitation_id):
+        """Sets the invitation_id of this UserCreateInput.
+
+
+        :param invitation_id: The invitation_id of this UserCreateInput.  # noqa: E501
+        :type invitation_id: str
+        """
+
+        self._invitation_id = invitation_id
+
+    @property
+    def nonce(self):
+        """Gets the nonce of this UserCreateInput.  # noqa: E501
+
+
+        :return: The nonce of this UserCreateInput.  # noqa: E501
+        :rtype: str
+        """
+        return self._nonce
+
+    @nonce.setter
+    def nonce(self, nonce):
+        """Sets the nonce of this UserCreateInput.
+
+
+        :param nonce: The nonce of this UserCreateInput.  # noqa: E501
+        :type nonce: str
+        """
+
+        self._nonce = nonce
 
     def to_dict(self, serialize=False):
         """Returns the model properties as a dict"""

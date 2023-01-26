@@ -3,7 +3,7 @@
 """
     Metal API
 
-    This is the API for Equinix Metal. The API allows you to programmatically interact with all of your Equinix Metal resources, including devices, networks, addresses, organizations, projects, and your user account.  The official API docs are hosted at <https://metal.equinix.com/developers/api>.   # noqa: E501
+    # Introduction Equinix Metal provides a RESTful HTTP API which can be reached at <https://api.equinix.com/metal/v1>. This document describes the API and how to use it.  The API allows you to programmatically interact with all of your Equinix Metal resources, including devices, networks, addresses, organizations, projects, and your user account. Every feature of the Equinix Metal web interface is accessible through the API.  The API docs are generated from the Equinix Metal OpenAPI specification and are officially hosted at <https://metal.equinix.com/developers/api>.  # Common Parameters  The Equinix Metal API uses a few methods to minimize network traffic and improve throughput. These parameters are not used in all API calls, but are used often enough to warrant their own section. Look for these parameters in the documentation for the API calls that support them.  ## Pagination  Pagination is used to limit the number of results returned in a single request. The API will return a maximum of 100 results per page. To retrieve additional results, you can use the `page` and `per_page` query parameters.  The `page` parameter is used to specify the page number. The first page is `1`. The `per_page` parameter is used to specify the number of results per page. The maximum number of results differs by resource type.  ## Sorting  Where offered, the API allows you to sort results by a specific field. To sort results use the `sort_by` query parameter with the root level field name as the value. The `sort_direction` parameter is used to specify the sort direction, either either `asc` (ascending) or `desc` (descending).  ## Filtering  Filtering is used to limit the results returned in a single request. The API supports filtering by certain fields in the response. To filter results, you can use the field as a query parameter.  For example, to filter the IP list to only return public IPv4 addresses, you can filter by the `type` field, as in the following request:  ```sh curl -H 'X-Auth-Token: my_authentication_token' \\   https://api.equinix.com/metal/v1/projects/id/ips?type=public_ipv4 ```  Only IP addresses with the `type` field set to `public_ipv4` will be returned.  ## Searching  Searching is used to find matching resources using multiple field comparissons. The API supports searching in resources that define this behavior. The fields available for search differ by resource, as does the search strategy.  To search resources you can use the `search` query parameter.  ## Include and Exclude  For resources that contain references to other resources, sucha as a Device that refers to the Project it resides in, the Equinix Metal API will returns `href` values (API links) to the associated resource.  ```json {   ...   \"project\": {     \"href\": \"/metal/v1/projects/f3f131c8-f302-49ef-8c44-9405022dc6dd\"   } } ```  If you're going need the project details, you can avoid a second API request.  Specify the contained `href` resources and collections that you'd like to have included in the response using the `include` query parameter.  For example:  ```sh curl -H 'X-Auth-Token: my_authentication_token' \\   https://api.equinix.com/metal/v1/user?include=projects ```  The `include` parameter is generally accepted in `GET`, `POST`, `PUT`, and `PATCH` requests where `href` resources are presented.  To have multiple resources include, use a comma-separated list (e.g. `?include=emails,projects,memberships`).  ```sh curl -H 'X-Auth-Token: my_authentication_token' \\   https://api.equinix.com/metal/v1/user?include=emails,projects,memberships ```  You may also include nested associations up to three levels deep using dot notation (`?include=memberships.projects`):  ```sh curl -H 'X-Auth-Token: my_authentication_token' \\   https://api.equinix.com/metal/v1/user?include=memberships.projects ```  To exclude resources, and optimize response delivery, use the `exclude` query parameter. The `exclude` parameter is generally accepted in `GET`, `POST`, `PUT`, and `PATCH` requests for fields with nested object responses. When excluded, these fields will be replaced with an object that contains only an `href` field.   # noqa: E501
 
     The version of the OpenAPI document: 1.0.0
     Contact: support@equinixmetal.com
@@ -37,158 +37,74 @@ class SpotMarketRequest(object):
                             and the value is json key in definition.
     """
     openapi_types = {
-        'id': 'str',
-        'devices_min': 'int',
-        'devices_max': 'int',
-        'max_bid_price': 'float',
         'created_at': 'datetime',
+        'devices_max': 'int',
+        'devices_min': 'int',
         'end_at': 'datetime',
-        'href': 'str',
         'facilities': 'Href',
+        'href': 'str',
+        'id': 'str',
+        'instances': 'Href',
+        'max_bid_price': 'float',
         'metro': 'SpotMarketRequestMetro',
-        'project': 'Href',
-        'instances': 'Href'
+        'project': 'Href'
     }
 
     attribute_map = {
-        'id': 'id',
-        'devices_min': 'devices_min',
-        'devices_max': 'devices_max',
-        'max_bid_price': 'max_bid_price',
         'created_at': 'created_at',
+        'devices_max': 'devices_max',
+        'devices_min': 'devices_min',
         'end_at': 'end_at',
-        'href': 'href',
         'facilities': 'facilities',
+        'href': 'href',
+        'id': 'id',
+        'instances': 'instances',
+        'max_bid_price': 'max_bid_price',
         'metro': 'metro',
-        'project': 'project',
-        'instances': 'instances'
+        'project': 'project'
     }
 
-    def __init__(self, id=None, devices_min=None, devices_max=None, max_bid_price=None, created_at=None, end_at=None, href=None, facilities=None, metro=None, project=None, instances=None, local_vars_configuration=None):  # noqa: E501
+    def __init__(self, created_at=None, devices_max=None, devices_min=None, end_at=None, facilities=None, href=None, id=None, instances=None, max_bid_price=None, metro=None, project=None, local_vars_configuration=None):  # noqa: E501
         """SpotMarketRequest - a model defined in OpenAPI"""  # noqa: E501
         if local_vars_configuration is None:
             local_vars_configuration = Configuration.get_default_copy()
         self.local_vars_configuration = local_vars_configuration
 
-        self._id = None
-        self._devices_min = None
-        self._devices_max = None
-        self._max_bid_price = None
         self._created_at = None
+        self._devices_max = None
+        self._devices_min = None
         self._end_at = None
-        self._href = None
         self._facilities = None
+        self._href = None
+        self._id = None
+        self._instances = None
+        self._max_bid_price = None
         self._metro = None
         self._project = None
-        self._instances = None
         self.discriminator = None
 
-        if id is not None:
-            self.id = id
-        if devices_min is not None:
-            self.devices_min = devices_min
-        if devices_max is not None:
-            self.devices_max = devices_max
-        if max_bid_price is not None:
-            self.max_bid_price = max_bid_price
         if created_at is not None:
             self.created_at = created_at
+        if devices_max is not None:
+            self.devices_max = devices_max
+        if devices_min is not None:
+            self.devices_min = devices_min
         if end_at is not None:
             self.end_at = end_at
-        if href is not None:
-            self.href = href
         if facilities is not None:
             self.facilities = facilities
+        if href is not None:
+            self.href = href
+        if id is not None:
+            self.id = id
+        if instances is not None:
+            self.instances = instances
+        if max_bid_price is not None:
+            self.max_bid_price = max_bid_price
         if metro is not None:
             self.metro = metro
         if project is not None:
             self.project = project
-        if instances is not None:
-            self.instances = instances
-
-    @property
-    def id(self):
-        """Gets the id of this SpotMarketRequest.  # noqa: E501
-
-
-        :return: The id of this SpotMarketRequest.  # noqa: E501
-        :rtype: str
-        """
-        return self._id
-
-    @id.setter
-    def id(self, id):
-        """Sets the id of this SpotMarketRequest.
-
-
-        :param id: The id of this SpotMarketRequest.  # noqa: E501
-        :type id: str
-        """
-
-        self._id = id
-
-    @property
-    def devices_min(self):
-        """Gets the devices_min of this SpotMarketRequest.  # noqa: E501
-
-
-        :return: The devices_min of this SpotMarketRequest.  # noqa: E501
-        :rtype: int
-        """
-        return self._devices_min
-
-    @devices_min.setter
-    def devices_min(self, devices_min):
-        """Sets the devices_min of this SpotMarketRequest.
-
-
-        :param devices_min: The devices_min of this SpotMarketRequest.  # noqa: E501
-        :type devices_min: int
-        """
-
-        self._devices_min = devices_min
-
-    @property
-    def devices_max(self):
-        """Gets the devices_max of this SpotMarketRequest.  # noqa: E501
-
-
-        :return: The devices_max of this SpotMarketRequest.  # noqa: E501
-        :rtype: int
-        """
-        return self._devices_max
-
-    @devices_max.setter
-    def devices_max(self, devices_max):
-        """Sets the devices_max of this SpotMarketRequest.
-
-
-        :param devices_max: The devices_max of this SpotMarketRequest.  # noqa: E501
-        :type devices_max: int
-        """
-
-        self._devices_max = devices_max
-
-    @property
-    def max_bid_price(self):
-        """Gets the max_bid_price of this SpotMarketRequest.  # noqa: E501
-
-
-        :return: The max_bid_price of this SpotMarketRequest.  # noqa: E501
-        :rtype: float
-        """
-        return self._max_bid_price
-
-    @max_bid_price.setter
-    def max_bid_price(self, max_bid_price):
-        """Sets the max_bid_price of this SpotMarketRequest.
-
-
-        :param max_bid_price: The max_bid_price of this SpotMarketRequest.  # noqa: E501
-        :type max_bid_price: float
-        """
-
-        self._max_bid_price = max_bid_price
 
     @property
     def created_at(self):
@@ -212,6 +128,48 @@ class SpotMarketRequest(object):
         self._created_at = created_at
 
     @property
+    def devices_max(self):
+        """Gets the devices_max of this SpotMarketRequest.  # noqa: E501
+
+
+        :return: The devices_max of this SpotMarketRequest.  # noqa: E501
+        :rtype: int
+        """
+        return self._devices_max
+
+    @devices_max.setter
+    def devices_max(self, devices_max):
+        """Sets the devices_max of this SpotMarketRequest.
+
+
+        :param devices_max: The devices_max of this SpotMarketRequest.  # noqa: E501
+        :type devices_max: int
+        """
+
+        self._devices_max = devices_max
+
+    @property
+    def devices_min(self):
+        """Gets the devices_min of this SpotMarketRequest.  # noqa: E501
+
+
+        :return: The devices_min of this SpotMarketRequest.  # noqa: E501
+        :rtype: int
+        """
+        return self._devices_min
+
+    @devices_min.setter
+    def devices_min(self, devices_min):
+        """Sets the devices_min of this SpotMarketRequest.
+
+
+        :param devices_min: The devices_min of this SpotMarketRequest.  # noqa: E501
+        :type devices_min: int
+        """
+
+        self._devices_min = devices_min
+
+    @property
     def end_at(self):
         """Gets the end_at of this SpotMarketRequest.  # noqa: E501
 
@@ -231,6 +189,27 @@ class SpotMarketRequest(object):
         """
 
         self._end_at = end_at
+
+    @property
+    def facilities(self):
+        """Gets the facilities of this SpotMarketRequest.  # noqa: E501
+
+
+        :return: The facilities of this SpotMarketRequest.  # noqa: E501
+        :rtype: Href
+        """
+        return self._facilities
+
+    @facilities.setter
+    def facilities(self, facilities):
+        """Sets the facilities of this SpotMarketRequest.
+
+
+        :param facilities: The facilities of this SpotMarketRequest.  # noqa: E501
+        :type facilities: Href
+        """
+
+        self._facilities = facilities
 
     @property
     def href(self):
@@ -254,25 +233,67 @@ class SpotMarketRequest(object):
         self._href = href
 
     @property
-    def facilities(self):
-        """Gets the facilities of this SpotMarketRequest.  # noqa: E501
+    def id(self):
+        """Gets the id of this SpotMarketRequest.  # noqa: E501
 
 
-        :return: The facilities of this SpotMarketRequest.  # noqa: E501
+        :return: The id of this SpotMarketRequest.  # noqa: E501
+        :rtype: str
+        """
+        return self._id
+
+    @id.setter
+    def id(self, id):
+        """Sets the id of this SpotMarketRequest.
+
+
+        :param id: The id of this SpotMarketRequest.  # noqa: E501
+        :type id: str
+        """
+
+        self._id = id
+
+    @property
+    def instances(self):
+        """Gets the instances of this SpotMarketRequest.  # noqa: E501
+
+
+        :return: The instances of this SpotMarketRequest.  # noqa: E501
         :rtype: Href
         """
-        return self._facilities
+        return self._instances
 
-    @facilities.setter
-    def facilities(self, facilities):
-        """Sets the facilities of this SpotMarketRequest.
+    @instances.setter
+    def instances(self, instances):
+        """Sets the instances of this SpotMarketRequest.
 
 
-        :param facilities: The facilities of this SpotMarketRequest.  # noqa: E501
-        :type facilities: Href
+        :param instances: The instances of this SpotMarketRequest.  # noqa: E501
+        :type instances: Href
         """
 
-        self._facilities = facilities
+        self._instances = instances
+
+    @property
+    def max_bid_price(self):
+        """Gets the max_bid_price of this SpotMarketRequest.  # noqa: E501
+
+
+        :return: The max_bid_price of this SpotMarketRequest.  # noqa: E501
+        :rtype: float
+        """
+        return self._max_bid_price
+
+    @max_bid_price.setter
+    def max_bid_price(self, max_bid_price):
+        """Sets the max_bid_price of this SpotMarketRequest.
+
+
+        :param max_bid_price: The max_bid_price of this SpotMarketRequest.  # noqa: E501
+        :type max_bid_price: float
+        """
+
+        self._max_bid_price = max_bid_price
 
     @property
     def metro(self):
@@ -315,27 +336,6 @@ class SpotMarketRequest(object):
         """
 
         self._project = project
-
-    @property
-    def instances(self):
-        """Gets the instances of this SpotMarketRequest.  # noqa: E501
-
-
-        :return: The instances of this SpotMarketRequest.  # noqa: E501
-        :rtype: Href
-        """
-        return self._instances
-
-    @instances.setter
-    def instances(self, instances):
-        """Sets the instances of this SpotMarketRequest.
-
-
-        :param instances: The instances of this SpotMarketRequest.  # noqa: E501
-        :type instances: Href
-        """
-
-        self._instances = instances
 
     def to_dict(self, serialize=False):
         """Returns the model properties as a dict"""

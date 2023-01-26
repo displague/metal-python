@@ -99,11 +99,11 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **assign_port**
-> Port assign_port(id, vnid)
+> Port assign_port(id, port_assign_input)
 
 Assign a port to virtual network
 
-Assign a port for a hardware to virtual network.
+Assign a hardware port to a virtual network.
 
 ### Example
 
@@ -136,11 +136,11 @@ with metal.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = metal.PortsApi(api_client)
     id = 'id_example' # str | Port UUID
-vnid = metal.PortAssignInput() # PortAssignInput | Virtual Network ID. May be the UUID of the Virtual Network record, or the VLAN value itself (ex: '1001').
+port_assign_input = metal.PortAssignInput() # PortAssignInput | Virtual Network ID. May be the UUID of the Virtual Network record, or the VLAN value itself (ex: '1001').
 
     try:
         # Assign a port to virtual network
-        api_response = api_instance.assign_port(id, vnid)
+        api_response = api_instance.assign_port(id, port_assign_input)
         pprint(api_response)
     except ApiException as e:
         print("Exception when calling PortsApi->assign_port: %s\n" % e)
@@ -151,7 +151,7 @@ vnid = metal.PortAssignInput() # PortAssignInput | Virtual Network ID. May be th
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **str**| Port UUID | 
- **vnid** | [**PortAssignInput**](PortAssignInput.md)| Virtual Network ID. May be the UUID of the Virtual Network record, or the VLAN value itself (ex: &#39;1001&#39;). | 
+ **port_assign_input** | [**PortAssignInput**](PortAssignInput.md)| Virtual Network ID. May be the UUID of the Virtual Network record, or the VLAN value itself (ex: &#39;1001&#39;). | 
 
 ### Return type
 
@@ -257,7 +257,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **convert_layer2**
-> Port convert_layer2(id, vnid=vnid)
+> Port convert_layer2(id, port_assign_input)
 
 Convert to Layer 2
 
@@ -294,11 +294,11 @@ with metal.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = metal.PortsApi(api_client)
     id = 'id_example' # str | Port UUID
-vnid = metal.PortAssignInput() # PortAssignInput | Virtual Network ID (optional)
+port_assign_input = metal.PortAssignInput() # PortAssignInput | Virtual Network ID. May be the UUID of the Virtual Network record, or the VLAN value itself (ex: '1001').
 
     try:
         # Convert to Layer 2
-        api_response = api_instance.convert_layer2(id, vnid=vnid)
+        api_response = api_instance.convert_layer2(id, port_assign_input)
         pprint(api_response)
     except ApiException as e:
         print("Exception when calling PortsApi->convert_layer2: %s\n" % e)
@@ -309,7 +309,7 @@ vnid = metal.PortAssignInput() # PortAssignInput | Virtual Network ID (optional)
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **str**| Port UUID | 
- **vnid** | [**PortAssignInput**](PortAssignInput.md)| Virtual Network ID | [optional] 
+ **port_assign_input** | [**PortAssignInput**](PortAssignInput.md)| Virtual Network ID. May be the UUID of the Virtual Network record, or the VLAN value itself (ex: &#39;1001&#39;). | 
 
 ### Return type
 
@@ -336,7 +336,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **convert_layer3**
-> Port convert_layer3(id, request_ips=request_ips)
+> Port convert_layer3(id, port_convert_layer3_input=port_convert_layer3_input)
 
 Convert to Layer 3
 
@@ -373,11 +373,11 @@ with metal.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = metal.PortsApi(api_client)
     id = 'id_example' # str | Port UUID
-request_ips = metal.PortConvertLayer3Input() # PortConvertLayer3Input | IPs to request (optional)
+port_convert_layer3_input = metal.PortConvertLayer3Input() # PortConvertLayer3Input | IPs to request (optional)
 
     try:
         # Convert to Layer 3
-        api_response = api_instance.convert_layer3(id, request_ips=request_ips)
+        api_response = api_instance.convert_layer3(id, port_convert_layer3_input=port_convert_layer3_input)
         pprint(api_response)
     except ApiException as e:
         print("Exception when calling PortsApi->convert_layer3: %s\n" % e)
@@ -388,7 +388,7 @@ request_ips = metal.PortConvertLayer3Input() # PortConvertLayer3Input | IPs to r
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **str**| Port UUID | 
- **request_ips** | [**PortConvertLayer3Input**](PortConvertLayer3Input.md)| IPs to request | [optional] 
+ **port_convert_layer3_input** | [**PortConvertLayer3Input**](PortConvertLayer3Input.md)| IPs to request | [optional] 
 
 ### Return type
 
@@ -415,7 +415,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **create_port_vlan_assignment_batch**
-> PortVlanAssignmentBatch create_port_vlan_assignment_batch(id, vlan_assignments)
+> PortVlanAssignmentBatch create_port_vlan_assignment_batch(id, port_vlan_assignment_batch_create_input)
 
 Create a new Port-VLAN Assignment management batch
 
@@ -452,11 +452,11 @@ with metal.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = metal.PortsApi(api_client)
     id = 'id_example' # str | Port UUID
-vlan_assignments = metal.PortVlanAssignmentBatchCreateInput() # PortVlanAssignmentBatchCreateInput | VLAN Assignment batch details
+port_vlan_assignment_batch_create_input = metal.PortVlanAssignmentBatchCreateInput() # PortVlanAssignmentBatchCreateInput | VLAN Assignment batch details
 
     try:
         # Create a new Port-VLAN Assignment management batch
-        api_response = api_instance.create_port_vlan_assignment_batch(id, vlan_assignments)
+        api_response = api_instance.create_port_vlan_assignment_batch(id, port_vlan_assignment_batch_create_input)
         pprint(api_response)
     except ApiException as e:
         print("Exception when calling PortsApi->create_port_vlan_assignment_batch: %s\n" % e)
@@ -467,7 +467,7 @@ vlan_assignments = metal.PortVlanAssignmentBatchCreateInput() # PortVlanAssignme
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **str**| Port UUID | 
- **vlan_assignments** | [**PortVlanAssignmentBatchCreateInput**](PortVlanAssignmentBatchCreateInput.md)| VLAN Assignment batch details | 
+ **port_vlan_assignment_batch_create_input** | [**PortVlanAssignmentBatchCreateInput**](PortVlanAssignmentBatchCreateInput.md)| VLAN Assignment batch details | 
 
 ### Return type
 
@@ -1044,7 +1044,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **unassign_port**
-> Port unassign_port(id, vnid)
+> Port unassign_port(id, port_assign_input)
 
 Unassign a port
 
@@ -1081,11 +1081,11 @@ with metal.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = metal.PortsApi(api_client)
     id = 'id_example' # str | Port UUID
-vnid = metal.PortAssignInput() # PortAssignInput | Virtual Network ID. May be the UUID of the Virtual Network record, or the VLAN value itself (ex: '1001').
+port_assign_input = metal.PortAssignInput() # PortAssignInput | Virtual Network ID. May be the UUID of the Virtual Network record, or the VLAN value itself (ex: '1001').
 
     try:
         # Unassign a port
-        api_response = api_instance.unassign_port(id, vnid)
+        api_response = api_instance.unassign_port(id, port_assign_input)
         pprint(api_response)
     except ApiException as e:
         print("Exception when calling PortsApi->unassign_port: %s\n" % e)
@@ -1096,7 +1096,7 @@ vnid = metal.PortAssignInput() # PortAssignInput | Virtual Network ID. May be th
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **str**| Port UUID | 
- **vnid** | [**PortAssignInput**](PortAssignInput.md)| Virtual Network ID. May be the UUID of the Virtual Network record, or the VLAN value itself (ex: &#39;1001&#39;). | 
+ **port_assign_input** | [**PortAssignInput**](PortAssignInput.md)| Virtual Network ID. May be the UUID of the Virtual Network record, or the VLAN value itself (ex: &#39;1001&#39;). | 
 
 ### Return type
 

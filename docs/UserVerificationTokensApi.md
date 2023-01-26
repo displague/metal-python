@@ -9,7 +9,7 @@ Method | HTTP request | Description
 
 
 # **consume_verification_request**
-> consume_verification_request(token)
+> consume_verification_request(verify_email)
 
 Verify a user using an email verification token
 
@@ -45,11 +45,11 @@ configuration.api_key['x_auth_token'] = 'YOUR_API_KEY'
 with metal.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = metal.UserVerificationTokensApi(api_client)
-    token = 'token_example' # str | User verification token
+    verify_email = metal.VerifyEmail() # VerifyEmail | Email to create
 
     try:
         # Verify a user using an email verification token
-        api_instance.consume_verification_request(token)
+        api_instance.consume_verification_request(verify_email)
     except ApiException as e:
         print("Exception when calling UserVerificationTokensApi->consume_verification_request: %s\n" % e)
 ```
@@ -58,7 +58,7 @@ with metal.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **token** | **str**| User verification token | 
+ **verify_email** | [**VerifyEmail**](VerifyEmail.md)| Email to create | 
 
 ### Return type
 
@@ -70,13 +70,15 @@ void (empty response body)
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
- - **Accept**: Not defined
+ - **Content-Type**: application/json
+ - **Accept**: application/json
 
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | ok |  -  |
+**401** | unauthorized |  -  |
+**422** | unprocessable entity |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 
 # **create_metal_gateway**
-> MetalGateway create_metal_gateway(project_id, metal_gateway, page=page, per_page=per_page)
+> FindMetalGatewayById200Response create_metal_gateway(project_id, create_metal_gateway_request, page=page, per_page=per_page)
 
 Create a metal gateway
 
@@ -48,13 +48,13 @@ with metal.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = metal.MetalGatewaysApi(api_client)
     project_id = 'project_id_example' # str | Project UUID
-metal_gateway = metal.MetalGatewayInput() # MetalGatewayInput | Metal Gateway to create
+create_metal_gateway_request = metal.CreateMetalGatewayRequest() # CreateMetalGatewayRequest | Metal Gateway to create
 page = 1 # int | Page to return (optional) (default to 1)
 per_page = 10 # int | Items returned per page (optional) (default to 10)
 
     try:
         # Create a metal gateway
-        api_response = api_instance.create_metal_gateway(project_id, metal_gateway, page=page, per_page=per_page)
+        api_response = api_instance.create_metal_gateway(project_id, create_metal_gateway_request, page=page, per_page=per_page)
         pprint(api_response)
     except ApiException as e:
         print("Exception when calling MetalGatewaysApi->create_metal_gateway: %s\n" % e)
@@ -65,13 +65,13 @@ per_page = 10 # int | Items returned per page (optional) (default to 10)
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **project_id** | **str**| Project UUID | 
- **metal_gateway** | [**MetalGatewayInput**](MetalGatewayInput.md)| Metal Gateway to create | 
+ **create_metal_gateway_request** | [**CreateMetalGatewayRequest**](CreateMetalGatewayRequest.md)| Metal Gateway to create | 
  **page** | **int**| Page to return | [optional] [default to 1]
  **per_page** | **int**| Items returned per page | [optional] [default to 10]
 
 ### Return type
 
-[**MetalGateway**](MetalGateway.md)
+[**FindMetalGatewayById200Response**](FindMetalGatewayById200Response.md)
 
 ### Authorization
 
@@ -93,7 +93,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **delete_metal_gateway**
-> delete_metal_gateway(id)
+> FindMetalGatewayById200Response delete_metal_gateway(id, include=include, exclude=exclude)
 
 Deletes the metal gateway
 
@@ -130,10 +130,13 @@ with metal.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = metal.MetalGatewaysApi(api_client)
     id = 'id_example' # str | Metal Gateway UUID
+include = ['include_example'] # list[str] | Nested attributes to include. Included objects will return their full attributes. Attribute names can be dotted (up to 3 levels) to included deeply nested objects. (optional)
+exclude = ['exclude_example'] # list[str] | Nested attributes to exclude. Excluded objects will return only the href attribute. Attribute names can be dotted (up to 3 levels) to exclude deeply nested objects. (optional)
 
     try:
         # Deletes the metal gateway
-        api_instance.delete_metal_gateway(id)
+        api_response = api_instance.delete_metal_gateway(id, include=include, exclude=exclude)
+        pprint(api_response)
     except ApiException as e:
         print("Exception when calling MetalGatewaysApi->delete_metal_gateway: %s\n" % e)
 ```
@@ -143,10 +146,12 @@ with metal.ApiClient(configuration) as api_client:
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **str**| Metal Gateway UUID | 
+ **include** | [**list[str]**](str.md)| Nested attributes to include. Included objects will return their full attributes. Attribute names can be dotted (up to 3 levels) to included deeply nested objects. | [optional] 
+ **exclude** | [**list[str]**](str.md)| Nested attributes to exclude. Excluded objects will return only the href attribute. Attribute names can be dotted (up to 3 levels) to exclude deeply nested objects. | [optional] 
 
 ### Return type
 
-void (empty response body)
+[**FindMetalGatewayById200Response**](FindMetalGatewayById200Response.md)
 
 ### Authorization
 
@@ -160,14 +165,14 @@ void (empty response body)
 ### HTTP response details
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
-**204** | no content |  -  |
+**202** | accepted |  -  |
 **401** | unauthorized |  -  |
 **404** | not found |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **find_metal_gateway_by_id**
-> MetalGateway find_metal_gateway_by_id(id)
+> FindMetalGatewayById200Response find_metal_gateway_by_id(id)
 
 Returns the metal gateway
 
@@ -221,7 +226,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**MetalGateway**](MetalGateway.md)
+[**FindMetalGatewayById200Response**](FindMetalGatewayById200Response.md)
 
 ### Authorization
 

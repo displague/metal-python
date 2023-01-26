@@ -3,7 +3,7 @@
 """
     Metal API
 
-    This is the API for Equinix Metal. The API allows you to programmatically interact with all of your Equinix Metal resources, including devices, networks, addresses, organizations, projects, and your user account.  The official API docs are hosted at <https://metal.equinix.com/developers/api>.   # noqa: E501
+    # Introduction Equinix Metal provides a RESTful HTTP API which can be reached at <https://api.equinix.com/metal/v1>. This document describes the API and how to use it.  The API allows you to programmatically interact with all of your Equinix Metal resources, including devices, networks, addresses, organizations, projects, and your user account. Every feature of the Equinix Metal web interface is accessible through the API.  The API docs are generated from the Equinix Metal OpenAPI specification and are officially hosted at <https://metal.equinix.com/developers/api>.  # Common Parameters  The Equinix Metal API uses a few methods to minimize network traffic and improve throughput. These parameters are not used in all API calls, but are used often enough to warrant their own section. Look for these parameters in the documentation for the API calls that support them.  ## Pagination  Pagination is used to limit the number of results returned in a single request. The API will return a maximum of 100 results per page. To retrieve additional results, you can use the `page` and `per_page` query parameters.  The `page` parameter is used to specify the page number. The first page is `1`. The `per_page` parameter is used to specify the number of results per page. The maximum number of results differs by resource type.  ## Sorting  Where offered, the API allows you to sort results by a specific field. To sort results use the `sort_by` query parameter with the root level field name as the value. The `sort_direction` parameter is used to specify the sort direction, either either `asc` (ascending) or `desc` (descending).  ## Filtering  Filtering is used to limit the results returned in a single request. The API supports filtering by certain fields in the response. To filter results, you can use the field as a query parameter.  For example, to filter the IP list to only return public IPv4 addresses, you can filter by the `type` field, as in the following request:  ```sh curl -H 'X-Auth-Token: my_authentication_token' \\   https://api.equinix.com/metal/v1/projects/id/ips?type=public_ipv4 ```  Only IP addresses with the `type` field set to `public_ipv4` will be returned.  ## Searching  Searching is used to find matching resources using multiple field comparissons. The API supports searching in resources that define this behavior. The fields available for search differ by resource, as does the search strategy.  To search resources you can use the `search` query parameter.  ## Include and Exclude  For resources that contain references to other resources, sucha as a Device that refers to the Project it resides in, the Equinix Metal API will returns `href` values (API links) to the associated resource.  ```json {   ...   \"project\": {     \"href\": \"/metal/v1/projects/f3f131c8-f302-49ef-8c44-9405022dc6dd\"   } } ```  If you're going need the project details, you can avoid a second API request.  Specify the contained `href` resources and collections that you'd like to have included in the response using the `include` query parameter.  For example:  ```sh curl -H 'X-Auth-Token: my_authentication_token' \\   https://api.equinix.com/metal/v1/user?include=projects ```  The `include` parameter is generally accepted in `GET`, `POST`, `PUT`, and `PATCH` requests where `href` resources are presented.  To have multiple resources include, use a comma-separated list (e.g. `?include=emails,projects,memberships`).  ```sh curl -H 'X-Auth-Token: my_authentication_token' \\   https://api.equinix.com/metal/v1/user?include=emails,projects,memberships ```  You may also include nested associations up to three levels deep using dot notation (`?include=memberships.projects`):  ```sh curl -H 'X-Auth-Token: my_authentication_token' \\   https://api.equinix.com/metal/v1/user?include=memberships.projects ```  To exclude resources, and optimize response delivery, use the `exclude` query parameter. The `exclude` parameter is generally accepted in `GET`, `POST`, `PUT`, and `PATCH` requests for fields with nested object responses. When excluded, these fields will be replaced with an object that contains only an `href` field.   # noqa: E501
 
     The version of the OpenAPI document: 1.0.0
     Contact: support@equinixmetal.com
@@ -37,20 +37,20 @@ class DevicesApi(object):
             api_client = ApiClient()
         self.api_client = api_client
 
-    def create_bgp_session(self, id, bgp_session, **kwargs):  # noqa: E501
+    def create_bgp_session(self, id, bgp_session_input, **kwargs):  # noqa: E501
         """Create a BGP session  # noqa: E501
 
         Creates a BGP session.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.create_bgp_session(id, bgp_session, async_req=True)
+        >>> thread = api.create_bgp_session(id, bgp_session_input, async_req=True)
         >>> result = thread.get()
 
         :param id: Device UUID (required)
         :type id: str
-        :param bgp_session: BGP session to create (required)
-        :type bgp_session: BGPSessionInput
+        :param bgp_session_input: BGP session to create (required)
+        :type bgp_session_input: BGPSessionInput
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _preload_content: if False, the urllib3.HTTPResponse object will
@@ -67,22 +67,22 @@ class DevicesApi(object):
         :rtype: BgpSession
         """
         kwargs['_return_http_data_only'] = True
-        return self.create_bgp_session_with_http_info(id, bgp_session, **kwargs)  # noqa: E501
+        return self.create_bgp_session_with_http_info(id, bgp_session_input, **kwargs)  # noqa: E501
 
-    def create_bgp_session_with_http_info(self, id, bgp_session, **kwargs):  # noqa: E501
+    def create_bgp_session_with_http_info(self, id, bgp_session_input, **kwargs):  # noqa: E501
         """Create a BGP session  # noqa: E501
 
         Creates a BGP session.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.create_bgp_session_with_http_info(id, bgp_session, async_req=True)
+        >>> thread = api.create_bgp_session_with_http_info(id, bgp_session_input, async_req=True)
         >>> result = thread.get()
 
         :param id: Device UUID (required)
         :type id: str
-        :param bgp_session: BGP session to create (required)
-        :type bgp_session: BGPSessionInput
+        :param bgp_session_input: BGP session to create (required)
+        :type bgp_session_input: BGPSessionInput
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _return_http_data_only: response data without head status code
@@ -111,7 +111,7 @@ class DevicesApi(object):
 
         all_params = [
             'id',
-            'bgp_session'
+            'bgp_session_input'
         ]
         all_params.extend(
             [
@@ -136,9 +136,9 @@ class DevicesApi(object):
         # verify the required parameter 'id' is set
         if self.api_client.client_side_validation and local_var_params.get('id') is None:  # noqa: E501
             raise ApiValueError("Missing the required parameter `id` when calling `create_bgp_session`")  # noqa: E501
-        # verify the required parameter 'bgp_session' is set
-        if self.api_client.client_side_validation and local_var_params.get('bgp_session') is None:  # noqa: E501
-            raise ApiValueError("Missing the required parameter `bgp_session` when calling `create_bgp_session`")  # noqa: E501
+        # verify the required parameter 'bgp_session_input' is set
+        if self.api_client.client_side_validation and local_var_params.get('bgp_session_input') is None:  # noqa: E501
+            raise ApiValueError("Missing the required parameter `bgp_session_input` when calling `create_bgp_session`")  # noqa: E501
 
         collection_formats = {}
 
@@ -154,8 +154,8 @@ class DevicesApi(object):
         local_var_files = {}
 
         body_params = None
-        if 'bgp_session' in local_var_params:
-            body_params = local_var_params['bgp_session']
+        if 'bgp_session_input' in local_var_params:
+            body_params = local_var_params['bgp_session_input']
         # HTTP header `Accept`
         header_params['Accept'] = self.api_client.select_header_accept(
             ['application/json'])  # noqa: E501
@@ -195,20 +195,20 @@ class DevicesApi(object):
             collection_formats=collection_formats,
             _request_auth=local_var_params.get('_request_auth'))
 
-    def create_device(self, id, device, **kwargs):  # noqa: E501
+    def create_device(self, id, create_device_request, **kwargs):  # noqa: E501
         """Create a device  # noqa: E501
 
-        Creates a new device and provisions it in the specified location.        Device type-specific options are accepted.  For example, `baremetal` devices accept `operating_system`, `hostname`, and `plan`. These parameters may not be accepted for other device types. The default device type is `baremetal`.  # noqa: E501
+        Creates a new device and provisions it in the specified location.  Device type-specific options are accepted.  For example, `baremetal` devices accept `operating_system`, `hostname`, and `plan`. These parameters may not be accepted for other device types. The default device type is `baremetal`.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.create_device(id, device, async_req=True)
+        >>> thread = api.create_device(id, create_device_request, async_req=True)
         >>> result = thread.get()
 
         :param id: Project UUID (required)
         :type id: str
-        :param device: Device to create (required)
-        :type device: DeviceCreateInput
+        :param create_device_request: Device to create (required)
+        :type create_device_request: CreateDeviceRequest
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _preload_content: if False, the urllib3.HTTPResponse object will
@@ -225,22 +225,22 @@ class DevicesApi(object):
         :rtype: Device
         """
         kwargs['_return_http_data_only'] = True
-        return self.create_device_with_http_info(id, device, **kwargs)  # noqa: E501
+        return self.create_device_with_http_info(id, create_device_request, **kwargs)  # noqa: E501
 
-    def create_device_with_http_info(self, id, device, **kwargs):  # noqa: E501
+    def create_device_with_http_info(self, id, create_device_request, **kwargs):  # noqa: E501
         """Create a device  # noqa: E501
 
-        Creates a new device and provisions it in the specified location.        Device type-specific options are accepted.  For example, `baremetal` devices accept `operating_system`, `hostname`, and `plan`. These parameters may not be accepted for other device types. The default device type is `baremetal`.  # noqa: E501
+        Creates a new device and provisions it in the specified location.  Device type-specific options are accepted.  For example, `baremetal` devices accept `operating_system`, `hostname`, and `plan`. These parameters may not be accepted for other device types. The default device type is `baremetal`.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.create_device_with_http_info(id, device, async_req=True)
+        >>> thread = api.create_device_with_http_info(id, create_device_request, async_req=True)
         >>> result = thread.get()
 
         :param id: Project UUID (required)
         :type id: str
-        :param device: Device to create (required)
-        :type device: DeviceCreateInput
+        :param create_device_request: Device to create (required)
+        :type create_device_request: CreateDeviceRequest
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _return_http_data_only: response data without head status code
@@ -269,7 +269,7 @@ class DevicesApi(object):
 
         all_params = [
             'id',
-            'device'
+            'create_device_request'
         ]
         all_params.extend(
             [
@@ -294,9 +294,9 @@ class DevicesApi(object):
         # verify the required parameter 'id' is set
         if self.api_client.client_side_validation and local_var_params.get('id') is None:  # noqa: E501
             raise ApiValueError("Missing the required parameter `id` when calling `create_device`")  # noqa: E501
-        # verify the required parameter 'device' is set
-        if self.api_client.client_side_validation and local_var_params.get('device') is None:  # noqa: E501
-            raise ApiValueError("Missing the required parameter `device` when calling `create_device`")  # noqa: E501
+        # verify the required parameter 'create_device_request' is set
+        if self.api_client.client_side_validation and local_var_params.get('create_device_request') is None:  # noqa: E501
+            raise ApiValueError("Missing the required parameter `create_device_request` when calling `create_device`")  # noqa: E501
 
         collection_formats = {}
 
@@ -312,8 +312,8 @@ class DevicesApi(object):
         local_var_files = {}
 
         body_params = None
-        if 'device' in local_var_params:
-            body_params = local_var_params['device']
+        if 'create_device_request' in local_var_params:
+            body_params = local_var_params['create_device_request']
         # HTTP header `Accept`
         header_params['Accept'] = self.api_client.select_header_accept(
             ['application/json'])  # noqa: E501
@@ -332,9 +332,9 @@ class DevicesApi(object):
         response_types_map = {
             201: "Device",
             401: "Error",
-            422: "Error",
             403: "Error",
             404: "Error",
+            422: "Error",
         }
 
         return self.api_client.call_api(
@@ -354,179 +354,20 @@ class DevicesApi(object):
             collection_formats=collection_formats,
             _request_auth=local_var_params.get('_request_auth'))
 
-    def create_device_batch(self, id, batch, **kwargs):  # noqa: E501
-        """Create a devices batch  # noqa: E501
-
-        Creates new devices in batch and provisions them in our datacenter.  Type-specific options (such as operating_system for baremetal devices) should be included in the main data structure alongside hostname and plan.  The features attribute allows you to optionally specify what features your server should have.  For example, if you require a server with a TPM chip, you may specify `{ \"features\": { \"tpm\": \"required\" } }` (or `{ \"features\": [\"tpm\"] }` in shorthand).  The request will fail if there are no available servers matching your criteria. Alternatively, if you do not require a certain feature, but would prefer to be assigned a server with that feature if there are any available, you may specify that feature with a preferred value (see the example request below).  The request will not fail if we have no servers with that feature in our inventory.  The facilities attribute specifies in what datacenter you wish to create the device.  You can either specify a single facility `{ \"facility\": \"f1\" }` , or you can instruct to create the device in the best available datacenter `{ \"facility\": \"any\" }`. Additionally it is possible to set a prioritized location selection.  For example `{ \"facility\": [\"f3\", \"f2\", \"any\"] }` will try to assign to the facility f3, if there are no available f2, and so on. If \"any\" is not specified for \"facility\", the request will fail unless it can assign in the selected locations.  With `{ \"facility\": \"any\" }` you have the option to diversify to indicate how many facilities you are willing to be spread across. For this purpose use parameter: `facility_diversity_level = N`.  For example:  `{ \"facilities\": [\"sjc1\", \"ewr1\", \"any\"] ,  \"facility_diversity_level\" = 1, \"quantity\" = 10 }` will assign 10 devices into the same facility, trying first in \"sjc1\", and if there aren’t available, it will try in  \"ewr1\", otherwise any other.  The `ip_addresses` attribute will allow you to specify the addresses you want created with your device.  To maintain backwards compatibility, If the attribute is not sent in the request, it will be treated as if `{ \"ip_addresses\": [{ \"address_family\": 4, \"public\": true }, { \"address_family\": 4, \"public\": false }, { \"address_family\": 6, \"public\": true }] }` was sent.  The private IPv4 address is required and always need to be sent in the array. Not all operating systems support no public IPv4 address, so in those cases you will receive an error message.  For example, to only configure your server with a private IPv4 address, you can send `{ \"ip_addresses\": [{ \"address_family\": 4, \"public\": false }] }`.  Note: when specifying a subnet size larger than a /30, you will need to supply the UUID(s) of existing ip_reservations in your project to assign IPs from.  For example, `{ \"ip_addresses\": [..., {\"address_family\": 4, \"public\": true, \"ip_reservations\": [\"uuid1\", \"uuid2\"]}] }`  To access a server without public IPs, you can use our Out-of-Band console access (SOS) or use another server with public IPs as a proxy.  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-
-        >>> thread = api.create_device_batch(id, batch, async_req=True)
-        >>> result = thread.get()
-
-        :param id: Project UUID (required)
-        :type id: str
-        :param batch: Batches to create (required)
-        :type batch: InstancesBatchCreateInput
-        :param async_req: Whether to execute the request asynchronously.
-        :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: Returns the result object.
-                 If the method is called asynchronously,
-                 returns the request thread.
-        :rtype: BatchesList
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.create_device_batch_with_http_info(id, batch, **kwargs)  # noqa: E501
-
-    def create_device_batch_with_http_info(self, id, batch, **kwargs):  # noqa: E501
-        """Create a devices batch  # noqa: E501
-
-        Creates new devices in batch and provisions them in our datacenter.  Type-specific options (such as operating_system for baremetal devices) should be included in the main data structure alongside hostname and plan.  The features attribute allows you to optionally specify what features your server should have.  For example, if you require a server with a TPM chip, you may specify `{ \"features\": { \"tpm\": \"required\" } }` (or `{ \"features\": [\"tpm\"] }` in shorthand).  The request will fail if there are no available servers matching your criteria. Alternatively, if you do not require a certain feature, but would prefer to be assigned a server with that feature if there are any available, you may specify that feature with a preferred value (see the example request below).  The request will not fail if we have no servers with that feature in our inventory.  The facilities attribute specifies in what datacenter you wish to create the device.  You can either specify a single facility `{ \"facility\": \"f1\" }` , or you can instruct to create the device in the best available datacenter `{ \"facility\": \"any\" }`. Additionally it is possible to set a prioritized location selection.  For example `{ \"facility\": [\"f3\", \"f2\", \"any\"] }` will try to assign to the facility f3, if there are no available f2, and so on. If \"any\" is not specified for \"facility\", the request will fail unless it can assign in the selected locations.  With `{ \"facility\": \"any\" }` you have the option to diversify to indicate how many facilities you are willing to be spread across. For this purpose use parameter: `facility_diversity_level = N`.  For example:  `{ \"facilities\": [\"sjc1\", \"ewr1\", \"any\"] ,  \"facility_diversity_level\" = 1, \"quantity\" = 10 }` will assign 10 devices into the same facility, trying first in \"sjc1\", and if there aren’t available, it will try in  \"ewr1\", otherwise any other.  The `ip_addresses` attribute will allow you to specify the addresses you want created with your device.  To maintain backwards compatibility, If the attribute is not sent in the request, it will be treated as if `{ \"ip_addresses\": [{ \"address_family\": 4, \"public\": true }, { \"address_family\": 4, \"public\": false }, { \"address_family\": 6, \"public\": true }] }` was sent.  The private IPv4 address is required and always need to be sent in the array. Not all operating systems support no public IPv4 address, so in those cases you will receive an error message.  For example, to only configure your server with a private IPv4 address, you can send `{ \"ip_addresses\": [{ \"address_family\": 4, \"public\": false }] }`.  Note: when specifying a subnet size larger than a /30, you will need to supply the UUID(s) of existing ip_reservations in your project to assign IPs from.  For example, `{ \"ip_addresses\": [..., {\"address_family\": 4, \"public\": true, \"ip_reservations\": [\"uuid1\", \"uuid2\"]}] }`  To access a server without public IPs, you can use our Out-of-Band console access (SOS) or use another server with public IPs as a proxy.  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-
-        >>> thread = api.create_device_batch_with_http_info(id, batch, async_req=True)
-        >>> result = thread.get()
-
-        :param id: Project UUID (required)
-        :type id: str
-        :param batch: Batches to create (required)
-        :type batch: InstancesBatchCreateInput
-        :param async_req: Whether to execute the request asynchronously.
-        :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the authentication
-                              in the spec for a single request.
-        :type _request_auth: dict, optional
-        :type _content_type: string, optional: force content-type for the request
-        :return: Returns the result object.
-                 If the method is called asynchronously,
-                 returns the request thread.
-        :rtype: tuple(BatchesList, status_code(int), headers(HTTPHeaderDict))
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'id',
-            'batch'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
-        )
-
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method create_device_batch" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'id' is set
-        if self.api_client.client_side_validation and local_var_params.get('id') is None:  # noqa: E501
-            raise ApiValueError("Missing the required parameter `id` when calling `create_device_batch`")  # noqa: E501
-        # verify the required parameter 'batch' is set
-        if self.api_client.client_side_validation and local_var_params.get('batch') is None:  # noqa: E501
-            raise ApiValueError("Missing the required parameter `batch` when calling `create_device_batch`")  # noqa: E501
-
-        collection_formats = {}
-
-        path_params = {}
-        if 'id' in local_var_params:
-            path_params['id'] = local_var_params['id']  # noqa: E501
-
-        query_params = []
-
-        header_params = dict(local_var_params.get('_headers', {}))
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        if 'batch' in local_var_params:
-            body_params = local_var_params['batch']
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # HTTP header `Content-Type`
-        content_types_list = local_var_params.get('_content_type',
-            self.api_client.select_header_content_type(
-                ['application/json'],
-                'POST', body_params))  # noqa: E501
-        if content_types_list:
-                header_params['Content-Type'] = content_types_list
-
-        # Authentication setting
-        auth_settings = ['x_auth_token']  # noqa: E501
-
-        response_types_map = {
-            201: "BatchesList",
-            401: "Error",
-            422: "Error",
-            403: "Error",
-            404: "Error",
-        }
-
-        return self.api_client.call_api(
-            '/projects/{id}/devices/batch', 'POST',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_types_map=response_types_map,
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats,
-            _request_auth=local_var_params.get('_request_auth'))
-
-    def create_ip_assignment(self, id, ip_assignment, **kwargs):  # noqa: E501
+    def create_ip_assignment(self, id, ip_assignment_input, **kwargs):  # noqa: E501
         """Create an ip assignment  # noqa: E501
 
         Creates an ip assignment for a device.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.create_ip_assignment(id, ip_assignment, async_req=True)
+        >>> thread = api.create_ip_assignment(id, ip_assignment_input, async_req=True)
         >>> result = thread.get()
 
         :param id: Device UUID (required)
         :type id: str
-        :param ip_assignment: IPAssignment to create (required)
-        :type ip_assignment: IPAssignmentInput
+        :param ip_assignment_input: IPAssignment to create (required)
+        :type ip_assignment_input: IPAssignmentInput
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _preload_content: if False, the urllib3.HTTPResponse object will
@@ -543,22 +384,22 @@ class DevicesApi(object):
         :rtype: IPAssignment
         """
         kwargs['_return_http_data_only'] = True
-        return self.create_ip_assignment_with_http_info(id, ip_assignment, **kwargs)  # noqa: E501
+        return self.create_ip_assignment_with_http_info(id, ip_assignment_input, **kwargs)  # noqa: E501
 
-    def create_ip_assignment_with_http_info(self, id, ip_assignment, **kwargs):  # noqa: E501
+    def create_ip_assignment_with_http_info(self, id, ip_assignment_input, **kwargs):  # noqa: E501
         """Create an ip assignment  # noqa: E501
 
         Creates an ip assignment for a device.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.create_ip_assignment_with_http_info(id, ip_assignment, async_req=True)
+        >>> thread = api.create_ip_assignment_with_http_info(id, ip_assignment_input, async_req=True)
         >>> result = thread.get()
 
         :param id: Device UUID (required)
         :type id: str
-        :param ip_assignment: IPAssignment to create (required)
-        :type ip_assignment: IPAssignmentInput
+        :param ip_assignment_input: IPAssignment to create (required)
+        :type ip_assignment_input: IPAssignmentInput
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _return_http_data_only: response data without head status code
@@ -587,7 +428,7 @@ class DevicesApi(object):
 
         all_params = [
             'id',
-            'ip_assignment'
+            'ip_assignment_input'
         ]
         all_params.extend(
             [
@@ -612,9 +453,9 @@ class DevicesApi(object):
         # verify the required parameter 'id' is set
         if self.api_client.client_side_validation and local_var_params.get('id') is None:  # noqa: E501
             raise ApiValueError("Missing the required parameter `id` when calling `create_ip_assignment`")  # noqa: E501
-        # verify the required parameter 'ip_assignment' is set
-        if self.api_client.client_side_validation and local_var_params.get('ip_assignment') is None:  # noqa: E501
-            raise ApiValueError("Missing the required parameter `ip_assignment` when calling `create_ip_assignment`")  # noqa: E501
+        # verify the required parameter 'ip_assignment_input' is set
+        if self.api_client.client_side_validation and local_var_params.get('ip_assignment_input') is None:  # noqa: E501
+            raise ApiValueError("Missing the required parameter `ip_assignment_input` when calling `create_ip_assignment`")  # noqa: E501
 
         collection_formats = {}
 
@@ -630,8 +471,8 @@ class DevicesApi(object):
         local_var_files = {}
 
         body_params = None
-        if 'ip_assignment' in local_var_params:
-            body_params = local_var_params['ip_assignment']
+        if 'ip_assignment_input' in local_var_params:
+            body_params = local_var_params['ip_assignment_input']
         # HTTP header `Accept`
         header_params['Accept'] = self.api_client.select_header_accept(
             ['application/json'])  # noqa: E501
@@ -1243,26 +1084,18 @@ class DevicesApi(object):
             collection_formats=collection_formats,
             _request_auth=local_var_params.get('_request_auth'))
 
-    def find_device_events(self, id, **kwargs):  # noqa: E501
-        """Retrieve device's events  # noqa: E501
+    def find_device_metadata_by_id(self, id, **kwargs):  # noqa: E501
+        """Retrieve metadata  # noqa: E501
 
-        Returns a list of events pertaining to a specific device  # noqa: E501
+        Retrieve device metadata  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.find_device_events(id, async_req=True)
+        >>> thread = api.find_device_metadata_by_id(id, async_req=True)
         >>> result = thread.get()
 
         :param id: Device UUID (required)
         :type id: str
-        :param include: Nested attributes to include. Included objects will return their full attributes. Attribute names can be dotted (up to 3 levels) to included deeply nested objects.
-        :type include: list[str]
-        :param exclude: Nested attributes to exclude. Excluded objects will return only the href attribute. Attribute names can be dotted (up to 3 levels) to exclude deeply nested objects.
-        :type exclude: list[str]
-        :param page: Page to return
-        :type page: int
-        :param per_page: Items returned per page
-        :type per_page: int
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _preload_content: if False, the urllib3.HTTPResponse object will
@@ -1276,31 +1109,23 @@ class DevicesApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: EventList
+        :rtype: Metadata
         """
         kwargs['_return_http_data_only'] = True
-        return self.find_device_events_with_http_info(id, **kwargs)  # noqa: E501
+        return self.find_device_metadata_by_id_with_http_info(id, **kwargs)  # noqa: E501
 
-    def find_device_events_with_http_info(self, id, **kwargs):  # noqa: E501
-        """Retrieve device's events  # noqa: E501
+    def find_device_metadata_by_id_with_http_info(self, id, **kwargs):  # noqa: E501
+        """Retrieve metadata  # noqa: E501
 
-        Returns a list of events pertaining to a specific device  # noqa: E501
+        Retrieve device metadata  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.find_device_events_with_http_info(id, async_req=True)
+        >>> thread = api.find_device_metadata_by_id_with_http_info(id, async_req=True)
         >>> result = thread.get()
 
         :param id: Device UUID (required)
         :type id: str
-        :param include: Nested attributes to include. Included objects will return their full attributes. Attribute names can be dotted (up to 3 levels) to included deeply nested objects.
-        :type include: list[str]
-        :param exclude: Nested attributes to exclude. Excluded objects will return only the href attribute. Attribute names can be dotted (up to 3 levels) to exclude deeply nested objects.
-        :type exclude: list[str]
-        :param page: Page to return
-        :type page: int
-        :param per_page: Items returned per page
-        :type per_page: int
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _return_http_data_only: response data without head status code
@@ -1322,17 +1147,13 @@ class DevicesApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: tuple(EventList, status_code(int), headers(HTTPHeaderDict))
+        :rtype: tuple(Metadata, status_code(int), headers(HTTPHeaderDict))
         """
 
         local_var_params = locals()
 
         all_params = [
-            'id',
-            'include',
-            'exclude',
-            'page',
-            'per_page'
+            'id'
         ]
         all_params.extend(
             [
@@ -1350,22 +1171,14 @@ class DevicesApi(object):
             if key not in all_params:
                 raise ApiTypeError(
                     "Got an unexpected keyword argument '%s'"
-                    " to method find_device_events" % key
+                    " to method find_device_metadata_by_id" % key
                 )
             local_var_params[key] = val
         del local_var_params['kwargs']
         # verify the required parameter 'id' is set
         if self.api_client.client_side_validation and local_var_params.get('id') is None:  # noqa: E501
-            raise ApiValueError("Missing the required parameter `id` when calling `find_device_events`")  # noqa: E501
+            raise ApiValueError("Missing the required parameter `id` when calling `find_device_metadata_by_id`")  # noqa: E501
 
-        if self.api_client.client_side_validation and 'page' in local_var_params and local_var_params['page'] > 100000:  # noqa: E501
-            raise ApiValueError("Invalid value for parameter `page` when calling `find_device_events`, must be a value less than or equal to `100000`")  # noqa: E501
-        if self.api_client.client_side_validation and 'page' in local_var_params and local_var_params['page'] < 1:  # noqa: E501
-            raise ApiValueError("Invalid value for parameter `page` when calling `find_device_events`, must be a value greater than or equal to `1`")  # noqa: E501
-        if self.api_client.client_side_validation and 'per_page' in local_var_params and local_var_params['per_page'] > 1000:  # noqa: E501
-            raise ApiValueError("Invalid value for parameter `per_page` when calling `find_device_events`, must be a value less than or equal to `1000`")  # noqa: E501
-        if self.api_client.client_side_validation and 'per_page' in local_var_params and local_var_params['per_page'] < 1:  # noqa: E501
-            raise ApiValueError("Invalid value for parameter `per_page` when calling `find_device_events`, must be a value greater than or equal to `1`")  # noqa: E501
         collection_formats = {}
 
         path_params = {}
@@ -1373,16 +1186,6 @@ class DevicesApi(object):
             path_params['id'] = local_var_params['id']  # noqa: E501
 
         query_params = []
-        if local_var_params.get('include') is not None:  # noqa: E501
-            query_params.append(('include', local_var_params['include']))  # noqa: E501
-            collection_formats['include'] = 'csv'  # noqa: E501
-        if local_var_params.get('exclude') is not None:  # noqa: E501
-            query_params.append(('exclude', local_var_params['exclude']))  # noqa: E501
-            collection_formats['exclude'] = 'csv'  # noqa: E501
-        if local_var_params.get('page') is not None:  # noqa: E501
-            query_params.append(('page', local_var_params['page']))  # noqa: E501
-        if local_var_params.get('per_page') is not None:  # noqa: E501
-            query_params.append(('per_page', local_var_params['per_page']))  # noqa: E501
 
         header_params = dict(local_var_params.get('_headers', {}))
 
@@ -1398,14 +1201,14 @@ class DevicesApi(object):
         auth_settings = ['x_auth_token']  # noqa: E501
 
         response_types_map = {
-            200: "EventList",
+            200: "Metadata",
             401: "Error",
-            403: "Error",
             404: "Error",
+            422: "Error",
         }
 
         return self.api_client.call_api(
-            '/devices/{id}/events', 'GET',
+            '/devices/{id}/metadata', 'GET',
             path_params,
             query_params,
             header_params,
@@ -1421,22 +1224,18 @@ class DevicesApi(object):
             collection_formats=collection_formats,
             _request_auth=local_var_params.get('_request_auth'))
 
-    def find_device_usages(self, id, **kwargs):  # noqa: E501
-        """Retrieve all usages for device  # noqa: E501
+    def find_device_userdata_by_id(self, id, **kwargs):  # noqa: E501
+        """Retrieve userdata  # noqa: E501
 
-        Returns all usages for a device.  # noqa: E501
+        Retrieve device userdata  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.find_device_usages(id, async_req=True)
+        >>> thread = api.find_device_userdata_by_id(id, async_req=True)
         >>> result = thread.get()
 
         :param id: Device UUID (required)
         :type id: str
-        :param created_after: Filter usages created after this date
-        :type created_after: str
-        :param created_before: Filter usages created before this date
-        :type created_before: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _preload_content: if False, the urllib3.HTTPResponse object will
@@ -1450,27 +1249,23 @@ class DevicesApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: DeviceUsageList
+        :rtype: Userdata
         """
         kwargs['_return_http_data_only'] = True
-        return self.find_device_usages_with_http_info(id, **kwargs)  # noqa: E501
+        return self.find_device_userdata_by_id_with_http_info(id, **kwargs)  # noqa: E501
 
-    def find_device_usages_with_http_info(self, id, **kwargs):  # noqa: E501
-        """Retrieve all usages for device  # noqa: E501
+    def find_device_userdata_by_id_with_http_info(self, id, **kwargs):  # noqa: E501
+        """Retrieve userdata  # noqa: E501
 
-        Returns all usages for a device.  # noqa: E501
+        Retrieve device userdata  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.find_device_usages_with_http_info(id, async_req=True)
+        >>> thread = api.find_device_userdata_by_id_with_http_info(id, async_req=True)
         >>> result = thread.get()
 
         :param id: Device UUID (required)
         :type id: str
-        :param created_after: Filter usages created after this date
-        :type created_after: str
-        :param created_before: Filter usages created before this date
-        :type created_before: str
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _return_http_data_only: response data without head status code
@@ -1492,15 +1287,13 @@ class DevicesApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: tuple(DeviceUsageList, status_code(int), headers(HTTPHeaderDict))
+        :rtype: tuple(Userdata, status_code(int), headers(HTTPHeaderDict))
         """
 
         local_var_params = locals()
 
         all_params = [
-            'id',
-            'created_after',
-            'created_before'
+            'id'
         ]
         all_params.extend(
             [
@@ -1518,13 +1311,13 @@ class DevicesApi(object):
             if key not in all_params:
                 raise ApiTypeError(
                     "Got an unexpected keyword argument '%s'"
-                    " to method find_device_usages" % key
+                    " to method find_device_userdata_by_id" % key
                 )
             local_var_params[key] = val
         del local_var_params['kwargs']
         # verify the required parameter 'id' is set
         if self.api_client.client_side_validation and local_var_params.get('id') is None:  # noqa: E501
-            raise ApiValueError("Missing the required parameter `id` when calling `find_device_usages`")  # noqa: E501
+            raise ApiValueError("Missing the required parameter `id` when calling `find_device_userdata_by_id`")  # noqa: E501
 
         collection_formats = {}
 
@@ -1533,10 +1326,6 @@ class DevicesApi(object):
             path_params['id'] = local_var_params['id']  # noqa: E501
 
         query_params = []
-        if local_var_params.get('created_after') is not None:  # noqa: E501
-            query_params.append(('created[after]', local_var_params['created_after']))  # noqa: E501
-        if local_var_params.get('created_before') is not None:  # noqa: E501
-            query_params.append(('created[before]', local_var_params['created_before']))  # noqa: E501
 
         header_params = dict(local_var_params.get('_headers', {}))
 
@@ -1552,13 +1341,14 @@ class DevicesApi(object):
         auth_settings = ['x_auth_token']  # noqa: E501
 
         response_types_map = {
-            200: "DeviceUsageList",
+            200: "Userdata",
             401: "Error",
             404: "Error",
+            422: "Error",
         }
 
         return self.api_client.call_api(
-            '/devices/{id}/usages', 'GET',
+            '/devices/{id}/userdata', 'GET',
             path_params,
             query_params,
             header_params,
@@ -2041,6 +1831,16 @@ class DevicesApi(object):
 
         :param id: Organization UUID (required)
         :type id: str
+        :param facility: Filter by device facility
+        :type facility: str
+        :param hostname: Filter by partial hostname
+        :type hostname: str
+        :param reserved: Filter only reserved instances
+        :type reserved: bool
+        :param tag: Filter by device tag
+        :type tag: str
+        :param type: Filter by instance type (ondemand,spot,reserved)
+        :type type: str
         :param include: Nested attributes to include. Included objects will return their full attributes. Attribute names can be dotted (up to 3 levels) to included deeply nested objects.
         :type include: list[str]
         :param exclude: Nested attributes to exclude. Excluded objects will return only the href attribute. Attribute names can be dotted (up to 3 levels) to exclude deeply nested objects.
@@ -2079,6 +1879,16 @@ class DevicesApi(object):
 
         :param id: Organization UUID (required)
         :type id: str
+        :param facility: Filter by device facility
+        :type facility: str
+        :param hostname: Filter by partial hostname
+        :type hostname: str
+        :param reserved: Filter only reserved instances
+        :type reserved: bool
+        :param tag: Filter by device tag
+        :type tag: str
+        :param type: Filter by instance type (ondemand,spot,reserved)
+        :type type: str
         :param include: Nested attributes to include. Included objects will return their full attributes. Attribute names can be dotted (up to 3 levels) to included deeply nested objects.
         :type include: list[str]
         :param exclude: Nested attributes to exclude. Excluded objects will return only the href attribute. Attribute names can be dotted (up to 3 levels) to exclude deeply nested objects.
@@ -2115,6 +1925,11 @@ class DevicesApi(object):
 
         all_params = [
             'id',
+            'facility',
+            'hostname',
+            'reserved',
+            'tag',
+            'type',
             'include',
             'exclude',
             'page',
@@ -2159,6 +1974,16 @@ class DevicesApi(object):
             path_params['id'] = local_var_params['id']  # noqa: E501
 
         query_params = []
+        if local_var_params.get('facility') is not None:  # noqa: E501
+            query_params.append(('facility', local_var_params['facility']))  # noqa: E501
+        if local_var_params.get('hostname') is not None:  # noqa: E501
+            query_params.append(('hostname', local_var_params['hostname']))  # noqa: E501
+        if local_var_params.get('reserved') is not None:  # noqa: E501
+            query_params.append(('reserved', local_var_params['reserved']))  # noqa: E501
+        if local_var_params.get('tag') is not None:  # noqa: E501
+            query_params.append(('tag', local_var_params['tag']))  # noqa: E501
+        if local_var_params.get('type') is not None:  # noqa: E501
+            query_params.append(('type', local_var_params['type']))  # noqa: E501
         if local_var_params.get('include') is not None:  # noqa: E501
             query_params.append(('include', local_var_params['include']))  # noqa: E501
             collection_formats['include'] = 'csv'  # noqa: E501
@@ -2219,6 +2044,16 @@ class DevicesApi(object):
 
         :param id: Project UUID (required)
         :type id: str
+        :param facility: Filter by device facility
+        :type facility: str
+        :param hostname: Filter by partial hostname
+        :type hostname: str
+        :param reserved: Filter only reserved instances
+        :type reserved: bool
+        :param tag: Filter by device tag
+        :type tag: str
+        :param type: Filter by instance type (ondemand,spot,reserved)
+        :type type: str
         :param include: Nested attributes to include. Included objects will return their full attributes. Attribute names can be dotted (up to 3 levels) to included deeply nested objects.
         :type include: list[str]
         :param exclude: Nested attributes to exclude. Excluded objects will return only the href attribute. Attribute names can be dotted (up to 3 levels) to exclude deeply nested objects.
@@ -2257,6 +2092,16 @@ class DevicesApi(object):
 
         :param id: Project UUID (required)
         :type id: str
+        :param facility: Filter by device facility
+        :type facility: str
+        :param hostname: Filter by partial hostname
+        :type hostname: str
+        :param reserved: Filter only reserved instances
+        :type reserved: bool
+        :param tag: Filter by device tag
+        :type tag: str
+        :param type: Filter by instance type (ondemand,spot,reserved)
+        :type type: str
         :param include: Nested attributes to include. Included objects will return their full attributes. Attribute names can be dotted (up to 3 levels) to included deeply nested objects.
         :type include: list[str]
         :param exclude: Nested attributes to exclude. Excluded objects will return only the href attribute. Attribute names can be dotted (up to 3 levels) to exclude deeply nested objects.
@@ -2293,6 +2138,11 @@ class DevicesApi(object):
 
         all_params = [
             'id',
+            'facility',
+            'hostname',
+            'reserved',
+            'tag',
+            'type',
             'include',
             'exclude',
             'page',
@@ -2337,6 +2187,16 @@ class DevicesApi(object):
             path_params['id'] = local_var_params['id']  # noqa: E501
 
         query_params = []
+        if local_var_params.get('facility') is not None:  # noqa: E501
+            query_params.append(('facility', local_var_params['facility']))  # noqa: E501
+        if local_var_params.get('hostname') is not None:  # noqa: E501
+            query_params.append(('hostname', local_var_params['hostname']))  # noqa: E501
+        if local_var_params.get('reserved') is not None:  # noqa: E501
+            query_params.append(('reserved', local_var_params['reserved']))  # noqa: E501
+        if local_var_params.get('tag') is not None:  # noqa: E501
+            query_params.append(('tag', local_var_params['tag']))  # noqa: E501
+        if local_var_params.get('type') is not None:  # noqa: E501
+            query_params.append(('type', local_var_params['type']))  # noqa: E501
         if local_var_params.get('include') is not None:  # noqa: E501
             query_params.append(('include', local_var_params['include']))  # noqa: E501
             collection_formats['include'] = 'csv'  # noqa: E501
@@ -2385,179 +2245,26 @@ class DevicesApi(object):
             collection_formats=collection_formats,
             _request_auth=local_var_params.get('_request_auth'))
 
-    def find_project_usage(self, id, **kwargs):  # noqa: E501
-        """Retrieve all usages for project  # noqa: E501
-
-        Returns all usages for a project.  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-
-        >>> thread = api.find_project_usage(id, async_req=True)
-        >>> result = thread.get()
-
-        :param id: Project UUID (required)
-        :type id: str
-        :param created_after: Filter usages created after this date
-        :type created_after: str
-        :param created_before: Filter usages created before this date
-        :type created_before: str
-        :param async_req: Whether to execute the request asynchronously.
-        :type async_req: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :return: Returns the result object.
-                 If the method is called asynchronously,
-                 returns the request thread.
-        :rtype: ProjectUsageList
-        """
-        kwargs['_return_http_data_only'] = True
-        return self.find_project_usage_with_http_info(id, **kwargs)  # noqa: E501
-
-    def find_project_usage_with_http_info(self, id, **kwargs):  # noqa: E501
-        """Retrieve all usages for project  # noqa: E501
-
-        Returns all usages for a project.  # noqa: E501
-        This method makes a synchronous HTTP request by default. To make an
-        asynchronous HTTP request, please pass async_req=True
-
-        >>> thread = api.find_project_usage_with_http_info(id, async_req=True)
-        >>> result = thread.get()
-
-        :param id: Project UUID (required)
-        :type id: str
-        :param created_after: Filter usages created after this date
-        :type created_after: str
-        :param created_before: Filter usages created before this date
-        :type created_before: str
-        :param async_req: Whether to execute the request asynchronously.
-        :type async_req: bool, optional
-        :param _return_http_data_only: response data without head status code
-                                       and headers
-        :type _return_http_data_only: bool, optional
-        :param _preload_content: if False, the urllib3.HTTPResponse object will
-                                 be returned without reading/decoding response
-                                 data. Default is True.
-        :type _preload_content: bool, optional
-        :param _request_timeout: timeout setting for this request. If one
-                                 number provided, it will be total request
-                                 timeout. It can also be a pair (tuple) of
-                                 (connection, read) timeouts.
-        :param _request_auth: set to override the auth_settings for an a single
-                              request; this effectively ignores the authentication
-                              in the spec for a single request.
-        :type _request_auth: dict, optional
-        :type _content_type: string, optional: force content-type for the request
-        :return: Returns the result object.
-                 If the method is called asynchronously,
-                 returns the request thread.
-        :rtype: tuple(ProjectUsageList, status_code(int), headers(HTTPHeaderDict))
-        """
-
-        local_var_params = locals()
-
-        all_params = [
-            'id',
-            'created_after',
-            'created_before'
-        ]
-        all_params.extend(
-            [
-                'async_req',
-                '_return_http_data_only',
-                '_preload_content',
-                '_request_timeout',
-                '_request_auth',
-                '_content_type',
-                '_headers'
-            ]
-        )
-
-        for key, val in six.iteritems(local_var_params['kwargs']):
-            if key not in all_params:
-                raise ApiTypeError(
-                    "Got an unexpected keyword argument '%s'"
-                    " to method find_project_usage" % key
-                )
-            local_var_params[key] = val
-        del local_var_params['kwargs']
-        # verify the required parameter 'id' is set
-        if self.api_client.client_side_validation and local_var_params.get('id') is None:  # noqa: E501
-            raise ApiValueError("Missing the required parameter `id` when calling `find_project_usage`")  # noqa: E501
-
-        collection_formats = {}
-
-        path_params = {}
-        if 'id' in local_var_params:
-            path_params['id'] = local_var_params['id']  # noqa: E501
-
-        query_params = []
-        if local_var_params.get('created_after') is not None:  # noqa: E501
-            query_params.append(('created[after]', local_var_params['created_after']))  # noqa: E501
-        if local_var_params.get('created_before') is not None:  # noqa: E501
-            query_params.append(('created[before]', local_var_params['created_before']))  # noqa: E501
-
-        header_params = dict(local_var_params.get('_headers', {}))
-
-        form_params = []
-        local_var_files = {}
-
-        body_params = None
-        # HTTP header `Accept`
-        header_params['Accept'] = self.api_client.select_header_accept(
-            ['application/json'])  # noqa: E501
-
-        # Authentication setting
-        auth_settings = ['x_auth_token']  # noqa: E501
-
-        response_types_map = {
-            200: "ProjectUsageList",
-            401: "Error",
-            404: "Error",
-        }
-
-        return self.api_client.call_api(
-            '/projects/{id}/usages', 'GET',
-            path_params,
-            query_params,
-            header_params,
-            body=body_params,
-            post_params=form_params,
-            files=local_var_files,
-            response_types_map=response_types_map,
-            auth_settings=auth_settings,
-            async_req=local_var_params.get('async_req'),
-            _return_http_data_only=local_var_params.get('_return_http_data_only'),  # noqa: E501
-            _preload_content=local_var_params.get('_preload_content', True),
-            _request_timeout=local_var_params.get('_request_timeout'),
-            collection_formats=collection_formats,
-            _request_auth=local_var_params.get('_request_auth'))
-
-    def find_traffic(self, id, direction, timeframe, **kwargs):  # noqa: E501
+    def find_traffic(self, id, direction, **kwargs):  # noqa: E501
         """Retrieve device traffic  # noqa: E501
 
         Returns traffic for a specific device.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.find_traffic(id, direction, timeframe, async_req=True)
+        >>> thread = api.find_traffic(id, direction, async_req=True)
         >>> result = thread.get()
 
         :param id: Device UUID (required)
         :type id: str
         :param direction: Traffic direction (required)
         :type direction: str
-        :param timeframe: Traffic timeframe (required)
-        :type timeframe: Timeframe
         :param interval: Traffic interval
         :type interval: str
         :param bucket: Traffic bucket
         :type bucket: str
+        :param timeframe:
+        :type timeframe: FindTrafficTimeframeParameter
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _preload_content: if False, the urllib3.HTTPResponse object will
@@ -2574,28 +2281,28 @@ class DevicesApi(object):
         :rtype: None
         """
         kwargs['_return_http_data_only'] = True
-        return self.find_traffic_with_http_info(id, direction, timeframe, **kwargs)  # noqa: E501
+        return self.find_traffic_with_http_info(id, direction, **kwargs)  # noqa: E501
 
-    def find_traffic_with_http_info(self, id, direction, timeframe, **kwargs):  # noqa: E501
+    def find_traffic_with_http_info(self, id, direction, **kwargs):  # noqa: E501
         """Retrieve device traffic  # noqa: E501
 
         Returns traffic for a specific device.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.find_traffic_with_http_info(id, direction, timeframe, async_req=True)
+        >>> thread = api.find_traffic_with_http_info(id, direction, async_req=True)
         >>> result = thread.get()
 
         :param id: Device UUID (required)
         :type id: str
         :param direction: Traffic direction (required)
         :type direction: str
-        :param timeframe: Traffic timeframe (required)
-        :type timeframe: Timeframe
         :param interval: Traffic interval
         :type interval: str
         :param bucket: Traffic bucket
         :type bucket: str
+        :param timeframe:
+        :type timeframe: FindTrafficTimeframeParameter
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _return_http_data_only: response data without head status code
@@ -2625,9 +2332,9 @@ class DevicesApi(object):
         all_params = [
             'id',
             'direction',
-            'timeframe',
             'interval',
-            'bucket'
+            'bucket',
+            'timeframe'
         ]
         all_params.extend(
             [
@@ -2655,9 +2362,6 @@ class DevicesApi(object):
         # verify the required parameter 'direction' is set
         if self.api_client.client_side_validation and local_var_params.get('direction') is None:  # noqa: E501
             raise ApiValueError("Missing the required parameter `direction` when calling `find_traffic`")  # noqa: E501
-        # verify the required parameter 'timeframe' is set
-        if self.api_client.client_side_validation and local_var_params.get('timeframe') is None:  # noqa: E501
-            raise ApiValueError("Missing the required parameter `timeframe` when calling `find_traffic`")  # noqa: E501
 
         collection_formats = {}
 
@@ -2672,6 +2376,8 @@ class DevicesApi(object):
             query_params.append(('interval', local_var_params['interval']))  # noqa: E501
         if local_var_params.get('bucket') is not None:  # noqa: E501
             query_params.append(('bucket', local_var_params['bucket']))  # noqa: E501
+        if local_var_params.get('timeframe') is not None:  # noqa: E501
+            query_params.append(('timeframe', local_var_params['timeframe']))  # noqa: E501
 
         header_params = dict(local_var_params.get('_headers', {}))
 
@@ -2679,19 +2385,9 @@ class DevicesApi(object):
         local_var_files = {}
 
         body_params = None
-        if 'timeframe' in local_var_params:
-            body_params = local_var_params['timeframe']
         # HTTP header `Accept`
         header_params['Accept'] = self.api_client.select_header_accept(
             ['application/json'])  # noqa: E501
-
-        # HTTP header `Content-Type`
-        content_types_list = local_var_params.get('_content_type',
-            self.api_client.select_header_content_type(
-                ['application/json'],
-                'GET', body_params))  # noqa: E501
-        if content_types_list:
-                header_params['Content-Type'] = content_types_list
 
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
@@ -2855,20 +2551,20 @@ class DevicesApi(object):
             collection_formats=collection_formats,
             _request_auth=local_var_params.get('_request_auth'))
 
-    def perform_action(self, id, type, **kwargs):  # noqa: E501
+    def perform_action(self, id, device_action_input, **kwargs):  # noqa: E501
         """Perform an action  # noqa: E501
 
         Performs an action for the given device.  Possible actions include: power_on, power_off, reboot, reinstall, and rescue (reboot the device into rescue OS.)  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.perform_action(id, type, async_req=True)
+        >>> thread = api.perform_action(id, device_action_input, async_req=True)
         >>> result = thread.get()
 
         :param id: Device UUID (required)
         :type id: str
-        :param type: Action to perform (required)
-        :type type: str
+        :param device_action_input: Action to perform (required)
+        :type device_action_input: DeviceActionInput
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _preload_content: if False, the urllib3.HTTPResponse object will
@@ -2885,22 +2581,22 @@ class DevicesApi(object):
         :rtype: None
         """
         kwargs['_return_http_data_only'] = True
-        return self.perform_action_with_http_info(id, type, **kwargs)  # noqa: E501
+        return self.perform_action_with_http_info(id, device_action_input, **kwargs)  # noqa: E501
 
-    def perform_action_with_http_info(self, id, type, **kwargs):  # noqa: E501
+    def perform_action_with_http_info(self, id, device_action_input, **kwargs):  # noqa: E501
         """Perform an action  # noqa: E501
 
         Performs an action for the given device.  Possible actions include: power_on, power_off, reboot, reinstall, and rescue (reboot the device into rescue OS.)  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.perform_action_with_http_info(id, type, async_req=True)
+        >>> thread = api.perform_action_with_http_info(id, device_action_input, async_req=True)
         >>> result = thread.get()
 
         :param id: Device UUID (required)
         :type id: str
-        :param type: Action to perform (required)
-        :type type: str
+        :param device_action_input: Action to perform (required)
+        :type device_action_input: DeviceActionInput
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _return_http_data_only: response data without head status code
@@ -2929,7 +2625,7 @@ class DevicesApi(object):
 
         all_params = [
             'id',
-            'type'
+            'device_action_input'
         ]
         all_params.extend(
             [
@@ -2954,9 +2650,9 @@ class DevicesApi(object):
         # verify the required parameter 'id' is set
         if self.api_client.client_side_validation and local_var_params.get('id') is None:  # noqa: E501
             raise ApiValueError("Missing the required parameter `id` when calling `perform_action`")  # noqa: E501
-        # verify the required parameter 'type' is set
-        if self.api_client.client_side_validation and local_var_params.get('type') is None:  # noqa: E501
-            raise ApiValueError("Missing the required parameter `type` when calling `perform_action`")  # noqa: E501
+        # verify the required parameter 'device_action_input' is set
+        if self.api_client.client_side_validation and local_var_params.get('device_action_input') is None:  # noqa: E501
+            raise ApiValueError("Missing the required parameter `device_action_input` when calling `perform_action`")  # noqa: E501
 
         collection_formats = {}
 
@@ -2965,8 +2661,6 @@ class DevicesApi(object):
             path_params['id'] = local_var_params['id']  # noqa: E501
 
         query_params = []
-        if local_var_params.get('type') is not None:  # noqa: E501
-            query_params.append(('type', local_var_params['type']))  # noqa: E501
 
         header_params = dict(local_var_params.get('_headers', {}))
 
@@ -2974,9 +2668,19 @@ class DevicesApi(object):
         local_var_files = {}
 
         body_params = None
+        if 'device_action_input' in local_var_params:
+            body_params = local_var_params['device_action_input']
         # HTTP header `Accept`
         header_params['Accept'] = self.api_client.select_header_accept(
             ['application/json'])  # noqa: E501
+
+        # HTTP header `Content-Type`
+        content_types_list = local_var_params.get('_content_type',
+            self.api_client.select_header_content_type(
+                ['application/json'],
+                'POST', body_params))  # noqa: E501
+        if content_types_list:
+                header_params['Content-Type'] = content_types_list
 
         # Authentication setting
         auth_settings = ['x_auth_token']  # noqa: E501
@@ -3000,20 +2704,20 @@ class DevicesApi(object):
             collection_formats=collection_formats,
             _request_auth=local_var_params.get('_request_auth'))
 
-    def update_device(self, id, device, **kwargs):  # noqa: E501
+    def update_device(self, id, device_update_input, **kwargs):  # noqa: E501
         """Update the device  # noqa: E501
 
         Updates the device.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.update_device(id, device, async_req=True)
+        >>> thread = api.update_device(id, device_update_input, async_req=True)
         >>> result = thread.get()
 
         :param id: Device UUID (required)
         :type id: str
-        :param device: Facility to update (required)
-        :type device: DeviceUpdateInput
+        :param device_update_input: Facility to update (required)
+        :type device_update_input: DeviceUpdateInput
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _preload_content: if False, the urllib3.HTTPResponse object will
@@ -3030,22 +2734,22 @@ class DevicesApi(object):
         :rtype: Device
         """
         kwargs['_return_http_data_only'] = True
-        return self.update_device_with_http_info(id, device, **kwargs)  # noqa: E501
+        return self.update_device_with_http_info(id, device_update_input, **kwargs)  # noqa: E501
 
-    def update_device_with_http_info(self, id, device, **kwargs):  # noqa: E501
+    def update_device_with_http_info(self, id, device_update_input, **kwargs):  # noqa: E501
         """Update the device  # noqa: E501
 
         Updates the device.  # noqa: E501
         This method makes a synchronous HTTP request by default. To make an
         asynchronous HTTP request, please pass async_req=True
 
-        >>> thread = api.update_device_with_http_info(id, device, async_req=True)
+        >>> thread = api.update_device_with_http_info(id, device_update_input, async_req=True)
         >>> result = thread.get()
 
         :param id: Device UUID (required)
         :type id: str
-        :param device: Facility to update (required)
-        :type device: DeviceUpdateInput
+        :param device_update_input: Facility to update (required)
+        :type device_update_input: DeviceUpdateInput
         :param async_req: Whether to execute the request asynchronously.
         :type async_req: bool, optional
         :param _return_http_data_only: response data without head status code
@@ -3074,7 +2778,7 @@ class DevicesApi(object):
 
         all_params = [
             'id',
-            'device'
+            'device_update_input'
         ]
         all_params.extend(
             [
@@ -3099,9 +2803,9 @@ class DevicesApi(object):
         # verify the required parameter 'id' is set
         if self.api_client.client_side_validation and local_var_params.get('id') is None:  # noqa: E501
             raise ApiValueError("Missing the required parameter `id` when calling `update_device`")  # noqa: E501
-        # verify the required parameter 'device' is set
-        if self.api_client.client_side_validation and local_var_params.get('device') is None:  # noqa: E501
-            raise ApiValueError("Missing the required parameter `device` when calling `update_device`")  # noqa: E501
+        # verify the required parameter 'device_update_input' is set
+        if self.api_client.client_side_validation and local_var_params.get('device_update_input') is None:  # noqa: E501
+            raise ApiValueError("Missing the required parameter `device_update_input` when calling `update_device`")  # noqa: E501
 
         collection_formats = {}
 
@@ -3117,8 +2821,8 @@ class DevicesApi(object):
         local_var_files = {}
 
         body_params = None
-        if 'device' in local_var_params:
-            body_params = local_var_params['device']
+        if 'device_update_input' in local_var_params:
+            body_params = local_var_params['device_update_input']
         # HTTP header `Accept`
         header_params['Accept'] = self.api_client.select_header_accept(
             ['application/json'])  # noqa: E501

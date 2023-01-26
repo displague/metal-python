@@ -3,7 +3,7 @@
 """
     Metal API
 
-    This is the API for Equinix Metal. The API allows you to programmatically interact with all of your Equinix Metal resources, including devices, networks, addresses, organizations, projects, and your user account.  The official API docs are hosted at <https://metal.equinix.com/developers/api>.   # noqa: E501
+    # Introduction Equinix Metal provides a RESTful HTTP API which can be reached at <https://api.equinix.com/metal/v1>. This document describes the API and how to use it.  The API allows you to programmatically interact with all of your Equinix Metal resources, including devices, networks, addresses, organizations, projects, and your user account. Every feature of the Equinix Metal web interface is accessible through the API.  The API docs are generated from the Equinix Metal OpenAPI specification and are officially hosted at <https://metal.equinix.com/developers/api>.  # Common Parameters  The Equinix Metal API uses a few methods to minimize network traffic and improve throughput. These parameters are not used in all API calls, but are used often enough to warrant their own section. Look for these parameters in the documentation for the API calls that support them.  ## Pagination  Pagination is used to limit the number of results returned in a single request. The API will return a maximum of 100 results per page. To retrieve additional results, you can use the `page` and `per_page` query parameters.  The `page` parameter is used to specify the page number. The first page is `1`. The `per_page` parameter is used to specify the number of results per page. The maximum number of results differs by resource type.  ## Sorting  Where offered, the API allows you to sort results by a specific field. To sort results use the `sort_by` query parameter with the root level field name as the value. The `sort_direction` parameter is used to specify the sort direction, either either `asc` (ascending) or `desc` (descending).  ## Filtering  Filtering is used to limit the results returned in a single request. The API supports filtering by certain fields in the response. To filter results, you can use the field as a query parameter.  For example, to filter the IP list to only return public IPv4 addresses, you can filter by the `type` field, as in the following request:  ```sh curl -H 'X-Auth-Token: my_authentication_token' \\   https://api.equinix.com/metal/v1/projects/id/ips?type=public_ipv4 ```  Only IP addresses with the `type` field set to `public_ipv4` will be returned.  ## Searching  Searching is used to find matching resources using multiple field comparissons. The API supports searching in resources that define this behavior. The fields available for search differ by resource, as does the search strategy.  To search resources you can use the `search` query parameter.  ## Include and Exclude  For resources that contain references to other resources, sucha as a Device that refers to the Project it resides in, the Equinix Metal API will returns `href` values (API links) to the associated resource.  ```json {   ...   \"project\": {     \"href\": \"/metal/v1/projects/f3f131c8-f302-49ef-8c44-9405022dc6dd\"   } } ```  If you're going need the project details, you can avoid a second API request.  Specify the contained `href` resources and collections that you'd like to have included in the response using the `include` query parameter.  For example:  ```sh curl -H 'X-Auth-Token: my_authentication_token' \\   https://api.equinix.com/metal/v1/user?include=projects ```  The `include` parameter is generally accepted in `GET`, `POST`, `PUT`, and `PATCH` requests where `href` resources are presented.  To have multiple resources include, use a comma-separated list (e.g. `?include=emails,projects,memberships`).  ```sh curl -H 'X-Auth-Token: my_authentication_token' \\   https://api.equinix.com/metal/v1/user?include=emails,projects,memberships ```  You may also include nested associations up to three levels deep using dot notation (`?include=memberships.projects`):  ```sh curl -H 'X-Auth-Token: my_authentication_token' \\   https://api.equinix.com/metal/v1/user?include=memberships.projects ```  To exclude resources, and optimize response delivery, use the `exclude` query parameter. The `exclude` parameter is generally accepted in `GET`, `POST`, `PUT`, and `PATCH` requests for fields with nested object responses. When excluded, these fields will be replaced with an object that contains only an `href` field.   # noqa: E501
 
     The version of the OpenAPI document: 1.0.0
     Contact: support@equinixmetal.com
@@ -37,200 +37,74 @@ class DeviceUpdateInput(object):
                             and the value is json key in definition.
     """
     openapi_types = {
-        'hostname': 'str',
-        'description': 'str',
-        'billing_cycle': 'str',
-        'userdata': 'str',
-        'locked': 'bool',
-        'tags': 'list[str]',
         'always_pxe': 'bool',
+        'billing_cycle': 'str',
+        'customdata': 'dict[str, object]',
+        'description': 'str',
+        'hostname': 'str',
         'ipxe_script_url': 'str',
+        'locked': 'bool',
+        'network_frozen': 'bool',
         'spot_instance': 'bool',
-        'customdata': 'object',
-        'network_frozen': 'bool'
+        'tags': 'list[str]',
+        'userdata': 'str'
     }
 
     attribute_map = {
-        'hostname': 'hostname',
-        'description': 'description',
-        'billing_cycle': 'billing_cycle',
-        'userdata': 'userdata',
-        'locked': 'locked',
-        'tags': 'tags',
         'always_pxe': 'always_pxe',
-        'ipxe_script_url': 'ipxe_script_url',
-        'spot_instance': 'spot_instance',
+        'billing_cycle': 'billing_cycle',
         'customdata': 'customdata',
-        'network_frozen': 'network_frozen'
+        'description': 'description',
+        'hostname': 'hostname',
+        'ipxe_script_url': 'ipxe_script_url',
+        'locked': 'locked',
+        'network_frozen': 'network_frozen',
+        'spot_instance': 'spot_instance',
+        'tags': 'tags',
+        'userdata': 'userdata'
     }
 
-    def __init__(self, hostname=None, description=None, billing_cycle=None, userdata=None, locked=None, tags=None, always_pxe=None, ipxe_script_url=None, spot_instance=None, customdata=None, network_frozen=None, local_vars_configuration=None):  # noqa: E501
+    def __init__(self, always_pxe=None, billing_cycle=None, customdata=None, description=None, hostname=None, ipxe_script_url=None, locked=None, network_frozen=None, spot_instance=None, tags=None, userdata=None, local_vars_configuration=None):  # noqa: E501
         """DeviceUpdateInput - a model defined in OpenAPI"""  # noqa: E501
         if local_vars_configuration is None:
             local_vars_configuration = Configuration.get_default_copy()
         self.local_vars_configuration = local_vars_configuration
 
-        self._hostname = None
-        self._description = None
-        self._billing_cycle = None
-        self._userdata = None
-        self._locked = None
-        self._tags = None
         self._always_pxe = None
-        self._ipxe_script_url = None
-        self._spot_instance = None
+        self._billing_cycle = None
         self._customdata = None
+        self._description = None
+        self._hostname = None
+        self._ipxe_script_url = None
+        self._locked = None
         self._network_frozen = None
+        self._spot_instance = None
+        self._tags = None
+        self._userdata = None
         self.discriminator = None
 
-        if hostname is not None:
-            self.hostname = hostname
-        if description is not None:
-            self.description = description
-        if billing_cycle is not None:
-            self.billing_cycle = billing_cycle
-        if userdata is not None:
-            self.userdata = userdata
-        if locked is not None:
-            self.locked = locked
-        if tags is not None:
-            self.tags = tags
         if always_pxe is not None:
             self.always_pxe = always_pxe
-        if ipxe_script_url is not None:
-            self.ipxe_script_url = ipxe_script_url
-        if spot_instance is not None:
-            self.spot_instance = spot_instance
+        if billing_cycle is not None:
+            self.billing_cycle = billing_cycle
         if customdata is not None:
             self.customdata = customdata
+        if description is not None:
+            self.description = description
+        if hostname is not None:
+            self.hostname = hostname
+        if ipxe_script_url is not None:
+            self.ipxe_script_url = ipxe_script_url
+        if locked is not None:
+            self.locked = locked
         if network_frozen is not None:
             self.network_frozen = network_frozen
-
-    @property
-    def hostname(self):
-        """Gets the hostname of this DeviceUpdateInput.  # noqa: E501
-
-
-        :return: The hostname of this DeviceUpdateInput.  # noqa: E501
-        :rtype: str
-        """
-        return self._hostname
-
-    @hostname.setter
-    def hostname(self, hostname):
-        """Sets the hostname of this DeviceUpdateInput.
-
-
-        :param hostname: The hostname of this DeviceUpdateInput.  # noqa: E501
-        :type hostname: str
-        """
-
-        self._hostname = hostname
-
-    @property
-    def description(self):
-        """Gets the description of this DeviceUpdateInput.  # noqa: E501
-
-
-        :return: The description of this DeviceUpdateInput.  # noqa: E501
-        :rtype: str
-        """
-        return self._description
-
-    @description.setter
-    def description(self, description):
-        """Sets the description of this DeviceUpdateInput.
-
-
-        :param description: The description of this DeviceUpdateInput.  # noqa: E501
-        :type description: str
-        """
-
-        self._description = description
-
-    @property
-    def billing_cycle(self):
-        """Gets the billing_cycle of this DeviceUpdateInput.  # noqa: E501
-
-
-        :return: The billing_cycle of this DeviceUpdateInput.  # noqa: E501
-        :rtype: str
-        """
-        return self._billing_cycle
-
-    @billing_cycle.setter
-    def billing_cycle(self, billing_cycle):
-        """Sets the billing_cycle of this DeviceUpdateInput.
-
-
-        :param billing_cycle: The billing_cycle of this DeviceUpdateInput.  # noqa: E501
-        :type billing_cycle: str
-        """
-
-        self._billing_cycle = billing_cycle
-
-    @property
-    def userdata(self):
-        """Gets the userdata of this DeviceUpdateInput.  # noqa: E501
-
-
-        :return: The userdata of this DeviceUpdateInput.  # noqa: E501
-        :rtype: str
-        """
-        return self._userdata
-
-    @userdata.setter
-    def userdata(self, userdata):
-        """Sets the userdata of this DeviceUpdateInput.
-
-
-        :param userdata: The userdata of this DeviceUpdateInput.  # noqa: E501
-        :type userdata: str
-        """
-
-        self._userdata = userdata
-
-    @property
-    def locked(self):
-        """Gets the locked of this DeviceUpdateInput.  # noqa: E501
-
-
-        :return: The locked of this DeviceUpdateInput.  # noqa: E501
-        :rtype: bool
-        """
-        return self._locked
-
-    @locked.setter
-    def locked(self, locked):
-        """Sets the locked of this DeviceUpdateInput.
-
-
-        :param locked: The locked of this DeviceUpdateInput.  # noqa: E501
-        :type locked: bool
-        """
-
-        self._locked = locked
-
-    @property
-    def tags(self):
-        """Gets the tags of this DeviceUpdateInput.  # noqa: E501
-
-
-        :return: The tags of this DeviceUpdateInput.  # noqa: E501
-        :rtype: list[str]
-        """
-        return self._tags
-
-    @tags.setter
-    def tags(self, tags):
-        """Sets the tags of this DeviceUpdateInput.
-
-
-        :param tags: The tags of this DeviceUpdateInput.  # noqa: E501
-        :type tags: list[str]
-        """
-
-        self._tags = tags
+        if spot_instance is not None:
+            self.spot_instance = spot_instance
+        if tags is not None:
+            self.tags = tags
+        if userdata is not None:
+            self.userdata = userdata
 
     @property
     def always_pxe(self):
@@ -254,6 +128,90 @@ class DeviceUpdateInput(object):
         self._always_pxe = always_pxe
 
     @property
+    def billing_cycle(self):
+        """Gets the billing_cycle of this DeviceUpdateInput.  # noqa: E501
+
+
+        :return: The billing_cycle of this DeviceUpdateInput.  # noqa: E501
+        :rtype: str
+        """
+        return self._billing_cycle
+
+    @billing_cycle.setter
+    def billing_cycle(self, billing_cycle):
+        """Sets the billing_cycle of this DeviceUpdateInput.
+
+
+        :param billing_cycle: The billing_cycle of this DeviceUpdateInput.  # noqa: E501
+        :type billing_cycle: str
+        """
+
+        self._billing_cycle = billing_cycle
+
+    @property
+    def customdata(self):
+        """Gets the customdata of this DeviceUpdateInput.  # noqa: E501
+
+
+        :return: The customdata of this DeviceUpdateInput.  # noqa: E501
+        :rtype: dict[str, object]
+        """
+        return self._customdata
+
+    @customdata.setter
+    def customdata(self, customdata):
+        """Sets the customdata of this DeviceUpdateInput.
+
+
+        :param customdata: The customdata of this DeviceUpdateInput.  # noqa: E501
+        :type customdata: dict[str, object]
+        """
+
+        self._customdata = customdata
+
+    @property
+    def description(self):
+        """Gets the description of this DeviceUpdateInput.  # noqa: E501
+
+
+        :return: The description of this DeviceUpdateInput.  # noqa: E501
+        :rtype: str
+        """
+        return self._description
+
+    @description.setter
+    def description(self, description):
+        """Sets the description of this DeviceUpdateInput.
+
+
+        :param description: The description of this DeviceUpdateInput.  # noqa: E501
+        :type description: str
+        """
+
+        self._description = description
+
+    @property
+    def hostname(self):
+        """Gets the hostname of this DeviceUpdateInput.  # noqa: E501
+
+
+        :return: The hostname of this DeviceUpdateInput.  # noqa: E501
+        :rtype: str
+        """
+        return self._hostname
+
+    @hostname.setter
+    def hostname(self, hostname):
+        """Sets the hostname of this DeviceUpdateInput.
+
+
+        :param hostname: The hostname of this DeviceUpdateInput.  # noqa: E501
+        :type hostname: str
+        """
+
+        self._hostname = hostname
+
+    @property
     def ipxe_script_url(self):
         """Gets the ipxe_script_url of this DeviceUpdateInput.  # noqa: E501
 
@@ -275,46 +233,25 @@ class DeviceUpdateInput(object):
         self._ipxe_script_url = ipxe_script_url
 
     @property
-    def spot_instance(self):
-        """Gets the spot_instance of this DeviceUpdateInput.  # noqa: E501
+    def locked(self):
+        """Gets the locked of this DeviceUpdateInput.  # noqa: E501
 
 
-        :return: The spot_instance of this DeviceUpdateInput.  # noqa: E501
+        :return: The locked of this DeviceUpdateInput.  # noqa: E501
         :rtype: bool
         """
-        return self._spot_instance
+        return self._locked
 
-    @spot_instance.setter
-    def spot_instance(self, spot_instance):
-        """Sets the spot_instance of this DeviceUpdateInput.
+    @locked.setter
+    def locked(self, locked):
+        """Sets the locked of this DeviceUpdateInput.
 
 
-        :param spot_instance: The spot_instance of this DeviceUpdateInput.  # noqa: E501
-        :type spot_instance: bool
+        :param locked: The locked of this DeviceUpdateInput.  # noqa: E501
+        :type locked: bool
         """
 
-        self._spot_instance = spot_instance
-
-    @property
-    def customdata(self):
-        """Gets the customdata of this DeviceUpdateInput.  # noqa: E501
-
-
-        :return: The customdata of this DeviceUpdateInput.  # noqa: E501
-        :rtype: object
-        """
-        return self._customdata
-
-    @customdata.setter
-    def customdata(self, customdata):
-        """Sets the customdata of this DeviceUpdateInput.
-
-
-        :param customdata: The customdata of this DeviceUpdateInput.  # noqa: E501
-        :type customdata: object
-        """
-
-        self._customdata = customdata
+        self._locked = locked
 
     @property
     def network_frozen(self):
@@ -338,6 +275,71 @@ class DeviceUpdateInput(object):
         """
 
         self._network_frozen = network_frozen
+
+    @property
+    def spot_instance(self):
+        """Gets the spot_instance of this DeviceUpdateInput.  # noqa: E501
+
+        Can be set to false to convert a spot-market instance to on-demand.  # noqa: E501
+
+        :return: The spot_instance of this DeviceUpdateInput.  # noqa: E501
+        :rtype: bool
+        """
+        return self._spot_instance
+
+    @spot_instance.setter
+    def spot_instance(self, spot_instance):
+        """Sets the spot_instance of this DeviceUpdateInput.
+
+        Can be set to false to convert a spot-market instance to on-demand.  # noqa: E501
+
+        :param spot_instance: The spot_instance of this DeviceUpdateInput.  # noqa: E501
+        :type spot_instance: bool
+        """
+
+        self._spot_instance = spot_instance
+
+    @property
+    def tags(self):
+        """Gets the tags of this DeviceUpdateInput.  # noqa: E501
+
+
+        :return: The tags of this DeviceUpdateInput.  # noqa: E501
+        :rtype: list[str]
+        """
+        return self._tags
+
+    @tags.setter
+    def tags(self, tags):
+        """Sets the tags of this DeviceUpdateInput.
+
+
+        :param tags: The tags of this DeviceUpdateInput.  # noqa: E501
+        :type tags: list[str]
+        """
+
+        self._tags = tags
+
+    @property
+    def userdata(self):
+        """Gets the userdata of this DeviceUpdateInput.  # noqa: E501
+
+
+        :return: The userdata of this DeviceUpdateInput.  # noqa: E501
+        :rtype: str
+        """
+        return self._userdata
+
+    @userdata.setter
+    def userdata(self, userdata):
+        """Sets the userdata of this DeviceUpdateInput.
+
+
+        :param userdata: The userdata of this DeviceUpdateInput.  # noqa: E501
+        :type userdata: str
+        """
+
+        self._userdata = userdata
 
     def to_dict(self, serialize=False):
         """Returns the model properties as a dict"""

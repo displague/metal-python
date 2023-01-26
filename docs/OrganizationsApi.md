@@ -9,14 +9,9 @@ Method | HTTP request | Description
 [**create_organization_project**](OrganizationsApi.md#create_organization_project) | **POST** /organizations/{id}/projects | Create a project for the organization
 [**create_payment_method**](OrganizationsApi.md#create_payment_method) | **POST** /organizations/{id}/payment-methods | Create a payment method for the given organization
 [**delete_organization**](OrganizationsApi.md#delete_organization) | **DELETE** /organizations/{id} | Delete the organization
-[**find_facilities_by_organization**](OrganizationsApi.md#find_facilities_by_organization) | **GET** /organizations/{id}/facilities | Retrieve all facilities visible by the organization
 [**find_operating_systems_by_organization**](OrganizationsApi.md#find_operating_systems_by_organization) | **GET** /organizations/{id}/operating-systems | Retrieve all operating systems visible by the organization
 [**find_organization_by_id**](OrganizationsApi.md#find_organization_by_id) | **GET** /organizations/{id} | Retrieve an organization&#39;s details
-[**find_organization_capacity_per_facility**](OrganizationsApi.md#find_organization_capacity_per_facility) | **GET** /organizations/{id}/capacity | View available hardware plans per Facility for given organization
-[**find_organization_capacity_per_metro**](OrganizationsApi.md#find_organization_capacity_per_metro) | **GET** /organizations/{id}/capacity/metros | View available hardware plans per Metro for given organization
 [**find_organization_customdata**](OrganizationsApi.md#find_organization_customdata) | **GET** /organizations/{id}/customdata | Retrieve the custom metadata of an organization
-[**find_organization_devices**](OrganizationsApi.md#find_organization_devices) | **GET** /organizations/{id}/devices | Retrieve all devices of an organization
-[**find_organization_events**](OrganizationsApi.md#find_organization_events) | **GET** /organizations/{id}/events | Retrieve organization&#39;s events
 [**find_organization_invitations**](OrganizationsApi.md#find_organization_invitations) | **GET** /organizations/{id}/invitations | Retrieve organization invitations
 [**find_organization_payment_methods**](OrganizationsApi.md#find_organization_payment_methods) | **GET** /organizations/{id}/payment-methods | Retrieve all payment methods of an organization
 [**find_organization_projects**](OrganizationsApi.md#find_organization_projects) | **GET** /organizations/{id}/projects | Retrieve all projects of an organization
@@ -27,7 +22,7 @@ Method | HTTP request | Description
 
 
 # **create_organization**
-> Organization create_organization(organization)
+> Organization create_organization(organization_input)
 
 Create an organization
 
@@ -63,11 +58,11 @@ configuration.api_key['x_auth_token'] = 'YOUR_API_KEY'
 with metal.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = metal.OrganizationsApi(api_client)
-    organization = metal.OrganizationInput() # OrganizationInput | Organization to create
+    organization_input = metal.OrganizationInput() # OrganizationInput | Organization to create
 
     try:
         # Create an organization
-        api_response = api_instance.create_organization(organization)
+        api_response = api_instance.create_organization(organization_input)
         pprint(api_response)
     except ApiException as e:
         print("Exception when calling OrganizationsApi->create_organization: %s\n" % e)
@@ -77,7 +72,7 @@ with metal.ApiClient(configuration) as api_client:
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **organization** | [**OrganizationInput**](OrganizationInput.md)| Organization to create | 
+ **organization_input** | [**OrganizationInput**](OrganizationInput.md)| Organization to create | 
 
 ### Return type
 
@@ -103,7 +98,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **create_organization_invitation**
-> Invitation create_organization_invitation(id, invitation)
+> Invitation create_organization_invitation(id, invitation_input)
 
 Create an invitation for an organization
 
@@ -140,11 +135,11 @@ with metal.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = metal.OrganizationsApi(api_client)
     id = 'id_example' # str | Organization UUID
-invitation = metal.InvitationInput() # InvitationInput | Invitation to create
+invitation_input = metal.InvitationInput() # InvitationInput | Invitation to create
 
     try:
         # Create an invitation for an organization
-        api_response = api_instance.create_organization_invitation(id, invitation)
+        api_response = api_instance.create_organization_invitation(id, invitation_input)
         pprint(api_response)
     except ApiException as e:
         print("Exception when calling OrganizationsApi->create_organization_invitation: %s\n" % e)
@@ -155,7 +150,7 @@ invitation = metal.InvitationInput() # InvitationInput | Invitation to create
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **str**| Organization UUID | 
- **invitation** | [**InvitationInput**](InvitationInput.md)| Invitation to create | 
+ **invitation_input** | [**InvitationInput**](InvitationInput.md)| Invitation to create | 
 
 ### Return type
 
@@ -182,7 +177,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **create_organization_project**
-> Project create_organization_project(id, project)
+> Project create_organization_project(id, project_create_input)
 
 Create a project for the organization
 
@@ -219,11 +214,11 @@ with metal.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = metal.OrganizationsApi(api_client)
     id = 'id_example' # str | Organization UUID
-project = metal.ProjectCreateInput() # ProjectCreateInput | Project to create
+project_create_input = metal.ProjectCreateInput() # ProjectCreateInput | Project to create
 
     try:
         # Create a project for the organization
-        api_response = api_instance.create_organization_project(id, project)
+        api_response = api_instance.create_organization_project(id, project_create_input)
         pprint(api_response)
     except ApiException as e:
         print("Exception when calling OrganizationsApi->create_organization_project: %s\n" % e)
@@ -234,7 +229,7 @@ project = metal.ProjectCreateInput() # ProjectCreateInput | Project to create
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **str**| Organization UUID | 
- **project** | [**ProjectCreateInput**](ProjectCreateInput.md)| Project to create | 
+ **project_create_input** | [**ProjectCreateInput**](ProjectCreateInput.md)| Project to create | 
 
 ### Return type
 
@@ -259,7 +254,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **create_payment_method**
-> PaymentMethod create_payment_method(id, payment_method)
+> PaymentMethod create_payment_method(id, payment_method_create_input)
 
 Create a payment method for the given organization
 
@@ -296,11 +291,11 @@ with metal.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = metal.OrganizationsApi(api_client)
     id = 'id_example' # str | Organization UUID
-payment_method = metal.PaymentMethodCreateInput() # PaymentMethodCreateInput | Payment Method to create
+payment_method_create_input = metal.PaymentMethodCreateInput() # PaymentMethodCreateInput | Payment Method to create
 
     try:
         # Create a payment method for the given organization
-        api_response = api_instance.create_payment_method(id, payment_method)
+        api_response = api_instance.create_payment_method(id, payment_method_create_input)
         pprint(api_response)
     except ApiException as e:
         print("Exception when calling OrganizationsApi->create_payment_method: %s\n" % e)
@@ -311,7 +306,7 @@ payment_method = metal.PaymentMethodCreateInput() # PaymentMethodCreateInput | P
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **str**| Organization UUID | 
- **payment_method** | [**PaymentMethodCreateInput**](PaymentMethodCreateInput.md)| Payment Method to create | 
+ **payment_method_create_input** | [**PaymentMethodCreateInput**](PaymentMethodCreateInput.md)| Payment Method to create | 
 
 ### Return type
 
@@ -406,86 +401,6 @@ void (empty response body)
 |-------------|-------------|------------------|
 **204** | no content |  -  |
 **401** | unauthorized |  -  |
-**404** | not found |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **find_facilities_by_organization**
-> FacilityList find_facilities_by_organization(id, include=include, exclude=exclude)
-
-Retrieve all facilities visible by the organization
-
-Returns a listing of available datacenters for the given organization
-
-### Example
-
-* Api Key Authentication (x_auth_token):
-```python
-from __future__ import print_function
-import time
-import metal
-from metal.rest import ApiException
-from pprint import pprint
-# Defining the host is optional and defaults to https://api.equinix.com/metal/v1
-# See configuration.py for a list of all supported configuration parameters.
-configuration = metal.Configuration(
-    host = "https://api.equinix.com/metal/v1"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure API key authorization: x_auth_token
-configuration.api_key['x_auth_token'] = 'YOUR_API_KEY'
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['x_auth_token'] = 'Bearer'
-
-# Enter a context with an instance of the API client
-with metal.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = metal.OrganizationsApi(api_client)
-    id = 'id_example' # str | Organization UUID
-include = ['include_example'] # list[str] | Nested attributes to include. Included objects will return their full attributes. Attribute names can be dotted (up to 3 levels) to included deeply nested objects. (optional)
-exclude = ['exclude_example'] # list[str] | Nested attributes to exclude. Excluded objects will return only the href attribute. Attribute names can be dotted (up to 3 levels) to exclude deeply nested objects. (optional)
-
-    try:
-        # Retrieve all facilities visible by the organization
-        api_response = api_instance.find_facilities_by_organization(id, include=include, exclude=exclude)
-        pprint(api_response)
-    except ApiException as e:
-        print("Exception when calling OrganizationsApi->find_facilities_by_organization: %s\n" % e)
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **str**| Organization UUID | 
- **include** | [**list[str]**](str.md)| Nested attributes to include. Included objects will return their full attributes. Attribute names can be dotted (up to 3 levels) to included deeply nested objects. | [optional] 
- **exclude** | [**list[str]**](str.md)| Nested attributes to exclude. Excluded objects will return only the href attribute. Attribute names can be dotted (up to 3 levels) to exclude deeply nested objects. | [optional] 
-
-### Return type
-
-[**FacilityList**](FacilityList.md)
-
-### Authorization
-
-[x_auth_token](../README.md#x_auth_token)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | ok |  -  |
-**401** | unauthorized |  -  |
-**403** | forbidden |  -  |
 **404** | not found |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
@@ -650,156 +565,6 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **find_organization_capacity_per_facility**
-> CapacityList find_organization_capacity_per_facility(id)
-
-View available hardware plans per Facility for given organization
-
-Returns a list of facilities and plans with their current capacity.
-
-### Example
-
-* Api Key Authentication (x_auth_token):
-```python
-from __future__ import print_function
-import time
-import metal
-from metal.rest import ApiException
-from pprint import pprint
-# Defining the host is optional and defaults to https://api.equinix.com/metal/v1
-# See configuration.py for a list of all supported configuration parameters.
-configuration = metal.Configuration(
-    host = "https://api.equinix.com/metal/v1"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure API key authorization: x_auth_token
-configuration.api_key['x_auth_token'] = 'YOUR_API_KEY'
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['x_auth_token'] = 'Bearer'
-
-# Enter a context with an instance of the API client
-with metal.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = metal.OrganizationsApi(api_client)
-    id = 'id_example' # str | Organization UUID
-
-    try:
-        # View available hardware plans per Facility for given organization
-        api_response = api_instance.find_organization_capacity_per_facility(id)
-        pprint(api_response)
-    except ApiException as e:
-        print("Exception when calling OrganizationsApi->find_organization_capacity_per_facility: %s\n" % e)
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **str**| Organization UUID | 
-
-### Return type
-
-[**CapacityList**](CapacityList.md)
-
-### Authorization
-
-[x_auth_token](../README.md#x_auth_token)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | ok |  -  |
-**401** | unauthorized |  -  |
-**403** | forbidden |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **find_organization_capacity_per_metro**
-> MetroCapacityList find_organization_capacity_per_metro(id)
-
-View available hardware plans per Metro for given organization
-
-Returns a list of metros and plans with their current capacity.
-
-### Example
-
-* Api Key Authentication (x_auth_token):
-```python
-from __future__ import print_function
-import time
-import metal
-from metal.rest import ApiException
-from pprint import pprint
-# Defining the host is optional and defaults to https://api.equinix.com/metal/v1
-# See configuration.py for a list of all supported configuration parameters.
-configuration = metal.Configuration(
-    host = "https://api.equinix.com/metal/v1"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure API key authorization: x_auth_token
-configuration.api_key['x_auth_token'] = 'YOUR_API_KEY'
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['x_auth_token'] = 'Bearer'
-
-# Enter a context with an instance of the API client
-with metal.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = metal.OrganizationsApi(api_client)
-    id = 'id_example' # str | Organization UUID
-
-    try:
-        # View available hardware plans per Metro for given organization
-        api_response = api_instance.find_organization_capacity_per_metro(id)
-        pprint(api_response)
-    except ApiException as e:
-        print("Exception when calling OrganizationsApi->find_organization_capacity_per_metro: %s\n" % e)
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **str**| Organization UUID | 
-
-### Return type
-
-[**MetroCapacityList**](MetroCapacityList.md)
-
-### Authorization
-
-[x_auth_token](../README.md#x_auth_token)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | ok |  -  |
-**401** | unauthorized |  -  |
-**403** | forbidden |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
 # **find_organization_customdata**
 > find_organization_customdata(id)
 
@@ -855,174 +620,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 void (empty response body)
-
-### Authorization
-
-[x_auth_token](../README.md#x_auth_token)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | ok |  -  |
-**401** | unauthorized |  -  |
-**403** | forbidden |  -  |
-**404** | not found |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **find_organization_devices**
-> DeviceList find_organization_devices(id, include=include, exclude=exclude, page=page, per_page=per_page)
-
-Retrieve all devices of an organization
-
-Provides a collection of devices for a given organization.
-
-### Example
-
-* Api Key Authentication (x_auth_token):
-```python
-from __future__ import print_function
-import time
-import metal
-from metal.rest import ApiException
-from pprint import pprint
-# Defining the host is optional and defaults to https://api.equinix.com/metal/v1
-# See configuration.py for a list of all supported configuration parameters.
-configuration = metal.Configuration(
-    host = "https://api.equinix.com/metal/v1"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure API key authorization: x_auth_token
-configuration.api_key['x_auth_token'] = 'YOUR_API_KEY'
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['x_auth_token'] = 'Bearer'
-
-# Enter a context with an instance of the API client
-with metal.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = metal.OrganizationsApi(api_client)
-    id = 'id_example' # str | Organization UUID
-include = ['include_example'] # list[str] | Nested attributes to include. Included objects will return their full attributes. Attribute names can be dotted (up to 3 levels) to included deeply nested objects. (optional)
-exclude = ['exclude_example'] # list[str] | Nested attributes to exclude. Excluded objects will return only the href attribute. Attribute names can be dotted (up to 3 levels) to exclude deeply nested objects. (optional)
-page = 1 # int | Page to return (optional) (default to 1)
-per_page = 10 # int | Items returned per page (optional) (default to 10)
-
-    try:
-        # Retrieve all devices of an organization
-        api_response = api_instance.find_organization_devices(id, include=include, exclude=exclude, page=page, per_page=per_page)
-        pprint(api_response)
-    except ApiException as e:
-        print("Exception when calling OrganizationsApi->find_organization_devices: %s\n" % e)
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **str**| Organization UUID | 
- **include** | [**list[str]**](str.md)| Nested attributes to include. Included objects will return their full attributes. Attribute names can be dotted (up to 3 levels) to included deeply nested objects. | [optional] 
- **exclude** | [**list[str]**](str.md)| Nested attributes to exclude. Excluded objects will return only the href attribute. Attribute names can be dotted (up to 3 levels) to exclude deeply nested objects. | [optional] 
- **page** | **int**| Page to return | [optional] [default to 1]
- **per_page** | **int**| Items returned per page | [optional] [default to 10]
-
-### Return type
-
-[**DeviceList**](DeviceList.md)
-
-### Authorization
-
-[x_auth_token](../README.md#x_auth_token)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | ok |  -  |
-**401** | unauthorized |  -  |
-**403** | forbidden |  -  |
-**404** | not found |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **find_organization_events**
-> EventList find_organization_events(id, include=include, exclude=exclude, page=page, per_page=per_page)
-
-Retrieve organization's events
-
-Returns a list of events for a single organization
-
-### Example
-
-* Api Key Authentication (x_auth_token):
-```python
-from __future__ import print_function
-import time
-import metal
-from metal.rest import ApiException
-from pprint import pprint
-# Defining the host is optional and defaults to https://api.equinix.com/metal/v1
-# See configuration.py for a list of all supported configuration parameters.
-configuration = metal.Configuration(
-    host = "https://api.equinix.com/metal/v1"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure API key authorization: x_auth_token
-configuration.api_key['x_auth_token'] = 'YOUR_API_KEY'
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['x_auth_token'] = 'Bearer'
-
-# Enter a context with an instance of the API client
-with metal.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = metal.OrganizationsApi(api_client)
-    id = 'id_example' # str | Organization UUID
-include = ['include_example'] # list[str] | Nested attributes to include. Included objects will return their full attributes. Attribute names can be dotted (up to 3 levels) to included deeply nested objects. (optional)
-exclude = ['exclude_example'] # list[str] | Nested attributes to exclude. Excluded objects will return only the href attribute. Attribute names can be dotted (up to 3 levels) to exclude deeply nested objects. (optional)
-page = 1 # int | Page to return (optional) (default to 1)
-per_page = 10 # int | Items returned per page (optional) (default to 10)
-
-    try:
-        # Retrieve organization's events
-        api_response = api_instance.find_organization_events(id, include=include, exclude=exclude, page=page, per_page=per_page)
-        pprint(api_response)
-    except ApiException as e:
-        print("Exception when calling OrganizationsApi->find_organization_events: %s\n" % e)
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **str**| Organization UUID | 
- **include** | [**list[str]**](str.md)| Nested attributes to include. Included objects will return their full attributes. Attribute names can be dotted (up to 3 levels) to included deeply nested objects. | [optional] 
- **exclude** | [**list[str]**](str.md)| Nested attributes to exclude. Excluded objects will return only the href attribute. Attribute names can be dotted (up to 3 levels) to exclude deeply nested objects. | [optional] 
- **page** | **int**| Page to return | [optional] [default to 1]
- **per_page** | **int**| Items returned per page | [optional] [default to 10]
-
-### Return type
-
-[**EventList**](EventList.md)
 
 ### Authorization
 
@@ -1536,7 +1133,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_organization**
-> Organization update_organization(id, organization)
+> Organization update_organization(id, organization_input)
 
 Update the organization
 
@@ -1573,11 +1170,11 @@ with metal.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = metal.OrganizationsApi(api_client)
     id = 'id_example' # str | Organization UUID
-organization = metal.OrganizationInput() # OrganizationInput | Organization to update
+organization_input = metal.OrganizationInput() # OrganizationInput | Organization to update
 
     try:
         # Update the organization
-        api_response = api_instance.update_organization(id, organization)
+        api_response = api_instance.update_organization(id, organization_input)
         pprint(api_response)
     except ApiException as e:
         print("Exception when calling OrganizationsApi->update_organization: %s\n" % e)
@@ -1588,7 +1185,7 @@ organization = metal.OrganizationInput() # OrganizationInput | Organization to u
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **str**| Organization UUID | 
- **organization** | [**OrganizationInput**](OrganizationInput.md)| Organization to update | 
+ **organization_input** | [**OrganizationInput**](OrganizationInput.md)| Organization to update | 
 
 ### Return type
 

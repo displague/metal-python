@@ -4,174 +4,14 @@ All URIs are relative to *https://api.equinix.com/metal/v1*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**create_ip_assignment**](IPAddressesApi.md#create_ip_assignment) | **POST** /devices/{id}/ips | Create an ip assignment
-[**create_self_service_reservation**](IPAddressesApi.md#create_self_service_reservation) | **POST** /projects/{project_id}/self-service/reservations | Create a reservation
 [**delete_ip_address**](IPAddressesApi.md#delete_ip_address) | **DELETE** /ips/{id} | Unassign an ip address
 [**find_ip_address_by_id**](IPAddressesApi.md#find_ip_address_by_id) | **GET** /ips/{id} | Retrieve an ip address
 [**find_ip_address_customdata**](IPAddressesApi.md#find_ip_address_customdata) | **GET** /ips/{id}/customdata | Retrieve the custom metadata of an IP Reservation or IP Assignment
-[**find_ip_assignments**](IPAddressesApi.md#find_ip_assignments) | **GET** /devices/{id}/ips | Retrieve all ip assignments
 [**find_ip_availabilities**](IPAddressesApi.md#find_ip_availabilities) | **GET** /ips/{id}/available | Retrieve all available subnets of a particular reservation
 [**find_ip_reservations**](IPAddressesApi.md#find_ip_reservations) | **GET** /projects/{id}/ips | Retrieve all ip reservations
-[**find_self_service_reservation**](IPAddressesApi.md#find_self_service_reservation) | **GET** /projects/{project_id}/self-service/reservations/{id} | Retrieve a reservation
-[**find_self_service_reservations**](IPAddressesApi.md#find_self_service_reservations) | **GET** /projects/{project_id}/self-service/reservations | Retrieve all reservations
 [**request_ip_reservation**](IPAddressesApi.md#request_ip_reservation) | **POST** /projects/{id}/ips | Requesting IP reservations
 [**update_ip_address**](IPAddressesApi.md#update_ip_address) | **PATCH** /ips/{id} | Update an ip address
 
-
-# **create_ip_assignment**
-> IPAssignment create_ip_assignment(id, ip_assignment)
-
-Create an ip assignment
-
-Creates an ip assignment for a device.
-
-### Example
-
-* Api Key Authentication (x_auth_token):
-```python
-from __future__ import print_function
-import time
-import metal
-from metal.rest import ApiException
-from pprint import pprint
-# Defining the host is optional and defaults to https://api.equinix.com/metal/v1
-# See configuration.py for a list of all supported configuration parameters.
-configuration = metal.Configuration(
-    host = "https://api.equinix.com/metal/v1"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure API key authorization: x_auth_token
-configuration.api_key['x_auth_token'] = 'YOUR_API_KEY'
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['x_auth_token'] = 'Bearer'
-
-# Enter a context with an instance of the API client
-with metal.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = metal.IPAddressesApi(api_client)
-    id = 'id_example' # str | Device UUID
-ip_assignment = metal.IPAssignmentInput() # IPAssignmentInput | IPAssignment to create
-
-    try:
-        # Create an ip assignment
-        api_response = api_instance.create_ip_assignment(id, ip_assignment)
-        pprint(api_response)
-    except ApiException as e:
-        print("Exception when calling IPAddressesApi->create_ip_assignment: %s\n" % e)
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **str**| Device UUID | 
- **ip_assignment** | [**IPAssignmentInput**](IPAssignmentInput.md)| IPAssignment to create | 
-
-### Return type
-
-[**IPAssignment**](IPAssignment.md)
-
-### Authorization
-
-[x_auth_token](../README.md#x_auth_token)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**201** | created |  -  |
-**401** | unauthorized |  -  |
-**404** | not found |  -  |
-**422** | unprocessable entity |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **create_self_service_reservation**
-> SelfServiceReservationResponse create_self_service_reservation(project_id, reservation)
-
-Create a reservation
-
-Creates a reservation.
-
-### Example
-
-* Api Key Authentication (x_auth_token):
-```python
-from __future__ import print_function
-import time
-import metal
-from metal.rest import ApiException
-from pprint import pprint
-# Defining the host is optional and defaults to https://api.equinix.com/metal/v1
-# See configuration.py for a list of all supported configuration parameters.
-configuration = metal.Configuration(
-    host = "https://api.equinix.com/metal/v1"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure API key authorization: x_auth_token
-configuration.api_key['x_auth_token'] = 'YOUR_API_KEY'
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['x_auth_token'] = 'Bearer'
-
-# Enter a context with an instance of the API client
-with metal.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = metal.IPAddressesApi(api_client)
-    project_id = 'project_id_example' # str | Project UUID
-reservation = metal.CreateSelfServiceReservationRequest() # CreateSelfServiceReservationRequest | reservation to create
-
-    try:
-        # Create a reservation
-        api_response = api_instance.create_self_service_reservation(project_id, reservation)
-        pprint(api_response)
-    except ApiException as e:
-        print("Exception when calling IPAddressesApi->create_self_service_reservation: %s\n" % e)
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project UUID | 
- **reservation** | [**CreateSelfServiceReservationRequest**](CreateSelfServiceReservationRequest.md)| reservation to create | 
-
-### Return type
-
-[**SelfServiceReservationResponse**](SelfServiceReservationResponse.md)
-
-### Authorization
-
-[x_auth_token](../README.md#x_auth_token)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**201** | created |  -  |
-**401** | unauthorized |  -  |
-**422** | unprocessable entity |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **delete_ip_address**
 > delete_ip_address(id)
@@ -249,7 +89,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **find_ip_address_by_id**
-> IPAssignment find_ip_address_by_id(id, include=include, exclude=exclude)
+> IPAvailabilitiesList find_ip_address_by_id(id, include=include, exclude=exclude)
 
 Retrieve an ip address
 
@@ -307,7 +147,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**IPAssignment**](IPAssignment.md)
+[**IPAvailabilitiesList**](IPAvailabilitiesList.md)
 
 ### Authorization
 
@@ -403,85 +243,6 @@ void (empty response body)
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **find_ip_assignments**
-> IPAssignmentList find_ip_assignments(id, include=include, exclude=exclude)
-
-Retrieve all ip assignments
-
-Returns all ip assignments for a device.
-
-### Example
-
-* Api Key Authentication (x_auth_token):
-```python
-from __future__ import print_function
-import time
-import metal
-from metal.rest import ApiException
-from pprint import pprint
-# Defining the host is optional and defaults to https://api.equinix.com/metal/v1
-# See configuration.py for a list of all supported configuration parameters.
-configuration = metal.Configuration(
-    host = "https://api.equinix.com/metal/v1"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure API key authorization: x_auth_token
-configuration.api_key['x_auth_token'] = 'YOUR_API_KEY'
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['x_auth_token'] = 'Bearer'
-
-# Enter a context with an instance of the API client
-with metal.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = metal.IPAddressesApi(api_client)
-    id = 'id_example' # str | Device UUID
-include = ['include_example'] # list[str] | Nested attributes to include. Included objects will return their full attributes. Attribute names can be dotted (up to 3 levels) to included deeply nested objects. (optional)
-exclude = ['exclude_example'] # list[str] | Nested attributes to exclude. Excluded objects will return only the href attribute. Attribute names can be dotted (up to 3 levels) to exclude deeply nested objects. (optional)
-
-    try:
-        # Retrieve all ip assignments
-        api_response = api_instance.find_ip_assignments(id, include=include, exclude=exclude)
-        pprint(api_response)
-    except ApiException as e:
-        print("Exception when calling IPAddressesApi->find_ip_assignments: %s\n" % e)
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **str**| Device UUID | 
- **include** | [**list[str]**](str.md)| Nested attributes to include. Included objects will return their full attributes. Attribute names can be dotted (up to 3 levels) to included deeply nested objects. | [optional] 
- **exclude** | [**list[str]**](str.md)| Nested attributes to exclude. Excluded objects will return only the href attribute. Attribute names can be dotted (up to 3 levels) to exclude deeply nested objects. | [optional] 
-
-### Return type
-
-[**IPAssignmentList**](IPAssignmentList.md)
-
-### Authorization
-
-[x_auth_token](../README.md#x_auth_token)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | ok |  -  |
-**401** | unauthorized |  -  |
-**404** | not found |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
 # **find_ip_availabilities**
 > IPAvailabilitiesList find_ip_availabilities(id, cidr)
 
@@ -561,11 +322,11 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **find_ip_reservations**
-> IPReservationList find_ip_reservations(id, include=include, exclude=exclude)
+> IPReservationList find_ip_reservations(id, types=types, include=include, exclude=exclude, per_page=per_page)
 
 Retrieve all ip reservations
 
-Provides a list of IP resevations for a single project.
+Provides a paginated list of IP reservations for a single project.
 
 ### Example
 
@@ -598,12 +359,14 @@ with metal.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = metal.IPAddressesApi(api_client)
     id = 'id_example' # str | Project UUID
+types = ['types_example'] # list[str] | Filter project IP reservations by reservation type (optional)
 include = ['include_example'] # list[str] | Nested attributes to include. Included objects will return their full attributes. Attribute names can be dotted (up to 3 levels) to included deeply nested objects. (optional)
 exclude = ['exclude_example'] # list[str] | Nested attributes to exclude. Excluded objects will return only the href attribute. Attribute names can be dotted (up to 3 levels) to exclude deeply nested objects. (optional)
+per_page = 250 # int | Items returned per page (optional) (default to 250)
 
     try:
         # Retrieve all ip reservations
-        api_response = api_instance.find_ip_reservations(id, include=include, exclude=exclude)
+        api_response = api_instance.find_ip_reservations(id, types=types, include=include, exclude=exclude, per_page=per_page)
         pprint(api_response)
     except ApiException as e:
         print("Exception when calling IPAddressesApi->find_ip_reservations: %s\n" % e)
@@ -614,8 +377,10 @@ exclude = ['exclude_example'] # list[str] | Nested attributes to exclude. Exclud
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **str**| Project UUID | 
+ **types** | [**list[str]**](str.md)| Filter project IP reservations by reservation type | [optional] 
  **include** | [**list[str]**](str.md)| Nested attributes to include. Included objects will return their full attributes. Attribute names can be dotted (up to 3 levels) to included deeply nested objects. | [optional] 
  **exclude** | [**list[str]**](str.md)| Nested attributes to exclude. Excluded objects will return only the href attribute. Attribute names can be dotted (up to 3 levels) to exclude deeply nested objects. | [optional] 
+ **per_page** | **int**| Items returned per page | [optional] [default to 250]
 
 ### Return type
 
@@ -640,163 +405,8 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-# **find_self_service_reservation**
-> SelfServiceReservationResponse find_self_service_reservation(id, project_id)
-
-Retrieve a reservation
-
-Returns a reservation
-
-### Example
-
-* Api Key Authentication (x_auth_token):
-```python
-from __future__ import print_function
-import time
-import metal
-from metal.rest import ApiException
-from pprint import pprint
-# Defining the host is optional and defaults to https://api.equinix.com/metal/v1
-# See configuration.py for a list of all supported configuration parameters.
-configuration = metal.Configuration(
-    host = "https://api.equinix.com/metal/v1"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure API key authorization: x_auth_token
-configuration.api_key['x_auth_token'] = 'YOUR_API_KEY'
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['x_auth_token'] = 'Bearer'
-
-# Enter a context with an instance of the API client
-with metal.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = metal.IPAddressesApi(api_client)
-    id = 'id_example' # str | Reservation short_id
-project_id = 'project_id_example' # str | Project UUID
-
-    try:
-        # Retrieve a reservation
-        api_response = api_instance.find_self_service_reservation(id, project_id)
-        pprint(api_response)
-    except ApiException as e:
-        print("Exception when calling IPAddressesApi->find_self_service_reservation: %s\n" % e)
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **str**| Reservation short_id | 
- **project_id** | **str**| Project UUID | 
-
-### Return type
-
-[**SelfServiceReservationResponse**](SelfServiceReservationResponse.md)
-
-### Authorization
-
-[x_auth_token](../README.md#x_auth_token)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | ok |  -  |
-**401** | unauthorized |  -  |
-**404** | not found |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
-# **find_self_service_reservations**
-> SelfServiceReservationList find_self_service_reservations(project_id, page=page, per_page=per_page)
-
-Retrieve all reservations
-
-Returns all reservations.
-
-### Example
-
-* Api Key Authentication (x_auth_token):
-```python
-from __future__ import print_function
-import time
-import metal
-from metal.rest import ApiException
-from pprint import pprint
-# Defining the host is optional and defaults to https://api.equinix.com/metal/v1
-# See configuration.py for a list of all supported configuration parameters.
-configuration = metal.Configuration(
-    host = "https://api.equinix.com/metal/v1"
-)
-
-# The client must configure the authentication and authorization parameters
-# in accordance with the API server security policy.
-# Examples for each auth method are provided below, use the example that
-# satisfies your auth use case.
-
-# Configure API key authorization: x_auth_token
-configuration.api_key['x_auth_token'] = 'YOUR_API_KEY'
-
-# Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['x_auth_token'] = 'Bearer'
-
-# Enter a context with an instance of the API client
-with metal.ApiClient(configuration) as api_client:
-    # Create an instance of the API class
-    api_instance = metal.IPAddressesApi(api_client)
-    project_id = 'project_id_example' # str | Project UUID
-page = 1 # int | Page to return (optional) (default to 1)
-per_page = 10 # int | Items returned per page (optional) (default to 10)
-
-    try:
-        # Retrieve all reservations
-        api_response = api_instance.find_self_service_reservations(project_id, page=page, per_page=per_page)
-        pprint(api_response)
-    except ApiException as e:
-        print("Exception when calling IPAddressesApi->find_self_service_reservations: %s\n" % e)
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **project_id** | **str**| Project UUID | 
- **page** | **int**| Page to return | [optional] [default to 1]
- **per_page** | **int**| Items returned per page | [optional] [default to 10]
-
-### Return type
-
-[**SelfServiceReservationList**](SelfServiceReservationList.md)
-
-### Authorization
-
-[x_auth_token](../README.md#x_auth_token)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | ok |  -  |
-**401** | unauthorized |  -  |
-
-[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
-
 # **request_ip_reservation**
-> IPReservation request_ip_reservation(id, ip_reservation_request)
+> RequestIPReservation201Response request_ip_reservation(id, request_ip_reservation_request)
 
 Requesting IP reservations
 
@@ -833,11 +443,11 @@ with metal.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = metal.IPAddressesApi(api_client)
     id = 'id_example' # str | Project UUID
-ip_reservation_request = metal.IPReservationRequestInput() # IPReservationRequestInput | IP Reservation Request to create
+request_ip_reservation_request = metal.RequestIPReservationRequest() # RequestIPReservationRequest | IP Reservation Request to create
 
     try:
         # Requesting IP reservations
-        api_response = api_instance.request_ip_reservation(id, ip_reservation_request)
+        api_response = api_instance.request_ip_reservation(id, request_ip_reservation_request)
         pprint(api_response)
     except ApiException as e:
         print("Exception when calling IPAddressesApi->request_ip_reservation: %s\n" % e)
@@ -848,11 +458,11 @@ ip_reservation_request = metal.IPReservationRequestInput() # IPReservationReques
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **str**| Project UUID | 
- **ip_reservation_request** | [**IPReservationRequestInput**](IPReservationRequestInput.md)| IP Reservation Request to create | 
+ **request_ip_reservation_request** | [**RequestIPReservationRequest**](RequestIPReservationRequest.md)| IP Reservation Request to create | 
 
 ### Return type
 
-[**IPReservation**](IPReservation.md)
+[**RequestIPReservation201Response**](RequestIPReservation201Response.md)
 
 ### Authorization
 
@@ -875,7 +485,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_ip_address**
-> IPAssignment update_ip_address(id, details, customdata)
+> UpdateIPAddress200Response update_ip_address(id, ip_assignment_update_input=ip_assignment_update_input)
 
 Update an ip address
 
@@ -912,12 +522,11 @@ with metal.ApiClient(configuration) as api_client:
     # Create an instance of the API class
     api_instance = metal.IPAddressesApi(api_client)
     id = 'id_example' # str | IP Address UUID
-details = 'details_example' # str | Notes for this IP Assignment
-customdata = 'customdata_example' # str | Provides the custom metadata stored for this IP Assignment in json format
+ip_assignment_update_input = metal.IPAssignmentUpdateInput() # IPAssignmentUpdateInput |  (optional)
 
     try:
         # Update an ip address
-        api_response = api_instance.update_ip_address(id, details, customdata)
+        api_response = api_instance.update_ip_address(id, ip_assignment_update_input=ip_assignment_update_input)
         pprint(api_response)
     except ApiException as e:
         print("Exception when calling IPAddressesApi->update_ip_address: %s\n" % e)
@@ -928,12 +537,11 @@ customdata = 'customdata_example' # str | Provides the custom metadata stored fo
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **str**| IP Address UUID | 
- **details** | **str**| Notes for this IP Assignment | 
- **customdata** | **str**| Provides the custom metadata stored for this IP Assignment in json format | 
+ **ip_assignment_update_input** | [**IPAssignmentUpdateInput**](IPAssignmentUpdateInput.md)|  | [optional] 
 
 ### Return type
 
-[**IPAssignment**](IPAssignment.md)
+[**UpdateIPAddress200Response**](UpdateIPAddress200Response.md)
 
 ### Authorization
 
@@ -941,7 +549,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 ### HTTP response details
