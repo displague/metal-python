@@ -9,13 +9,13 @@ GIT_REPO=metal-python
 PACKAGE_NAME=metal
 # python-flask python-legacy python python-aiohttp python-blueplanet
 GENERATOR=python-legacy
-
-SWAGGER=docker run --rm -v $(CURDIR):/local ${IMAGE}
+CRI=$(shell which nerdctl > /dev/null && echo nerdctl || echo docker)
+SWAGGER=${CRI} run --rm -v $(CURDIR):/local ${IMAGE}
 
 all: pull fetch patch clean gen
 
 pull:
-	docker pull ${IMAGE}
+	${CRI} pull ${IMAGE}
 
 fetch:
 	curl -o ${SPEC_FETCHED_FILE} ${SPEC_URL}
