@@ -201,7 +201,7 @@ class IPAddressesApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: IPAvailabilitiesList
+        :rtype: FindIPAddressById200Response
         """
         kwargs['_return_http_data_only'] = True
         return self.find_ip_address_by_id_with_http_info(id, **kwargs)  # noqa: E501
@@ -243,7 +243,7 @@ class IPAddressesApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: tuple(IPAvailabilitiesList, status_code(int), headers(HTTPHeaderDict))
+        :rtype: tuple(FindIPAddressById200Response, status_code(int), headers(HTTPHeaderDict))
         """
 
         local_var_params = locals()
@@ -305,7 +305,7 @@ class IPAddressesApi(object):
         auth_settings = ['x_auth_token']  # noqa: E501
 
         response_types_map = {
-            200: "IPAvailabilitiesList",
+            200: "FindIPAddressById200Response",
             401: "Error",
             403: "Error",
             404: "Error",
@@ -974,7 +974,7 @@ class IPAddressesApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: UpdateIPAddress200Response
+        :rtype: FindIPAddressById200Response
         """
         kwargs['_return_http_data_only'] = True
         return self.update_ip_address_with_http_info(id, **kwargs)  # noqa: E501
@@ -1014,7 +1014,7 @@ class IPAddressesApi(object):
         :return: Returns the result object.
                  If the method is called asynchronously,
                  returns the request thread.
-        :rtype: tuple(UpdateIPAddress200Response, status_code(int), headers(HTTPHeaderDict))
+        :rtype: tuple(FindIPAddressById200Response, status_code(int), headers(HTTPHeaderDict))
         """
 
         local_var_params = locals()
@@ -1079,7 +1079,7 @@ class IPAddressesApi(object):
         auth_settings = ['x_auth_token']  # noqa: E501
 
         response_types_map = {
-            200: "UpdateIPAddress200Response",
+            200: "FindIPAddressById200Response",
             401: "Error",
             403: "Error",
             404: "Error",

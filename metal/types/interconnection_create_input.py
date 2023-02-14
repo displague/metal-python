@@ -48,7 +48,8 @@ class InterconnectionCreateInput(object):
         'speed': 'int',
         'tags': 'list[str]',
         'type': 'str',
-        'vlans': 'list[int]'
+        'vlans': 'list[int]',
+        'vrfs': 'list[str]'
     }
 
     attribute_map = {
@@ -63,10 +64,11 @@ class InterconnectionCreateInput(object):
         'speed': 'speed',
         'tags': 'tags',
         'type': 'type',
-        'vlans': 'vlans'
+        'vlans': 'vlans',
+        'vrfs': 'vrfs'
     }
 
-    def __init__(self, contact_email=None, description=None, metro=None, mode=None, name=None, project=None, redundancy=None, service_token_type=None, speed=None, tags=None, type=None, vlans=None, local_vars_configuration=None):  # noqa: E501
+    def __init__(self, contact_email=None, description=None, metro=None, mode=None, name=None, project=None, redundancy=None, service_token_type=None, speed=None, tags=None, type=None, vlans=None, vrfs=None, local_vars_configuration=None):  # noqa: E501
         """InterconnectionCreateInput - a model defined in OpenAPI"""  # noqa: E501
         if local_vars_configuration is None:
             local_vars_configuration = Configuration.get_default_copy()
@@ -84,6 +86,7 @@ class InterconnectionCreateInput(object):
         self._tags = None
         self._type = None
         self._vlans = None
+        self._vrfs = None
         self.discriminator = None
 
         if contact_email is not None:
@@ -106,6 +109,8 @@ class InterconnectionCreateInput(object):
         self.type = type
         if vlans is not None:
             self.vlans = vlans
+        if vrfs is not None:
+            self.vrfs = vrfs
 
     @property
     def contact_email(self):
@@ -392,6 +397,29 @@ class InterconnectionCreateInput(object):
         """
 
         self._vlans = vlans
+
+    @property
+    def vrfs(self):
+        """Gets the vrfs of this InterconnectionCreateInput.  # noqa: E501
+
+        Can only be set when creating Fabric VCs in VRF(s). This field holds a list of VRF UUIDs that will be set automatically on the virtual circuits on creation, and can hold up to two UUIDs. Two UUIDs are required when requesting redundant Fabric VCs. The first UUID will be set on the primary virtual circuit, while the second UUID will be set on the secondary. The two UUIDs can be the same if both the primary and secondary virtual circuits will be in the same VRF. This parameter is included in the specification as a developer preview and is generally unavailable. Please contact our Support team for more details.  # noqa: E501
+
+        :return: The vrfs of this InterconnectionCreateInput.  # noqa: E501
+        :rtype: list[str]
+        """
+        return self._vrfs
+
+    @vrfs.setter
+    def vrfs(self, vrfs):
+        """Sets the vrfs of this InterconnectionCreateInput.
+
+        Can only be set when creating Fabric VCs in VRF(s). This field holds a list of VRF UUIDs that will be set automatically on the virtual circuits on creation, and can hold up to two UUIDs. Two UUIDs are required when requesting redundant Fabric VCs. The first UUID will be set on the primary virtual circuit, while the second UUID will be set on the secondary. The two UUIDs can be the same if both the primary and secondary virtual circuits will be in the same VRF. This parameter is included in the specification as a developer preview and is generally unavailable. Please contact our Support team for more details.  # noqa: E501
+
+        :param vrfs: The vrfs of this InterconnectionCreateInput.  # noqa: E501
+        :type vrfs: list[str]
+        """
+
+        self._vrfs = vrfs
 
     def to_dict(self, serialize=False):
         """Returns the model properties as a dict"""

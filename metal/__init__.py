@@ -129,6 +129,7 @@ from metal.types.facility import Facility
 from metal.types.facility_input import FacilityInput
 from metal.types.facility_input_facility import FacilityInputFacility
 from metal.types.facility_list import FacilityList
+from metal.types.find_ip_address_by_id200_response import FindIPAddressById200Response
 from metal.types.find_metal_gateway_by_id200_response import FindMetalGatewayById200Response
 from metal.types.find_traffic_timeframe_parameter import FindTrafficTimeframeParameter
 from metal.types.global_bgp_range import GlobalBgpRange
@@ -257,7 +258,6 @@ from metal.types.transfer_request import TransferRequest
 from metal.types.transfer_request_input import TransferRequestInput
 from metal.types.transfer_request_list import TransferRequestList
 from metal.types.update_email_input import UpdateEmailInput
-from metal.types.update_ip_address200_response import UpdateIPAddress200Response
 from metal.types.update_virtual_circuit_request import UpdateVirtualCircuitRequest
 from metal.types.user import User
 from metal.types.user_create_input import UserCreateInput

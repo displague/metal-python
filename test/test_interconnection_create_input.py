@@ -50,7 +50,10 @@ class TestInterconnectionCreateInput(unittest.TestCase):
                     ''
                     ], 
                 type = '', 
-                vlans = [1000,1001]
+                vlans = [1000,1001], 
+                vrfs = [
+                    ''
+                    ]
             )
         else :
             return InterconnectionCreateInput(

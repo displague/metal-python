@@ -37,9 +37,14 @@ class TestVrfVirtualCircuitUpdateInput(unittest.TestCase):
         # model = metal.models.vrf_virtual_circuit_update_input.VrfVirtualCircuitUpdateInput()  # noqa: E501
         if include_optional :
             return VrfVirtualCircuitUpdateInput(
+                customer_ip = '12.0.0.2', 
                 description = '', 
+                md5 = '', 
+                metal_ip = '12.0.0.1', 
                 name = '', 
+                peer_asn = 56, 
                 speed = '', 
+                subnet = '12.0.0.0/30', 
                 tags = [
                     ''
                     ]

@@ -49,7 +49,8 @@ class HardwareReservation(object):
         'provisionable': 'bool',
         'short_id': 'str',
         'spare': 'bool',
-        'switch_uuid': 'str'
+        'switch_uuid': 'str',
+        'termination_time': 'datetime'
     }
 
     attribute_map = {
@@ -65,10 +66,11 @@ class HardwareReservation(object):
         'provisionable': 'provisionable',
         'short_id': 'short_id',
         'spare': 'spare',
-        'switch_uuid': 'switch_uuid'
+        'switch_uuid': 'switch_uuid',
+        'termination_time': 'termination_time'
     }
 
-    def __init__(self, created_at=None, custom_rate=None, device=None, facility=None, href=None, id=None, need_of_service=None, plan=None, project=None, provisionable=None, short_id=None, spare=None, switch_uuid=None, local_vars_configuration=None):  # noqa: E501
+    def __init__(self, created_at=None, custom_rate=None, device=None, facility=None, href=None, id=None, need_of_service=None, plan=None, project=None, provisionable=None, short_id=None, spare=None, switch_uuid=None, termination_time=None, local_vars_configuration=None):  # noqa: E501
         """HardwareReservation - a model defined in OpenAPI"""  # noqa: E501
         if local_vars_configuration is None:
             local_vars_configuration = Configuration.get_default_copy()
@@ -87,6 +89,7 @@ class HardwareReservation(object):
         self._short_id = None
         self._spare = None
         self._switch_uuid = None
+        self._termination_time = None
         self.discriminator = None
 
         if created_at is not None:
@@ -115,6 +118,8 @@ class HardwareReservation(object):
             self.spare = spare
         if switch_uuid is not None:
             self.switch_uuid = switch_uuid
+        if termination_time is not None:
+            self.termination_time = termination_time
 
     @property
     def created_at(self):
@@ -400,6 +405,29 @@ class HardwareReservation(object):
         """
 
         self._switch_uuid = switch_uuid
+
+    @property
+    def termination_time(self):
+        """Gets the termination_time of this HardwareReservation.  # noqa: E501
+
+        Expiration date for the reservation.  # noqa: E501
+
+        :return: The termination_time of this HardwareReservation.  # noqa: E501
+        :rtype: datetime
+        """
+        return self._termination_time
+
+    @termination_time.setter
+    def termination_time(self, termination_time):
+        """Sets the termination_time of this HardwareReservation.
+
+        Expiration date for the reservation.  # noqa: E501
+
+        :param termination_time: The termination_time of this HardwareReservation.  # noqa: E501
+        :type termination_time: datetime
+        """
+
+        self._termination_time = termination_time
 
     def to_dict(self, serialize=False):
         """Returns the model properties as a dict"""

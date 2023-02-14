@@ -41,7 +41,12 @@ class UpdateVirtualCircuitRequest(object):
         'name': 'str',
         'speed': 'str',
         'tags': 'list[str]',
-        'vnid': 'str'
+        'vnid': 'str',
+        'customer_ip': 'str',
+        'md5': 'str',
+        'metal_ip': 'str',
+        'peer_asn': 'int',
+        'subnet': 'str'
     }
 
     attribute_map = {
@@ -49,10 +54,15 @@ class UpdateVirtualCircuitRequest(object):
         'name': 'name',
         'speed': 'speed',
         'tags': 'tags',
-        'vnid': 'vnid'
+        'vnid': 'vnid',
+        'customer_ip': 'customer_ip',
+        'md5': 'md5',
+        'metal_ip': 'metal_ip',
+        'peer_asn': 'peer_asn',
+        'subnet': 'subnet'
     }
 
-    def __init__(self, description=None, name=None, speed=None, tags=None, vnid=None, local_vars_configuration=None):  # noqa: E501
+    def __init__(self, description=None, name=None, speed=None, tags=None, vnid=None, customer_ip=None, md5=None, metal_ip=None, peer_asn=None, subnet=None, local_vars_configuration=None):  # noqa: E501
         """UpdateVirtualCircuitRequest - a model defined in OpenAPI"""  # noqa: E501
         if local_vars_configuration is None:
             local_vars_configuration = Configuration.get_default_copy()
@@ -63,6 +73,11 @@ class UpdateVirtualCircuitRequest(object):
         self._speed = None
         self._tags = None
         self._vnid = None
+        self._customer_ip = None
+        self._md5 = None
+        self._metal_ip = None
+        self._peer_asn = None
+        self._subnet = None
         self.discriminator = None
 
         if description is not None:
@@ -75,6 +90,16 @@ class UpdateVirtualCircuitRequest(object):
             self.tags = tags
         if vnid is not None:
             self.vnid = vnid
+        if customer_ip is not None:
+            self.customer_ip = customer_ip
+        if md5 is not None:
+            self.md5 = md5
+        if metal_ip is not None:
+            self.metal_ip = metal_ip
+        if peer_asn is not None:
+            self.peer_asn = peer_asn
+        if subnet is not None:
+            self.subnet = subnet
 
     @property
     def description(self):
@@ -184,6 +209,121 @@ class UpdateVirtualCircuitRequest(object):
         """
 
         self._vnid = vnid
+
+    @property
+    def customer_ip(self):
+        """Gets the customer_ip of this UpdateVirtualCircuitRequest.  # noqa: E501
+
+        An IP address from the subnet that will be used on the Customer side. This parameter is optional, but if supplied, we will use the other usable IP address in the subnet as the Metal IP. By default, the last usable IP address in the subnet will be used.  # noqa: E501
+
+        :return: The customer_ip of this UpdateVirtualCircuitRequest.  # noqa: E501
+        :rtype: str
+        """
+        return self._customer_ip
+
+    @customer_ip.setter
+    def customer_ip(self, customer_ip):
+        """Sets the customer_ip of this UpdateVirtualCircuitRequest.
+
+        An IP address from the subnet that will be used on the Customer side. This parameter is optional, but if supplied, we will use the other usable IP address in the subnet as the Metal IP. By default, the last usable IP address in the subnet will be used.  # noqa: E501
+
+        :param customer_ip: The customer_ip of this UpdateVirtualCircuitRequest.  # noqa: E501
+        :type customer_ip: str
+        """
+
+        self._customer_ip = customer_ip
+
+    @property
+    def md5(self):
+        """Gets the md5 of this UpdateVirtualCircuitRequest.  # noqa: E501
+
+        The MD5 password for the BGP peering in plaintext (not a checksum).  # noqa: E501
+
+        :return: The md5 of this UpdateVirtualCircuitRequest.  # noqa: E501
+        :rtype: str
+        """
+        return self._md5
+
+    @md5.setter
+    def md5(self, md5):
+        """Sets the md5 of this UpdateVirtualCircuitRequest.
+
+        The MD5 password for the BGP peering in plaintext (not a checksum).  # noqa: E501
+
+        :param md5: The md5 of this UpdateVirtualCircuitRequest.  # noqa: E501
+        :type md5: str
+        """
+
+        self._md5 = md5
+
+    @property
+    def metal_ip(self):
+        """Gets the metal_ip of this UpdateVirtualCircuitRequest.  # noqa: E501
+
+        An IP address from the subnet that will be used on the Metal side. This parameter is optional, but if supplied, we will use the other usable IP address in the subnet as the Customer IP. By default, the first usable IP address in the subnet will be used.  # noqa: E501
+
+        :return: The metal_ip of this UpdateVirtualCircuitRequest.  # noqa: E501
+        :rtype: str
+        """
+        return self._metal_ip
+
+    @metal_ip.setter
+    def metal_ip(self, metal_ip):
+        """Sets the metal_ip of this UpdateVirtualCircuitRequest.
+
+        An IP address from the subnet that will be used on the Metal side. This parameter is optional, but if supplied, we will use the other usable IP address in the subnet as the Customer IP. By default, the first usable IP address in the subnet will be used.  # noqa: E501
+
+        :param metal_ip: The metal_ip of this UpdateVirtualCircuitRequest.  # noqa: E501
+        :type metal_ip: str
+        """
+
+        self._metal_ip = metal_ip
+
+    @property
+    def peer_asn(self):
+        """Gets the peer_asn of this UpdateVirtualCircuitRequest.  # noqa: E501
+
+        The peer ASN that will be used with the VRF on the Virtual Circuit.  # noqa: E501
+
+        :return: The peer_asn of this UpdateVirtualCircuitRequest.  # noqa: E501
+        :rtype: int
+        """
+        return self._peer_asn
+
+    @peer_asn.setter
+    def peer_asn(self, peer_asn):
+        """Sets the peer_asn of this UpdateVirtualCircuitRequest.
+
+        The peer ASN that will be used with the VRF on the Virtual Circuit.  # noqa: E501
+
+        :param peer_asn: The peer_asn of this UpdateVirtualCircuitRequest.  # noqa: E501
+        :type peer_asn: int
+        """
+
+        self._peer_asn = peer_asn
+
+    @property
+    def subnet(self):
+        """Gets the subnet of this UpdateVirtualCircuitRequest.  # noqa: E501
+
+        The /30 or /31 subnet of one of the VRF IP Blocks that will be used with the VRF for the Virtual Circuit. This subnet does not have to be an existing VRF IP reservation, as we will create the VRF IP reservation on creation if it does not exist. The Metal IP and Customer IP must be IPs from this subnet. For /30 subnets, the network and broadcast IPs cannot be used as the Metal or Customer IP.  # noqa: E501
+
+        :return: The subnet of this UpdateVirtualCircuitRequest.  # noqa: E501
+        :rtype: str
+        """
+        return self._subnet
+
+    @subnet.setter
+    def subnet(self, subnet):
+        """Sets the subnet of this UpdateVirtualCircuitRequest.
+
+        The /30 or /31 subnet of one of the VRF IP Blocks that will be used with the VRF for the Virtual Circuit. This subnet does not have to be an existing VRF IP reservation, as we will create the VRF IP reservation on creation if it does not exist. The Metal IP and Customer IP must be IPs from this subnet. For /30 subnets, the network and broadcast IPs cannot be used as the Metal or Customer IP.  # noqa: E501
+
+        :param subnet: The subnet of this UpdateVirtualCircuitRequest.  # noqa: E501
+        :type subnet: str
+        """
+
+        self._subnet = subnet
 
     def to_dict(self, serialize=False):
         """Returns the model properties as a dict"""

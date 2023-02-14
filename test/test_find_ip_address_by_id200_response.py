@@ -17,11 +17,11 @@ import unittest
 import datetime
 
 import metal
-from metal.types.update_ip_address200_response import UpdateIPAddress200Response  # noqa: E501
+from metal.types.find_ip_address_by_id200_response import FindIPAddressById200Response  # noqa: E501
 from metal.rest import ApiException
 
-class TestUpdateIPAddress200Response(unittest.TestCase):
-    """UpdateIPAddress200Response unit test stubs"""
+class TestFindIPAddressById200Response(unittest.TestCase):
+    """FindIPAddressById200Response unit test stubs"""
 
     def setUp(self):
         pass
@@ -29,8 +29,8 @@ class TestUpdateIPAddress200Response(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def testUpdateIPAddress200Response(self):
-        """Test UpdateIPAddress200Response"""
+    def testFindIPAddressById200Response(self):
+        """Test FindIPAddressById200Response"""
         # inst_req_only = self.make_instance(include_optional=False)
         # inst_req_and_optional = self.make_instance(include_optional=True)
 

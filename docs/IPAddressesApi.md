@@ -89,7 +89,7 @@ void (empty response body)
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **find_ip_address_by_id**
-> IPAvailabilitiesList find_ip_address_by_id(id, include=include, exclude=exclude)
+> FindIPAddressById200Response find_ip_address_by_id(id, include=include, exclude=exclude)
 
 Retrieve an ip address
 
@@ -147,7 +147,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**IPAvailabilitiesList**](IPAvailabilitiesList.md)
+[**FindIPAddressById200Response**](FindIPAddressById200Response.md)
 
 ### Authorization
 
@@ -485,7 +485,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **update_ip_address**
-> UpdateIPAddress200Response update_ip_address(id, ip_assignment_update_input=ip_assignment_update_input)
+> FindIPAddressById200Response update_ip_address(id, ip_assignment_update_input=ip_assignment_update_input)
 
 Update an ip address
 
@@ -541,7 +541,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**UpdateIPAddress200Response**](UpdateIPAddress200Response.md)
+[**FindIPAddressById200Response**](FindIPAddressById200Response.md)
 
 ### Authorization
 

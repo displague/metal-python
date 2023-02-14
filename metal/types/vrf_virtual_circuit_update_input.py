@@ -37,39 +37,87 @@ class VrfVirtualCircuitUpdateInput(object):
                             and the value is json key in definition.
     """
     openapi_types = {
+        'customer_ip': 'str',
         'description': 'str',
+        'md5': 'str',
+        'metal_ip': 'str',
         'name': 'str',
+        'peer_asn': 'int',
         'speed': 'str',
+        'subnet': 'str',
         'tags': 'list[str]'
     }
 
     attribute_map = {
+        'customer_ip': 'customer_ip',
         'description': 'description',
+        'md5': 'md5',
+        'metal_ip': 'metal_ip',
         'name': 'name',
+        'peer_asn': 'peer_asn',
         'speed': 'speed',
+        'subnet': 'subnet',
         'tags': 'tags'
     }
 
-    def __init__(self, description=None, name=None, speed=None, tags=None, local_vars_configuration=None):  # noqa: E501
+    def __init__(self, customer_ip=None, description=None, md5=None, metal_ip=None, name=None, peer_asn=None, speed=None, subnet=None, tags=None, local_vars_configuration=None):  # noqa: E501
         """VrfVirtualCircuitUpdateInput - a model defined in OpenAPI"""  # noqa: E501
         if local_vars_configuration is None:
             local_vars_configuration = Configuration.get_default_copy()
         self.local_vars_configuration = local_vars_configuration
 
+        self._customer_ip = None
         self._description = None
+        self._md5 = None
+        self._metal_ip = None
         self._name = None
+        self._peer_asn = None
         self._speed = None
+        self._subnet = None
         self._tags = None
         self.discriminator = None
 
+        if customer_ip is not None:
+            self.customer_ip = customer_ip
         if description is not None:
             self.description = description
+        if md5 is not None:
+            self.md5 = md5
+        if metal_ip is not None:
+            self.metal_ip = metal_ip
         if name is not None:
             self.name = name
+        if peer_asn is not None:
+            self.peer_asn = peer_asn
         if speed is not None:
             self.speed = speed
+        if subnet is not None:
+            self.subnet = subnet
         if tags is not None:
             self.tags = tags
+
+    @property
+    def customer_ip(self):
+        """Gets the customer_ip of this VrfVirtualCircuitUpdateInput.  # noqa: E501
+
+        An IP address from the subnet that will be used on the Customer side. This parameter is optional, but if supplied, we will use the other usable IP address in the subnet as the Metal IP. By default, the last usable IP address in the subnet will be used.  # noqa: E501
+
+        :return: The customer_ip of this VrfVirtualCircuitUpdateInput.  # noqa: E501
+        :rtype: str
+        """
+        return self._customer_ip
+
+    @customer_ip.setter
+    def customer_ip(self, customer_ip):
+        """Sets the customer_ip of this VrfVirtualCircuitUpdateInput.
+
+        An IP address from the subnet that will be used on the Customer side. This parameter is optional, but if supplied, we will use the other usable IP address in the subnet as the Metal IP. By default, the last usable IP address in the subnet will be used.  # noqa: E501
+
+        :param customer_ip: The customer_ip of this VrfVirtualCircuitUpdateInput.  # noqa: E501
+        :type customer_ip: str
+        """
+
+        self._customer_ip = customer_ip
 
     @property
     def description(self):
@@ -93,6 +141,52 @@ class VrfVirtualCircuitUpdateInput(object):
         self._description = description
 
     @property
+    def md5(self):
+        """Gets the md5 of this VrfVirtualCircuitUpdateInput.  # noqa: E501
+
+        The MD5 password for the BGP peering in plaintext (not a checksum).  # noqa: E501
+
+        :return: The md5 of this VrfVirtualCircuitUpdateInput.  # noqa: E501
+        :rtype: str
+        """
+        return self._md5
+
+    @md5.setter
+    def md5(self, md5):
+        """Sets the md5 of this VrfVirtualCircuitUpdateInput.
+
+        The MD5 password for the BGP peering in plaintext (not a checksum).  # noqa: E501
+
+        :param md5: The md5 of this VrfVirtualCircuitUpdateInput.  # noqa: E501
+        :type md5: str
+        """
+
+        self._md5 = md5
+
+    @property
+    def metal_ip(self):
+        """Gets the metal_ip of this VrfVirtualCircuitUpdateInput.  # noqa: E501
+
+        An IP address from the subnet that will be used on the Metal side. This parameter is optional, but if supplied, we will use the other usable IP address in the subnet as the Customer IP. By default, the first usable IP address in the subnet will be used.  # noqa: E501
+
+        :return: The metal_ip of this VrfVirtualCircuitUpdateInput.  # noqa: E501
+        :rtype: str
+        """
+        return self._metal_ip
+
+    @metal_ip.setter
+    def metal_ip(self, metal_ip):
+        """Sets the metal_ip of this VrfVirtualCircuitUpdateInput.
+
+        An IP address from the subnet that will be used on the Metal side. This parameter is optional, but if supplied, we will use the other usable IP address in the subnet as the Customer IP. By default, the first usable IP address in the subnet will be used.  # noqa: E501
+
+        :param metal_ip: The metal_ip of this VrfVirtualCircuitUpdateInput.  # noqa: E501
+        :type metal_ip: str
+        """
+
+        self._metal_ip = metal_ip
+
+    @property
     def name(self):
         """Gets the name of this VrfVirtualCircuitUpdateInput.  # noqa: E501
 
@@ -112,6 +206,29 @@ class VrfVirtualCircuitUpdateInput(object):
         """
 
         self._name = name
+
+    @property
+    def peer_asn(self):
+        """Gets the peer_asn of this VrfVirtualCircuitUpdateInput.  # noqa: E501
+
+        The peer ASN that will be used with the VRF on the Virtual Circuit.  # noqa: E501
+
+        :return: The peer_asn of this VrfVirtualCircuitUpdateInput.  # noqa: E501
+        :rtype: int
+        """
+        return self._peer_asn
+
+    @peer_asn.setter
+    def peer_asn(self, peer_asn):
+        """Sets the peer_asn of this VrfVirtualCircuitUpdateInput.
+
+        The peer ASN that will be used with the VRF on the Virtual Circuit.  # noqa: E501
+
+        :param peer_asn: The peer_asn of this VrfVirtualCircuitUpdateInput.  # noqa: E501
+        :type peer_asn: int
+        """
+
+        self._peer_asn = peer_asn
 
     @property
     def speed(self):
@@ -135,6 +252,29 @@ class VrfVirtualCircuitUpdateInput(object):
         """
 
         self._speed = speed
+
+    @property
+    def subnet(self):
+        """Gets the subnet of this VrfVirtualCircuitUpdateInput.  # noqa: E501
+
+        The /30 or /31 subnet of one of the VRF IP Blocks that will be used with the VRF for the Virtual Circuit. This subnet does not have to be an existing VRF IP reservation, as we will create the VRF IP reservation on creation if it does not exist. The Metal IP and Customer IP must be IPs from this subnet. For /30 subnets, the network and broadcast IPs cannot be used as the Metal or Customer IP.  # noqa: E501
+
+        :return: The subnet of this VrfVirtualCircuitUpdateInput.  # noqa: E501
+        :rtype: str
+        """
+        return self._subnet
+
+    @subnet.setter
+    def subnet(self, subnet):
+        """Sets the subnet of this VrfVirtualCircuitUpdateInput.
+
+        The /30 or /31 subnet of one of the VRF IP Blocks that will be used with the VRF for the Virtual Circuit. This subnet does not have to be an existing VRF IP reservation, as we will create the VRF IP reservation on creation if it does not exist. The Metal IP and Customer IP must be IPs from this subnet. For /30 subnets, the network and broadcast IPs cannot be used as the Metal or Customer IP.  # noqa: E501
+
+        :param subnet: The subnet of this VrfVirtualCircuitUpdateInput.  # noqa: E501
+        :type subnet: str
+        """
+
+        self._subnet = subnet
 
     @property
     def tags(self):
