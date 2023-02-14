@@ -8,7 +8,7 @@ GIT_ORG=displague
 GIT_REPO=metal-python
 PACKAGE_NAME=metal
 # python-flask python-legacy python python-aiohttp python-blueplanet
-GENERATOR=python-legacy
+GENERATOR=python-aiohttp
 CRI=$(shell which nerdctl > /dev/null && echo nerdctl || echo docker)
 SWAGGER=${CRI} run --rm -v $(CURDIR):/local ${IMAGE}
 # CONVERT="curl -q ${SPEC_URL} | python3 -c 'import sys, yaml, json; j=json.loads(sys.stdin.read()); print(yaml.safe_dump(j))'"
@@ -41,6 +41,7 @@ validate:
 
 gen:
 	${SWAGGER} generate -g ${GENERATOR} \
+		-p noservice \
 		--package-name ${PACKAGE_NAME} \
 		--model-package types \
 		--api-package models \
